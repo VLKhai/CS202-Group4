@@ -1,0 +1,30 @@
+# CMake generation dependency list for this directory.
+C:/SFML/lib/cmake/SFML/SFMLConfig.cmake
+C:/SFML/lib/cmake/SFML/SFMLConfigDependencies.cmake
+C:/SFML/lib/cmake/SFML/SFMLConfigVersion.cmake
+C:/SFML/lib/cmake/SFML/SFMLStaticTargets-debug.cmake
+C:/SFML/lib/cmake/SFML/SFMLStaticTargets-release.cmake
+C:/SFML/lib/cmake/SFML/SFMLStaticTargets.cmake
+C:/Users/thanh/OneDrive/Máy tính/SFML_Project/CMakeLists.txt
+C:/Users/thanh/OneDrive/Máy tính/SFML_Project/build/CMakeFiles/3.26.4/CMakeCCompiler.cmake
+C:/Users/thanh/OneDrive/Máy tính/SFML_Project/build/CMakeFiles/3.26.4/CMakeCXXCompiler.cmake
+C:/Users/thanh/OneDrive/Máy tính/SFML_Project/build/CMakeFiles/3.26.4/CMakeRCCompiler.cmake
+C:/Users/thanh/OneDrive/Máy tính/SFML_Project/build/CMakeFiles/3.26.4/CMakeSystem.cmake
+C:/mingw64/share/cmake-3.26/Modules/CMakeCInformation.cmake
+C:/mingw64/share/cmake-3.26/Modules/CMakeCXXInformation.cmake
+C:/mingw64/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake
+C:/mingw64/share/cmake-3.26/Modules/CMakeGenericSystem.cmake
+C:/mingw64/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake
+C:/mingw64/share/cmake-3.26/Modules/CMakeLanguageInformation.cmake
+C:/mingw64/share/cmake-3.26/Modules/CMakeRCInformation.cmake
+C:/mingw64/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake
+C:/mingw64/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake
+C:/mingw64/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+C:/mingw64/share/cmake-3.26/Modules/Compiler/MSVC-C.cmake
+C:/mingw64/share/cmake-3.26/Modules/Compiler/MSVC-CXX.cmake
+C:/mingw64/share/cmake-3.26/Modules/Compiler/MSVC.cmake
+C:/mingw64/share/cmake-3.26/Modules/Platform/Windows-MSVC-C.cmake
+C:/mingw64/share/cmake-3.26/Modules/Platform/Windows-MSVC-CXX.cmake
+C:/mingw64/share/cmake-3.26/Modules/Platform/Windows-MSVC.cmake
+C:/mingw64/share/cmake-3.26/Modules/Platform/Windows.cmake
+C:/mingw64/share/cmake-3.26/Modules/Platform/WindowsPaths.cmake

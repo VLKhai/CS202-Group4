@@ -1,0 +1,3 @@
+C:/Users/thanh/OneDrive/Máy tính/SFML_Project/build/CMakeFiles/SFMLMario.dir
+C:/Users/thanh/OneDrive/Máy tính/SFML_Project/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/thanh/OneDrive/Máy tính/SFML_Project/build/CMakeFiles/ZERO_CHECK.dir
