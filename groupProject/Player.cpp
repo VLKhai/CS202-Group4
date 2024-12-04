@@ -1,16 +1,35 @@
 #include "Player.h"
-
+#include "Core.h"
 
 Player::Player(sf::RenderWindow &window, float fXPos, float fYPos)
 {
 	this->fXPos = fXPos;
 	this->fYPos = fYPos;
+	this->iSpriteID = 1;
+
+	// ---<MOVE>---
+	this->moveDirection = true;
+	this->currentMaxMove = 4;
+	this->moveSpeed = 0;
+	this->bMove = false;
+	this->changeMoveDirection = false;
+	this->bSquat = false;
+	
+	this->onPlatformID = -1;
+
+	// ---<JUMP>---
+	this->jumpState = 0;
+	this->startJumpSpeed = 7.65f;
+	this->currentFallingSpeed = 2.7f;
+
+	// ---<STUFF>---
+	this->powerLVL = 0;
 
 	// LOAD SPRITE
 	std::vector<std::string> tempS;
 	std::vector<unsigned int> tempI;
 
-		// ----- 0
+	// ----- 0
 	tempS.push_back("mario/mario_death");
 	tempI.push_back(0);
 	sMario.push_back(new AniSprite(window,  tempS, tempI, true));
@@ -295,9 +314,174 @@ Player::Player(sf::RenderWindow &window, float fXPos, float fYPos)
 	tempS.clear();
 }
 
+void Player::movePlayer() {
+	// if player is moving
+	if (bMove && !changeMoveDirection && (!bSquat || powerLVL == 0)) {
+		if (moveSpeed > currentMaxMove) {
+			--moveSpeed;
+		}
+		else if (Core::coreClock.getElapsedTime().asMilliseconds() - (100 + 35 * moveSpeed) >= iTimePassed && moveSpeed < currentMaxMove) {
+			++moveSpeed;
+			iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
+		}
+		else if (moveSpeed == 0) {
+			moveSpeed = 1;
+		}
+	}
+	// not moving, change direction, or squat
+	else {
+		if (Core::coreClock.getElapsedTime().asMilliseconds() - (50 + 15 * (moveSpeed*5)) > iTimePassed && moveSpeed != 0) {
+			--moveSpeed;
+			iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
+			if (jumpState == 0) setMarioSpriteID(6);
+		}
+
+		if (changeMoveDirection && moveSpeed <= 1) {
+			moveDirection = newMoveDirection;
+			changeMoveDirection = false;
+			bMove = true;
+		}
+	}
+
+	if (moveSpeed > 0) {
+		if (moveDirection) {
+			updateXPos(moveSpeed);
+		}
+		else {
+			updateXPos(-moveSpeed);
+		}
+		if (!changeMoveDirection && jumpState == 0 && bMove) moveAnimation();
+			
+	}
+	else if (jumpState == 0) {
+		setMarioSpriteID(1);
+		updateXPos(0);
+	}
+	else {
+		updateXPos(0);
+	}
+
+	if (bSquat && powerLVL > 0) {
+		setMarioSpriteID(7);
+	}
+}
+
+bool Player::checkCollisionBot(int nX, int nY)
+{
+	if (nY >= 350) return true;
+	return false;
+}
+
+bool Player::checkCollisionCenter(int nX, int nY)
+{
+	return true;
+}
+
+void Player::draw(sf::RenderWindow& window)
+{
+	sMario[getMarioSpriteID()]->getFrame()->draw(window, (int)fXPos, (int)fYPos + 0, !moveDirection);
+}
+
+void Player::update()
+{
+	playerPhysics();
+	movePlayer();
+	//std::cout << "Speed: " << moveSpeed << std::endl;
+	if (iFrameID > 0) {
+		--iFrameID;
+	}
+	else if (iComboPoints > 1) {
+		--iComboPoints;
+	}
+}
+
+void Player::playerPhysics()
+{
+	if (jumpState == 1) {
+		updateYPos(-int(currentJumpSpeed));
+		currentJumpDistance += (int)currentJumpSpeed;
+
+		currentJumpSpeed *= (currentJumpDistance / jumpDistance > 0.75f ? 0.972f : 0.986f);
+
+		if (currentJumpSpeed < 2.5f) {
+			currentJumpSpeed = 2.5f;
+		}	
+
+		if (!CFG::keySpace && currentJumpDistance > 64 && !springJump) {
+			jumpDistance = 16;
+			currentJumpDistance = 0;
+			currentJumpSpeed = 2.5f;
+		}
+
+		if (jumpDistance <= currentJumpDistance) {
+			jumpState = 2;
+		}
+	}
+	else { 
+		if (onPlatformID >= 0) {}
+		else {
+			if (nextFallFrameID > 0) {
+				--nextFallFrameID;
+			}
+			else if (!checkCollisionBot((int)fXPos, (int)fYPos)){
+				currentFallingSpeed *= 1.05f;
+
+				if (currentFallingSpeed > startJumpSpeed) {
+					currentFallingSpeed = startJumpSpeed;
+				}
+
+				updateYPos((int)currentFallingSpeed);
+				jumpState = 2;
+				setMarioSpriteID(5);
+			}
+			else if (jumpState == 2) {
+				resetJump();
+				onPlatformID = -1;
+			}
+			else {}
+
+		}
+	}
+}
+
+void Player::updateXPos(int iD)
+{
+	checkCollisionBot(iD, 0);
+	checkCollisionCenter(iD, 0);
+	fXPos += iD;
+}
+
+void Player::updateYPos(int iD)
+{
+	fYPos += iD;
+}
+
+void Player::moveAnimation()
+{
+	if (Core::coreClock.getElapsedTime().asMilliseconds() - (65 + moveSpeed * 4) > iMoveAnimationTime) {
+		iMoveAnimationTime = Core::coreClock.getElapsedTime().asMilliseconds();
+		if (iSpriteID >= 4) {
+			setMarioSpriteID(2);
+		}
+		else {
+			++iSpriteID;
+		}
+	}
+}
+
+bool Player::getSquat()
+{
+	return bSquat;
+}
+
 void Player::setSquat(bool bSquat)
 {
 	return;
+}
+
+void Player::startRun()
+{
+	currentMaxMove = maxMove;
 }
 
 void Player::resetRun()
@@ -305,15 +489,96 @@ void Player::resetRun()
 	return;
 }
 
+void Player::jump()
+{
+	if (jumpState == 0) {
+		startJump(4);
+	}
+}
+
+void Player::startJump(int iH)
+{
+	currentJumpSpeed = startJumpSpeed;
+	jumpDistance = 32 * iH + 24.0f;
+	currentJumpDistance = 0;
+	
+	setMarioSpriteID(5); // mario_jump
+	jumpState = 1;
+}
+
+void Player::resetJump()
+{
+	jumpState = 0;
+	jumpDistance = 0;
+	currentJumpDistance = 0;
+	currentFallingSpeed = 2.7f;
+	nextFallFrameID = 0;
+	springJump = false;
+}
+
+void Player::setMarioSpriteID(int iID)
+{
+	this->iSpriteID = iID + 11 * powerLVL;
+}
+
+int Player::getMarioSpriteID()
+{
+	return iSpriteID;
+}
+
+int Player::getMoveSpeed()
+{
+	return moveSpeed;
+}
+
 bool Player::getMove()
 {
     return bMove;
 }
 
+bool Player::getMoveDirection()
+{
+	return moveDirection;
+}
+
+void Player::startMove()
+{
+	iMoveAnimationTime = Core::coreClock.getElapsedTime().asMilliseconds();
+	iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
+	moveSpeed = 1;
+	bMove = true;
+	/*if (CCore::getMap()->getUnderWater()) {
+		setMarioSpriteID(8);
+	}*/
+}
+
 void Player::resetMove() {
-	--moveSpeed;
 	bMove = false;
-	return;
+}
+
+void Player::stopMove()
+{
+	moveSpeed = 0;
+	bMove = false;
+	changeMoveDirection = false;
+	bSquat = false;
+	setMarioSpriteID(1);
+}
+
+void Player::setMoveDirection(bool moveDirection)
+{
+	this->moveDirection = moveDirection;
+}
+
+bool Player::getChangeMoveDirection()
+{
+	return changeMoveDirection;
+}
+
+void Player::setChangeMoveDirection()
+{
+	changeMoveDirection = true;
+	this->newMoveDirection = !moveDirection;
 }
 
 

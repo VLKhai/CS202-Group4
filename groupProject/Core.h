@@ -5,14 +5,18 @@
 class Core {
 public: 
     Core();
-    void mainLoop();
-    //void update();
-    //void draw();
 
     static bool quitGame;
     static bool mouseLeftPressed, mouseRightPressed;
 	static int mouseX, mouseY;
-    
+	static sf::Clock coreClock;
+
+	// Methods
+    void mainLoop();
+    void update();
+    void draw();
+
+    static Map* getMap();
 
 private:
     sf::RenderWindow mainWindow;
@@ -24,5 +28,11 @@ private:
     bool firstDir;
 
     static Map* pMap;
+   
+    void input();
     void inputPlayer();
+    void mouseInput();
+    void inputMenu();
+
+    void resetMove();
 };

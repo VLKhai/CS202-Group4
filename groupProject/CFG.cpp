@@ -1,4 +1,5 @@
 #include "CFG.h"
+#include <SFML/Graphics.hpp>
 
 /* ******************************************** */
 
@@ -14,13 +15,16 @@ int CFG::GameWidth  = 1000;
 int CFG::GameHeight = 560;
 
 bool CFG::keySpace = false;
-int CFG::keyIDA = sf::Keyboard::A;
-int CFG::keyIDD = sf::Keyboard::D;
-int CFG::keyIDS = sf::Keyboard::S;
-int CFG::keyIDSpace = sf::Keyboard::Space;
-int CFG::keyIDShift = sf::Keyboard::LShift;
+
+int CFG::keyIDA = 0;
+int CFG::keyIDD = 0;
+int CFG::keyIDS = 0;
+int CFG::keyIDSpace = 0;
+int CFG::keyIDShift = 0;
 
 bool CFG::canMoveBackward = true;
+
+sf::Music* CFG::music = new sf::Music();
 
 /* ******************************************** */
 

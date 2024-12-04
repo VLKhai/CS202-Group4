@@ -19,29 +19,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\AniSprite.h" />
-    <ClInclude Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\Block.h" />
-    <ClInclude Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\CFG.h" />
-    <ClInclude Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\Core.h" />
-    <ClInclude Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\Event.h" />
-    <ClInclude Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\IMG.h" />
-    <ClInclude Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\Map.h" />
-    <ClInclude Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\Player.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="MenuManager.h" />
+    <ClCompile Include="AniSprite.cpp" />
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="CFG.cpp" />
+    <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="IMG.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\AniSprite.cpp" />
-    <ClCompile Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\Block.cpp" />
-    <ClCompile Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\CFG.cpp" />
-    <ClCompile Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\Core.cpp" />
-    <ClCompile Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\Event.cpp" />
-    <ClCompile Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\IMG.cpp" />
-    <ClCompile Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\main.cpp" />
-    <ClCompile Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\Map.cpp" />
-    <ClCompile Include="C:\Users\thanh\OneDrive\Máy tính\SFML_Project\src\Player.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="MenuManager.cpp" />
+    <ClInclude Include="AniSprite.h" />
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="CFG.h" />
+    <ClInclude Include="Core.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="IMG.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

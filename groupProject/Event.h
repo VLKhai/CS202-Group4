@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef Event_H
-#define Event_H
-
 #include <vector>
 #include <SFML/Graphics.hpp>
 
@@ -96,5 +93,3 @@ public:
 
     void resetRedraw();
 };
-
-#endif

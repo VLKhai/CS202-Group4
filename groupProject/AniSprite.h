@@ -7,9 +7,9 @@ public:
     AniSprite();
     AniSprite(sf::RenderWindow& window, std::vector<std::string> sSprite, std::vector<unsigned int> iDelay, bool bRotate);
     ~AniSprite();
-
     void updateFrame();
     IMG* getFrame();
+
     IMG* getFrame(int iID);
 
 private:

@@ -7,10 +7,12 @@ class IMG {
 private:
     sf::Texture *tIMG;
     sf::Sprite *sIMG;
+    sf::FloatRect bounds;
 public:
     IMG();
     ~IMG(); 
     IMG(std::string GfileName, sf::RenderWindow &mainWindow);
     void setIMG(std::string fileName, sf::RenderWindow &mainWindow);
-    void draw(int x, int y, sf::RenderWindow &mainWindow);
+    void draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset);
+    void draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset, bool bRotate);
 };

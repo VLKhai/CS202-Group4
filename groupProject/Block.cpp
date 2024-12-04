@@ -1,5 +1,4 @@
 #include "Block.h"
-#include "Core.h"
 
 Block::Block() {}
 
@@ -20,5 +19,5 @@ Block::~Block()
 
 void Block::draw(sf::RenderWindow &mainWindow, int iX, int iY)
 {
-    this->aniSprite->getFrame()->draw(iX, iY, mainWindow);
+    this->aniSprite->getFrame()->draw(mainWindow, iX, iY);
 }

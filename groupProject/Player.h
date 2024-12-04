@@ -1,8 +1,5 @@
 #pragma once
-
-#include <SFML/Graphics.hpp>
 #include <vector>
-#include "Core.h"
 #include "AniSprite.h"
 
 class Player {
@@ -12,16 +9,54 @@ private:
     unsigned int iMoveAnimationTime;
 
     float fXPos, fYPos;
+    int iComboPoints, iFrameID;
 
+	// ---<LEVEL UP>---
+    int powerLVL;
+    bool inLevelAnimation;
+    bool inLevelAnimationType; // -- true = UP, false = DOWN
+    int inLevelAnimationFrameID;
+
+    // ---<MOVE>---
+    bool moveDirection;
     bool bMove;
-
+    bool changeMoveDirection;
+    bool newMoveDirection;
+    static const int maxMove = 4;
+    int currentMaxMove;
     int moveSpeed;
+    unsigned int iTimePassed;
+    bool bSquat;
+
+    int onPlatformID;
+
+	// ---<JUMP>---
+    int jumpState;
+    float startJumpSpeed;
+    float currentJumpSpeed;
+    float jumpDistance;
+    float currentJumpDistance;
+    float currentFallingSpeed;
+	int nextFallFrameID;
+    bool springJump;
+
+    
+	// ---<METHODS>---
+    void movePlayer();
+    bool checkCollisionBot(int nX, int nY);
+	bool checkCollisionCenter(int nX, int nY);
+
 public:
     Player(sf::RenderWindow& window, float fXPos, float fYPos);
     ~Player();
     
     void draw(sf::RenderWindow& window);
     void update();
+
+    void playerPhysics();
+
+	void updateXPos(int iD); // iD: displacement
+	void updateYPos(int iD); // iD: displacement
 
     // --<MOVE>--
     void moveAnimation();
@@ -36,19 +71,21 @@ public:
 
 	void startRun();
 	void resetRun();
-    // --</MOVE>--
 
     // --<JUMP>--
     void jump();
     void startJump(int iHeight);
     void resetJump();   
-    // --</JUMP>--
     
 
     // --<GET & SET>--
-    
-    bool getMove();
+    void setMarioSpriteID(int iID);
+	int getMarioSpriteID();
 
-    void getSquat();
+	int getMoveSpeed();
+    bool getMove();
+	bool getMoveDirection();
+
+    bool getSquat();
     void setSquat(bool bSquat);
 };

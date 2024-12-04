@@ -19,7 +19,23 @@ private:
     Event* event;
     Player* player;
 
+    // ----Load----
+    void loadGameData(sf::RenderWindow& mainWindow);
+
 public:
     Map();
+
+
+
+
+
+
+
+
+
+
+    Map(sf::RenderWindow& mainWindow);
     Player* getPlayer();
+
+	void draw(sf::RenderWindow& mainWindow);
 };
