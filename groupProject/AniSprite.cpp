@@ -24,7 +24,7 @@ AniSprite::~AniSprite()
     }
 }
 
-void AniSprite::updateFrame() 
+void AniSprite::update() 
 {
 	if (Core::coreClock.getElapsedTime().asMilliseconds() - iDelay[iCurrentFrame] > lTimePassed) {
 		this->lTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();

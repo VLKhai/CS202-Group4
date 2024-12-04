@@ -17,6 +17,11 @@ Block::~Block()
     delete this->aniSprite;
 }
 
+void Block::draw(sf::RenderWindow& mainWindow, int iXPos, int iYPos)
+{
+    aniSprite->getFrame()->draw(mainWindow, iXPos, iYPos);
+}
+
 int Block::getBlockID()
 {
 	return iBlockID;
