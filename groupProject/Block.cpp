@@ -17,7 +17,37 @@ Block::~Block()
     delete this->aniSprite;
 }
 
-void Block::draw(sf::RenderWindow &mainWindow, int iX, int iY)
+int Block::getBlockID()
 {
-    this->aniSprite->getFrame()->draw(mainWindow, iX, iY);
+	return iBlockID;
+}
+
+void Block::setBlockID(int iID)
+{
+	iBlockID = iID;
+}
+
+AniSprite* Block::getAniSprite()
+{
+	return aniSprite;
+}
+
+bool Block::getCollision()
+{
+	return bCollision;
+}
+
+bool Block::getDeath()
+{
+	return bDeath;
+}
+
+bool Block::getUse()
+{
+	return bUse;
+}
+
+bool Block::getVisible()
+{
+    return bVisible;
 }

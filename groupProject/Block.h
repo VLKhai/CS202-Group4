@@ -8,7 +8,15 @@ public:
     Block(int iBlockID, AniSprite* sSprite, bool bCollision, bool bDeath, bool bUse, bool bVisible);
     ~Block();
 
-    void draw(sf::RenderWindow &mainWindow, int iX, int iY);
+	int getBlockID();
+	void setBlockID(int iID);
+
+	AniSprite* getAniSprite();
+	bool getCollision();
+	bool getDeath();
+	bool getUse();
+	bool getVisible();
+
 private:
     AniSprite* aniSprite;
 

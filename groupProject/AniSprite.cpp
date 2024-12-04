@@ -1,6 +1,5 @@
 #include "AniSprite.h"
-
-AniSprite::AniSprite() {}
+#include "Core.h"
 
 AniSprite::AniSprite(sf::RenderWindow &window, std::vector<std::string> sFilename, std::vector<unsigned int> iDelay, bool bRotate)
 {
@@ -14,6 +13,8 @@ AniSprite::AniSprite(sf::RenderWindow &window, std::vector<std::string> sFilenam
     for (int i = 0; i <= this->iEndFrame; i++) {
         this->imgFrame.push_back(new IMG(sFilename[i], window));
     }
+
+    this->lTimePassed = 0;
 }
 
 AniSprite::~AniSprite()
@@ -25,10 +26,10 @@ AniSprite::~AniSprite()
 
 void AniSprite::updateFrame() 
 {
-    if (clock.getElapsedTime().asMilliseconds() > iDelay[iCurrentFrame]) {
-        clock.restart();
-        (iCurrentFrame == iEndFrame) ? iCurrentFrame = 0 : ++iCurrentFrame;
-    }
+	if (Core::coreClock.getElapsedTime().asMilliseconds() - iDelay[iCurrentFrame] > lTimePassed) {
+		this->lTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
+		(iCurrentFrame == iEndFrame) ? iCurrentFrame = 0 : iCurrentFrame++;
+	}
 }
 
 IMG *AniSprite::getFrame()
