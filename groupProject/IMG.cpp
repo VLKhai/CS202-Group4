@@ -60,6 +60,9 @@ void IMG::draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset, bool bR
 		sIMG->setScale(1, 1);
 		sIMG->setRotation(0);
 	}
-	sIMG->setPosition(iXOffset, iYOffset);
+	//sIMG->setPosition(iXOffset, iYOffset);
+    sIMG->setPosition(static_cast<float>(iXOffset), static_cast<float>(iYOffset));
     mainWindow.draw(*sIMG);
 }
+
+

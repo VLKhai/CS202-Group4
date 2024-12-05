@@ -19,8 +19,8 @@ Player::Player(sf::RenderWindow &window, float fXPos, float fYPos)
 
 	// ---<JUMP>---
 	this->jumpState = 0;
-	this->startJumpSpeed = 7.65f;
-	this->currentFallingSpeed = 2.7f;
+	this->startJumpSpeed = 7.95f;
+	this->currentFallingSpeed = 2.81f;
 
 	// ---<STUFF>---
 	this->powerLVL = 0;
@@ -379,7 +379,7 @@ bool Player::checkCollisionCenter(int nX, int nY)
 
 void Player::draw(sf::RenderWindow& window)
 {
-	sMario[getMarioSpriteID()]->getFrame()->draw(window, (int)fXPos, (int)fYPos + 0, !moveDirection);
+	sMario[getMarioSpriteID()]->getFrame()->draw(window, (float)fXPos, (float)fYPos + 2, !moveDirection);
 }
 
 void Player::update()
@@ -401,7 +401,7 @@ void Player::playerPhysics()
 		updateYPos(-int(currentJumpSpeed));
 		currentJumpDistance += (int)currentJumpSpeed;
 
-		currentJumpSpeed *= (currentJumpDistance / jumpDistance > 0.75f ? 0.972f : 0.986f);
+		currentJumpSpeed *= (currentJumpDistance / jumpDistance > 0.75f ? 0.972f : 0.986f); //986
 
 		if (currentJumpSpeed < 2.5f) {
 			currentJumpSpeed = 2.5f;
@@ -419,15 +419,15 @@ void Player::playerPhysics()
 	}
 	else { 
 		if (onPlatformID >= 0) {}
-		else {
+		else { //onPlatformID = -1
 			if (nextFallFrameID > 0) {
 				--nextFallFrameID;
 			}
 			else if (!checkCollisionBot((int)fXPos, (int)fYPos)){
 				currentFallingSpeed *= 1.05f;
-
+				std::cout << currentFallingSpeed << " " << startJumpSpeed << std::endl;
 				if (currentFallingSpeed > startJumpSpeed) {
-					currentFallingSpeed = startJumpSpeed;
+					currentFallingSpeed = startJumpSpeed ;
 				}
 
 				updateYPos((int)currentFallingSpeed);
@@ -449,11 +449,24 @@ void Player::updateXPos(int iD)
 	checkCollisionBot(iD, 0);
 	checkCollisionCenter(iD, 0);
 	fXPos += iD;
+
+	if (iD > 0) {
+		if (fXPos >= 416 && Core::getMap()->getMoveMap()) {
+			Core::getMap()->moveMap(-iD*3, 0);
+		}
+		else {
+			fXPos += iD;
+		}
+		updateXPos(iD - 1);
+		if (moveSpeed > 1 && jumpState == 0) --moveSpeed;
+	}
+	else {}
 }
 
 void Player::updateYPos(int iD)
 {
 	fYPos += iD;
+	
 }
 
 void Player::moveAnimation()
@@ -499,7 +512,7 @@ void Player::jump()
 void Player::startJump(int iH)
 {
 	currentJumpSpeed = startJumpSpeed;
-	jumpDistance = 32 * iH + 24.0f;
+	jumpDistance = 32 * iH + 24.0f; 
 	currentJumpDistance = 0;
 	
 	setMarioSpriteID(5); // mario_jump
@@ -553,6 +566,7 @@ void Player::startMove()
 }
 
 void Player::resetMove() {
+	--moveSpeed;
 	bMove = false;
 }
 
