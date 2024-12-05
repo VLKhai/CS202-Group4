@@ -79,6 +79,16 @@ void Map::setYPos(float val)
 	fYPos = val;
 }
 
+int Map::getLevelType()
+{
+	return iLevelType;
+}
+
+void Map::setLevelType(int iLevelType)
+{
+	this->iLevelType = iLevelType;
+}
+
 int Map::getCurrentLevelID()
 {
 	return currentLevelID;

@@ -1,4 +1,6 @@
 #pragma once
+
+#include <SFML/Graphics.hpp>
 #include "Vector2.h"
 
 class BlockDebris
@@ -17,4 +19,11 @@ private:
 
 	bool bRotate;
 public:
+	BlockDebris(int iXPos, int iYPos);
+	~BlockDebris();
+
+	void update();
+	void draw(sf::RenderWindow& mainWindow);
+
+	int getDebrisState();
 };

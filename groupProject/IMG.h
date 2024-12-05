@@ -7,9 +7,9 @@ class IMG {
 private:
     sf::Texture *tIMG;
     sf::Sprite *sIMG;
-    sf::FloatRect bounds;
+    //sf::FloatRect bounds;
 public:
-    IMG();
+    IMG() = default;
     ~IMG(); 
     IMG(std::string GfileName, sf::RenderWindow &mainWindow);
     void setIMG(std::string fileName, sf::RenderWindow &mainWindow);

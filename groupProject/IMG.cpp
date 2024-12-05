@@ -4,10 +4,8 @@
 IMG::IMG(std::string fileName, sf::RenderWindow &mainWindow)
 {
     this->setIMG(fileName, mainWindow);
-	bounds = sIMG->getLocalBounds();
+	//bounds = sIMG->getLocalBounds();
 }
-
-IMG::IMG() {}
 
 IMG::~IMG()
 {

@@ -70,6 +70,9 @@ public:
 	float getYPos();
 	void setYPos(float val);
 
+	int getLevelType();
+	void setLevelType(int iLevelType);
+
 	int getCurrentLevelID();
 	void setCurrentLevelID(int iID);
 
