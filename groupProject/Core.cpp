@@ -59,7 +59,7 @@ void Core::draw()
 	//CFG::getMM()->draw(mainWindow);
 	//pMap->draw(mainWindow);
 	mainWindow.clear(sf::Color::White);
-    pMap->getPlayer()->draw(mainWindow);
+    pMap->draw(mainWindow);
 	mainWindow.display();
 }
 

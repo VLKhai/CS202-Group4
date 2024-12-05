@@ -58,10 +58,13 @@ private:
 
 	void createMap();
 
+	int getStartBlock();
+	int getEndBlock();
+
 	void clearMap();
 	void clearMinions();
 public:
-    Map() = default;
+	Map() = default;
     Map(sf::RenderWindow& mainWindow);
 
     void update();
@@ -69,6 +72,7 @@ public:
 	void updatePlayer();
 
 	void draw(sf::RenderWindow& mainWindow);
+	void drawMap(sf::RenderWindow& mainWindow);
 
 	void loadLVL();
 

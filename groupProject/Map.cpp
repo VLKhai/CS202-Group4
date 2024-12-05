@@ -58,6 +58,60 @@ void Map::updatePlayer()
 
 void Map::draw(sf::RenderWindow& mainWindow)
 {
+	drawMap(mainWindow);
+
+	for (unsigned int i = 0; i < vPlatform.size(); i++) {
+		vPlatform[i]->draw(mainWindow);
+	}
+
+	//DrawMinions(rR);
+
+	/*for (unsigned int i = 0; i < lPoints.size(); i++) {
+		lPoints[i]->Draw(rR);
+	}*/
+
+	/*for (unsigned int i = 0; i < lCoin.size(); i++) {
+		lCoin[i]->Draw(rR);
+	}*/
+
+	for (unsigned int i = 0; i < lBlockDebris.size(); i++) {
+		lBlockDebris[i]->draw(mainWindow);
+	}
+
+	/*for (unsigned int i = 0; i < vLevelText.size(); i++) {
+		CCFG::getText()->Draw(rR, vLevelText[i]->getText(), vLevelText[i]->getXPos() + (int)fXPos, vLevelText[i]->getYPos());
+	}*/
+
+	/*for (unsigned int i = 0; i < lBubble.size(); i++) {
+		lBubble[i]->Draw(rR, vBlock[lBubble[i]->getBlockID()]->getSprite()->getTexture());
+	}*/
+
+	player->draw(mainWindow);
+
+	/*if (inEvent) {
+		oEvent->Draw(rR);
+	}*/
+
+	//DrawGameLayout(rR);
+}
+
+void Map::drawMap(sf::RenderWindow& mainWindow)
+{
+	/*if (oFlag != NULL) {
+		oFlag->DrawCastleFlag(rR, vBlock[51]->getSprite()->getTexture());
+	}*/
+
+	for (int i = getStartBlock(), iEnd = getEndBlock(); i < iEnd && i < iMapWidth; i++) {
+		for (int j = iMapHeight - 1; j >= 0; j--) {
+			if (lMap[i][j]->getBlockID() != 0) {
+				vBlock[lMap[i][j]->getBlockID()]->draw(mainWindow, 32 * i + (int)fXPos, CFG::GameHeight - 32 * j - 16 - lMap[i][j]->updateYPos());
+			}
+		}
+	}
+
+	/*if (oFlag != NULL) {
+		oFlag->Draw(rR, vBlock[oFlag->iBlockID]->getSprite()->getTexture());
+	}*/
 }
 
 void Map::loadLVL()
@@ -97,22 +151,64 @@ void Map::structBush(int X, int Y, int iSize)
 
 void Map::structGrass(int X, int Y, int iSize)
 {
+	lMap[X][Y]->setBlockID(10);
+	for (int i = 0; i < iSize; i++) {
+		lMap[X + 1 + i][Y]->setBlockID(11);
+	}
+	lMap[X + iSize + 1][Y]->setBlockID(12);
 }
 
 void Map::structCloud(int X, int Y, int iSize)
 {
+	// ----- LEFT
+	lMap[X][Y]->setBlockID(iLevelType == 3 ? 148 : 14);
+	lMap[X][Y + 1]->setBlockID(15);
+
+	for (int i = 0; i < iSize; i++) {
+		lMap[X + 1 + i][Y]->setBlockID(iLevelType == 3 ? 149 : 16);
+		lMap[X + 1 + i][Y + 1]->setBlockID(iLevelType == 3 ? 150 : 17);
+	}
+
+	lMap[X + iSize + 1][Y]->setBlockID(18);
+	lMap[X + iSize + 1][Y + 1]->setBlockID(19);
 }
 
 void Map::structGND(int X, int Y, int iWidth, int iHeight)
 {
+	for (int i = 0; i < iWidth; i++) {
+		for (int j = 0; j < iHeight; j++) {
+			lMap[X + i][Y + j]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 1 : iLevelType == 1 ? 26 : iLevelType == 2 ? 92 : iLevelType == 6 ? 166 : iLevelType == 7 ? 181 : 75);
+		}
+	}
 }
 
 void Map::structGND2(int X, int Y, int iSize, bool bDir)
 {
+	if (bDir) {
+		for (int i = 0, k = 1; i < iSize; i++) {
+			for (int j = 0; j < k; j++) {
+				lMap[X + i][Y + j]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 25 : iLevelType == 3 ? 167 : 27);
+			}
+			++k;
+		}
+	}
+	else {
+		for (int i = 0, k = 1; i < iSize; i++) {
+			for (int j = 0; j < k; j++) {
+				lMap[X + iSize - 1 - i][Y + j]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 25 : iLevelType == 3 ? 167 : 27);
+			}
+			++k;
+		}
+	}
 }
 
 void Map::structGND2(int X, int Y, int iWidth, int iHeight)
 {
+	for (int i = 0; i < iWidth; i++) {
+		for (int j = 0; j < iHeight; j++) {
+			lMap[X + i][Y + j]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 25 : iLevelType == 3 ? 167 : 27);
+		}
+	}
 }
 
 float Map::getXPos()
@@ -1842,68 +1938,68 @@ void Map::loadLVL_1_1()
 
 
 	// ----- Bush -----
-	//structBush(0, 2, 2);
-	//structBush(16, 2, 1);
-	//structBush(48, 2, 2);
-	//structBush(64, 2, 1);
-	//structBush(96, 2, 2);
-	//structBush(112, 2, 1);
-	//structBush(144, 2, 2);
-	//structBush(160, 2, 1);
-	//structBush(192, 2, 2);
-	//structBush(208, 2, 1);
+	structBush(0, 2, 2);
+	structBush(16, 2, 1);
+	structBush(48, 2, 2);
+	structBush(64, 2, 1);
+	structBush(96, 2, 2);
+	structBush(112, 2, 1);
+	structBush(144, 2, 2);
+	structBush(160, 2, 1);
+	structBush(192, 2, 2);
+	structBush(208, 2, 1);
 
 	// ----- Clouds -----
-	//structCloud(8, 10, 1);
-	//structCloud(19, 11, 1);
-	//structCloud(27, 10, 3);
-	//structCloud(36, 11, 2);
-	//structCloud(56, 10, 1);
-	//structCloud(67, 11, 1);
-	//structCloud(75, 10, 3);
-	//structCloud(84, 11, 2);
-	//structCloud(104, 10, 1);
-	//structCloud(115, 11, 1);
-	//structCloud(123, 10, 3);
-	//structCloud(132, 11, 2);
-	//structCloud(152, 10, 1);
-	//structCloud(163, 11, 1);
-	//structCloud(171, 10, 3);
-	//structCloud(180, 11, 2);
-	//structCloud(200, 10, 1);
-	//structCloud(211, 11, 1);
-	//structCloud(219, 10, 3);
+	structCloud(8, 10, 1);
+	structCloud(19, 11, 1);
+	structCloud(27, 10, 3);
+	structCloud(36, 11, 2);
+	structCloud(56, 10, 1);
+	structCloud(67, 11, 1);
+	structCloud(75, 10, 3);
+	structCloud(84, 11, 2);
+	structCloud(104, 10, 1);
+	structCloud(115, 11, 1);
+	structCloud(123, 10, 3);
+	structCloud(132, 11, 2);
+	structCloud(152, 10, 1);
+	structCloud(163, 11, 1);
+	structCloud(171, 10, 3);
+	structCloud(180, 11, 2);
+	structCloud(200, 10, 1);
+	structCloud(211, 11, 1);
+	structCloud(219, 10, 3);
 
 	// ----- Grass -----
-	//structGrass(11, 2, 3);
-	//structGrass(23, 2, 1);
-	//structGrass(41, 2, 2);
-	//structGrass(59, 2, 3);
-	//structGrass(71, 2, 1);
-	//structGrass(89, 2, 2);
-	//structGrass(107, 2, 3);
-	//structGrass(119, 2, 1);
-	//structGrass(137, 2, 2);
-	//structGrass(157, 2, 1);
-	//structGrass(167, 2, 1);
-	//structGrass(205, 2, 1);
-	//structGrass(215, 2, 1);
+	structGrass(11, 2, 3);
+	structGrass(23, 2, 1);
+	structGrass(41, 2, 2);
+	structGrass(59, 2, 3);
+	structGrass(71, 2, 1);
+	structGrass(89, 2, 2);
+	structGrass(107, 2, 3);
+	structGrass(119, 2, 1);
+	structGrass(137, 2, 2);
+	structGrass(157, 2, 1);
+	structGrass(167, 2, 1);
+	structGrass(205, 2, 1);
+	structGrass(215, 2, 1);
 
 	// ----- GND -----
-	//structGND(0, 0, 69, 2);
-	//structGND(71, 0, 15, 2);
-	//structGND(89, 0, 64, 2);
-	//structGND(155, 0, 85, 2);
+	structGND(0, 0, 69, 2);
+	structGND(71, 0, 15, 2);
+	structGND(89, 0, 64, 2);
+	structGND(155, 0, 85, 2);
 
 	// ----- GND 2 -----
-	//structGND2(134, 2, 4, true);
-	//structGND2(140, 2, 4, false);
-	//structGND2(148, 2, 4, true);
-	//structGND2(152, 2, 1, 4);
-	//structGND2(155, 2, 4, false);
-	//structGND2(181, 2, 8, true);
-	//structGND2(189, 2, 1, 8);
-	//structGND2(198, 2, 1, 1);
+	structGND2(134, 2, 4, true);
+	structGND2(140, 2, 4, false);
+	structGND2(148, 2, 4, true);
+	structGND2(152, 2, 1, 4);
+	structGND2(155, 2, 4, false);
+	structGND2(181, 2, 8, true);
+	structGND2(189, 2, 1, 8);
+	structGND2(198, 2, 1, 1);
 
 
 	// ----- BRICK -----
@@ -1992,6 +2088,16 @@ void Map::createMap()
 
 	this->underWater = false;
 	//this->bTP = false;
+}
+
+int Map::getStartBlock()
+{
+	return (int)(-fXPos - (-(int)fXPos) % 32) / 32;
+}
+
+int Map::getEndBlock()
+{
+	return (int)(-fXPos - (-(int)fXPos) % 32 + CFG::GameWidth) / 32 + 2;
 }
 
 void Map::clearMap()
