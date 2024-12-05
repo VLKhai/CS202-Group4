@@ -10,6 +10,7 @@
 #include "CFG.h"
 #include "BlockDebris.h"
 #include "Platform.h"
+#include "Tile.h"
 
 class Map {
 private:
@@ -21,7 +22,7 @@ private:
 	std::vector<Block*> vMinion;
 	int iMinionSize; // Size of vMinion
 
-	//std::vector<std::vector<MapLevel*>> lMap;
+	std::vector<std::vector<Tile*>> lMap;
 	int iMapWidth, iMapHeight;
 
 	std::vector<BlockDebris*> lBlockDebris;
@@ -55,6 +56,10 @@ private:
     void loadGameData(sf::RenderWindow& mainWindow);
 	void loadLVL_1_1();
 
+	void createMap();
+
+	void clearMap();
+	void clearMinions();
 public:
     Map() = default;
     Map(sf::RenderWindow& mainWindow);
@@ -66,6 +71,14 @@ public:
 	void draw(sf::RenderWindow& mainWindow);
 
 	void loadLVL();
+
+	// Structure object
+	void structBush(int X, int Y, int iSze);
+	void structGrass(int X, int Y, int iSize);
+	void structCloud(int X, int Y, int iSize);
+	void structGND(int X, int Y, int iWidth, int iHeight);
+	void structGND2(int X, int Y, int iSize, bool bDir); // true = LEFT, false = RIGHT
+	void structGND2(int X, int Y, int iWidth, int iHeight);
 
 	// --GETTERS & SETTERS--
 	float getXPos();

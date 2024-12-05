@@ -27,6 +27,7 @@ Map::Map(sf::RenderWindow& mainWindow)
 	srand((unsigned)time(NULL));
 
 	loadGameData(mainWindow);
+	loadLVL();
 }
 
 void Map::update()
@@ -66,6 +67,52 @@ void Map::loadLVL()
 		loadLVL_1_1();
 		break;
 	}
+}
+
+void Map::structBush(int X, int Y, int iSize)
+{
+	// ----- LEFT & RIGHT
+	for (int i = 0; i < iSize; i++) {
+		lMap[X + i][Y + i]->setBlockID(5);
+		lMap[X + iSize + 1 + i][Y + iSize - 1 - i]->setBlockID(6);
+	}
+
+	// ----- CENTER LEFT & RIGHT
+	for (int i = 0, k = 1; i < iSize - 1; i++) {
+		for (int j = 0; j < k; j++) {
+			lMap[X + 1 + i][Y + j]->setBlockID((i % 2 == 0 ? 3 : 4));
+			lMap[X + iSize * 2 - 1 - i][Y + j]->setBlockID((i % 2 == 0 ? 3 : 4));
+		}
+		++k;
+	}
+
+	// ----- CENTER
+	for (int i = 0; i < iSize; i++) {
+		lMap[X + iSize][Y + i]->setBlockID((i % 2 == 0 && iSize != 1 ? 4 : 3));
+	}
+
+	// ----- TOP
+	lMap[X + iSize][Y + iSize]->setBlockID(7);
+}
+
+void Map::structGrass(int X, int Y, int iSize)
+{
+}
+
+void Map::structCloud(int X, int Y, int iSize)
+{
+}
+
+void Map::structGND(int X, int Y, int iWidth, int iHeight)
+{
+}
+
+void Map::structGND2(int X, int Y, int iSize, bool bDir)
+{
+}
+
+void Map::structGND2(int X, int Y, int iWidth, int iHeight)
+{
 }
 
 float Map::getXPos()
@@ -1784,14 +1831,14 @@ void Map::loadGameData(sf::RenderWindow& mainWindow)
 
 void Map::loadLVL_1_1()
 {
-	//clearMap();
+	clearMap();
 
 	this->iMapWidth = 260;
 	this->iMapHeight = 25;
 	this->iLevelType = 0;
 	this->iMapTime = 400;
 
-	//createMap();
+	createMap();
 
 
 	// ----- Bush -----
@@ -1921,4 +1968,55 @@ void Map::loadLVL_1_1()
 	// ----- END LEVEL
 
 	this->iLevelType = 0;
+}
+
+void Map::createMap()
+{
+	// ----- MIONION LIST -----
+	//for (int i = 0; i < iMapWidth; i += 5) {
+	//	std::vector<Minion*> temp;
+	//	lMinion.push_back(temp);
+	//}
+
+	//iMinionListSize = lMinion.size();
+
+	// ----- CREATE MAP -----
+	for (int i = 0; i < iMapWidth; i++) {
+		std::vector<Tile*> temp;
+		for (int i = 0; i < iMapHeight; i++) {
+			temp.push_back(new Tile(0));
+		}
+
+		lMap.push_back(temp);
+	}
+
+	this->underWater = false;
+	//this->bTP = false;
+}
+
+void Map::clearMap()
+{
+	for (int i = 0; i < iMapWidth; i++) {
+		for (int j = 0; j < iMapHeight; j++) {
+			delete lMap[i][j];
+		}
+		lMap[i].clear();
+	}
+	lMap.clear();
+
+	this->iMapWidth = this->iMapHeight = 0;
+
+	//if (oFlag != NULL) {
+	//	delete oFlag;
+	//	oFlag = NULL;
+	//}
+
+	//oEvent->eventTypeID = oEvent->eNormal;
+
+	//clearLevelText();
+}
+
+void Map::clearMinions()
+{
+	return;
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-class MapLevel
+class Tile
 {
 private:
 	int iBlockID;
@@ -19,8 +19,8 @@ private:
 	// ----- Animation -----
 
 public:
-	MapLevel(int iBlockID);
-	~MapLevel() = default;
+	Tile(int iBlockID);
+	~Tile() = default;
 
 	void startBlockAnimation();
 

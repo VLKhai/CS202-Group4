@@ -28,7 +28,7 @@
     <ClCompile Include="IMG.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="MapLevel.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Vector2.cpp" />
@@ -42,7 +42,7 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="IMG.h" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="MapLevel.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Vector2.h" />

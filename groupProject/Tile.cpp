@@ -1,6 +1,6 @@
-#include "MapLevel.h"
+#include "Tile.h"
 
-MapLevel::MapLevel(int iBlockID)
+Tile::Tile(int iBlockID)
 {
 	this->iBlockID = iBlockID;
 
@@ -16,14 +16,14 @@ MapLevel::MapLevel(int iBlockID)
 	this->powerUP = true;
 }
 
-void MapLevel::startBlockAnimation()
+void Tile::startBlockAnimation()
 {
 	this->blockAnimation = true;
 	this->iYPos = 0;
 	this->bYDirection = true;
 }
 
-int MapLevel::updateYPos()
+int Tile::updateYPos()
 {
 	if (blockAnimation) {
 		if (bYDirection)
@@ -61,46 +61,46 @@ int MapLevel::updateYPos()
 
 // ----- get & set -----
 
-int MapLevel::getBlockID() {
+int Tile::getBlockID() {
 	return iBlockID;
 }
 
-void MapLevel::setBlockID(int iBlockID) {
+void Tile::setBlockID(int iBlockID) {
 	this->iBlockID = iBlockID;
 }
 
-int MapLevel::getYPos() {
+int Tile::getYPos() {
 	return iYPos;
 }
 
-int MapLevel::getNumOfUse() {
+int Tile::getNumOfUse() {
 	return iNumOfUse;
 }
 
-void MapLevel::setNumOfUse(int iNumOfUse) {
+void Tile::setNumOfUse(int iNumOfUse) {
 	this->iNumOfUse = iNumOfUse;
 }
 
-bool MapLevel::getSpawnMushroom() {
+bool Tile::getSpawnMushroom() {
 	return spawnMushroom;
 }
 
-void MapLevel::setSpawnMushroom(bool spawnMushroom) {
+void Tile::setSpawnMushroom(bool spawnMushroom) {
 	this->spawnMushroom = spawnMushroom;
 }
 
-bool MapLevel::getPowerUP() {
+bool Tile::getPowerUP() {
 	return powerUP;
 }
 
-void MapLevel::setPowerUP(bool powerUP) {
+void Tile::setPowerUP(bool powerUP) {
 	this->powerUP = powerUP;
 }
 
-bool MapLevel::getSpawnStar() {
+bool Tile::getSpawnStar() {
 	return spawnStar;
 }
 
-void MapLevel::setSpawnStar(bool spawnStar) {
+void Tile::setSpawnStar(bool spawnStar) {
 	this->spawnStar = spawnStar;
 }
