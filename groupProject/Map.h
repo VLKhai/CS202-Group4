@@ -53,6 +53,7 @@ private:
 
     // ----Load----
     void loadGameData(sf::RenderWindow& mainWindow);
+	void loadLVL_1_1();
 
 public:
     Map() = default;
@@ -64,6 +65,9 @@ public:
 
 	void draw(sf::RenderWindow& mainWindow);
 
+	void loadLVL();
+
+	// --GETTERS & SETTERS--
 	float getXPos();
 	void setXPos(float val);
 

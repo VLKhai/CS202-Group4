@@ -59,6 +59,15 @@ void Map::draw(sf::RenderWindow& mainWindow)
 {
 }
 
+void Map::loadLVL()
+{
+	switch (currentLevelID) {
+	case 0:
+		loadLVL_1_1();
+		break;
+	}
+}
+
 float Map::getXPos()
 {
 	return fXPos;
@@ -1771,4 +1780,145 @@ void Map::loadGameData(sf::RenderWindow& mainWindow)
 
 	iBlockSize = vBlock.size();
 	iMinionSize = vMinion.size();
+}
+
+void Map::loadLVL_1_1()
+{
+	//clearMap();
+
+	this->iMapWidth = 260;
+	this->iMapHeight = 25;
+	this->iLevelType = 0;
+	this->iMapTime = 400;
+
+	//createMap();
+
+
+	// ----- Bush -----
+	//structBush(0, 2, 2);
+	//structBush(16, 2, 1);
+	//structBush(48, 2, 2);
+	//structBush(64, 2, 1);
+	//structBush(96, 2, 2);
+	//structBush(112, 2, 1);
+	//structBush(144, 2, 2);
+	//structBush(160, 2, 1);
+	//structBush(192, 2, 2);
+	//structBush(208, 2, 1);
+
+	// ----- Clouds -----
+	//structCloud(8, 10, 1);
+	//structCloud(19, 11, 1);
+	//structCloud(27, 10, 3);
+	//structCloud(36, 11, 2);
+	//structCloud(56, 10, 1);
+	//structCloud(67, 11, 1);
+	//structCloud(75, 10, 3);
+	//structCloud(84, 11, 2);
+	//structCloud(104, 10, 1);
+	//structCloud(115, 11, 1);
+	//structCloud(123, 10, 3);
+	//structCloud(132, 11, 2);
+	//structCloud(152, 10, 1);
+	//structCloud(163, 11, 1);
+	//structCloud(171, 10, 3);
+	//structCloud(180, 11, 2);
+	//structCloud(200, 10, 1);
+	//structCloud(211, 11, 1);
+	//structCloud(219, 10, 3);
+
+	// ----- Grass -----
+	//structGrass(11, 2, 3);
+	//structGrass(23, 2, 1);
+	//structGrass(41, 2, 2);
+	//structGrass(59, 2, 3);
+	//structGrass(71, 2, 1);
+	//structGrass(89, 2, 2);
+	//structGrass(107, 2, 3);
+	//structGrass(119, 2, 1);
+	//structGrass(137, 2, 2);
+	//structGrass(157, 2, 1);
+	//structGrass(167, 2, 1);
+	//structGrass(205, 2, 1);
+	//structGrass(215, 2, 1);
+
+	// ----- GND -----
+	//structGND(0, 0, 69, 2);
+	//structGND(71, 0, 15, 2);
+	//structGND(89, 0, 64, 2);
+	//structGND(155, 0, 85, 2);
+
+	// ----- GND 2 -----
+	//structGND2(134, 2, 4, true);
+	//structGND2(140, 2, 4, false);
+	//structGND2(148, 2, 4, true);
+	//structGND2(152, 2, 1, 4);
+	//structGND2(155, 2, 4, false);
+	//structGND2(181, 2, 8, true);
+	//structGND2(189, 2, 1, 8);
+	//structGND2(198, 2, 1, 1);
+
+
+	// ----- BRICK -----
+	//struckBlockQ(16, 5, 1);
+	//structBrick(20, 5, 1, 1);
+	//struckBlockQ(21, 5, 1);
+	//lMap[21][5]->setSpawnMushroom(true);
+	//structBrick(22, 5, 1, 1);
+	//struckBlockQ(22, 9, 1);
+	//struckBlockQ(23, 5, 1);
+	//structBrick(24, 5, 1, 1);
+
+	//struckBlockQ2(64, 6, 1);
+	//lMap[64][6]->setSpawnMushroom(true);
+	//lMap[64][6]->setPowerUP(false);
+
+	//structBrick(77, 5, 1, 1);
+	//struckBlockQ(78, 5, 1);
+	//lMap[78][5]->setSpawnMushroom(true);
+	//structBrick(79, 5, 1, 1);
+
+	//structBrick(80, 9, 8, 1);
+	//structBrick(91, 9, 3, 1);
+	//struckBlockQ(94, 9, 1);
+	//structBrick(94, 5, 1, 1);
+	//lMap[94][5]->setNumOfUse(4);
+
+	//structBrick(100, 5, 2, 1);
+
+	//struckBlockQ(106, 5, 1);
+	//struckBlockQ(109, 5, 1);
+	//struckBlockQ(109, 9, 1);
+	//lMap[109][9]->setSpawnMushroom(true);
+	//struckBlockQ(112, 5, 1);
+
+	//structBrick(118, 5, 1, 1);
+
+	//structBrick(121, 9, 3, 1);
+
+	//structBrick(128, 9, 1, 1);
+	//struckBlockQ(129, 9, 2);
+	//structBrick(131, 9, 1, 1);
+
+	//structBrick(129, 5, 2, 1);
+
+	//structBrick(168, 5, 2, 1);
+	//struckBlockQ(170, 5, 1);
+	//structBrick(171, 5, 1, 1);
+
+	//lMap[101][5]->setSpawnStar(true);
+
+	// ----- MAP 1_1_2 -----
+
+	this->iLevelType = 1;
+
+	//structGND(240, 0, 17, 2);
+
+	/*structBrick(240, 2, 1, 11);
+	structBrick(244, 2, 7, 3);
+	structBrick(244, 12, 7, 1);*/
+
+	// ----- END LEVEL
+
+	this->iLevelType = 0;
 }
