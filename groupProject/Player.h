@@ -11,6 +11,9 @@ private:
     float fXPos, fYPos;
     int iComboPoints, iFrameID;
 
+    const static int iSmallX = 24, iSmallY = 32;
+    const static int iBigX = 32, iBigY = 64;
+
 	// ---<LEVEL UP>---
     int powerLVL;
     bool inLevelAnimation;
@@ -88,4 +91,7 @@ public:
 
     bool getSquat();
     void setSquat(bool bSquat);
+
+    int getHitBoxX();
+    int getHitBoxY();
 };

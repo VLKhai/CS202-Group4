@@ -2350,3 +2350,33 @@ bool Map::getMoveMap() {
 void Map::setMoveMap(bool bMoveMap) {
 	this->bMoveMap = bMoveMap;
 }
+
+Vector2* Map::getBlockID(int nX, int nY) {
+	return new Vector2((int)(nX < 0 ? 0 : nX) / 32, (int)(nY > CFG::GameWidth - 16 ? 0 : (CFG::GameHeight - 16 - nY + 32) / 32));
+}
+
+bool Map::checkCollision(Vector2* nV, bool checkVisible) {
+	bool output = vBlock[lMap[nV->getX()][nV->getY()]->getBlockID()]->getCollision() && (checkVisible ? vBlock[lMap[nV->getX()][nV->getY()]->getBlockID()]->getVisible() : true);
+	delete nV;
+	return output;
+}
+
+bool Map::checkCollisionLB(int nX, int nY, int nHitBoxY, bool checkVisible) {
+	return checkCollision(getBlockID(nX, nY + nHitBoxY), checkVisible);
+}
+
+bool Map::checkCollisionRB(int nX, int nY, int nHitBoxX, int nHitBoxY, bool checkVisible) {
+	return checkCollision(getBlockID(nX + nHitBoxX, nY + nHitBoxY), checkVisible);
+}
+
+int Map::checkCollisionWithPlatform(int nX, int nY, int iHitBoxX, int iHitBoxY) {
+	for (unsigned int i = 0; i < vPlatform.size(); i++) {
+		if (-fXPos + nX + iHitBoxX >= vPlatform[i]->getXPos() && -fXPos + nX <= vPlatform[i]->getXPos() + vPlatform[i]->getSize() * 16) {
+			if (nY + iHitBoxY >= vPlatform[i]->getYPos() && nY + iHitBoxY <= vPlatform[i]->getYPos() + 16) {
+				return i;
+			}
+		}
+	}
+
+	return -1;
+}

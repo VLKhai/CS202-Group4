@@ -133,5 +133,13 @@ public:
 	Platform* getPlatform(int iID);
 	Block* getBlock(int iID);
 
+	// --Collision
+	Vector2* getBlockID(int nX, int nY);
+	bool checkCollision(Vector2* nV, bool checkVisible);
+
+	bool checkCollisionLB(int nX, int nY, int nHitBoxY, bool checkVisible);
+	bool checkCollisionRB(int nX, int nY, int nHitBoxX, int nHitBoxY, bool checkVisible);
+
+	int checkCollisionWithPlatform(int nX, int nY, int iHitBoxX, int iHitBoxY);
 
 };
