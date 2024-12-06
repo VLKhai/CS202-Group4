@@ -4,7 +4,6 @@
 IMG::IMG(std::string fileName, sf::RenderWindow &mainWindow)
 {
     this->setIMG(fileName, mainWindow);
-	//bounds = sIMG->getLocalBounds();
 }
 
 IMG::~IMG()
@@ -49,15 +48,27 @@ void IMG::draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset)
 
 void IMG::draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset, bool bRotate)
 {
-    sIMG->setOrigin(sIMG->getLocalBounds().width / 2, sIMG->getLocalBounds().height / 2);
-    if (bRotate) {
-        sIMG->setScale(1.f, -1.f);
-        sIMG->setRotation(180);
+  
+    if (!bRotate) {
+        sIMG->setPosition(iXOffset, iYOffset);
+        mainWindow.draw(*sIMG);
+	    drawBoundingBox(mainWindow, iXOffset, iYOffset);
+        return;
+        
     }
-	else {
-		sIMG->setScale(1, 1);
-		sIMG->setRotation(0);
-	}
-	sIMG->setPosition(iXOffset, iYOffset);
-    mainWindow.draw(*sIMG);
+    sIMG->setScale(-1.f, 1.f);
+	sIMG->setPosition(iXOffset + sIMG->getGlobalBounds().width, iYOffset);
+	mainWindow.draw(*sIMG);
+	drawBoundingBox(mainWindow, iXOffset, iYOffset);
+    sIMG->setScale(1, 1);
+}
+
+void IMG::drawBoundingBox(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset) {
+    sf::FloatRect bounds = sIMG->getGlobalBounds();
+    sf::RectangleShape boundingBox(sf::Vector2f(bounds.width, bounds.height));
+    boundingBox.setPosition(bounds.left + iXOffset, bounds.top + iYOffset);
+    boundingBox.setFillColor(sf::Color::Transparent); // Make the inside transparent
+    boundingBox.setOutlineColor(sf::Color::Green); // Set the outline color
+    boundingBox.setOutlineThickness(1.f); // Set the outline thickness
+    mainWindow.draw(boundingBox);
 }

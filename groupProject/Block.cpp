@@ -1,7 +1,5 @@
 #include "Block.h"
 
-Block::Block() {}
-
 Block::Block(int iBlockID, AniSprite *sSprite, bool bCollision, bool bDeath, bool bUse, bool bVisible)
 {
     this->iBlockID = iBlockID;

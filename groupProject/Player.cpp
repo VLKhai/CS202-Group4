@@ -457,7 +457,9 @@ void Player::update()
 
 void Player::playerPhysics()
 {
-	if (jumpState == 1) {
+	// 1: Jumping, 2: Falling, 0: On ground (jumpState)
+	// -1: on platform (onPlatformID)
+	if (jumpState == 1) { 
 		updateYPos(-int(currentJumpSpeed));
 		currentJumpDistance += (int)currentJumpSpeed;
 
@@ -478,10 +480,12 @@ void Player::playerPhysics()
 		}
 	}
 	else { 
-		if (onPlatformID == -1) { // If not on platform
+		
+		if (onPlatformID == -1) { // On ground
 			onPlatformID = Core::getMap()->checkCollisionWithPlatform((int)fXPos, (int)fYPos, getHitBoxX(), getHitBoxY());
 			if (onPlatformID >= 0) {
-				if (Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true) || Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
+				if (Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true)
+					|| Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
 					onPlatformID = -1;
 					resetJump();
 				}
@@ -496,8 +500,9 @@ void Player::playerPhysics()
 			onPlatformID = Core::getMap()->checkCollisionWithPlatform((int)fXPos, (int)fYPos, getHitBoxX(), getHitBoxY());
 		}
 
-		if (onPlatformID >= 0) { // If on platform
-			if (Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true) || Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
+		if (onPlatformID >= 0) { 
+			if (Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true) 
+				|| Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
 				onPlatformID = -1;
 				resetJump();
 			}
@@ -513,10 +518,10 @@ void Player::playerPhysics()
 		else if (!Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true) &&
 			!Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
 
-			if (nextFallFrameID > 0) {
+			 if (nextFallFrameID > 0) {
 				--nextFallFrameID;
-			}
-			else {
+			 }
+			 else {
 				currentFallingSpeed *= 1.05f;
 
 				if (currentFallingSpeed > startJumpSpeed) {
@@ -524,14 +529,14 @@ void Player::playerPhysics()
 				}
 
 				updateYPos((int)currentFallingSpeed);
-			}
+			 }
 
 
-			jumpState = 2;
+			 jumpState = 2;
 
-			setMarioSpriteID(5);
+			 setMarioSpriteID(5);
 		}
-		else if (jumpState == 2) {
+		else if (jumpState == 2) { // Falling
 			resetJump();
 		}
 		else {
@@ -543,7 +548,7 @@ void Player::playerPhysics()
 void Player::updateXPos(int iD)
 {
 	checkCollisionBot(iD, 0);
-	checkCollisionCenter(iD, 0);
+	//checkCollisionCenter(iD, 0);
 	fXPos += iD;
 }
 

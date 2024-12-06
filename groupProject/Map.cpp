@@ -21,7 +21,7 @@ Map::Map(sf::RenderWindow& mainWindow)
 	this->iFrameID = 0;
 
 	//this->bTP = false;
-	player = new Player(mainWindow, 84, 350);
+	player = new Player(mainWindow, 84, 368);
 	pEvent = nullptr;
 
 	srand((unsigned)time(NULL));
@@ -34,7 +34,21 @@ void Map::update()
 {
 	updateGifBlocks();
 	updatePlayer();
-	// Loop: platform->update();
+
+	for (unsigned int i = 0; i < vPlatform.size(); i++) {
+		vPlatform[i]->update();
+	}
+
+	// Update Block Debris
+	for (unsigned int i = 0; i < lBlockDebris.size(); i++) {
+		if (lBlockDebris[i]->getDebrisState() != -1) {
+			lBlockDebris[i]->update();
+		}
+		else {
+			delete lBlockDebris[i];
+			lBlockDebris.erase(lBlockDebris.begin() + i);
+		}
+	}
 }
 
 void Map::updateGifBlocks()
@@ -53,7 +67,7 @@ void Map::updateGifBlocks()
 
 void Map::updatePlayer()
 {
-
+	player->update();
 }
 
 void Map::draw(sf::RenderWindow& mainWindow)
@@ -403,7 +417,8 @@ void Map::struckBlockQ2(int X, int Y, int iWidth)
 }
 
 bool Map::checkCollision(Vector2* nV, bool checkVisible) {
-	bool output = vBlock[lMap[nV->getX()][nV->getY()]->getBlockID()]->getCollision() && (checkVisible ? vBlock[lMap[nV->getX()][nV->getY()]->getBlockID()]->getVisible() : true);
+	bool output = vBlock[lMap[nV->getX()][nV->getY()]->getBlockID()]->getCollision() // Check if the block is collidable
+		&& (checkVisible ? vBlock[lMap[nV->getX()][nV->getY()]->getBlockID()]->getVisible() : true);
 	delete nV;
 	return output;
 }
@@ -443,7 +458,7 @@ int Map::checkCollisionWithPlatform(int nX, int nY, int iHitBoxX, int iHitBoxY) 
 	return -1;
 }
 
-Vector2* Map::getBlockID(int nX, int nY) {
+Vector2* Map::getBlockID(int nX, int nY) { // Return the block ID of the block at the given position x, y
 	return new Vector2((int)(nX < 0 ? 0 : nX) / 32, (int)(nY > CFG::GameHeight - 16 ? 0 : (CFG::GameHeight - 16 - nY + 32) / 32));
 }
 
