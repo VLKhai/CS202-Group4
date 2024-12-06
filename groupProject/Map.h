@@ -74,8 +74,10 @@ public:
 	void draw(sf::RenderWindow& mainWindow);
 	void drawMap(sf::RenderWindow& mainWindow);
 
-	void moveMap(int iX, int iY);
+	// Block Interaction
+	bool blockUse(int nX, int nY, int iBlockID, int POS);
 
+	// Load resources
 	void loadLVL();
 
 	// Structure object
@@ -85,33 +87,29 @@ public:
 	void structGND(int X, int Y, int iWidth, int iHeight);
 	void structGND2(int X, int Y, int iSize, bool bDir); // true = LEFT, false = RIGHT
 	void structGND2(int X, int Y, int iWidth, int iHeight);
-
 	void structBrick(int X, int Y, int iWidth, int iHeight);
 	void struckBlockQ(int X, int Y, int iWidth);
 	void struckBlockQ2(int X, int Y, int iWidth);
 
-	void structEnd(int X, int Y, int iHeight);
+	// --<COLLISION>--
+	bool checkCollision(Vector2* nV, bool checkVisible);
+	// LEFT
+	bool checkCollisionLB(int nX, int nY, int nHitBoxY, bool checkVisible);
+	bool checkCollisionLT(int nX, int nY, bool checkVisible);
+	// CENTER
+	bool checkCollisionLC(int nX, int nY, int nHitBoxY, bool checkVisible);
+	bool checkCollisionRC(int nX, int nY, int nHitBoxX, int nHitBoxY, bool checkVisible);
+	// RIGHT
+	bool checkCollisionRB(int nX, int nY, int nHitBoxX, int nHitBoxY, bool checkVisible);
+	bool checkCollisionRT(int nX, int nY, int nHitBoxX, bool checkVisible);
 
-	void structCastleSmall(int X, int Y);
-	void structCastleBig(int X, int Y);
-	void structCastleWall(int X, int Y, int iWidth, int iHeight);
+	int checkCollisionWithPlatform(int nX, int nY, int iHitBoxX, int iHitBoxY);
 
-	void structPipe(int X, int Y, int iHeight);
+	void checkCollisionOnTopOfTheBlock(int nX, int nY);
 
-	void structT(int X, int Y, int iWidth, int iHeight);
-	void structTMush(int X, int Y, int iWidth, int iHeight);
-
-	void structWater(int X, int Y, int iWidth, int iHeight);
-	void structLava(int X, int Y, int iWidth, int iHeight);
-	void structBridge(int X, int Y, int iWidth);
-
-	void structTree(int X, int Y, int iHeigth, bool BIG);
-	void structFence(int X, int Y, int iWidth);
-	void structBridge2(int X, int Y, int iWidth);
-
-	void structSeeSaw(int X, int Y, int iWidth);
-	void structPlatformLine(int X);
-
+	Vector2* getBlockID(int nX, int nY);
+	int getBlockIDX(int nX);
+	int getBlockIDY(int nY);
 
 	// --GETTERS & SETTERS--
 	float getXPos();
@@ -126,20 +124,8 @@ public:
 	int getCurrentLevelID();
 	void setCurrentLevelID(int iID);
 
-	bool getMoveMap();
-	void setMoveMap(bool bMoveMap);
-
 	Player* getPlayer();
 	Platform* getPlatform(int iID);
 	Block* getBlock(int iID);
-
-	// --Collision
-	Vector2* getBlockID(int nX, int nY);
-	bool checkCollision(Vector2* nV, bool checkVisible);
-
-	bool checkCollisionLB(int nX, int nY, int nHitBoxY, bool checkVisible);
-	bool checkCollisionRB(int nX, int nY, int nHitBoxX, int nHitBoxY, bool checkVisible);
-
-	int checkCollisionWithPlatform(int nX, int nY, int iHitBoxX, int iHitBoxY);
-
+	Tile* getMapBlock(int iX, int iY);
 };

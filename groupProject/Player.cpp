@@ -5,25 +5,47 @@ Player::Player(sf::RenderWindow &window, float fXPos, float fYPos)
 {
 	this->fXPos = fXPos;
 	this->fYPos = fYPos;
+	this->iNumOfLives = 3;
+
 	this->iSpriteID = 1;
 
-	// ---<MOVE>---
+	this->iScore = this->iCoins = 0;
+	this->iFrameID = 0, this->iComboPoints = 1;
+
+	this->nextBubbleTime = 0;
+	this->nextFallFrameID = 0;
+
+	this->powerLVL = 0;
+	this->inLevelAnimation = false;
+	this->inLevelAnimationType = false;
+
+	this->unKillAble = false;
+	this->starEffect = false;
+	this->unKillAbleTimeFrameID = 0;
+
+	this->inLevelDownAnimation = false;
+	this->inLevelDownAnimationFrameID = 0;
+
 	this->moveDirection = true;
 	this->currentMaxMove = 4;
 	this->moveSpeed = 0;
 	this->bMove = false;
 	this->changeMoveDirection = false;
 	this->bSquat = false;
-	
+
 	this->onPlatformID = -1;
 
-	// ---<JUMP>---
-	this->jumpState = 0;
-	this->startJumpSpeed = 7.95f;
-	this->currentFallingSpeed = 2.81f;
+	this->springJump = false;
 
-	// ---<STUFF>---
-	this->powerLVL = 0;
+	this->iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
+
+	this->jumpState = 0;
+	this->startJumpSpeed = 7.65f;
+	this->currentFallingSpeed = 2.7f;
+
+	this->iMoveAnimationTime = 0;
+
+	this->nextFireBallFrameID = 8;
 
 	// LOAD SPRITE
 	std::vector<std::string> tempS;
@@ -366,10 +388,24 @@ void Player::movePlayer() {
 	}
 }
 
-bool Player::checkCollisionBot(int nX, int nY)
-{
-	if (nY >= 350) return true;
-	return false;
+// CLOSED
+bool Player::checkCollisionBot(int nX, int nY) { 
+	Vector2* vLT = getBlockLB(fXPos - Core::getMap()->getXPos() + nX, fYPos + nY);
+
+	if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
+		Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 1);
+	}
+
+	delete vLT;
+
+	vLT = getBlockRB(fXPos - Core::getMap()->getXPos() + nX, fYPos + nY);
+
+	if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
+		Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 1);
+	}
+
+	delete vLT;
+	return true;
 }
 
 bool Player::checkCollisionCenter(int nX, int nY)
@@ -377,9 +413,33 @@ bool Player::checkCollisionCenter(int nX, int nY)
 	return true;
 }
 
+Vector2* Player::getBlockLB(float nX, float nY) {
+	return Core::getMap()->getBlockID((int)nX + 1, (int)nY + getHitBoxY() + 2);
+}
+
+Vector2* Player::getBlockRB(float nX, float nY) {
+	return Core::getMap()->getBlockID((int)nX + getHitBoxX() - 1, (int)nY + getHitBoxY() + 2);
+}
+
+Vector2* Player::getBlockLC(float nX, float nY) {
+	return Core::getMap()->getBlockID((int)nX - 1, (int)nY + getHitBoxY() / 2);
+}
+
+Vector2* Player::getBlockRC(float nX, float nY) {
+	return Core::getMap()->getBlockID((int)nX + getHitBoxX() + 1, (int)nY + getHitBoxY() / 2);
+}
+
+Vector2* Player::getBlockLT(float nX, float nY) {
+	return Core::getMap()->getBlockID((int)nX + 1, (int)nY);
+}
+
+Vector2* Player::getBlockRT(float nX, float nY) {
+	return Core::getMap()->getBlockID((int)nX + getHitBoxX() - 1, (int)nY);
+}
+
 void Player::draw(sf::RenderWindow& window)
 {
-	sMario[getMarioSpriteID()]->getFrame()->draw(window, (float)fXPos, (float)fYPos + 0, !moveDirection);
+	sMario[getMarioSpriteID()]->getFrame()->draw(window, (int)fXPos, (int)fYPos, !moveDirection);
 }
 
 void Player::update()
@@ -401,7 +461,7 @@ void Player::playerPhysics()
 		updateYPos(-int(currentJumpSpeed));
 		currentJumpDistance += (int)currentJumpSpeed;
 
-		currentJumpSpeed *= (currentJumpDistance / jumpDistance > 0.75f ? 0.972f : 0.986f); //986
+		currentJumpSpeed *= (currentJumpDistance / jumpDistance > 0.75f ? 0.972f : 0.986f);
 
 		if (currentJumpSpeed < 2.5f) {
 			currentJumpSpeed = 2.5f;
@@ -418,7 +478,7 @@ void Player::playerPhysics()
 		}
 	}
 	else { 
-		if (onPlatformID == -1) {
+		if (onPlatformID == -1) { // If not on platform
 			onPlatformID = Core::getMap()->checkCollisionWithPlatform((int)fXPos, (int)fYPos, getHitBoxX(), getHitBoxY());
 			if (onPlatformID >= 0) {
 				if (Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true) || Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
@@ -436,7 +496,7 @@ void Player::playerPhysics()
 			onPlatformID = Core::getMap()->checkCollisionWithPlatform((int)fXPos, (int)fYPos, getHitBoxX(), getHitBoxY());
 		}
 
-		if (onPlatformID >= 0) {
+		if (onPlatformID >= 0) { // If on platform
 			if (Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true) || Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
 				onPlatformID = -1;
 				resetJump();
@@ -485,27 +545,11 @@ void Player::updateXPos(int iD)
 	checkCollisionBot(iD, 0);
 	checkCollisionCenter(iD, 0);
 	fXPos += iD;
-
-	if (iD > 0) {
-		if (fXPos >= 416 && Core::getMap()->getMoveMap()) {
-			Core::getMap()->moveMap(-iD*3, 0);
-		}
-		else {
-			fXPos += iD;
-		}
-		updateXPos(iD - 1);
-		if (moveSpeed > 1 && jumpState == 0) --moveSpeed;
-	}
-	else {}
 }
 
 void Player::updateYPos(int iD)
 {
 	fYPos += iD;
-
-	if ((int)fYPos % 2 == 1) {
-		fYPos += 1;
-	}
 }
 
 void Player::moveAnimation()
@@ -531,6 +575,44 @@ void Player::setSquat(bool bSquat)
 	return;
 }
 
+int Player::getPowerLVL() {
+	return powerLVL;
+}
+
+void Player::setPowerLVL(int powerLVL) {
+	if (powerLVL <= 2) {
+		if (this->powerLVL < powerLVL) {
+			//CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMMEAT);
+			//setScore(getScore() + 1000);
+			//Core::getMap()->addPoints((int)(fXPos - Core::getMap()->getXPos() + getHitBoxX() / 2), (int)fYPos + 16, "1000", 8, 16);
+			inLevelAnimation = true;
+			inLevelAnimationFrameID = 0;
+			inLevelDownAnimationFrameID = 0;
+			inLevelDownAnimation = false;
+			this->powerLVL = powerLVL;
+		}
+		else if (this->powerLVL > 0) {
+			//CFG::getMusic()->PlayChunk(CFG::getMusic()->cSHRINK);
+			inLevelDownAnimation = true;
+			inLevelDownAnimationFrameID = 180;
+			inLevelAnimation = true;
+			inLevelAnimationFrameID = 0;
+			this->powerLVL = 0;
+			unKillAble = true;
+		}
+	}
+	else {
+		++iNumOfLives;
+		//Core::getMap()->addPoints((int)(fXPos - Core::getMap()->getXPos() + getHitBoxX() / 2), (int)fYPos + 16, "1UP", 10, 14);
+		//CFG::getMusic()->PlayChunk(CFG::getMusic()->cONEUP);
+	}
+}
+
+void Player::resetPowerLVL() {
+	this->powerLVL = 0;
+	this->iSpriteID = 1;
+}
+
 void Player::startRun()
 {
 	currentMaxMove = maxMove;
@@ -539,14 +621,6 @@ void Player::startRun()
 void Player::resetRun()
 {
 	return;
-}
-
-int Player::getHitBoxX() {
-	return powerLVL == 0 ? iSmallX : iBigX;
-}
-
-int Player::getHitBoxY() {
-	return powerLVL == 0 ? iSmallY : bSquat ? 44 : iBigY;
 }
 
 void Player::jump()
@@ -559,7 +633,7 @@ void Player::jump()
 void Player::startJump(int iH)
 {
 	currentJumpSpeed = startJumpSpeed;
-	jumpDistance = 32 * iH + 24.0f; 
+	jumpDistance = 32 * iH + 24.0f;
 	currentJumpDistance = 0;
 	
 	setMarioSpriteID(5); // mario_jump
@@ -575,6 +649,15 @@ void Player::resetJump()
 	nextFallFrameID = 0;
 	springJump = false;
 }
+
+int Player::getHitBoxX() {
+	return powerLVL == 0 ? iSmallX : iBigX;
+}
+
+int Player::getHitBoxY() {
+	return powerLVL == 0 ? iSmallY : bSquat ? 44 : iBigY;
+}
+
 
 void Player::setMarioSpriteID(int iID)
 {
@@ -613,7 +696,6 @@ void Player::startMove()
 }
 
 void Player::resetMove() {
-	--moveSpeed;
 	bMove = false;
 }
 

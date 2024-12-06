@@ -15,7 +15,7 @@ IMG::~IMG()
 
 void IMG::setIMG(std::string fileName, sf::RenderWindow& mainWindow) {
     fileName = "files/images/" + fileName + ".bmp";
-    
+
 	// Handle delete background magenta color
     sf::Image image;
     if (!image.loadFromFile(fileName)) {
@@ -38,7 +38,6 @@ void IMG::setIMG(std::string fileName, sf::RenderWindow& mainWindow) {
         std::cout << "Error creating texture from image: " << fileName << std::endl;
         return;
     }
-
     this->sIMG = new sf::Sprite(*this->tIMG);
 }
 
@@ -54,15 +53,11 @@ void IMG::draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset, bool bR
     if (bRotate) {
         sIMG->setScale(1.f, -1.f);
         sIMG->setRotation(180);
-		
     }
 	else {
 		sIMG->setScale(1, 1);
 		sIMG->setRotation(0);
 	}
-	//sIMG->setPosition(iXOffset, iYOffset);
-    sIMG->setPosition(static_cast<float>(iXOffset), static_cast<float>(iYOffset));
+	sIMG->setPosition(iXOffset, iYOffset);
     mainWindow.draw(*sIMG);
 }
-
-
