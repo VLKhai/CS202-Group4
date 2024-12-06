@@ -4,7 +4,7 @@
 
 class Block {
 public:
-    Block();
+    Block() = default;
     Block(int iBlockID, AniSprite* sSprite, bool bCollision, bool bDeath, bool bUse, bool bVisible);
     ~Block();
 

@@ -51,13 +51,11 @@ void Core::mainLoop()
 
 void Core::update()
 {
-	pMap->getPlayer()->update();
+	pMap->update();
 }
 
 void Core::draw()
 {
-	//CFG::getMM()->draw(mainWindow);
-	//pMap->draw(mainWindow);
 	mainWindow.clear(sf::Color::White);
     pMap->draw(mainWindow);
 	mainWindow.display();

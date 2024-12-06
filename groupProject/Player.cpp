@@ -5,25 +5,47 @@ Player::Player(sf::RenderWindow &window, float fXPos, float fYPos)
 {
 	this->fXPos = fXPos;
 	this->fYPos = fYPos;
+	this->iNumOfLives = 3;
+
 	this->iSpriteID = 1;
 
-	// ---<MOVE>---
+	this->iScore = this->iCoins = 0;
+	this->iFrameID = 0, this->iComboPoints = 1;
+
+	this->nextBubbleTime = 0;
+	this->nextFallFrameID = 0;
+
+	this->powerLVL = 0;
+	this->inLevelAnimation = false;
+	this->inLevelAnimationType = false;
+
+	this->unKillAble = false;
+	this->starEffect = false;
+	this->unKillAbleTimeFrameID = 0;
+
+	this->inLevelDownAnimation = false;
+	this->inLevelDownAnimationFrameID = 0;
+
 	this->moveDirection = true;
 	this->currentMaxMove = 4;
 	this->moveSpeed = 0;
 	this->bMove = false;
 	this->changeMoveDirection = false;
 	this->bSquat = false;
-	
+
 	this->onPlatformID = -1;
 
-	// ---<JUMP>---
+	this->springJump = false;
+
+	this->iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
+
 	this->jumpState = 0;
 	this->startJumpSpeed = 7.65f;
 	this->currentFallingSpeed = 2.7f;
 
-	// ---<STUFF>---
-	this->powerLVL = 0;
+	this->iMoveAnimationTime = 0;
+
+	this->nextFireBallFrameID = 8;
 
 	// LOAD SPRITE
 	std::vector<std::string> tempS;
@@ -366,10 +388,24 @@ void Player::movePlayer() {
 	}
 }
 
-bool Player::checkCollisionBot(int nX, int nY)
-{
-	if (nY >= 350) return true;
-	return false;
+// CLOSED
+bool Player::checkCollisionBot(int nX, int nY) { 
+	Vector2* vLT = getBlockLB(fXPos - Core::getMap()->getXPos() + nX, fYPos + nY);
+
+	if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
+		Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 1);
+	}
+
+	delete vLT;
+
+	vLT = getBlockRB(fXPos - Core::getMap()->getXPos() + nX, fYPos + nY);
+
+	if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
+		Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 1);
+	}
+
+	delete vLT;
+	return true;
 }
 
 bool Player::checkCollisionCenter(int nX, int nY)
@@ -377,9 +413,33 @@ bool Player::checkCollisionCenter(int nX, int nY)
 	return true;
 }
 
+Vector2* Player::getBlockLB(float nX, float nY) {
+	return Core::getMap()->getBlockID((int)nX + 1, (int)nY + getHitBoxY() + 2);
+}
+
+Vector2* Player::getBlockRB(float nX, float nY) {
+	return Core::getMap()->getBlockID((int)nX + getHitBoxX() - 1, (int)nY + getHitBoxY() + 2);
+}
+
+Vector2* Player::getBlockLC(float nX, float nY) {
+	return Core::getMap()->getBlockID((int)nX - 1, (int)nY + getHitBoxY() / 2);
+}
+
+Vector2* Player::getBlockRC(float nX, float nY) {
+	return Core::getMap()->getBlockID((int)nX + getHitBoxX() + 1, (int)nY + getHitBoxY() / 2);
+}
+
+Vector2* Player::getBlockLT(float nX, float nY) {
+	return Core::getMap()->getBlockID((int)nX + 1, (int)nY);
+}
+
+Vector2* Player::getBlockRT(float nX, float nY) {
+	return Core::getMap()->getBlockID((int)nX + getHitBoxX() - 1, (int)nY);
+}
+
 void Player::draw(sf::RenderWindow& window)
 {
-	sMario[getMarioSpriteID()]->getFrame()->draw(window, (int)fXPos, (int)fYPos + 0, !moveDirection);
+	sMario[getMarioSpriteID()]->getFrame()->draw(window, (int)fXPos, (int)fYPos, !moveDirection);
 }
 
 void Player::update()
@@ -397,7 +457,9 @@ void Player::update()
 
 void Player::playerPhysics()
 {
-	if (jumpState == 1) {
+	// 1: Jumping, 2: Falling, 0: On ground (jumpState)
+	// -1: on platform (onPlatformID)
+	if (jumpState == 1) { 
 		updateYPos(-int(currentJumpSpeed));
 		currentJumpDistance += (int)currentJumpSpeed;
 
@@ -418,12 +480,48 @@ void Player::playerPhysics()
 		}
 	}
 	else { 
-		if (onPlatformID >= 0) {}
-		else {
-			if (nextFallFrameID > 0) {
-				--nextFallFrameID;
+		
+		if (onPlatformID == -1) { // On ground
+			onPlatformID = Core::getMap()->checkCollisionWithPlatform((int)fXPos, (int)fYPos, getHitBoxX(), getHitBoxY());
+			if (onPlatformID >= 0) {
+				if (Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true)
+					|| Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
+					onPlatformID = -1;
+					resetJump();
+				}
+				else {
+					fYPos = (float)Core::getMap()->getPlatform(onPlatformID)->getYPos() - getHitBoxY();
+					resetJump();
+					Core::getMap()->getPlatform(onPlatformID)->turnON();
+				}
 			}
-			else if (!checkCollisionBot((int)fXPos, (int)fYPos)){
+		}
+		else {
+			onPlatformID = Core::getMap()->checkCollisionWithPlatform((int)fXPos, (int)fYPos, getHitBoxX(), getHitBoxY());
+		}
+
+		if (onPlatformID >= 0) { 
+			if (Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true) 
+				|| Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
+				onPlatformID = -1;
+				resetJump();
+			}
+			else {
+				fYPos += Core::getMap()->getPlatform(onPlatformID)->getMoveY();
+				Core::getMap()->getPlatform(onPlatformID)->moveY();
+				//if(moveSpeed == 0)
+				Core::getMap()->setXPos(Core::getMap()->getXPos() - Core::getMap()->getPlatform(onPlatformID)->getMoveX());
+
+				jumpState = 0;
+			}
+		}
+		else if (!Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true) &&
+			!Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
+
+			 if (nextFallFrameID > 0) {
+				--nextFallFrameID;
+			 }
+			 else {
 				currentFallingSpeed *= 1.05f;
 
 				if (currentFallingSpeed > startJumpSpeed) {
@@ -431,15 +529,18 @@ void Player::playerPhysics()
 				}
 
 				updateYPos((int)currentFallingSpeed);
-				jumpState = 2;
-				setMarioSpriteID(5);
-			}
-			else if (jumpState == 2) {
-				resetJump();
-				onPlatformID = -1;
-			}
-			else {}
+			 }
 
+
+			 jumpState = 2;
+
+			 setMarioSpriteID(5);
+		}
+		else if (jumpState == 2) { // Falling
+			resetJump();
+		}
+		else {
+			checkCollisionBot(0, 0);
 		}
 	}
 }
@@ -447,7 +548,7 @@ void Player::playerPhysics()
 void Player::updateXPos(int iD)
 {
 	checkCollisionBot(iD, 0);
-	checkCollisionCenter(iD, 0);
+	//checkCollisionCenter(iD, 0);
 	fXPos += iD;
 }
 
@@ -477,6 +578,44 @@ bool Player::getSquat()
 void Player::setSquat(bool bSquat)
 {
 	return;
+}
+
+int Player::getPowerLVL() {
+	return powerLVL;
+}
+
+void Player::setPowerLVL(int powerLVL) {
+	if (powerLVL <= 2) {
+		if (this->powerLVL < powerLVL) {
+			//CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMMEAT);
+			//setScore(getScore() + 1000);
+			//Core::getMap()->addPoints((int)(fXPos - Core::getMap()->getXPos() + getHitBoxX() / 2), (int)fYPos + 16, "1000", 8, 16);
+			inLevelAnimation = true;
+			inLevelAnimationFrameID = 0;
+			inLevelDownAnimationFrameID = 0;
+			inLevelDownAnimation = false;
+			this->powerLVL = powerLVL;
+		}
+		else if (this->powerLVL > 0) {
+			//CFG::getMusic()->PlayChunk(CFG::getMusic()->cSHRINK);
+			inLevelDownAnimation = true;
+			inLevelDownAnimationFrameID = 180;
+			inLevelAnimation = true;
+			inLevelAnimationFrameID = 0;
+			this->powerLVL = 0;
+			unKillAble = true;
+		}
+	}
+	else {
+		++iNumOfLives;
+		//Core::getMap()->addPoints((int)(fXPos - Core::getMap()->getXPos() + getHitBoxX() / 2), (int)fYPos + 16, "1UP", 10, 14);
+		//CFG::getMusic()->PlayChunk(CFG::getMusic()->cONEUP);
+	}
+}
+
+void Player::resetPowerLVL() {
+	this->powerLVL = 0;
+	this->iSpriteID = 1;
 }
 
 void Player::startRun()
@@ -516,6 +655,15 @@ void Player::resetJump()
 	springJump = false;
 }
 
+int Player::getHitBoxX() {
+	return powerLVL == 0 ? iSmallX : iBigX;
+}
+
+int Player::getHitBoxY() {
+	return powerLVL == 0 ? iSmallY : bSquat ? 44 : iBigY;
+}
+
+
 void Player::setMarioSpriteID(int iID)
 {
 	this->iSpriteID = iID + 11 * powerLVL;
@@ -547,7 +695,7 @@ void Player::startMove()
 	iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
 	moveSpeed = 1;
 	bMove = true;
-	/*if (CCore::getMap()->getUnderWater()) {
+	/*if (Core::getMap()->getUnderWater()) {
 		setMarioSpriteID(8);
 	}*/
 }

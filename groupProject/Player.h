@@ -1,50 +1,98 @@
 #pragma once
 #include <vector>
 #include "AniSprite.h"
+#include "Vector2.h"
 
 class Player {
 private:
-    std::vector<AniSprite*> sMario;
-    int iSpriteID;
-    unsigned int iMoveAnimationTime;
+	std::vector<AniSprite*> sMario;
+	int iSpriteID;
+	unsigned int iMoveAnimationTime;
 
-    float fXPos, fYPos;
-    int iComboPoints, iFrameID;
+	IMG* tMarioLVLUP;
 
-	// ---<LEVEL UP>---
-    int powerLVL;
-    bool inLevelAnimation;
-    bool inLevelAnimationType; // -- true = UP, false = DOWN
-    int inLevelAnimationFrameID;
+	float fXPos, fYPos;
+	int iNumOfLives;
 
-    // ---<MOVE>---
-    bool moveDirection;
-    bool bMove;
-    bool changeMoveDirection;
-    bool newMoveDirection;
-    static const int maxMove = 4;
-    int currentMaxMove;
-    int moveSpeed;
-    unsigned int iTimePassed;
-    bool bSquat;
+	bool unKillAble;
+	bool starEffect;
 
-    int onPlatformID;
+	int unKillAbleTimeFrameID;
+	int unKillAbleFrameID;
 
-	// ---<JUMP>---
-    int jumpState;
-    float startJumpSpeed;
-    float currentJumpSpeed;
-    float jumpDistance;
-    float currentJumpDistance;
-    float currentFallingSpeed;
+	bool inLevelDownAnimation;
+	int inLevelDownAnimationFrameID;
+
+	unsigned int iScore;
+	unsigned int iCoins;
+
+	int iComboPoints, iFrameID;
+
+	// ----- LVL UP
+
+	int powerLVL;
+	// -- LEVEL CHANGE ANIMATION
+	bool inLevelAnimation;
+	bool inLevelAnimationType; // -- true = UP, false = DOWN
+
+	int inLevelAnimationFrameID;
+
+	// ----- LVL UP
+	// ----- MOVE
+
+	bool moveDirection; // true = LEFT, false = RIGHT
+	bool bMove;
+	bool changeMoveDirection;
+	bool newMoveDirection;
+
+	static const int maxMove = 4;
+	int currentMaxMove;
+	int moveSpeed;
+	unsigned int iTimePassed;
+
+	bool bSquat;
+
+	int onPlatformID;
+
+	// ----- MOVE
+	// ----- JUMP
+
+	int jumpState;
+
+	float startJumpSpeed;
+	float currentJumpSpeed;
+	float jumpDistance;
+	float currentJumpDistance;
+
+	float currentFallingSpeed;
+
+	bool springJump;
+
+	// ----- JUMP
+	// ----- BUBBLE
+
+	unsigned int nextBubbleTime;
 	int nextFallFrameID;
-    bool springJump;
 
-    
-	// ---<METHODS>---
-    void movePlayer();
-    bool checkCollisionBot(int nX, int nY);
+	const static int iSmallX = 24, iSmallY = 32;
+	const static int iBigX = 32, iBigY = 64;
+
+	int nextFireBallFrameID;
+
+	// ----- Method
+	void movePlayer();
+
+	bool checkCollisionBot(int nX, int nY);
 	bool checkCollisionCenter(int nX, int nY);
+
+	Vector2* getBlockLB(float nX, float nY);
+	Vector2* getBlockRB(float nX, float nY);
+
+	Vector2* getBlockLC(float nX, float nY);
+	Vector2* getBlockRC(float nX, float nY);
+
+	Vector2* getBlockLT(float nX, float nY);
+	Vector2* getBlockRT(float nX, float nY);
 
 public:
     Player(sf::RenderWindow& window, float fXPos, float fYPos);
@@ -76,6 +124,11 @@ public:
     void jump();
     void startJump(int iHeight);
     void resetJump();   
+
+
+	// --<HIT BOX>--
+    int getHitBoxX();
+    int getHitBoxY();
     
 
     // --<GET & SET>--
@@ -88,4 +141,8 @@ public:
 
     bool getSquat();
     void setSquat(bool bSquat);
+
+    int getPowerLVL();
+    void setPowerLVL(int powerLVL);
+    void resetPowerLVL();
 };

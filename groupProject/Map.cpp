@@ -21,7 +21,7 @@ Map::Map(sf::RenderWindow& mainWindow)
 	this->iFrameID = 0;
 
 	//this->bTP = false;
-	player = new Player(mainWindow, 84, 350);
+	player = new Player(mainWindow, 84, 368);
 	pEvent = nullptr;
 
 	srand((unsigned)time(NULL));
@@ -34,7 +34,21 @@ void Map::update()
 {
 	updateGifBlocks();
 	updatePlayer();
-	// Loop: platform->update();
+
+	for (unsigned int i = 0; i < vPlatform.size(); i++) {
+		vPlatform[i]->update();
+	}
+
+	// Update Block Debris
+	for (unsigned int i = 0; i < lBlockDebris.size(); i++) {
+		if (lBlockDebris[i]->getDebrisState() != -1) {
+			lBlockDebris[i]->update();
+		}
+		else {
+			delete lBlockDebris[i];
+			lBlockDebris.erase(lBlockDebris.begin() + i);
+		}
+	}
 }
 
 void Map::updateGifBlocks()
@@ -53,7 +67,7 @@ void Map::updateGifBlocks()
 
 void Map::updatePlayer()
 {
-
+	player->update();
 }
 
 void Map::draw(sf::RenderWindow& mainWindow)
@@ -79,7 +93,7 @@ void Map::draw(sf::RenderWindow& mainWindow)
 	}
 
 	/*for (unsigned int i = 0; i < vLevelText.size(); i++) {
-		CCFG::getText()->Draw(rR, vLevelText[i]->getText(), vLevelText[i]->getXPos() + (int)fXPos, vLevelText[i]->getYPos());
+		CFG::getText()->Draw(rR, vLevelText[i]->getText(), vLevelText[i]->getXPos() + (int)fXPos, vLevelText[i]->getYPos());
 	}*/
 
 	/*for (unsigned int i = 0; i < lBubble.size(); i++) {
@@ -112,6 +126,174 @@ void Map::drawMap(sf::RenderWindow& mainWindow)
 	/*if (oFlag != NULL) {
 		oFlag->Draw(rR, vBlock[oFlag->iBlockID]->getSprite()->getTexture());
 	}*/
+}
+
+// POS 0 = TOP, 1 = BOT
+bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
+	if (POS == 0) {
+		switch (iBlockID) {
+		case 8: case 55: // ----- BlockQ
+			if (lMap[nX][nY]->getSpawnMushroom()) {
+				/*if (lMap[nX][nY]->getPowerUP()) {
+					if (player->getPowerLVL() == 0) {
+						lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, true, nX, nY));
+					}
+					else {
+						lMinion[getListID(32 * nX)].push_back(new Flower(32 * nX, CFG::GameHeight - 16 - 32 * nY, nX, nY));
+					}
+				}
+				else {
+					lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, false, nX, nY));
+				}
+				CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);*/
+			}
+			else {
+				//lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
+				//player->setScore(player->getScore() + 200);
+				//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
+				//player->setCoins(player->getCoins() + 1);
+			}
+
+			if (lMap[nX][nY]->getNumOfUse() > 1) {
+				lMap[nX][nY]->setNumOfUse(lMap[nX][nY]->getNumOfUse() - 1);
+			}
+			else {
+				lMap[nX][nY]->setNumOfUse(0);
+				lMap[nX][nY]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 9 : iLevelType == 1 ? 56 : 56);
+			}
+
+			lMap[nX][nY]->startBlockAnimation();
+			//checkCollisionOnTopOfTheBlock(nX, nY);
+			break;
+		case 13: case 28: case 81: // ----- Brick
+			if (lMap[nX][nY]->getSpawnStar()) {
+				lMap[nX][nY]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 9 : iLevelType == 1 ? 56 : 80);
+				//lMinion[getListID(32 * nX)].push_back(new Star(32 * nX, CFG::GameHeight - 16 - 32 * nY, nX, nY));
+				lMap[nX][nY]->startBlockAnimation();
+				//CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);
+			}
+			else if (lMap[nX][nY]->getSpawnMushroom()) {
+				lMap[nX][nY]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 9 : iLevelType == 1 ? 56 : 80);
+				/*if (lMap[nX][nY]->getPowerUP()) {
+					if (player->getPowerLVL() == 0) {
+						lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, true, nX, nY));
+					}
+					else {
+						lMinion[getListID(32 * nX)].push_back(new Flower(32 * nX, CFG::GameHeight - 16 - 32 * nY, nX, nY));
+					}
+				}
+				else {
+					lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, false, nX, nY));
+				}*/
+				lMap[nX][nY]->startBlockAnimation();
+				//CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);
+			}
+			else if (lMap[nX][nY]->getNumOfUse() > 0) {
+				/*lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
+				player->setScore(player->getScore() + 200);
+				player->setCoins(player->getCoins() + 1);*/
+
+				lMap[nX][nY]->setNumOfUse(lMap[nX][nY]->getNumOfUse() - 1);
+				if (lMap[nX][nY]->getNumOfUse() == 0) {
+					lMap[nX][nY]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 9 : iLevelType == 1 ? 56 : 80);
+				}
+
+				//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
+
+				lMap[nX][nY]->startBlockAnimation();
+			}
+			else {
+				if (player->getPowerLVL() > 0) {
+					lMap[nX][nY]->setBlockID(0);
+					lBlockDebris.push_back(new BlockDebris(nX * 32, CFG::GameHeight - 48 - nY * 32));
+					//CFG::getMusic()->PlayChunk(CFG::getMusic()->cBLOCKBREAK);
+				}
+				else {
+					lMap[nX][nY]->startBlockAnimation();
+					//CFG::getMusic()->PlayChunk(CFG::getMusic()->cBLOCKHIT);
+				}
+			}
+
+			checkCollisionOnTopOfTheBlock(nX, nY);
+			break;
+		case 24: // ----- BlockQ2
+			if (lMap[nX][nY]->getSpawnMushroom()) {
+				/*if (lMap[nX][nY]->getPowerUP()) {
+					if (player->getPowerLVL() == 0) {
+						lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, true, nX, nY));
+					}
+					else {
+						lMinion[getListID(32 * nX)].push_back(new Flower(32 * nX, CFG::GameHeight - 16 - 32 * nY, nX, nY));
+					}
+				}
+				else {
+					lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, false, nX, nY));
+				}
+				CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);*/
+			}
+			else {
+				/*lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
+				player->setCoins(player->getCoins() + 1);
+				player->setScore(player->getScore() + 200);
+				CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);*/
+
+				lMap[nX][nY]->startBlockAnimation();
+			}
+
+			lMap[nX][nY]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 9 : iLevelType == 1 ? 56 : 80);
+			checkCollisionOnTopOfTheBlock(nX, nY);
+			break;
+		case 128: case 129:
+			//spawnVine(nX, nY, iBlockID);
+			lMap[nX][nY]->setBlockID(iBlockID == 128 ? 9 : 56);
+			lMap[nX][nY]->startBlockAnimation();
+			break;
+		default:
+			break;
+		}
+	}
+	//else if (POS == 1) {
+	//	switch (iBlockID) {
+	//	case 21: case 23: case 31: case 33: case 98: case 100: case 113: case 115: case 137: case 139: case 177: case 179: // Pipe
+	//		pipeUse();
+	//		break;
+	//	case 40: case 41: case 123: case 124: case 182: // End
+	//		EndUse();
+	//		break;
+	//	case 82:
+	//		EndBoss();
+	//		break;
+	//	default:
+	//		break;
+	//	}
+	//}
+
+	switch (iBlockID) {
+	case 29: case 71: case 72: case 73:// COIN
+		lMap[nX][nY]->setBlockID(iLevelType == 2 ? 94 : 0);
+		//player->addCoin();
+		//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
+		return false;
+		break;
+		//case 36: case 38: case 60: case 62: case 103: case 105: case 118: case 120: // Pipe
+		//	pipeUse();
+		//	break;
+		//case 127: // BONUS END
+		//	EndBonus();
+		//	break;
+		//case 169:
+		//	TPUse();
+		//	break;
+		//case 170:
+		//	TPUse2();
+		//	break;
+		//case 171:
+		//	TPUse3();
+		//	break;
+	default:
+		break;
+	}
+	return true;
 }
 
 void Map::loadLVL()
@@ -211,6 +393,107 @@ void Map::structGND2(int X, int Y, int iWidth, int iHeight)
 	}
 }
 
+void Map::structBrick(int X, int Y, int iWidth, int iHeight)
+{
+	for (int i = 0; i < iWidth; i++) {
+		for (int j = 0; j < iHeight; j++) {
+			lMap[X + i][Y + j]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 13 : iLevelType == 3 ? 81 : 28);
+		}
+	}
+}
+
+void Map::struckBlockQ(int X, int Y, int iWidth)
+{
+	for (int i = 0; i < iWidth; i++) {
+		lMap[X + i][Y]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 8 : 55);
+	}
+}
+
+void Map::struckBlockQ2(int X, int Y, int iWidth)
+{
+	for (int i = 0; i < iWidth; i++) {
+		lMap[X + i][Y]->setBlockID(24);
+	}
+}
+
+bool Map::checkCollision(Vector2* nV, bool checkVisible) {
+	bool output = vBlock[lMap[nV->getX()][nV->getY()]->getBlockID()]->getCollision() // Check if the block is collidable
+		&& (checkVisible ? vBlock[lMap[nV->getX()][nV->getY()]->getBlockID()]->getVisible() : true);
+	delete nV;
+	return output;
+}
+
+bool Map::checkCollisionLB(int nX, int nY, int nHitBoxY, bool checkVisible) {
+	return checkCollision(getBlockID(nX, nY + nHitBoxY), checkVisible);
+}
+
+bool Map::checkCollisionLT(int nX, int nY, bool checkVisible) {
+	return checkCollision(getBlockID(nX, nY), checkVisible);
+}
+
+bool Map::checkCollisionLC(int nX, int nY, int nHitBoxY, bool checkVisible) {
+	return checkCollision(getBlockID(nX, nY + nHitBoxY), checkVisible);
+}
+
+bool Map::checkCollisionRC(int nX, int nY, int nHitBoxX, int nHitBoxY, bool checkVisible) {
+	return checkCollision(getBlockID(nX + nHitBoxX, nY + nHitBoxY), checkVisible);
+}
+
+bool Map::checkCollisionRB(int nX, int nY, int nHitBoxX, int nHitBoxY, bool checkVisible) {
+	return checkCollision(getBlockID(nX + nHitBoxX, nY + nHitBoxY), checkVisible);
+}
+
+bool Map::checkCollisionRT(int nX, int nY, int nHitBoxX, bool checkVisible) {
+	return checkCollision(getBlockID(nX + nHitBoxX, nY), checkVisible);
+}
+
+int Map::checkCollisionWithPlatform(int nX, int nY, int iHitBoxX, int iHitBoxY) {
+	for (unsigned int i = 0; i < vPlatform.size(); i++) {
+		if (-fXPos + nX + iHitBoxX >= vPlatform[i]->getXPos() && -fXPos + nX <= vPlatform[i]->getXPos() + vPlatform[i]->getSize() * 16) {
+			if (nY + iHitBoxY >= vPlatform[i]->getYPos() && nY + iHitBoxY <= vPlatform[i]->getYPos() + 16) {
+				return i;
+			}
+		}
+	}
+	return -1;
+}
+
+Vector2* Map::getBlockID(int nX, int nY) { // Return the block ID of the block at the given position x, y
+	return new Vector2((int)(nX < 0 ? 0 : nX) / 32, (int)(nY > CFG::GameHeight - 16 ? 0 : (CFG::GameHeight - 16 - nY + 32) / 32));
+}
+
+int Map::getBlockIDX(int nX) {
+	return (int)(nX < 0 ? 0 : nX) / 32;
+}
+
+int Map::getBlockIDY(int nY) {
+	return (int)(nY > CFG::GameHeight - 16 ? 0 : (CFG::GameHeight - 16 - nY + 32) / 32);
+}
+
+void Map::checkCollisionOnTopOfTheBlock(int nX, int nY)
+{
+	switch (lMap[nX][nY + 1]->getBlockID()) {
+	case 29: case 71: case 72: case 73:// COIN
+		lMap[nX][nY + 1]->setBlockID(0);
+		//lCoin.push_back(new Coin(nX * 32 + 7, CCFG::GAME_HEIGHT - nY * 32 - 48));
+		//CCFG::getMusic()->PlayChunk(CCFG::getMusic()->cCOIN);
+		//oPlayer->setCoins(oPlayer->getCoins() + 1);
+		return;
+		break;
+	}
+
+	//for (int i = (nX - nX % 5) / 5, iEnd = i + 3; i < iEnd && i < iMinionListSize; i++) {
+	//	for (unsigned int j = 0; j < lMinion[i].size(); j++) {
+	//		if (!lMinion[i][j]->collisionOnlyWithPlayer && lMinion[i][j]->getMinionState() >= 0 && ((lMinion[i][j]->getXPos() >= nX * 32 && lMinion[i][j]->getXPos() <= nX * 32 + 32) || (lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX >= nX * 32 && lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX <= nX * 32 + 32))) {
+	//			if (lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= CCFG::GAME_HEIGHT - 24 - nY * 32 && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY <= CCFG::GAME_HEIGHT - nY * 32 + 16) {
+	//				lMinion[i][j]->moveDirection = !lMinion[i][j]->moveDirection;
+	//				lMinion[i][j]->setMinionState(-2);
+	//			}
+	//		}
+	//	}
+	//}
+}
+
 float Map::getXPos()
 {
 	return fXPos;
@@ -271,6 +554,10 @@ Platform* Map::getPlatform(int iID)
 Block* Map::getBlock(int iID)
 {
 	return vBlock[iID];
+}
+
+Tile* Map::getMapBlock(int iX, int iY) {
+	return lMap[iX][iY];
 }
 
 void Map::loadGameData(sf::RenderWindow& mainWindow)
@@ -2003,63 +2290,63 @@ void Map::loadLVL_1_1()
 
 
 	// ----- BRICK -----
-	//struckBlockQ(16, 5, 1);
-	//structBrick(20, 5, 1, 1);
-	//struckBlockQ(21, 5, 1);
-	//lMap[21][5]->setSpawnMushroom(true);
-	//structBrick(22, 5, 1, 1);
-	//struckBlockQ(22, 9, 1);
-	//struckBlockQ(23, 5, 1);
-	//structBrick(24, 5, 1, 1);
+	struckBlockQ(16, 5, 1);
+	structBrick(20, 5, 1, 1);
+	struckBlockQ(21, 5, 1);
+	lMap[21][5]->setSpawnMushroom(true);
+	structBrick(22, 5, 1, 1);
+	struckBlockQ(22, 9, 1);
+	struckBlockQ(23, 5, 1);
+	structBrick(24, 5, 1, 1);
 
-	//struckBlockQ2(64, 6, 1);
-	//lMap[64][6]->setSpawnMushroom(true);
-	//lMap[64][6]->setPowerUP(false);
+	struckBlockQ2(64, 6, 1);
+	lMap[64][6]->setSpawnMushroom(true);
+	lMap[64][6]->setPowerUP(false);
 
-	//structBrick(77, 5, 1, 1);
-	//struckBlockQ(78, 5, 1);
-	//lMap[78][5]->setSpawnMushroom(true);
-	//structBrick(79, 5, 1, 1);
+	structBrick(77, 5, 1, 1);
+	struckBlockQ(78, 5, 1);
+	lMap[78][5]->setSpawnMushroom(true);
+	structBrick(79, 5, 1, 1);
 
-	//structBrick(80, 9, 8, 1);
-	//structBrick(91, 9, 3, 1);
-	//struckBlockQ(94, 9, 1);
-	//structBrick(94, 5, 1, 1);
-	//lMap[94][5]->setNumOfUse(4);
+	structBrick(80, 9, 8, 1);
+	structBrick(91, 9, 3, 1);
+	struckBlockQ(94, 9, 1);
+	structBrick(94, 5, 1, 1);
+	lMap[94][5]->setNumOfUse(4);
 
-	//structBrick(100, 5, 2, 1);
+	structBrick(100, 5, 2, 1);
 
-	//struckBlockQ(106, 5, 1);
-	//struckBlockQ(109, 5, 1);
-	//struckBlockQ(109, 9, 1);
-	//lMap[109][9]->setSpawnMushroom(true);
-	//struckBlockQ(112, 5, 1);
+	struckBlockQ(106, 5, 1);
+	struckBlockQ(109, 5, 1);
+	struckBlockQ(109, 9, 1);
+	lMap[109][9]->setSpawnMushroom(true);
+	struckBlockQ(112, 5, 1);
 
-	//structBrick(118, 5, 1, 1);
+	structBrick(118, 5, 1, 1);
 
-	//structBrick(121, 9, 3, 1);
+	structBrick(121, 9, 3, 1);
 
-	//structBrick(128, 9, 1, 1);
-	//struckBlockQ(129, 9, 2);
-	//structBrick(131, 9, 1, 1);
+	structBrick(128, 9, 1, 1);
+	struckBlockQ(129, 9, 2);
+	structBrick(131, 9, 1, 1);
 
-	//structBrick(129, 5, 2, 1);
+	structBrick(129, 5, 2, 1);
 
-	//structBrick(168, 5, 2, 1);
-	//struckBlockQ(170, 5, 1);
-	//structBrick(171, 5, 1, 1);
+	structBrick(168, 5, 2, 1);
+	struckBlockQ(170, 5, 1);
+	structBrick(171, 5, 1, 1);
 
-	//lMap[101][5]->setSpawnStar(true);
+	lMap[101][5]->setSpawnStar(true);
 
 	// ----- MAP 1_1_2 -----
 
 	this->iLevelType = 1;
 
-	//structGND(240, 0, 17, 2);
+	structGND(240, 0, 17, 2);
 
-	/*structBrick(240, 2, 1, 11);
+	structBrick(240, 2, 1, 11);
 	structBrick(244, 2, 7, 3);
-	structBrick(244, 12, 7, 1);*/
+	structBrick(244, 12, 7, 1);
 
 	// ----- END LEVEL
 

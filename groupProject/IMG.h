@@ -7,7 +7,7 @@ class IMG {
 private:
     sf::Texture *tIMG;
     sf::Sprite *sIMG;
-    //sf::FloatRect bounds;
+
 public:
     IMG() = default;
     ~IMG(); 
@@ -15,4 +15,5 @@ public:
     void setIMG(std::string fileName, sf::RenderWindow &mainWindow);
     void draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset);
     void draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset, bool bRotate);
+    void drawBoundingBox(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset);
 };
