@@ -80,6 +80,8 @@ public:
 	// Load resources
 	void loadLVL();
 
+	void moveMap(int nX, int nY);
+
 	// Structure object
 	void structBush(int X, int Y, int iSze);
 	void structGrass(int X, int Y, int iSize);
@@ -123,6 +125,9 @@ public:
 
 	int getCurrentLevelID();
 	void setCurrentLevelID(int iID);
+
+	bool getMoveMap();
+	void setMoveMap(bool bMoveMap);
 
 	Player* getPlayer();
 	Platform* getPlatform(int iID);

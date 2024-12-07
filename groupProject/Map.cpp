@@ -305,6 +305,17 @@ void Map::loadLVL()
 	}
 }
 
+void Map::moveMap(int nX, int nY)
+{
+	if (fXPos + nX > 0) {
+		player->updateXPos((int)(nX - fXPos));
+		fXPos = 0;
+	}
+	else {
+		this->fXPos += nX;
+	}
+}
+
 void Map::structBush(int X, int Y, int iSize)
 {
 	// ----- LEFT & RIGHT
@@ -539,6 +550,16 @@ void Map::setCurrentLevelID(int currentLevelID)
 	}
 
 	this->currentLevelID = currentLevelID;
+}
+
+bool Map::getMoveMap()
+{
+	return bMoveMap;
+}
+
+void Map::setMoveMap(bool bMoveMap)
+{
+	this->bMoveMap = bMoveMap;
 }
 
 Player* Map::getPlayer()

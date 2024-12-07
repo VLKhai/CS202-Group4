@@ -103,12 +103,12 @@ public:
 
     void playerPhysics();
 
-	void updateXPos(int iD); // iD: displacement
-	void updateYPos(int iD); // iD: displacement
+	void updateXPos(int iN); // iD: displacement
+	void updateYPos(int iN); // iD: displacement
 
     // --<MOVE>--
     void moveAnimation();
-	void swimingAnimation();
+	//void swimingAnimation();
 
 	void startMove();
 	void resetMove();

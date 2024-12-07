@@ -22,14 +22,14 @@ void IMG::setIMG(std::string fileName, sf::RenderWindow& mainWindow) {
         return;
     }
     // Set magenta (255, 0, 255) to be transparent
-    sf::Color transparentColor = sf::Color(255, 0, 255);
-    for (unsigned int x = 0; x < image.getSize().x; ++x) {
-        for (unsigned int y = 0; y < image.getSize().y; ++y) {
-            if (image.getPixel(x, y) == transparentColor) {
-                image.setPixel(x, y, sf::Color(0, 0, 0, 0)); // Set to transparent
-            }
-        }
-    }
+    //sf::Color transparentColor = sf::Color(255, 0, 255);
+    //for (unsigned int x = 0; x < image.getSize().x; ++x) {
+    //    for (unsigned int y = 0; y < image.getSize().y; ++y) {
+    //        if (image.getPixel(x, y) == transparentColor) {
+    //            image.setPixel(x, y, sf::Color(0, 0, 0, 0)); // Set to transparent
+    //        }
+    //    }
+    //}
 
 	// Load image to texture
     this->tIMG = new sf::Texture();
@@ -44,6 +44,7 @@ void IMG::draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset)
 {
 	sIMG->setPosition(iXOffset, iYOffset);
     mainWindow.draw(*sIMG);
+	//drawBoundingBox(mainWindow, iXOffset, iYOffset);
 }
 
 void IMG::draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset, bool bRotate)
@@ -52,15 +53,16 @@ void IMG::draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset, bool bR
     if (!bRotate) {
         sIMG->setPosition(iXOffset, iYOffset);
         mainWindow.draw(*sIMG);
-	    drawBoundingBox(mainWindow, iXOffset, iYOffset);
+	    //drawBoundingBox(mainWindow, iXOffset, iYOffset);
         return;
         
     }
     sIMG->setScale(-1.f, 1.f);
 	sIMG->setPosition(iXOffset + sIMG->getGlobalBounds().width, iYOffset);
 	mainWindow.draw(*sIMG);
-	drawBoundingBox(mainWindow, iXOffset, iYOffset);
     sIMG->setScale(1, 1);
+	//drawBoundingBox(mainWindow, iXOffset, iYOffset);
+    
 }
 
 void IMG::drawBoundingBox(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset) {
