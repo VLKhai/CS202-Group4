@@ -796,6 +796,10 @@ bool Player::getSquat()
 	return bSquat;
 }
 
+bool Player::getStarEffect() {
+	return starEffect;
+}
+
 void Player::setSquat(bool bSquat)
 {
 	return;
@@ -950,4 +954,18 @@ void Player::setChangeMoveDirection()
 	this->newMoveDirection = !moveDirection;
 }
 
+int Player::getXPos() {
+	return (int)fXPos;
+}
 
+void Player::setXPos(float fXPos) {
+	this->fXPos = fXPos;
+}
+
+int Player::getYPos() {
+	return (int)fYPos;
+}
+
+void Player::setYPos(float fYPos) {
+	this->fYPos = fYPos;
+}

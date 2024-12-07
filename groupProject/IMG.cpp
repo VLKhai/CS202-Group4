@@ -65,6 +65,14 @@ void IMG::draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset, bool bR
     
 }
 
+void IMG::drawVert(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset) {
+    if (!tIMG) return; // Ensure the texture is valid
+    sIMG->setScale(-1.f, 1.f);
+    sIMG->setPosition(iXOffset + sIMG->getGlobalBounds().width, iYOffset);
+    mainWindow.draw(*sIMG);
+    sIMG->setScale(1, 1);
+}
+
 void IMG::drawBoundingBox(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset) {
     sf::FloatRect bounds = sIMG->getGlobalBounds();
     sf::RectangleShape boundingBox(sf::Vector2f(bounds.width, bounds.height));

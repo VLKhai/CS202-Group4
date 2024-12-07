@@ -15,5 +15,6 @@ public:
     void setIMG(std::string fileName, sf::RenderWindow &mainWindow);
     void draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset);
     void draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset, bool bRotate);
+    void drawVert(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset);
     void drawBoundingBox(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset);
 };

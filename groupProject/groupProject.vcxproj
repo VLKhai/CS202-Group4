@@ -25,9 +25,11 @@
     <ClCompile Include="CFG.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event.cpp" />
+    <ClCompile Include="Goombas.cpp" />
     <ClCompile Include="IMG.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Minion.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -40,8 +42,11 @@
     <ClInclude Include="CFG.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="Goombas.h" />
     <ClInclude Include="IMG.h" />
+    <ClInclude Include="Koppa.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Minion.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />

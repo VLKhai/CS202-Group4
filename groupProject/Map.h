@@ -11,6 +11,8 @@
 #include "BlockDebris.h"
 #include "Platform.h"
 #include "Tile.h"
+#include "Minion.h"
+#include "Goombas.h"
 
 class Map {
 private:
@@ -52,9 +54,14 @@ private:
 
     Player* player;
 
+	// ----- MINIONS -----
+	std::vector<std::vector<Minion*>> lMinion;
+	int iMinionListSize;
+
     // ----Load----
     void loadGameData(sf::RenderWindow& mainWindow);
 	void loadLVL_1_1();
+	void loadMinionsLVL_1_1();
 
 	void createMap();
 
@@ -63,6 +70,7 @@ private:
 
 	void clearMap();
 	void clearMinions();
+	void clearPlatforms();
 public:
 	Map() = default;
     Map(sf::RenderWindow& mainWindow);
@@ -70,9 +78,16 @@ public:
     void update();
 	void updateGifBlocks();
 	void updatePlayer();
+	void updateMinionBlocks();
+	void updateMinions();
+	void updateMinionsCollisions();
 
 	void draw(sf::RenderWindow& mainWindow);
 	void drawMap(sf::RenderWindow& mainWindow);
+	void DrawMinions(sf::RenderWindow& mainWindow);
+
+	//Add minions
+	void addGoombas(int iX, int iY, bool moveDirection);
 
 	// Block Interaction
 	bool blockUse(int nX, int nY, int iBlockID, int POS);
@@ -128,6 +143,8 @@ public:
 
 	bool getMoveMap();
 	void setMoveMap(bool bMoveMap);
+
+	int getListID(int nX);
 
 	Player* getPlayer();
 	Platform* getPlatform(int iID);

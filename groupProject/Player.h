@@ -142,6 +142,13 @@ public:
     bool getSquat();
     void setSquat(bool bSquat);
 
+	bool getStarEffect();
+
+	int getXPos();
+	void setXPos(float fXPos);
+	int getYPos();
+	void setYPos(float fYPos);
+
     int getPowerLVL();
     void setPowerLVL(int powerLVL);
     void resetPowerLVL();

@@ -21,7 +21,7 @@ Map::Map(sf::RenderWindow& mainWindow)
 	this->iFrameID = 0;
 
 	//this->bTP = false;
-	player = new Player(mainWindow, 84, 368);
+	player = new Player(mainWindow, 84, 480);
 	pEvent = nullptr;
 
 	srand((unsigned)time(NULL));
@@ -34,6 +34,9 @@ void Map::update()
 {
 	updateGifBlocks();
 	updatePlayer();
+	updateMinionBlocks();
+	updateMinions();
+	updateMinionsCollisions();
 
 	for (unsigned int i = 0; i < vPlatform.size(); i++) {
 		vPlatform[i]->update();
@@ -70,6 +73,224 @@ void Map::updatePlayer()
 	player->update();
 }
 
+void Map::updateMinionBlocks() {
+	vMinion[0]->getAniSprite()->update();
+	vMinion[4]->getAniSprite()->update();
+	vMinion[6]->getAniSprite()->update();
+	vMinion[7]->getAniSprite()->update();
+	vMinion[8]->getAniSprite()->update();
+	vMinion[10]->getAniSprite()->update();
+	vMinion[12]->getAniSprite()->update();
+	vMinion[14]->getAniSprite()->update();
+	vMinion[15]->getAniSprite()->update();
+	vMinion[17]->getAniSprite()->update();
+	vMinion[18]->getAniSprite()->update();
+	vMinion[19]->getAniSprite()->update();
+	vMinion[20]->getAniSprite()->update();
+	vMinion[21]->getAniSprite()->update();
+	vMinion[22]->getAniSprite()->update();
+	vMinion[23]->getAniSprite()->update();
+	vMinion[24]->getAniSprite()->update();
+	vMinion[30]->getAniSprite()->update();
+	vMinion[31]->getAniSprite()->update();
+	vMinion[43]->getAniSprite()->update();
+	vMinion[44]->getAniSprite()->update();
+	vMinion[45]->getAniSprite()->update();
+	vMinion[46]->getAniSprite()->update();
+	vMinion[47]->getAniSprite()->update();
+	vMinion[48]->getAniSprite()->update();
+	vMinion[51]->getAniSprite()->update();
+	vMinion[52]->getAniSprite()->update();
+	vMinion[53]->getAniSprite()->update();
+	vMinion[55]->getAniSprite()->update();
+	vMinion[57]->getAniSprite()->update();
+	vMinion[62]->getAniSprite()->update();
+}
+
+void Map::updateMinions() {
+	for (int i = 0; i < iMinionListSize; i++) {
+		for (int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
+			if (lMinion[i][j]->updateMinion()) {
+				lMinion[i][j]->Update();
+			}
+		}
+	}
+
+	// ----- UPDATE MINION LIST ID
+	for (int i = 0; i < iMinionListSize; i++) {
+		for (int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
+			if (lMinion[i][j]->minionSpawned) {
+				if (lMinion[i][j]->minionState == -1) {
+					delete lMinion[i][j];
+					lMinion[i].erase(lMinion[i].begin() + j);
+					jSize = lMinion[i].size();
+					continue;
+				}
+
+				if (floor(lMinion[i][j]->fXPos / 160) != i) {
+					lMinion[(int)floor((int)lMinion[i][j]->fXPos / 160)].push_back(lMinion[i][j]);
+					lMinion[i].erase(lMinion[i].begin() + j);
+					jSize = lMinion[i].size();
+				}
+			}
+		}
+	}
+
+	/*for (unsigned int i = 0; i < lBubble.size(); i++) {
+		lBubble[i]->Update();
+
+		if (lBubble[i]->getDestroy()) {
+			delete lBubble[i];
+			lBubble.erase(lBubble.begin() + i);
+		}
+	}*/
+}
+
+void Map::updateMinionsCollisions() {
+	// ----- COLLISIONS
+	for (int i = 0; i < iMinionListSize; i++) {
+		for (unsigned int j = 0; j < lMinion[i].size(); j++) {
+			if (!lMinion[i][j]->collisionOnlyWithPlayer /*&& lMinion[i][j]->minionSpawned*/ && lMinion[i][j]->deadTime < 0) {
+				// ----- WITH MINIONS IN SAME LIST
+				for (unsigned int k = j + 1; k < lMinion[i].size(); k++) {
+					if (!lMinion[i][k]->collisionOnlyWithPlayer /*&& lMinion[i][k]->minionSpawned*/ && lMinion[i][k]->deadTime < 0) {
+						if (lMinion[i][j]->getXPos() < lMinion[i][k]->getXPos()) {
+							if (lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX >= lMinion[i][k]->getXPos() && lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX <= lMinion[i][k]->getXPos() + lMinion[i][k]->iHitBoxX && ((lMinion[i][j]->getYPos() <= lMinion[i][k]->getYPos() + lMinion[i][k]->iHitBoxY && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= lMinion[i][k]->getYPos() + lMinion[i][k]->iHitBoxY) || (lMinion[i][k]->getYPos() <= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY && lMinion[i][k]->getYPos() + lMinion[i][k]->iHitBoxY >= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY))) {
+								if (lMinion[i][j]->killOtherUnits && lMinion[i][j]->moveSpeed > 0 && lMinion[i][k]->minionSpawned) {
+									lMinion[i][k]->setMinionState(-2);
+									lMinion[i][j]->collisionWithAnotherUnit();
+								}
+
+								if (lMinion[i][k]->killOtherUnits && lMinion[i][k]->moveSpeed > 0 && lMinion[i][j]->minionSpawned) {
+									lMinion[i][j]->setMinionState(-2);
+									lMinion[i][k]->collisionWithAnotherUnit();
+								}
+
+								if (lMinion[i][j]->getYPos() - 4 <= lMinion[i][k]->getYPos() + lMinion[i][k]->iHitBoxY && lMinion[i][j]->getYPos() + 4 >= lMinion[i][k]->getYPos() + lMinion[i][k]->iHitBoxY) {
+									lMinion[i][k]->onAnotherMinion = true;
+								}
+								else if (lMinion[i][k]->getYPos() - 4 <= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY && lMinion[i][k]->getYPos() + 4 >= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY) {
+									lMinion[i][j]->onAnotherMinion = true;
+								}
+								else {
+									lMinion[i][j]->collisionEffect();
+									lMinion[i][k]->collisionEffect();
+								}
+							}
+						}
+						else {
+							if (lMinion[i][k]->getXPos() + lMinion[i][k]->iHitBoxX >= lMinion[i][j]->getXPos() && lMinion[i][k]->getXPos() + lMinion[i][k]->iHitBoxX <= lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX && ((lMinion[i][j]->getYPos() <= lMinion[i][k]->getYPos() + lMinion[i][k]->iHitBoxY && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= lMinion[i][k]->getYPos() + lMinion[i][k]->iHitBoxY) || (lMinion[i][k]->getYPos() <= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY && lMinion[i][k]->getYPos() + lMinion[i][k]->iHitBoxY >= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY))) {
+								if (lMinion[i][j]->killOtherUnits && lMinion[i][j]->moveSpeed > 0 && lMinion[i][k]->minionSpawned) {
+									lMinion[i][k]->setMinionState(-2);
+									lMinion[i][j]->collisionWithAnotherUnit();
+								}
+
+								if (lMinion[i][k]->killOtherUnits && lMinion[i][k]->moveSpeed > 0 && lMinion[i][j]->minionSpawned) {
+									lMinion[i][j]->setMinionState(-2);
+									lMinion[i][k]->collisionWithAnotherUnit();
+								}
+
+								if (lMinion[i][j]->getYPos() - 4 <= lMinion[i][k]->getYPos() + lMinion[i][k]->iHitBoxY && lMinion[i][j]->getYPos() + 4 >= lMinion[i][k]->getYPos() + lMinion[i][k]->iHitBoxY) {
+									lMinion[i][k]->onAnotherMinion = true;
+								}
+								else if (lMinion[i][k]->getYPos() - 4 <= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY && lMinion[i][k]->getYPos() + 4 >= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY) {
+									lMinion[i][j]->onAnotherMinion = true;
+								}
+								else {
+									lMinion[i][j]->collisionEffect();
+									lMinion[i][k]->collisionEffect();
+								}
+							}
+						}
+					}
+				}
+
+				// ----- WITH MINIONS IN OTHER LIST
+				if (i + 1 < iMinionListSize) {
+					for (unsigned int k = 0; k < lMinion[i + 1].size(); k++) {
+						if (!lMinion[i + 1][k]->collisionOnlyWithPlayer /*&& lMinion[i + 1][k]->minionSpawned*/ && lMinion[i + 1][k]->deadTime < 0) {
+							if (lMinion[i][j]->getXPos() < lMinion[i + 1][k]->getXPos()) {
+								if (lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX >= lMinion[i + 1][k]->getXPos() && lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX <= lMinion[i + 1][k]->getXPos() + lMinion[i + 1][k]->iHitBoxX && ((lMinion[i][j]->getYPos() <= lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY) || (lMinion[i + 1][k]->getYPos() <= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY && lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY >= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY))) {
+									if (lMinion[i][j]->killOtherUnits && lMinion[i][j]->moveSpeed > 0 && lMinion[i + 1][k]->minionSpawned) {
+										lMinion[i + 1][k]->setMinionState(-2);
+										lMinion[i][j]->collisionWithAnotherUnit();
+									}
+
+									if (lMinion[i + 1][k]->killOtherUnits && lMinion[i + 1][k]->moveSpeed > 0 && lMinion[i][j]->minionSpawned) {
+										lMinion[i][j]->setMinionState(-2);
+										lMinion[i + 1][k]->collisionWithAnotherUnit();
+									}
+
+									if (lMinion[i][j]->getYPos() - 4 <= lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY && lMinion[i][j]->getYPos() + 4 >= lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY) {
+										lMinion[i + 1][k]->onAnotherMinion = true;
+									}
+									else if (lMinion[i + 1][k]->getYPos() - 4 <= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY && lMinion[i + 1][k]->getYPos() + 4 >= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY) {
+										lMinion[i][j]->onAnotherMinion = true;
+									}
+									else {
+										lMinion[i][j]->collisionEffect();
+										lMinion[i + 1][k]->collisionEffect();
+									}
+								}
+							}
+							else {
+								if (lMinion[i + 1][k]->getXPos() + lMinion[i + 1][k]->iHitBoxX >= lMinion[i][j]->getXPos() && lMinion[i + 1][k]->getXPos() + lMinion[i + 1][k]->iHitBoxX < lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX && ((lMinion[i][j]->getYPos() <= lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY) || (lMinion[i + 1][k]->getYPos() <= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY && lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY >= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY))) {
+									if (lMinion[i][j]->killOtherUnits && lMinion[i][j]->moveSpeed > 0 && lMinion[i + 1][k]->minionSpawned) {
+										lMinion[i + 1][k]->setMinionState(-2);
+										lMinion[i][j]->collisionWithAnotherUnit();
+									}
+
+									if (lMinion[i + 1][k]->killOtherUnits && lMinion[i + 1][k]->moveSpeed > 0 && lMinion[i][j]->minionSpawned) {
+										lMinion[i][j]->setMinionState(-2);
+										lMinion[i + 1][k]->collisionWithAnotherUnit();
+									}
+									/*
+									if(lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY < lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY) {
+										lMinion[i][j]->onAnotherMinion = true;
+										continue;
+									} else {
+										lMinion[i + 1][k]->onAnotherMinion = true;
+										continue;
+									}*/
+
+									if (lMinion[i][j]->getYPos() - 4 <= lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY && lMinion[i][j]->getYPos() + 4 >= lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY) {
+										lMinion[i + 1][k]->onAnotherMinion = true;
+									}
+									else if (lMinion[i + 1][k]->getYPos() - 4 <= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY && lMinion[i + 1][k]->getYPos() + 4 >= lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY) {
+										lMinion[i][j]->onAnotherMinion = true;
+									}
+									else {
+										lMinion[i][j]->collisionEffect();
+										lMinion[i + 1][k]->collisionEffect();
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//if (!inEvent && !oPlayer->getInLevelAnimation()) {
+		// ----- COLLISION WITH PLAYER
+		for (int i = getListID(-(int)fXPos + player->getXPos()) - (getListID(-(int)fXPos + player->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
+			for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
+				if (lMinion[i][j]->deadTime < 0) {
+					if ((player->getXPos() - fXPos >= lMinion[i][j]->getXPos() && player->getXPos() - fXPos <= lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX) || (player->getXPos() - fXPos + player->getHitBoxX() >= lMinion[i][j]->getXPos() && player->getXPos() - fXPos + player->getHitBoxX() <= lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX)) {
+						if (lMinion[i][j]->getYPos() - 2 <= player->getYPos() + player->getHitBoxY() && lMinion[i][j]->getYPos() + 16 >= player->getYPos() + player->getHitBoxY()) {
+							lMinion[i][j]->collisionWithPlayer(true);
+						}
+						else if ((lMinion[i][j]->getYPos() <= player->getYPos() + player->getHitBoxY() && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= player->getYPos() + player->getHitBoxY()) || (lMinion[i][j]->getYPos() <= player->getYPos() && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= player->getYPos())) {
+							lMinion[i][j]->collisionWithPlayer(false);
+						}
+					}
+				}
+			}
+		}
+	//}
+}
+
 void Map::draw(sf::RenderWindow& mainWindow)
 {
 	drawMap(mainWindow);
@@ -78,7 +299,7 @@ void Map::draw(sf::RenderWindow& mainWindow)
 		vPlatform[i]->draw(mainWindow);
 	}
 
-	//DrawMinions(rR);
+	DrawMinions(mainWindow);
 
 	/*for (unsigned int i = 0; i < lPoints.size(); i++) {
 		lPoints[i]->Draw(rR);
@@ -97,7 +318,7 @@ void Map::draw(sf::RenderWindow& mainWindow)
 	}*/
 
 	/*for (unsigned int i = 0; i < lBubble.size(); i++) {
-		lBubble[i]->Draw(rR, vBlock[lBubble[i]->getBlockID()]->getSprite()->getTexture());
+		lBubble[i]->Draw(rR, vBlock[lBubble[i]->getBlockID()]->getAniSprite()->getTexture());
 	}*/
 
 	player->draw(mainWindow);
@@ -112,7 +333,7 @@ void Map::draw(sf::RenderWindow& mainWindow)
 void Map::drawMap(sf::RenderWindow& mainWindow)
 {
 	/*if (oFlag != NULL) {
-		oFlag->DrawCastleFlag(rR, vBlock[51]->getSprite()->getTexture());
+		oFlag->DrawCastleFlag(rR, vBlock[51]->getAniSprite()->getTexture());
 	}*/
 
 	for (int i = getStartBlock(), iEnd = getEndBlock(); i < iEnd && i < iMapWidth; i++) {
@@ -124,8 +345,17 @@ void Map::drawMap(sf::RenderWindow& mainWindow)
 	}
 
 	/*if (oFlag != NULL) {
-		oFlag->Draw(rR, vBlock[oFlag->iBlockID]->getSprite()->getTexture());
+		oFlag->Draw(rR, vBlock[oFlag->iBlockID]->getAniSprite()->getTexture());
 	}*/
+}
+
+void Map::DrawMinions(sf::RenderWindow& mainWindow) {
+	for (int i = 0; i < iMinionListSize; i++) {
+		for (int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
+			lMinion[i][j]->Draw(mainWindow, vMinion[lMinion[i][j]->getBloockID()]->getAniSprite()->getFrame());
+			//CCFG::getText()->DrawWS(rR, std::to_string(i), lMinion[i][j]->getXPos() + (int)fXPos, lMinion[i][j]->getYPos(), 0, 0, 0, 8);
+		}
+	}
 }
 
 // POS 0 = TOP, 1 = BOT
@@ -2244,6 +2474,8 @@ void Map::loadLVL_1_1()
 
 	createMap();
 
+	//---- Load Minions ---
+	loadMinionsLVL_1_1();
 
 	// ----- Bush -----
 	structBush(0, 2, 2);
@@ -2374,15 +2606,45 @@ void Map::loadLVL_1_1()
 	this->iLevelType = 0;
 }
 
+void Map::loadMinionsLVL_1_1() {
+	clearMinions();
+
+	addGoombas(704, 480, true);
+
+	addGoombas(1280, 480, true);
+
+	addGoombas(1632, 480, true);
+	addGoombas(1680, 480, true);
+
+	addGoombas(2560, 112, true);
+	addGoombas(2624, 112, true);
+
+	addGoombas(3104, 480, true);
+	addGoombas(3152, 480, true);
+
+	//addKoppa(107 * 32, 480, 1, true);
+
+	addGoombas(3648, 480, true);
+	addGoombas(3696, 480, true);
+
+	addGoombas(3968, 480, true);
+	addGoombas(4016, 480, true);
+
+	addGoombas(4096, 480, true);	addGoombas(4144, 480, true);
+
+	addGoombas(5568, 480, true);
+	addGoombas(5612, 480, true);
+}
+
 void Map::createMap()
 {
-	// ----- MIONION LIST -----
-	//for (int i = 0; i < iMapWidth; i += 5) {
-	//	std::vector<Minion*> temp;
-	//	lMinion.push_back(temp);
-	//}
+	//	----- MIONION LIST -----
+	for (int i = 0; i < iMapWidth; i += 5) {
+		std::vector<Minion*> temp;
+		lMinion.push_back(temp);
+	}
 
-	//iMinionListSize = lMinion.size();
+	iMinionListSize = lMinion.size();
 
 	// ----- CREATE MAP -----
 	for (int i = 0; i < iMapWidth; i++) {
@@ -2406,6 +2668,10 @@ int Map::getStartBlock()
 int Map::getEndBlock()
 {
 	return (int)(-fXPos - (-(int)fXPos) % 32 + CFG::GameWidth) / 32 + 2;
+}
+
+int Map::getListID(int nX) {
+	return (int)(nX / 160);
 }
 
 void Map::clearMap()
@@ -2432,5 +2698,28 @@ void Map::clearMap()
 
 void Map::clearMinions()
 {
+	for (int i = 0; i < iMinionListSize; i++) {
+		for (int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
+			delete lMinion[i][j];
+			jSize = lMinion[i].size();
+		}
+		lMinion[i].clear();
+	}
+
+	clearPlatforms();
 	return;
+}
+
+void Map::clearPlatforms() {
+	for (unsigned int i = 0; i < vPlatform.size(); i++) {
+		delete vPlatform[i];
+	}
+
+	vPlatform.clear();
+}
+
+// -- Minions -- 
+
+void Map::addGoombas(int iX, int iY, bool moveDirection) {
+	lMinion[getListID(iX)].push_back(new Goombas(iX, iY, iLevelType == 0 || iLevelType == 4 ? 0 : iLevelType == 1 ? 8 : 10, moveDirection));
 }
