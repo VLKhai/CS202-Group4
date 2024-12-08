@@ -353,7 +353,7 @@ void Player::movePlayer() {
 	}
 	// not moving, change direction, or squat
 	else {
-		if (Core::coreClock.getElapsedTime().asMilliseconds() - (50 + 15 * (moveSpeed*5)) > iTimePassed && moveSpeed != 0) {
+		if (Core::coreClock.getElapsedTime().asMilliseconds() - (15 * (moveSpeed*5)) > iTimePassed && moveSpeed != 0) {
 			--moveSpeed;
 			iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
 			if (jumpState == 0) setMarioSpriteID(6);
