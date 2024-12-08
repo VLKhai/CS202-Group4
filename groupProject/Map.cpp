@@ -792,6 +792,14 @@ void Map::setMoveMap(bool bMoveMap)
 	this->bMoveMap = bMoveMap;
 }
 
+bool Map::getUnderWater() {
+	return underWater;
+}
+
+void Map::setUnderWater(bool underWater) {
+	this->underWater = underWater;
+}
+
 Player* Map::getPlayer()
 {
     return player;

@@ -141,6 +141,9 @@ public:
 	int getCurrentLevelID();
 	void setCurrentLevelID(int iID);
 
+	bool getUnderWater();
+	void setUnderWater(bool underWater);
+
 	bool getMoveMap();
 	void setMoveMap(bool bMoveMap);
 

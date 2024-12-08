@@ -103,20 +103,21 @@ public:
 
     void playerPhysics();
 
-	void updateXPos(int iN); // iD: displacement
-	void updateYPos(int iN); // iD: displacement
+	void updateXPos(int iN); 
+	void updateYPos(int iN); 
 
-    // --<MOVE>--
+	// --<ANIMATION>--
     void moveAnimation();
-	//void swimingAnimation();
+	void swimingAnimation();
+	void powerUPAnimation();
 
+	// --<MOVE>--
 	void startMove();
 	void resetMove();
 	void stopMove();
 	void setMoveDirection(bool moveDirection);
 	bool getChangeMoveDirection();
 	void setChangeMoveDirection();
-
 	void startRun();
 	void resetRun();
 
@@ -125,24 +126,35 @@ public:
     void startJump(int iHeight);
     void resetJump();   
 
-
 	// --<HIT BOX>--
     int getHitBoxX();
     int getHitBoxY();
-    
 
+	void createFireBall();
+    
     // --<GET & SET>--
     void setMarioSpriteID(int iID);
 	int getMarioSpriteID();
 
+	bool getInLevelAnimation();
+	void setInLevelAnimation(bool inLevelAnimation);
+
 	int getMoveSpeed();
     bool getMove();
 	bool getMoveDirection();
+	void setNextFallFrameID(int nextFallFrameID);
+	void setCurrentJumpSpeed(float currentJumpSpeed);
+	void setMoveSpeed(int moveSpeed);
+    
+	bool getUnkillAble();
 
-    bool getSquat();
-    void setSquat(bool bSquat);
+	int getNumOfLives();
+	void setNumOfLives(int iNumOfLives);
 
-	bool getStarEffect();
+	bool getStarEffect(); 
+	void setStarEffect(bool starEffect);
+
+	int getJumpState();
 
 	int getXPos();
 	void setXPos(float fXPos);
@@ -152,4 +164,22 @@ public:
     int getPowerLVL();
     void setPowerLVL(int powerLVL);
     void resetPowerLVL();
+
+	IMG* getMarioLVLUP();
+	AniSprite* getMarioSprite();
+
+	bool getSquat();
+	void setSquat(bool bSquat);
+
+	unsigned int getScore();
+	void setScore(unsigned int iScore);
+
+	void addComboPoints();
+	int getComboPoints();
+
+	void addCoin();
+	unsigned int getCoins();
+	void setCoins(unsigned int iCoins);
+
+	void setSpringJump(bool springJump);
 };
