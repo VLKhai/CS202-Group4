@@ -3,10 +3,17 @@
 
 /* ******************************************** */
 
+Text* CFG::oText = new Text();
+IMG* CFG::tSMBLOGO = new IMG();
+
+MenuManager* CFG::oMM = new MenuManager();
+
 CFG::CFG() { }
 
 CFG::~CFG() {
     delete music;
+    delete oMM;
+    delete oText;
 }
 
 /* ******************************************** */
@@ -30,4 +37,16 @@ sf::Music* CFG::music = new sf::Music();
 
 sf::Music* CFG::getMusic() {
     return music;
+}
+
+Text* CFG::getText() {
+    return oText;
+}
+
+MenuManager* CFG::getMenuManager() {
+    return oMM;
+}
+
+IMG* CFG::getSMBLOGO() {
+    return tSMBLOGO;
 }

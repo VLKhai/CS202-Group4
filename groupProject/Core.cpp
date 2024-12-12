@@ -2,7 +2,8 @@
 #include <iostream>
 
 #include "Core.h"
-
+#include "MainMenu.h"
+MainMenu* oMainMenu = new MainMenu();
 Map* Core::pMap = new Map();
 bool Core::mouseLeftPressed = false;
 bool Core::mouseRightPressed = false;
@@ -38,6 +39,8 @@ Core::Core()
     CFG::keyIDS = sf::Keyboard::S;
     CFG::keyIDSpace = sf::Keyboard::Space;
     CFG::keyIDShift = sf::Keyboard::LShift;
+    CFG::getText()->setFont(mainWindow, "font");
+    CFG::getSMBLOGO()->setIMG("super_mario_bros", mainWindow);
 }
 
 void Core::mainLoop()
@@ -56,8 +59,9 @@ void Core::update()
 
 void Core::draw()
 {
-	mainWindow.clear(sf::Color::White);
+	mainWindow.clear(sf::Color::Black);
     pMap->draw(mainWindow);
+    //oMainMenu->Draw(mainWindow);
 	mainWindow.display();
 }
 

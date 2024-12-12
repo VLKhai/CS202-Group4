@@ -6,6 +6,11 @@ IMG::IMG(std::string fileName, sf::RenderWindow &mainWindow)
     this->setIMG(fileName, mainWindow);
 }
 
+IMG::IMG(){
+    this->tIMG = new sf::Texture();
+    this->sIMG = new sf::Sprite();
+}
+
 IMG::~IMG()
 {
     delete this->tIMG;
@@ -65,6 +70,23 @@ void IMG::draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset, bool bR
     
 }
 
+
+void IMG::draw(sf::RenderWindow& mainWindow, sf::IntRect rCrop, sf::IntRect rRect) {
+    if (tIMG && sIMG) {
+        sIMG->setTexture(*tIMG);
+        sIMG->setTextureRect(rCrop);
+        sIMG->setPosition(static_cast<float>(rRect.left), static_cast<float>(rRect.top));
+        sIMG->setScale(
+            static_cast<float>(rRect.width) / rCrop.width,
+            static_cast<float>(rRect.height) / rCrop.height
+        );
+        mainWindow.draw(*sIMG);
+    }
+    else {
+        std::cerr << "Error: tIMG or sIMG is not initialized in IMG::draw." << std::endl;
+    }
+}
+
 void IMG::drawVert(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset) {
     if (!tIMG) return; // Ensure the texture is valid
     sIMG->setScale(-1.f, 1.f);
@@ -81,4 +103,13 @@ void IMG::drawBoundingBox(sf::RenderWindow& mainWindow, int iXOffset, int iYOffs
     boundingBox.setOutlineColor(sf::Color::Green); // Set the outline color
     boundingBox.setOutlineThickness(1.f); // Set the outline thickness
     mainWindow.draw(boundingBox);
+}
+
+
+sf::Texture* IMG::getIMG() {
+    return tIMG;
+}
+
+void IMG::setColor(int iR, int iG, int iB){
+    sIMG->setColor(sf::Color(iR, iG, iB));
 }
