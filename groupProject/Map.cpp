@@ -2682,6 +2682,24 @@ int Map::getListID(int nX) {
 	return (int)(nX / 160);
 }
 
+void Map::setBackgroundColor(sf::RenderWindow& mainWindow) {
+	sf::Color backgroundColor;
+
+	switch (iLevelType) {
+	case 0: case 2:
+		backgroundColor = sf::Color(93, 148, 252); // Light blue
+		break;
+	case 1: case 3: case 4:
+		backgroundColor = sf::Color(0, 0, 0); // Black
+		break;
+	default:
+		backgroundColor = sf::Color(93, 148, 252); // Default light blue
+		break;
+	}
+
+	mainWindow.clear(backgroundColor);
+}
+
 void Map::clearMap()
 {
 	for (int i = 0; i < iMapWidth; i++) {

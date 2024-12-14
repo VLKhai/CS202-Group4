@@ -149,6 +149,8 @@ public:
 
 	int getListID(int nX);
 
+	void setBackgroundColor(sf::RenderWindow& mainWindow);
+
 	Player* getPlayer();
 	Platform* getPlatform(int iID);
 	Block* getBlock(int iID);

@@ -2,8 +2,7 @@
 #include <iostream>
 
 #include "Core.h"
-#include "MainMenu.h"
-MainMenu* oMainMenu = new MainMenu();
+
 Map* Core::pMap = new Map();
 bool Core::mouseLeftPressed = false;
 bool Core::mouseRightPressed = false;
@@ -46,6 +45,7 @@ Core::Core()
 void Core::mainLoop()
 {
     while (mainWindow.isOpen()) {
+        CFG::getMenuManager()->setBackgroundColor(mainWindow);
         input();
 		update();
         draw();       
@@ -54,14 +54,15 @@ void Core::mainLoop()
 
 void Core::update()
 {
-	pMap->update();
+    //pMap->update();
+    CFG::getMenuManager()->update();
 }
 
 void Core::draw()
 {
-	mainWindow.clear(sf::Color::Black);
-    pMap->draw(mainWindow);
-    //oMainMenu->Draw(mainWindow);
+	//mainWindow.clear(sf::Color::Black);
+    //pMap->draw(mainWindow);
+    CFG::getMenuManager()->draw(mainWindow);
 	mainWindow.display();
 }
 

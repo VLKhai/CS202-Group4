@@ -1,8 +1,12 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include "MainMenu.h"
+#include "IMG.h"
 
 class MenuManager {
 private:
+	IMG* activeOption;
+
+	MainMenu* oMainMenu;
 public:
 	MenuManager();
 	~MenuManager();
@@ -20,4 +24,5 @@ public:
 
 	void update();
 	void draw(sf::RenderWindow& window);
+	void setBackgroundColor(sf::RenderWindow& window);
 };
