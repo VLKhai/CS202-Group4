@@ -358,6 +358,51 @@ void Map::DrawMinions(sf::RenderWindow& mainWindow) {
 	}
 }
 
+void Map::DrawGameLayout(sf::RenderWindow& mainWindow) {
+	CFG::getText()->Draw(mainWindow, "MARIO", 54, 16);
+
+	if (player->getScore() < 100) {
+		CFG::getText()->Draw(mainWindow, "00000" + std::to_string(player->getScore()), 54, 32);
+	}
+	else if (player->getScore() < 1000) {
+		CFG::getText()->Draw(mainWindow, "000" + std::to_string(player->getScore()), 54, 32);
+	}
+	else if (player->getScore() < 10000) {
+		CFG::getText()->Draw(mainWindow, "00" + std::to_string(player->getScore()), 54, 32);
+	}
+	else if (player->getScore() < 100000) {
+		CFG::getText()->Draw(mainWindow, "0" + std::to_string(player->getScore()), 54, 32);
+	}
+	else {
+		CFG::getText()->Draw(mainWindow, std::to_string(player->getScore()), 54, 32);
+	}
+
+	CFG::getText()->Draw(mainWindow, "WORLD", 462, 16);
+	CFG::getText()->Draw(mainWindow, getLevelName(), 480, 32);
+
+	if (iLevelType != 1) {
+		vBlock[2]->draw(mainWindow, 268, 32);
+	}
+	else {
+		vBlock[57]->draw(mainWindow, 268, 32);
+	}
+	CFG::getText()->Draw(mainWindow, "y", 286, 32);
+	CFG::getText()->Draw(mainWindow, (player->getCoins() < 10 ? "0" : "") + std::to_string(player->getCoins()), 302, 32);
+
+	CFG::getText()->Draw(mainWindow, "TIME", 672, 16);
+	if (CFG::getMenuManager()->getViewID() == CFG::getMenuManager()->eGame) {
+		if (iMapTime > 100) {
+			CFG::getText()->Draw(mainWindow, std::to_string(iMapTime), 680, 32);
+		}
+		else if (iMapTime > 10) {
+			CFG::getText()->Draw(mainWindow, "0" + std::to_string(iMapTime), 680, 32);
+		}
+		else {
+			CFG::getText()->Draw(mainWindow, "00" + std::to_string(iMapTime), 680, 32);
+		}
+	}
+}
+
 // POS 0 = TOP, 1 = BOT
 bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 	if (POS == 0) {
@@ -817,6 +862,22 @@ Block* Map::getBlock(int iID)
 
 Tile* Map::getMapBlock(int iX, int iY) {
 	return lMap[iX][iY];
+}
+
+std::string Map::getLevelName() {
+	return "" + std::to_string(1 + currentLevelID / 4) + "-" + std::to_string(currentLevelID % 4 + 1);
+}
+
+int Map::getMapWidth() {
+	return iMapWidth;
+}
+
+bool Map::getDrawLines() {
+	return drawLines;
+}
+
+void Map::setDrawLines(bool drawLines) {
+	this->drawLines = drawLines;
 }
 
 void Map::loadGameData(sf::RenderWindow& mainWindow)
@@ -2680,6 +2741,24 @@ int Map::getEndBlock()
 
 int Map::getListID(int nX) {
 	return (int)(nX / 160);
+}
+
+void Map::setBackgroundColor(sf::RenderWindow& mainWindow) {
+	sf::Color backgroundColor;
+
+	switch (iLevelType) {
+	case 0: case 2:
+		backgroundColor = sf::Color(93, 148, 252); // Light blue
+		break;
+	case 1: case 3: case 4:
+		backgroundColor = sf::Color(0, 0, 0); // Black
+		break;
+	default:
+		backgroundColor = sf::Color(93, 148, 252); // Default light blue
+		break;
+	}
+
+	mainWindow.clear(backgroundColor);
 }
 
 void Map::clearMap()

@@ -101,7 +101,7 @@ public:
     void draw(sf::RenderWindow& window);
     void update();
 
-    void playerPhysics();
+    void playerPhysics(); 
 
 	void updateXPos(int iN); 
 	void updateYPos(int iN); 

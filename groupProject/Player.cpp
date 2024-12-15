@@ -543,7 +543,7 @@ void Player::playerPhysics()
 			}
 		}
 		else {
-			if (onPlatformID == -1) { // On ground
+			if (onPlatformID == -1) { 
 				onPlatformID = Core::getMap()->checkCollisionWithPlatform((int)fXPos, (int)fYPos, getHitBoxX(), getHitBoxY());
 				if (onPlatformID >= 0) {
 					if (Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true)

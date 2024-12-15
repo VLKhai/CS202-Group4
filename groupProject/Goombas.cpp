@@ -36,6 +36,7 @@ void Goombas::Draw(sf::RenderWindow& mainWindow, IMG* iIMG) {
 	else {
 		iIMG->drawVert(mainWindow, (int)fXPos + (int)Core::getMap()->getXPos(), (int)fYPos + 2);
 	}
+
 }
 
 /* ******************************************** */
