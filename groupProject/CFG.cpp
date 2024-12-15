@@ -50,3 +50,38 @@ MenuManager* CFG::getMenuManager() {
 IMG* CFG::getSMBLOGO() {
     return tSMBLOGO;
 }
+
+std::string CFG::getKeyString(int keyID) {
+    if (keyID >= 97 && keyID <= 122) {
+        return std::string(1, '0' + (keyID - 32) - 48);
+    }
+
+    if (keyID >= 48 && keyID <= 57) {
+        return std::string(1, '0' + (keyID - 32) - 48);
+    }
+
+    switch (keyID) {
+    case sf::Keyboard::Escape:
+        return "ESCAPE";
+    case sf::Keyboard::Space:
+        return "SPACE";
+    case sf::Keyboard::LShift:
+        return "LSHIFT";
+    case sf::Keyboard::RShift:
+        return "RSHIFT";
+    case sf::Keyboard::Up:
+        return "UP";
+    case sf::Keyboard::Down:
+        return "DOWN";
+    case sf::Keyboard::Right:
+        return "RIGHT";
+    case sf::Keyboard::Left:
+        return "LEFT";
+    case sf::Keyboard::LControl:
+        return "LCTRL";
+    case sf::Keyboard::RControl:
+        return "RCTRL";
+
+        return "NONE";
+    }
+}

@@ -40,6 +40,7 @@ Core::Core()
     CFG::keyIDShift = sf::Keyboard::LShift;
     CFG::getText()->setFont(mainWindow, "font");
     CFG::getSMBLOGO()->setIMG("super_mario_bros", mainWindow);
+    CFG::getMenuManager()->setActiveOption(mainWindow); 
 }
 
 void Core::mainLoop()
@@ -79,6 +80,7 @@ void Core::input()
         }
         inputPlayer();
         //resetMove();
+        inputMenu();
     }
 }
 
@@ -193,6 +195,60 @@ void Core::mouseInput()
 
 void Core::inputMenu()
 {
+    if (mainEvent.type == sf::Event::KeyPressed) {
+        CFG::getMenuManager()->setKey(mainEvent.key.code);
+        switch (mainEvent.key.code) {
+        case sf::Keyboard::S: case sf::Keyboard::Down:
+            if (!keyMenuPressed) {
+                CFG::getMenuManager()->keyPressed(2);
+                keyMenuPressed = true;
+            }
+            break;
+        case sf::Keyboard::W: case sf::Keyboard::Up:
+            if (!keyMenuPressed) {
+                CFG::getMenuManager()->keyPressed(0);
+                keyMenuPressed = true;
+            }
+            break;
+        case sf::Keyboard::Enter:
+            if (!keyMenuPressed) {
+                CFG::getMenuManager()->enter();
+                keyMenuPressed = true;
+            }
+            break;
+        /*case sf::Keyboard::Escape:
+            if (!keyMenuPressed) {
+                CFG::getMenuManager()->escape();
+                keyMenuPressed = true;
+            }
+            break;*/
+        case sf::Keyboard::Left: case sf::Keyboard::D:
+            if (!keyMenuPressed) {
+                CFG::getMenuManager()->keyPressed(3);
+                keyMenuPressed = true;
+            }
+            break;
+        case sf::Keyboard::Right: case sf::Keyboard::A:
+            if (!keyMenuPressed) {
+                CFG::getMenuManager()->keyPressed(1);
+                keyMenuPressed = true;
+            }
+            break;
+        }
+    }
+    if (mainEvent.type == sf::Event::KeyReleased) {
+        switch (mainEvent.key.code) {
+        case sf::Keyboard::S: case sf::Keyboard::Down:
+        case sf::Keyboard::W: case sf::Keyboard::Up:
+        case sf::Keyboard::Enter: case sf::Keyboard::Escape:
+        case sf::Keyboard::A: case sf::Keyboard::Right:
+        case sf::Keyboard::Left: case sf::Keyboard::D:
+            keyMenuPressed = false;
+            break;
+        default:
+            break;
+        }
+    }
 }
 
 void Core::resetMove()

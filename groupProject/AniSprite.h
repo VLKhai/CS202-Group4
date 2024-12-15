@@ -11,6 +11,7 @@ public:
     
     IMG* getFrame();
     IMG* getFrame(int iID);
+    IMG* getTexture();
 
 private:
     std::vector<IMG*> imgFrame;

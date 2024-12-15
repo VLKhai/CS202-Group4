@@ -19,7 +19,7 @@ void Menu::draw(sf::RenderWindow& window) {
 		CFG::getText()->Draw(window, lMO[i]->getText(), lMO[i]->getXPos(), lMO[i]->getYPos());
 	}
 
-	//CFG::getMM()->getActiveOption()->draw(window, lMO[activeMenuOption]->getXPos() - 32, lMO[activeMenuOption]->getYPos());
+	CFG::getMenuManager()->getActiveOption()->draw(window, lMO[activeMenuOption]->getXPos() - 32, lMO[activeMenuOption]->getYPos());
 }
 
 void Menu::updateActiveButton(int iDir) {
