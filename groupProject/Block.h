@@ -18,7 +18,7 @@ public:
 	bool getDeath();
 	bool getUse();
 	bool getVisible();
-
+	AniSprite* getSprite();
 private:
     AniSprite* aniSprite;
 

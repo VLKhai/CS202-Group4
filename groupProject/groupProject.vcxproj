@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AboutMenu.cpp" />
     <ClCompile Include="AniSprite.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockDebris.cpp" />
@@ -27,15 +28,24 @@
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="Goombas.cpp" />
     <ClCompile Include="IMG.cpp" />
+    <ClCompile Include="LoadingMenu.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuManager.cpp" />
+    <ClCompile Include="MenuOption.cpp" />
     <ClCompile Include="Minion.cpp" />
+    <ClCompile Include="OptionsMenu.cpp" />
+    <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AboutMenu.h" />
     <ClInclude Include="AniSprite.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockDebris.h" />
@@ -45,8 +55,16 @@
     <ClInclude Include="Goombas.h" />
     <ClInclude Include="IMG.h" />
     <ClInclude Include="Koppa.h" />
+    <ClInclude Include="LoadingMenu.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuManager.h" />
+    <ClInclude Include="MenuOption.h" />
     <ClInclude Include="Minion.h" />
+    <ClInclude Include="OptionsMenu.h" />
+    <ClInclude Include="Pipe.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />

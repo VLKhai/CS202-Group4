@@ -51,6 +51,7 @@ private:
 
 	bool inEvent;
     Event* pEvent;
+	bool drawLines;
 
     Player* player;
 
@@ -85,6 +86,7 @@ public:
 	void draw(sf::RenderWindow& mainWindow);
 	void drawMap(sf::RenderWindow& mainWindow);
 	void DrawMinions(sf::RenderWindow& mainWindow);
+	void DrawGameLayout(sf::RenderWindow& mainWindow);
 
 	//Add minions
 	void addGoombas(int iX, int iY, bool moveDirection);
@@ -146,8 +148,14 @@ public:
 
 	bool getMoveMap();
 	void setMoveMap(bool bMoveMap);
+	int getMapWidth();
+
+	bool getDrawLines();
+	void setDrawLines(bool drawLines);
 
 	int getListID(int nX);
+	std::string getLevelName();
+	void setBackgroundColor(sf::RenderWindow& mainWindow);
 
 	Player* getPlayer();
 	Platform* getPlatform(int iID);

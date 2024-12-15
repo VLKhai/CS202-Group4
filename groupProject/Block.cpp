@@ -54,3 +54,7 @@ bool Block::getVisible()
 {
     return bVisible;
 }
+
+AniSprite* Block::getSprite() {
+    return aniSprite;
+}
