@@ -347,8 +347,59 @@ Player::~Player()
 	delete tMarioLVLUP;
 }
 
+//void Player::movePlayer() {
+//	// if player is moving
+//	if (bMove && !changeMoveDirection && (!bSquat || powerLVL == 0)) {
+//		if (moveSpeed > currentMaxMove) {
+//			--moveSpeed;
+//		}
+//		else if (Core::coreClock.getElapsedTime().asMilliseconds() - (100 + 35 * moveSpeed) >= iTimePassed && moveSpeed < currentMaxMove) {
+//			++moveSpeed;
+//			iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
+//		}
+//		else if (moveSpeed == 0) {
+//			moveSpeed = 1;
+//		}
+//	}
+//	// not moving, change direction, or squat
+//	else {
+//		if (Core::coreClock.getElapsedTime().asMilliseconds() - (15 * (moveSpeed*5)) > iTimePassed && moveSpeed != 0) {
+//			--moveSpeed;
+//			iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
+//			if (jumpState == 0) setMarioSpriteID(6);
+//		}
+//
+//		if (changeMoveDirection && moveSpeed <= 1) {
+//			moveDirection = newMoveDirection;
+//			changeMoveDirection = false;
+//			bMove = true;
+//		}
+//	}
+//
+//	if (moveSpeed > 0) {
+//		if (moveDirection) {
+//			updateXPos(moveSpeed);
+//		}
+//		else {
+//			updateXPos(-moveSpeed);
+//		}
+//		if (!changeMoveDirection && jumpState == 0 && bMove) moveAnimation();
+//			
+//	}
+//	else if (jumpState == 0) {
+//		setMarioSpriteID(1);
+//		updateXPos(0);
+//	}
+//	else {
+//		updateXPos(0);
+//	}
+//
+//	if (bSquat && powerLVL > 0) {
+//		setMarioSpriteID(7);
+//	}
+//}
+
 void Player::movePlayer() {
-	// if player is moving
 	if (bMove && !changeMoveDirection && (!bSquat || powerLVL == 0)) {
 		if (moveSpeed > currentMaxMove) {
 			--moveSpeed;
@@ -361,12 +412,11 @@ void Player::movePlayer() {
 			moveSpeed = 1;
 		}
 	}
-	// not moving, change direction, or squat
 	else {
-		if (Core::coreClock.getElapsedTime().asMilliseconds() - (15 * (moveSpeed*5)) > iTimePassed && moveSpeed != 0) {
+		if (Core::coreClock.getElapsedTime().asMilliseconds() - (75 * (moveSpeed) * (bSquat && powerLVL > 0 ? 6 : 1)) > iTimePassed && moveSpeed != 0) {
 			--moveSpeed;
 			iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
-			if (jumpState == 0) setMarioSpriteID(6);
+			if (jumpState == 0 && !Core::getMap()->getUnderWater()) setMarioSpriteID(6);
 		}
 
 		if (changeMoveDirection && moveSpeed <= 1) {
@@ -383,8 +433,15 @@ void Player::movePlayer() {
 		else {
 			updateXPos(-moveSpeed);
 		}
-		if (!changeMoveDirection && jumpState == 0 && bMove) moveAnimation();
-			
+
+		// ----- SPRITE ANIMATION
+		if (Core::getMap()->getUnderWater()) {
+			swimingAnimation();
+		}
+		else if (!changeMoveDirection && jumpState == 0 && bMove) {
+			moveAnimation();
+		}
+		// ----- SPRITE ANIMATION
 	}
 	else if (jumpState == 0) {
 		setMarioSpriteID(1);
@@ -394,7 +451,7 @@ void Player::movePlayer() {
 		updateXPos(0);
 	}
 
-	if (bSquat && powerLVL > 0) {
+	if (bSquat && !Core::getMap()->getUnderWater() && powerLVL > 0) {
 		setMarioSpriteID(7);
 	}
 }
@@ -500,19 +557,42 @@ Vector2* Player::getBlockRT(float nX, float nY) {
 
 void Player::draw(sf::RenderWindow& window)
 {
-	sMario[getMarioSpriteID()]->getFrame()->draw(window, (int)fXPos, (int)fYPos, !moveDirection);
+	if (!inLevelDownAnimation || Core::getMap()->getInEvent()) {
+		// Super Mario
+		sMario[getMarioSpriteID()]->getTexture()->draw(window, (int)fXPos, (int)fYPos + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);
+	}
+	else {
+		if (inLevelDownAnimationFrameID % 15 < (inLevelDownAnimationFrameID > 120 ? 7 : inLevelDownAnimationFrameID > 90 ? 9 : inLevelDownAnimationFrameID > 60 ? 11 : inLevelDownAnimationFrameID > 30 ? 13 : 14)) {
+			sMario[getMarioSpriteID()]->getTexture()->draw(window, (int)fXPos, (int)fYPos + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);
+		}
+	}
 }
 
 void Player::update()
 {
 	playerPhysics();
 	movePlayer();
-	//std::cout << "Speed: " << moveSpeed << std::endl;
+	
 	if (iFrameID > 0) {
 		--iFrameID;
 	}
 	else if (iComboPoints > 1) {
 		--iComboPoints;
+	}
+
+	if (powerLVL == 2) {
+		if (nextFireBallFrameID > 0) {
+			--nextFireBallFrameID;
+		}
+	}
+
+	if (inLevelDownAnimation) {
+		if (inLevelDownAnimationFrameID > 0) {
+			--inLevelDownAnimationFrameID;
+		}
+		else {
+			unKillAble = false;
+		}
 	}
 }
 
@@ -1244,9 +1324,9 @@ void Player::startMove()
 	iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
 	moveSpeed = 1;
 	bMove = true;
-	/*if (Core::getMap()->getUnderWater()) {
+	if (Core::getMap()->getUnderWater()) {
 		setMarioSpriteID(8);
-	}*/
+	}
 }
 
 void Player::resetMove() {

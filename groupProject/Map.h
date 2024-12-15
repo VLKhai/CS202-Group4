@@ -157,6 +157,9 @@ public:
 	std::string getLevelName();
 	void setBackgroundColor(sf::RenderWindow& mainWindow);
 
+	bool getInEvent();
+	void setInEvent(bool inEvent);
+
 	Player* getPlayer();
 	Platform* getPlatform(int iID);
 	Block* getBlock(int iID);

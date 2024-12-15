@@ -20,6 +20,8 @@ Map::Map(sf::RenderWindow& mainWindow)
 
 	this->iFrameID = 0;
 
+	this->inEvent = false;
+
 	//this->bTP = false;
 	player = new Player(mainWindow, 84, 480);
 	pEvent = nullptr;
@@ -2759,6 +2761,14 @@ void Map::setBackgroundColor(sf::RenderWindow& mainWindow) {
 	}
 
 	mainWindow.clear(backgroundColor);
+}
+
+bool Map::getInEvent() {
+	return inEvent;
+}
+
+void Map::setInEvent(bool inEvent) {
+	this->inEvent = inEvent;
 }
 
 void Map::clearMap()
