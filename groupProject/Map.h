@@ -96,6 +96,7 @@ public:
 
 	// Load resources
 	void loadLVL();
+	void resetGameData();
 
 	void moveMap(int nX, int nY);
 
@@ -159,6 +160,11 @@ public:
 
 	bool getInEvent();
 	void setInEvent(bool inEvent);
+	void setSpawnPointID(int iSpawnPointID);
+
+	void setSpawnPoint();
+	int getSpawnPointYPos(int iID);
+	int getSpawnPointXPos(int iID);
 
 	Player* getPlayer();
 	Platform* getPlatform(int iID);

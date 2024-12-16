@@ -36,64 +36,41 @@ void MainMenu::Update() {
 void MainMenu::Draw(sf::RenderWindow& mainWindow) {
 	CFG::getSMBLOGO()->draw(mainWindow, 80, 48);
 	Menu::draw(mainWindow);
-	//CFG::getText()->Draw(mainWindow, "OK", 4, CFG::GameHeight -200, 8, 255, 255, 255);
-	//CFG::getText()->Draw(mainWindow, "OK NHA", 5, CFG::GameHeight-100, 8, 255, 255, 255);
 
 	if (selectWorld) {
-		// Draw filled rectangle with transparency
-		sf::RectangleShape filledRect(sf::Vector2f(rSelectWorld.width, rSelectWorld.height));
-		filledRect.setPosition(static_cast<float>(rSelectWorld.left), static_cast<float>(rSelectWorld.top));
-		filledRect.setFillColor(sf::Color(4, 4, 4, 235)); // Dark gray with transparency
-		mainWindow.draw(filledRect);
+		sf::RectangleShape rectangle;
+		rectangle.setPosition(static_cast<float>(rSelectWorld.left), static_cast<float>(rSelectWorld.top));
+		rectangle.setSize(sf::Vector2f(static_cast<float>(rSelectWorld.width), static_cast<float>(rSelectWorld.height)));
+		rectangle.setOutlineThickness(1); // Border thickness
+		// Adjust the rectangle
+		rSelectWorld.left += 1;
+		rSelectWorld.top += 1;
+		rSelectWorld.width -= 2;
+		rSelectWorld.height -= 2;
+		//filled color 
+		rectangle.setFillColor(sf::Color::Black);
+		rectangle.setOutlineThickness(1); // Optional: Add a border
+		rectangle.setOutlineColor(sf::Color::White); // Optional: Border color
+		// Update the rectangle shape to reflect the changes
+		rectangle.setPosition(static_cast<float>(rSelectWorld.left), static_cast<float>(rSelectWorld.top));
+		rectangle.setSize(sf::Vector2f(static_cast<float>(rSelectWorld.width), static_cast<float>(rSelectWorld.height)));
+		mainWindow.draw(rectangle);
 
-		// Draw rectangle outline
-		sf::RectangleShape outlineRect(sf::Vector2f(rSelectWorld.width - 2, rSelectWorld.height - 2));
-		outlineRect.setPosition(static_cast<float>(rSelectWorld.left + 1), static_cast<float>(rSelectWorld.top + 1));
-		outlineRect.setFillColor(sf::Color::Transparent);
-		outlineRect.setOutlineColor(sf::Color(255, 255, 255, 255)); // White color
-		outlineRect.setOutlineThickness(1.0f);
-		mainWindow.draw(outlineRect);
-
-		// Draw "SELECT WORLD" text
-		int textX = rSelectWorld.left + rSelectWorld.width / 2 - CFG::getText()->getTextWidth("SELECT WORLD") / 2;
-		int textY = rSelectWorld.top + 16;
-		CFG::getText()->Draw(mainWindow, "SELECT WORLD", textX, textY, 16, 255, 255, 255);
-
-		// Loop to draw worlds
-		int extraX = 0;
-		for (int i = 0; i < 8; i++) {
+		CFG::getText()->Draw(mainWindow, "SELECT WORLD", rSelectWorld.left + rSelectWorld.width / 2 - CFG::getText()->getTextWidth("SELECT WORLD") / 2, rSelectWorld.top + 16, 16, 255, 255, 255);
+		rSelectWorld.left -= 1;
+		rSelectWorld.top -= 1;
+		rSelectWorld.width += 2;
+		rSelectWorld.height += 2;
+		for (int i = 0, extraX = 0; i < 8; i++) {
 			if (i == activeWorldID) {
-				std::string worldLabel = std::to_string(i + 1) + "-" + std::to_string(activeSecondWorldID + 1);
-				CFG::getText()->Draw(mainWindow, worldLabel,
-					rSelectWorld.left + 16 * (i + 1) + 16 * i + extraX,
-					rSelectWorld.top + 16 + 24,
-					16, 255, 255, 255);
+				CFG::getText()->Draw(mainWindow, std::to_string(i + 1) + "-" + std::to_string(activeSecondWorldID + 1), rSelectWorld.left + 16 * (i + 1) + 16 * i + extraX, rSelectWorld.top + 16 + 24, 16, 255, 255, 255);
 
 				extraX = 32;
-
-				// Uncomment to draw sub-worlds if needed
-				/*
-				for (int j = 0; j < 4; j++) {
-					std::string subWorldLabel = std::to_string(j + 1);
-					sf::Color textColor = (j == activeSecondWorldID) ? sf::Color(255, 255, 255, 255) : sf::Color(90, 90, 90, 255);
-					CCFG::getText()->Draw(mainWindow, subWorldLabel,
-										  rSelectWorld.left + 16 * (i + 1) + 16 * i,
-										  rSelectWorld.top + 40 + 24 * j,
-										  16, textColor.r, textColor.g, textColor.b);
-				}
-				*/
 			}
 			else {
-				std::string worldLabel = std::to_string(i + 1);
-				CFG::getText()->Draw(mainWindow, worldLabel,
-					rSelectWorld.left + 16 * (i + 1) + 16 * i + extraX,
-					rSelectWorld.top + 16 + 24,
-					16, 90, 90, 90);
+				CFG::getText()->Draw(mainWindow, std::to_string(i + 1), rSelectWorld.left + 16 * (i + 1) + 16 * i + extraX, rSelectWorld.top + 16 + 24, 16, 90, 90, 90);
 			}
 		}
-
-		// Set background color (using SFML-based function)
-		Core::getMap()->setBackgroundColor(mainWindow);
 	}
 
 }
@@ -109,11 +86,11 @@ void MainMenu::enter() {
 		}
 		else {
 			CFG::getMenuManager()->getLoadingMenu()->updateTime();
-			//Core::getMap()->resetGameData();
+			Core::getMap()->resetGameData();
 			Core::getMap()->setCurrentLevelID(activeWorldID * 4 + activeSecondWorldID);
 			CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGameLoading);
 			CFG::getMenuManager()->getLoadingMenu()->loadingType = true;
-			//Core::getMap()->setSpawnPointID(0);
+			Core::getMap()->setSpawnPointID(0);
 			selectWorld = false;
 		}
 		break;	

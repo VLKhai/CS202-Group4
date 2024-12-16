@@ -274,7 +274,7 @@ void Map::updateMinionsCollisions() {
 		}
 	}
 
-	//if (!inEvent && !oPlayer->getInLevelAnimation()) {
+	//if (!inEvent && !player->getInLevelAnimation()) {
 		// ----- COLLISION WITH PLAYER
 		for (int i = getListID(-(int)fXPos + player->getXPos()) - (getListID(-(int)fXPos + player->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
 			for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
@@ -355,7 +355,7 @@ void Map::DrawMinions(sf::RenderWindow& mainWindow) {
 	for (int i = 0; i < iMinionListSize; i++) {
 		for (int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
 			lMinion[i][j]->Draw(mainWindow, vMinion[lMinion[i][j]->getBloockID()]->getAniSprite()->getFrame());
-			//CCFG::getText()->DrawWS(rR, std::to_string(i), lMinion[i][j]->getXPos() + (int)fXPos, lMinion[i][j]->getYPos(), 0, 0, 0, 8);
+			//CFG::getText()->DrawWS(rR, std::to_string(i), lMinion[i][j]->getXPos() + (int)fXPos, lMinion[i][j]->getYPos(), 0, 0, 0, 8);
 		}
 	}
 }
@@ -573,6 +573,210 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 	return true;
 }
 
+int Map::getSpawnPointXPos(int iID) {
+	switch (currentLevelID) {
+	case 0:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 82 * 32;
+		}
+	case 1:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 89 * 32;
+		}
+	case 2:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 66 * 32;
+		}
+	case 3:
+		return 64;
+	case 4:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 98 * 32;
+		}
+	case 5:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 86 * 32;
+		}
+	case 6:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 114 * 32;
+		}
+	case 7:
+		return 64;
+	case 8:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 90 * 32;
+		}
+	case 9:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 98 * 32;
+		}
+	case 10:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 66 * 32;
+		}
+	case 13:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 95 * 32;
+		}
+	case 14:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 65 * 32;
+		}
+	case 16:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 97 * 32;
+		}
+	case 17:
+		switch (iID) {
+		case 0:
+			return 84 + 80 * 32;
+		case 1:
+			return 177 * 32;
+		}
+	case 18:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 66 * 32;
+		}
+	case 20:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 98 * 32;
+		}
+	case 21:
+		switch (iID) {
+		case 0:
+			return 84 + 85 * 32;
+		case 1:
+			return 183 * 32;
+		}
+	case 22:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 98 * 32;
+		}
+	case 24:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 98 * 32;
+		}
+	case 25:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 86 * 32;
+		}
+	case 26:
+		switch (iID) {
+		case 0:
+			return 84;
+		case 1:
+			return 113 * 32;
+		}
+	}
+
+	return 84;
+}
+
+int Map::getSpawnPointYPos(int iID) {
+	switch (currentLevelID) {
+	case 1:
+		switch (iID) {
+		case 0:
+			return 64;
+		}
+	case 5: case 25:
+		switch (iID) {
+		case 0:
+			return 64;
+		case 1:
+			return CFG::GameHeight - 48 - player->getHitBoxY();;
+		}
+	case 3: case 7: case 11: case 15: case 19: case 23: case 27: case 31:
+		return 150;
+	}
+
+	return CFG::GameHeight - 48 - player->getHitBoxY();
+}
+
+void Map::setSpawnPoint() {
+	float X = (float)getSpawnPointXPos(iSpawnPointID);
+
+	if (X > 6 * 32) {
+		fXPos = -(X - 6 * 32);
+		player->setXPos(6 * 32);
+		player->setYPos((float)getSpawnPointYPos(iSpawnPointID));
+	}
+	else {
+		fXPos = 0;
+		player->setXPos(X);
+		player->setYPos((float)getSpawnPointYPos(iSpawnPointID));
+	}
+
+	player->setMoveDirection(true);
+}
+
+void Map::resetGameData() {
+	this->currentLevelID = 0;
+	this->iSpawnPointID = 0;
+
+	player->setCoins(0);
+	player->setScore(0);
+	player->resetPowerLVL();
+
+	player->setNumOfLives(3);
+
+	setSpawnPoint();
+
+	loadLVL();
+}
+
 void Map::loadLVL()
 {
 	switch (currentLevelID) {
@@ -763,9 +967,9 @@ void Map::checkCollisionOnTopOfTheBlock(int nX, int nY)
 	switch (lMap[nX][nY + 1]->getBlockID()) {
 	case 29: case 71: case 72: case 73:// COIN
 		lMap[nX][nY + 1]->setBlockID(0);
-		//lCoin.push_back(new Coin(nX * 32 + 7, CCFG::GAME_HEIGHT - nY * 32 - 48));
-		//CCFG::getMusic()->PlayChunk(CCFG::getMusic()->cCOIN);
-		//oPlayer->setCoins(oPlayer->getCoins() + 1);
+		//lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
+		//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
+		//player->setCoins(player->getCoins() + 1);
 		return;
 		break;
 	}
@@ -773,7 +977,7 @@ void Map::checkCollisionOnTopOfTheBlock(int nX, int nY)
 	//for (int i = (nX - nX % 5) / 5, iEnd = i + 3; i < iEnd && i < iMinionListSize; i++) {
 	//	for (unsigned int j = 0; j < lMinion[i].size(); j++) {
 	//		if (!lMinion[i][j]->collisionOnlyWithPlayer && lMinion[i][j]->getMinionState() >= 0 && ((lMinion[i][j]->getXPos() >= nX * 32 && lMinion[i][j]->getXPos() <= nX * 32 + 32) || (lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX >= nX * 32 && lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX <= nX * 32 + 32))) {
-	//			if (lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= CCFG::GAME_HEIGHT - 24 - nY * 32 && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY <= CCFG::GAME_HEIGHT - nY * 32 + 16) {
+	//			if (lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= CFG::GameHeight - 24 - nY * 32 && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY <= CFG::GameHeight - nY * 32 + 16) {
 	//				lMinion[i][j]->moveDirection = !lMinion[i][j]->moveDirection;
 	//				lMinion[i][j]->setMinionState(-2);
 	//			}
@@ -2769,6 +2973,10 @@ bool Map::getInEvent() {
 
 void Map::setInEvent(bool inEvent) {
 	this->inEvent = inEvent;
+}
+
+void Map::setSpawnPointID(int iSpawnPointID) {
+	this->iSpawnPointID = iSpawnPointID;
 }
 
 void Map::clearMap()
