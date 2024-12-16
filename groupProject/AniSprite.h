@@ -12,7 +12,7 @@ public:
     IMG* getFrame();
     IMG* getFrame(int iID);
     IMG* getTexture();
-
+    IMG* getTexture(int iID);
 private:
     std::vector<IMG*> imgFrame;
     std::vector<unsigned int> iDelay;

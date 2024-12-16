@@ -45,3 +45,6 @@ IMG *AniSprite::getFrame(int iID)
 IMG* AniSprite::getTexture() {
     return imgFrame[iCurrentFrame];
 }
+IMG* AniSprite::getTexture(int iID) {
+    return imgFrame[iID];
+}

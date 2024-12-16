@@ -13,6 +13,7 @@
 #include "Tile.h"
 #include "Minion.h"
 #include "Goombas.h"
+#include "Coin.h"
 
 class Map {
 private:
@@ -170,4 +171,7 @@ public:
 	Platform* getPlatform(int iID);
 	Block* getBlock(int iID);
 	Tile* getMapBlock(int iX, int iY);
+	// ----- POINTS & COIN -----
+	std::vector<Coin*> lCoin;
+	//std::vector<Points*> lPoints;
 };

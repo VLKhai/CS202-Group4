@@ -54,6 +54,17 @@ void Map::update()
 			lBlockDebris.erase(lBlockDebris.begin() + i);
 		}
 	}
+	// update coin + point
+	for (unsigned int i = 0; i < lCoin.size(); i++) {
+		if (!lCoin[i]->getDelete()) {
+			lCoin[i]->Update();
+		}
+		else {
+			//lPoints.push_back(new Points(lCoin[i]->getXPos(), lCoin[i]->getYPos(), "200"));
+			delete lCoin[i];
+			lCoin.erase(lCoin.begin() + i);
+		}
+	}
 }
 
 void Map::updateGifBlocks()
@@ -304,23 +315,23 @@ void Map::draw(sf::RenderWindow& mainWindow)
 	DrawMinions(mainWindow);
 
 	/*for (unsigned int i = 0; i < lPoints.size(); i++) {
-		lPoints[i]->Draw(rR);
+		lPoints[i]->Draw(mainWindow);
 	}*/
 
-	/*for (unsigned int i = 0; i < lCoin.size(); i++) {
-		lCoin[i]->Draw(rR);
-	}*/
+	for (unsigned int i = 0; i < lCoin.size(); i++) {
+		lCoin[i]->Draw(mainWindow);
+	}
 
 	for (unsigned int i = 0; i < lBlockDebris.size(); i++) {
 		lBlockDebris[i]->draw(mainWindow);
 	}
 
 	/*for (unsigned int i = 0; i < vLevelText.size(); i++) {
-		CFG::getText()->Draw(rR, vLevelText[i]->getText(), vLevelText[i]->getXPos() + (int)fXPos, vLevelText[i]->getYPos());
+		CFG::getText()->Draw(mainWindow, vLevelText[i]->getText(), vLevelText[i]->getXPos() + (int)fXPos, vLevelText[i]->getYPos());
 	}*/
 
 	/*for (unsigned int i = 0; i < lBubble.size(); i++) {
-		lBubble[i]->Draw(rR, vBlock[lBubble[i]->getBlockID()]->getAniSprite()->getTexture());
+		lBubble[i]->Draw(mainWindow, vBlock[lBubble[i]->getBlockID()]->getAniSprite()->getTexture());
 	}*/
 
 	player->draw(mainWindow);
@@ -329,7 +340,7 @@ void Map::draw(sf::RenderWindow& mainWindow)
 		oEvent->Draw(rR);
 	}*/
 
-	//DrawGameLayout(rR);
+	DrawGameLayout(mainWindow);
 }
 
 void Map::drawMap(sf::RenderWindow& mainWindow)
@@ -425,10 +436,10 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 				CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);*/
 			}
 			else {
-				//lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
-				//player->setScore(player->getScore() + 200);
+				lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
+				player->setScore(player->getScore() + 200);
 				//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
-				//player->setCoins(player->getCoins() + 1);
+				player->setCoins(player->getCoins() + 1);	
 			}
 
 			if (lMap[nX][nY]->getNumOfUse() > 1) {
@@ -440,7 +451,7 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 			}
 
 			lMap[nX][nY]->startBlockAnimation();
-			//checkCollisionOnTopOfTheBlock(nX, nY);
+			checkCollisionOnTopOfTheBlock(nX, nY);
 			break;
 		case 13: case 28: case 81: // ----- Brick
 			if (lMap[nX][nY]->getSpawnStar()) {
@@ -466,9 +477,9 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 				//CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);
 			}
 			else if (lMap[nX][nY]->getNumOfUse() > 0) {
-				/*lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
+				lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
 				player->setScore(player->getScore() + 200);
-				player->setCoins(player->getCoins() + 1);*/
+				player->setCoins(player->getCoins() + 1);
 
 				lMap[nX][nY]->setNumOfUse(lMap[nX][nY]->getNumOfUse() - 1);
 				if (lMap[nX][nY]->getNumOfUse() == 0) {
@@ -509,10 +520,10 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 				CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);*/
 			}
 			else {
-				/*lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
+				lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
 				player->setCoins(player->getCoins() + 1);
 				player->setScore(player->getScore() + 200);
-				CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);*/
+				//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
 
 				lMap[nX][nY]->startBlockAnimation();
 			}
@@ -967,23 +978,23 @@ void Map::checkCollisionOnTopOfTheBlock(int nX, int nY)
 	switch (lMap[nX][nY + 1]->getBlockID()) {
 	case 29: case 71: case 72: case 73:// COIN
 		lMap[nX][nY + 1]->setBlockID(0);
-		//lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
+		lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
 		//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
-		//player->setCoins(player->getCoins() + 1);
+		player->setCoins(player->getCoins() + 1);
 		return;
 		break;
 	}
 
-	//for (int i = (nX - nX % 5) / 5, iEnd = i + 3; i < iEnd && i < iMinionListSize; i++) {
-	//	for (unsigned int j = 0; j < lMinion[i].size(); j++) {
-	//		if (!lMinion[i][j]->collisionOnlyWithPlayer && lMinion[i][j]->getMinionState() >= 0 && ((lMinion[i][j]->getXPos() >= nX * 32 && lMinion[i][j]->getXPos() <= nX * 32 + 32) || (lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX >= nX * 32 && lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX <= nX * 32 + 32))) {
-	//			if (lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= CFG::GameHeight - 24 - nY * 32 && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY <= CFG::GameHeight - nY * 32 + 16) {
-	//				lMinion[i][j]->moveDirection = !lMinion[i][j]->moveDirection;
-	//				lMinion[i][j]->setMinionState(-2);
-	//			}
-	//		}
-	//	}
-	//}
+	for (int i = (nX - nX % 5) / 5, iEnd = i + 3; i < iEnd && i < iMinionListSize; i++) {
+		for (unsigned int j = 0; j < lMinion[i].size(); j++) {
+			if (!lMinion[i][j]->collisionOnlyWithPlayer && lMinion[i][j]->getMinionState() >= 0 && ((lMinion[i][j]->getXPos() >= nX * 32 && lMinion[i][j]->getXPos() <= nX * 32 + 32) || (lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX >= nX * 32 && lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX <= nX * 32 + 32))) {
+				if (lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= CFG::GameHeight - 24 - nY * 32 && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY <= CFG::GameHeight - nY * 32 + 16) {
+					lMinion[i][j]->moveDirection = !lMinion[i][j]->moveDirection;
+					lMinion[i][j]->setMinionState(-2);
+				}
+			}
+		}
+	}
 }
 
 float Map::getXPos()

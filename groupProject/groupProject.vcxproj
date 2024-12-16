@@ -24,6 +24,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockDebris.cpp" />
     <ClCompile Include="CFG.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="Goombas.cpp" />
@@ -51,6 +52,7 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockDebris.h" />
     <ClInclude Include="CFG.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="Goombas.h" />
