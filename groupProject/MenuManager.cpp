@@ -8,6 +8,7 @@ MenuManager::MenuManager()
 	this->oMainMenu = new MainMenu();
 	this->oLoadingMenu = new LoadingMenu();
 	this->oOptionsMenu = new OptionsMenu();
+	this->oPauseMenu = new PauseMenu();
 }
 
 MenuManager::~MenuManager()
@@ -16,6 +17,7 @@ MenuManager::~MenuManager()
 	delete oMainMenu;
 	delete oLoadingMenu;
 	delete oOptionsMenu;
+	delete oPauseMenu;
 }
 
 void MenuManager::update()
@@ -35,6 +37,9 @@ void MenuManager::update()
 		break;
 	case eOptions:// options screen
 		oOptionsMenu->Update();
+		break;
+	case ePasue:// pause screen
+		oPauseMenu->Update();
 		break;
 	}
 }
@@ -61,6 +66,13 @@ void MenuManager::draw(sf::RenderWindow& window)
 		Core::getMap()->getPlayer()->draw(window);
 		Core::getMap()->DrawGameLayout(window);
 		oOptionsMenu->Draw(window);
+		break;
+	case ePasue:
+		Core::getMap()->drawMap(window);
+		Core::getMap()->DrawMinions(window);
+		Core::getMap()->getPlayer()->draw(window);
+		Core::getMap()->DrawGameLayout(window);
+		oPauseMenu->Draw(window);
 		break;
 	}
 }
@@ -90,6 +102,27 @@ void MenuManager::enter() {
 	case eOptions:
 		oOptionsMenu->enter();
 		break;
+	case ePasue:
+		oPauseMenu->enter();
+		break;
+	}
+
+}
+
+void MenuManager::escape() {
+	switch (currentGameState) {
+	case eGame:
+
+		break;
+	case eOptions:
+		oOptionsMenu->escape();
+		break;
+	case eMainMenu:
+		oMainMenu->escape();
+		break;
+	case ePasue:
+		oPauseMenu->escape();
+		break;
 	}
 }
 
@@ -101,10 +134,9 @@ void MenuManager::resetActiveOptionID(gameState ID) {
 	case eOptions:
 		oOptionsMenu->activeMenuOption = 0;
 		break;
-	/*
 	case ePasue:
 		oPauseMenu->activeMenuOption = 0;
-		break;*/
+		break;
 	}
 }
 
@@ -116,9 +148,9 @@ void MenuManager::keyPressed(int iDir) {
 	case eOptions:
 		oOptionsMenu->updateActiveButton(iDir);
 		break;
-	/*case ePasue:
+	case ePasue:
 		oPauseMenu->updateActiveButton(iDir);
-		break;*/
+		break;
 	}
 }
 
@@ -148,4 +180,8 @@ void MenuManager::setKey(int keyID) {
 
 void MenuManager::setActiveOption(sf::RenderWindow& window) {
 	activeOption = new IMG("active_option", window);
+}
+
+OptionsMenu* MenuManager::getOptions() {
+	return oOptionsMenu;
 }

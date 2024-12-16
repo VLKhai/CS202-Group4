@@ -45,6 +45,21 @@ OptionsMenu::~OptionsMenu() {
 
 }
 
+void OptionsMenu::escape() {
+	if (inSetKey) {
+		resetSetKey = true;
+	}
+	else {
+		if (escapeToMainMenu) {
+			Core::getMap()->resetGameData();
+			CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eMainMenu);
+		}
+		else {
+			CFG::getMenuManager()->setViewID(CFG::getMenuManager()->ePasue);
+		}
+	}
+}
+
 void OptionsMenu::Draw(sf::RenderWindow& mainWindow) {
 	sf::RectangleShape rectangle;
 	//filled color 
@@ -184,4 +199,8 @@ void OptionsMenu::setKey(int keyID) {
 	else if (keyID == sf::Keyboard::Escape) {
 		resetSetKey = true;
 	}
+}
+
+void OptionsMenu::setEscapeToMainMenu(bool escapeToMainMenu) {
+	this->escapeToMainMenu = escapeToMainMenu;
 }

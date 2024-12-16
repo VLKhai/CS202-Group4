@@ -3,6 +3,7 @@
 #include "LoadingMenu.h"
 #include "IMG.h"
 #include "OptionsMenu.h"
+#include "PauseMenu.h"
 
 class MenuManager {
 private:
@@ -11,6 +12,7 @@ private:
 	MainMenu* oMainMenu;
 	LoadingMenu* oLoadingMenu;
 	OptionsMenu* oOptionsMenu;
+	PauseMenu* oPauseMenu;
 public:
 	MenuManager();
 	~MenuManager();
@@ -43,5 +45,7 @@ public:
 	IMG* getActiveOption();
 	void setActiveOption(sf::RenderWindow& window);
 
-	LoadingMenu* getLoadingMenu();
+	LoadingMenu* getLoadingMenu(); 
+	OptionsMenu* getOptions();
+
 };

@@ -37,6 +37,7 @@
     <ClCompile Include="MenuOption.cpp" />
     <ClCompile Include="Minion.cpp" />
     <ClCompile Include="OptionsMenu.cpp" />
+    <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Tile.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="MenuOption.h" />
     <ClInclude Include="Minion.h" />
     <ClInclude Include="OptionsMenu.h" />
+    <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Tile.h" />

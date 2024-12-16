@@ -24,7 +24,7 @@ public:
 	void Draw(sf::RenderWindow& mainWindow);
 
 	void enter();
-	//void escape();
+	void escape();
 	void setKey(int keyID);
 
 	void updateActiveButton(int iDir);

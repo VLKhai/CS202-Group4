@@ -85,9 +85,8 @@ void Core::input()
 }
 
 void Core::inputPlayer() {
-    
     if (mainEvent.type == sf::Event::KeyReleased) {
- 
+       
         // Handle [D] key
         if (mainEvent.key.code == CFG::keyIDD) {
             if (firstDir) firstDir = false;
@@ -149,7 +148,16 @@ void Core::inputPlayer() {
 			pMap->getPlayer()->startRun();
             keyShift = true;
         }
-            
+        
+        if (mainEvent.key.code == sf::Keyboard::Escape) {
+            if (!keyMenuPressed && CFG::getMenuManager()->getViewID() == CFG::getMenuManager()->eGame) {
+                CFG::getMenuManager()->resetActiveOptionID(CFG::getMenuManager()->ePasue);
+                CFG::getMenuManager()->setViewID(CFG::getMenuManager()->ePasue);
+                //CFG::getMusic()->PlayChunk(CFG::getMusic()->cPASUE);
+                //CFG::getMusic()->PauseMusic();
+                keyMenuPressed = true;
+            }
+        }
     }   
 
     if (keyAPressed) {
