@@ -20,6 +20,18 @@ public:
 	OptionsMenu();
 	~OptionsMenu();
 
+	void Update();
+	void Draw(sf::RenderWindow& mainWindow);
+
+	void enter();
+	//void escape();
+	void setKey(int keyID);
+
+	void updateActiveButton(int iDir);
+
+	//void updateVolumeRect();
+
+	void setEscapeToMainMenu(bool escapeToMainMenu);
 };
 
 #endif

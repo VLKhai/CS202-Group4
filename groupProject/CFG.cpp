@@ -23,6 +23,7 @@ int CFG::GameHeight = 560;
 
 bool CFG::keySpace = false;
 
+
 int CFG::keyIDA = 0;
 int CFG::keyIDD = 0;
 int CFG::keyIDS = 0;
@@ -52,11 +53,11 @@ IMG* CFG::getSMBLOGO() {
 }
 
 std::string CFG::getKeyString(int keyID) {
-    if (keyID >= 97 && keyID <= 122) {
+   if (keyID >= 97 && keyID <= 122) {
         return std::string(1, '0' + (keyID - 32) - 48);
     }
 
-    if (keyID >= 48 && keyID <= 57) {
+    if (keyID >= 48 && keyID < 57) {
         return std::string(1, '0' + (keyID - 32) - 48);
     }
 
@@ -69,19 +70,18 @@ std::string CFG::getKeyString(int keyID) {
         return "LSHIFT";
     case sf::Keyboard::RShift:
         return "RSHIFT";
-    case sf::Keyboard::Up:
-        return "UP";
-    case sf::Keyboard::Down:
-        return "DOWN";
-    case sf::Keyboard::Right:
-        return "RIGHT";
+    case sf::Keyboard::A:
+        return "A";
+    case sf::Keyboard::S:
+        return "S";
+    case sf::Keyboard::D:
+        return "D";
     case sf::Keyboard::Left:
         return "LEFT";
     case sf::Keyboard::LControl:
         return "LCTRL";
     case sf::Keyboard::RControl:
         return "RCTRL";
-
-        return "NONE";
     }
+    return "NONE";
 }

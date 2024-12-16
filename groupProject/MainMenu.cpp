@@ -39,9 +39,7 @@ void MainMenu::Draw(sf::RenderWindow& mainWindow) {
 
 	if (selectWorld) {
 		sf::RectangleShape rectangle;
-		rectangle.setPosition(static_cast<float>(rSelectWorld.left), static_cast<float>(rSelectWorld.top));
-		rectangle.setSize(sf::Vector2f(static_cast<float>(rSelectWorld.width), static_cast<float>(rSelectWorld.height)));
-		rectangle.setOutlineThickness(1); // Border thickness
+
 		// Adjust the rectangle
 		rSelectWorld.left += 1;
 		rSelectWorld.top += 1;

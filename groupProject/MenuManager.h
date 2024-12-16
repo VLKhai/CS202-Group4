@@ -2,6 +2,7 @@
 #include "MainMenu.h"
 #include "LoadingMenu.h"
 #include "IMG.h"
+#include "OptionsMenu.h"
 
 class MenuManager {
 private:
@@ -9,6 +10,7 @@ private:
 
 	MainMenu* oMainMenu;
 	LoadingMenu* oLoadingMenu;
+	OptionsMenu* oOptionsMenu;
 public:
 	MenuManager();
 	~MenuManager();

@@ -7,6 +7,7 @@ MenuManager::MenuManager()
 	this->currentGameState = eMainMenu;
 	this->oMainMenu = new MainMenu();
 	this->oLoadingMenu = new LoadingMenu();
+	this->oOptionsMenu = new OptionsMenu();
 }
 
 MenuManager::~MenuManager()
@@ -14,6 +15,7 @@ MenuManager::~MenuManager()
 	delete activeOption;
 	delete oMainMenu;
 	delete oLoadingMenu;
+	delete oOptionsMenu;
 }
 
 void MenuManager::update()
@@ -30,6 +32,9 @@ void MenuManager::update()
 		Core::getMap()->update();
 		Core::getMap()->updateMinionsCollisions();
 		//oLE->Update();
+		break;
+	case eOptions:// options screen
+		oOptionsMenu->Update();
 		break;
 	}
 }
@@ -49,6 +54,13 @@ void MenuManager::draw(sf::RenderWindow& window)
 	case eGame:
 		Core::getMap()->draw(window);
 		//oLE->Draw(rR);
+		break;
+	case eOptions:
+		Core::getMap()->drawMap(window);
+		Core::getMap()->DrawMinions(window);
+		Core::getMap()->getPlayer()->draw(window);
+		Core::getMap()->DrawGameLayout(window);
+		oOptionsMenu->Draw(window);
 		break;
 	}
 }
@@ -75,6 +87,9 @@ void MenuManager::enter() {
 	case eGame:
 		Core::getMap()->setDrawLines(!Core::getMap()->getDrawLines());
 		break;
+	case eOptions:
+		oOptionsMenu->enter();
+		break;
 	}
 }
 
@@ -83,9 +98,10 @@ void MenuManager::resetActiveOptionID(gameState ID) {
 	case eMainMenu:
 		oMainMenu->activeMenuOption = 0;
 		break;
-	/*case eOptions:
+	case eOptions:
 		oOptionsMenu->activeMenuOption = 0;
 		break;
+	/*
 	case ePasue:
 		oPauseMenu->activeMenuOption = 0;
 		break;*/
@@ -97,10 +113,10 @@ void MenuManager::keyPressed(int iDir) {
 	case eMainMenu:
 		oMainMenu->updateActiveButton(iDir);
 		break;
-	/*case eOptions:
+	case eOptions:
 		oOptionsMenu->updateActiveButton(iDir);
 		break;
-	case ePasue:
+	/*case ePasue:
 		oPauseMenu->updateActiveButton(iDir);
 		break;*/
 	}
@@ -123,6 +139,11 @@ void MenuManager::setViewID(gameState viewID) {
 }
 
 void MenuManager::setKey(int keyID) {
+	switch (currentGameState) {
+	case eOptions:
+		oOptionsMenu->setKey(keyID);
+		break;
+	}
 }
 
 void MenuManager::setActiveOption(sf::RenderWindow& window) {
