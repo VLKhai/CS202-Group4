@@ -14,6 +14,7 @@
 #include "Minion.h"
 #include "Goombas.h"
 #include "Coin.h"
+#include "Points.h"
 
 class Map {
 private:
@@ -60,12 +61,21 @@ private:
 	std::vector<std::vector<Minion*>> lMinion;
 	int iMinionListSize;
 
+	// ----- POINTS & COIN -----
+	std::vector<Coin*> lCoin;
+	std::vector<Points*> lPoints;
+
     // ----Load----
     void loadGameData(sf::RenderWindow& mainWindow);
 	void loadLVL_1_1();
 	void loadMinionsLVL_1_1();
 
 	void createMap();
+
+	void checkSpawnPoint();
+	int getNumOfSpawnPoints();
+	int getSpawnPointXPos(int iID);
+	int getSpawnPointYPos(int iID);
 
 	int getStartBlock();
 	int getEndBlock();
@@ -89,7 +99,8 @@ public:
 	void DrawMinions(sf::RenderWindow& mainWindow);
 	void DrawGameLayout(sf::RenderWindow& mainWindow);
 
-	//Add minions
+	//Add 
+	void addPoints(int X, int Y, std::string sText, int iW, int iH);
 	void addGoombas(int iX, int iY, bool moveDirection);
 
 	// Block Interaction
@@ -164,14 +175,9 @@ public:
 	void setSpawnPointID(int iSpawnPointID);
 
 	void setSpawnPoint();
-	int getSpawnPointYPos(int iID);
-	int getSpawnPointXPos(int iID);
 
 	Player* getPlayer();
 	Platform* getPlatform(int iID);
 	Block* getBlock(int iID);
 	Tile* getMapBlock(int iX, int iY);
-	// ----- POINTS & COIN -----
-	std::vector<Coin*> lCoin;
-	//std::vector<Points*> lPoints;
 };

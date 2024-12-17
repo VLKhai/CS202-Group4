@@ -40,6 +40,7 @@
     <ClCompile Include="OptionsMenu.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="Points.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Platform.cpp" />
@@ -68,6 +69,7 @@
     <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Pipe.h" />
+    <ClInclude Include="Points.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Platform.h" />

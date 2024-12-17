@@ -8,7 +8,7 @@ Map::Map(sf::RenderWindow& mainWindow)
 	this->iMapHeight = 0;
 	this->iLevelType = 0;
 
-	//this->drawLines = false;
+	this->drawLines = false;
 	this->fXPos = 0;
 	this->fYPos = 0;
 
@@ -60,9 +60,19 @@ void Map::update()
 			lCoin[i]->Update();
 		}
 		else {
-			//lPoints.push_back(new Points(lCoin[i]->getXPos(), lCoin[i]->getYPos(), "200"));
+			lPoints.push_back(new Points(lCoin[i]->getXPos(), lCoin[i]->getYPos(), "200"));
 			delete lCoin[i];
 			lCoin.erase(lCoin.begin() + i);
+		}
+	}
+
+	for (unsigned int i = 0; i < lPoints.size(); i++) {
+		if (!lPoints[i]->getDelete()) {
+			lPoints[i]->Update();
+		}
+		else {
+			delete lPoints[i];
+			lPoints.erase(lPoints.begin() + i);
 		}
 	}
 }
@@ -314,9 +324,9 @@ void Map::draw(sf::RenderWindow& mainWindow)
 
 	DrawMinions(mainWindow);
 
-	/*for (unsigned int i = 0; i < lPoints.size(); i++) {
+	for (unsigned int i = 0; i < lPoints.size(); i++) {
 		lPoints[i]->Draw(mainWindow);
-	}*/
+	}
 
 	for (unsigned int i = 0; i < lCoin.size(); i++) {
 		lCoin[i]->Draw(mainWindow);
@@ -3034,7 +3044,31 @@ void Map::clearPlatforms() {
 	vPlatform.clear();
 }
 
+void Map::checkSpawnPoint() {
+	if (getNumOfSpawnPoints() > 1) {
+		for (int i = iSpawnPointID + 1; i < getNumOfSpawnPoints(); i++) {
+			if (getSpawnPointXPos(i) > player->getXPos() - fXPos && getSpawnPointXPos(i) < player->getXPos() - fXPos + 128) {
+				iSpawnPointID = i;
+				//oPlayer->getCoins() - fcloseall() = fXPos + oPlayer;
+			}
+		}
+	}
+}
+
+int Map::getNumOfSpawnPoints() {
+	switch (currentLevelID) {
+	case 0: case 1: case 2: case 4: case 5: case 8: case 9: case 10: case 13: case 14: case 16: case 17: case 18: case 20: case 21: case 22: case 24: case 25: case 26:
+		return 2;
+	}
+
+	return 1;
+}
+
 // -- Minions -- 
+
+void Map::addPoints(int X, int Y, std::string sText, int iW, int iH) {
+	lPoints.push_back(new Points(X, Y, sText, iW, iH));
+}
 
 void Map::addGoombas(int iX, int iY, bool moveDirection) {
 	lMinion[getListID(iX)].push_back(new Goombas(iX, iY, iLevelType == 0 || iLevelType == 4 ? 0 : iLevelType == 1 ? 8 : 10, moveDirection));
