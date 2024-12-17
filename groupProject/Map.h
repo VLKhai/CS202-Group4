@@ -169,6 +169,9 @@ public:
 	bool getDrawLines();
 	void setDrawLines(bool drawLines);
 
+	int getMapTime();
+	void setMapTime(int iMapTime);
+
 	int getListID(int nX);
 	std::string getLevelName();
 	void setBackgroundColor(sf::RenderWindow& mainWindow);
@@ -184,4 +187,5 @@ public:
 	Platform* getPlatform(int iID);
 	Block* getBlock(int iID);
 	Tile* getMapBlock(int iX, int iY);
+	Event* getEvent();
 };

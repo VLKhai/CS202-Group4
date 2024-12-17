@@ -7,11 +7,12 @@ Text* CFG::oText = new Text();
 IMG* CFG::tSMBLOGO = new IMG();
 
 MenuManager* CFG::oMM = new MenuManager();
+Music* CFG::oMusic = new Music();
 
 CFG::CFG() { }
 
 CFG::~CFG() {
-    delete music;
+    delete oMusic;
     delete oMM;
     delete oText;
 }
@@ -32,12 +33,10 @@ int CFG::keyIDShift = 0;
 
 bool CFG::canMoveBackward = true;
 
-sf::Music* CFG::music = new sf::Music();
-
 /* ******************************************** */
 
-sf::Music* CFG::getMusic() {
-    return music;
+Music* CFG::getMusic() {
+    return oMusic;
 }
 
 Text* CFG::getText() {

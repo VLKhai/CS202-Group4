@@ -41,6 +41,7 @@ Core::Core()
     CFG::getText()->setFont(mainWindow, "font");
     CFG::getSMBLOGO()->setIMG("super_mario_bros", mainWindow);
     CFG::getMenuManager()->setActiveOption(mainWindow); 
+    CFG::getMusic()->PlayMusic();
 }
 
 void Core::mainLoop()
@@ -153,8 +154,8 @@ void Core::inputPlayer() {
             if (!keyMenuPressed && CFG::getMenuManager()->getViewID() == CFG::getMenuManager()->eGame) {
                 CFG::getMenuManager()->resetActiveOptionID(CFG::getMenuManager()->ePasue);
                 CFG::getMenuManager()->setViewID(CFG::getMenuManager()->ePasue);
-                //CFG::getMusic()->PlayChunk(CFG::getMusic()->cPASUE);
-                //CFG::getMusic()->PauseMusic();
+                CFG::getMusic()->PlayChunk(CFG::getMusic()->cPAUSE);
+                CFG::getMusic()->PauseMusic();
                 keyMenuPressed = true;
             }
         }

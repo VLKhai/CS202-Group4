@@ -18,21 +18,21 @@ LoadingMenu::~LoadingMenu(void) {
 void LoadingMenu::Update() {
 	if (Core::coreClock.getElapsedTime().asMilliseconds() >= iTime + 2500 + (loadingType ? 0 : 2750)) {
 		if (loadingType) {
-			/*if (!Core::getMap()->getInEvent()) {
+			if (!Core::getMap()->getInEvent()) {
 				Core::getMap()->setSpawnPoint();
 				Core::getMap()->loadLVL();
-			}*/
+			}
 			Core::getMap()->loadLVL();
 			CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGame);
-			//CFG::getMusic()->changeMusic(true, true);
+			CFG::getMusic()->changeMusic(true, true);
 		}
 		else {
-			//Core::getMap()->resetGameData();
+			Core::getMap()->resetGameData();
 			CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eMainMenu);
 		}
 	}
 	else {
-		//CFG::getMusic()->StopMusic();
+		CFG::getMusic()->StopMusic();
 	}
 	Core::getMap()->updateGifBlocks();
 }

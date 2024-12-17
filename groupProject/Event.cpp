@@ -56,20 +56,20 @@ void Event::Normal() {
 					vOLDLength[stepID] -= iSpeed;
 					Core::getMap()->getPlayer()->setMoveDirection(false);
 					break;
-				//case eENDPOINTS:
-				//	if (Core::getMap()->getMapTime() > 0) {
-				//		Core::getMap()->setMapTime(Core::getMap()->getMapTime() - 1);
-				//		Core::getMap()->getPlayer()->setScore(Core::getMap()->getPlayer()->getScore() + 50);
-				//		if (CFG::getMusic()->musicStopped) {
-				//			CFG::getMusic()->PlayMusic(CFG::getMusic()->mSCORERING);
-				//		}
-				//	}
-				//	else {
-				//		vOLDLength[stepID] = 0;
-				//		CFG::getMusic()->StopMusic();
-				//	}
-				//	Core::getMap()->getFlag()->UpdateCastleFlag();
-				//	break;
+				case eENDPOINTS:
+					if (Core::getMap()->getMapTime() > 0) {
+						Core::getMap()->setMapTime(Core::getMap()->getMapTime() - 1);
+						Core::getMap()->getPlayer()->setScore(Core::getMap()->getPlayer()->getScore() + 50);
+						if (CFG::getMusic()->musicStopped) {
+							CFG::getMusic()->PlayMusic(CFG::getMusic()->mSCORERING);
+						}
+					}
+					else {
+						vOLDLength[stepID] = 0;
+						CFG::getMusic()->StopMusic();
+					}
+					Core::getMap()->getFlag()->UpdateCastleFlag();
+					break;
 				case eDEATHNOTHING:
 					vOLDLength[stepID] -= iSpeed;
 					Core::getMap()->getPlayer()->setMarioSpriteID(0);
@@ -90,36 +90,36 @@ void Event::Normal() {
 				case ePLAYPIPERIGHT:
 					Core::getMap()->getPlayer()->setXPos((float)Core::getMap()->getPlayer()->getXPos() + iSpeed);
 					vOLDLength[stepID] -= 1;
-					//CFG::getMusic()->PlayChunk(CFG::getMusic()->cPIPE);
+					CFG::getMusic()->PlayChunk(CFG::getMusic()->cPIPE);
 					break;
-				//case eLOADINGMENU:
-				//	vOLDLength[stepID] -= 1;
+				case eLOADINGMENU:
+					vOLDLength[stepID] -= 1;
 
-				//	if (vOLDLength[stepID] < 2) {
-				//		Core::getMap()->setInEvent(false);
-				//		inEvent = false;
-				//		Core::getMap()->getPlayer()->stopMove();
+					if (vOLDLength[stepID] < 2) {
+						Core::getMap()->setInEvent(false);
+						inEvent = false;
+						Core::getMap()->getPlayer()->stopMove();
 
-				//		CFG::getMM()->getLoadingMenu()->loadingType = true;
-				//		CFG::getMM()->getLoadingMenu()->updateTime();
-				//		CFG::getMM()->setViewID(CFG::getMM()->eGameLoading);
-				//	}
-				//	break;
-				//case eGAMEOVER:
-				//	vOLDLength[stepID] -= 1;
+						CFG::getMenuManager()->getLoadingMenu()->loadingType = true;
+						CFG::getMenuManager()->getLoadingMenu()->updateTime();
+						CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGameLoading);
+					}
+					break;
+				case eGAMEOVER:
+					vOLDLength[stepID] -= 1;
 
-				//	if (vOLDLength[stepID] < 2) {
-				//		Core::getMap()->setInEvent(false);
-				//		inEvent = false;
-				//		Core::getMap()->getPlayer()->stopMove();
+					if (vOLDLength[stepID] < 2) {
+						Core::getMap()->setInEvent(false);
+						inEvent = false;
+						Core::getMap()->getPlayer()->stopMove();
 
-				//		CFG::getMM()->getLoadingMenu()->loadingType = false;
-				//		CFG::getMM()->getLoadingMenu()->updateTime();
-				//		CFG::getMM()->setViewID(CFG::getMM()->eGameLoading);
+						CFG::getMenuManager()->getLoadingMenu()->loadingType = false;
+						CFG::getMenuManager()->getLoadingMenu()->updateTime();
+						CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGameLoading);
 
-				//		CFG::getMusic()->PlayChunk(CFG::getMusic()->cGAMEOVER);
-				//	}
-				//	break;
+						CFG::getMusic()->PlayChunk(CFG::getMusic()->cGAMEOVER);
+					}
+					break;
 				case eBOSSEND1:
 					for (int i = Core::getMap()->getMapWidth() - 1; i > 0; i--) {
 						if (Core::getMap()->getMapBlock(i, 6)->getBlockID() == 82) {
@@ -128,8 +128,8 @@ void Event::Normal() {
 						}
 					}
 					//*Core::getMap()->getMapBlock(Core::getMap()->getBlockIDX((int)(Core::getMap()->getPlayer()->getXPos() + Core::getMap()->getPlayer()->getHitBoxX()/2 - Core::getMap()->getXPos()) + vOLDLength[stepID] - 1), 6)->setBlockID(0);
-					//Core::getMap()->clearPlatforms();
-					//CFG::getMusic()->PlayChunk(CFG::getMusic()->cBRIDGEBREAK);
+					//Core::getMap()->clearPlatforms(); unNoted here
+					CFG::getMusic()->PlayChunk(CFG::getMusic()->cBRIDGEBREAK);
 					vOLDLength[stepID] = 0;
 					Core::getMap()->getPlayer()->setMoveDirection(false);
 					break;
@@ -148,7 +148,7 @@ void Event::Normal() {
 							break;
 						}
 					}
-					//CFG::getMusic()->PlayChunk(CFG::getMusic()->cBRIDGEBREAK);
+					CFG::getMusic()->PlayChunk(CFG::getMusic()->cBRIDGEBREAK);
 					vOLDLength[stepID] = 0;
 					break;
 				case eBOSSEND3:
@@ -159,12 +159,12 @@ void Event::Normal() {
 						}
 					}
 					//*Core::getMap()->getMapBlock(Core::getMap()->getBlockIDX((int)(Core::getMap()->getPlayer()->getXPos() + Core::getMap()->getPlayer()->getHitBoxX()/2 - Core::getMap()->getXPos())) - vOLDLength[stepID], 4)->setBlockID(0);
-					//CFG::getMusic()->PlayChunk(CFG::getMusic()->cBRIDGEBREAK);
+					CFG::getMusic()->PlayChunk(CFG::getMusic()->cBRIDGEBREAK);
 					Core::getMap()->getPlayer()->setMoveDirection(true);
 					vOLDLength[stepID] = 0;
 					break;
 				case eBOSSEND4:
-					//CFG::getMusic()->PlayChunk(CFG::getMusic()->cBOWSERFALL);
+					CFG::getMusic()->PlayChunk(CFG::getMusic()->cBOWSERFALL);
 					vOLDLength[stepID] = 0;
 					break;
 				case eBOTRIGHTBOSS: // BOT & RIGHT
@@ -174,7 +174,7 @@ void Event::Normal() {
 					vOLDLength[stepID] -= iSpeed;
 					break;
 				case eBOSSTEXT1:
-					//Core::getMap()->addText(vOLDLength[stepID], CFG::GAME_HEIGHT - 16 - 9 * 32, "THANK YOU MARIOz");
+					//Core::getMap()->addText(vOLDLength[stepID], CFG::GameHeight- 16 - 9 * 32, "THANK YOU MARIOz");
 					vOLDLength[stepID] = 0;
 					break;
 				case eBOSSTEXT2:
@@ -268,7 +268,7 @@ void Event::Normal() {
 					break;
 				case ePLAYPIPETOP:
 					vNEWLength[stepID] -= 1;
-					//CFG::getMusic()->PlayChunk(CFG::getMusic()->cPIPE);
+					CFG::getMusic()->PlayChunk(CFG::getMusic()->cPIPE);
 					break;
 				case eNOTHING: // NOTHING YAY
 					vNEWLength[stepID] -= 1;
@@ -292,7 +292,7 @@ void Event::Normal() {
 		else {
 			Core::getMap()->setInEvent(false);
 			Core::getMap()->getPlayer()->stopMove();
-			//CFG::getMusic()->changeMusic(true, true);
+			CFG::getMusic()->changeMusic(true, true);
 			inEvent = false;
 			CFG::keySpace = false;
 			//Core::resetKeys();
@@ -342,9 +342,9 @@ void Event::newLevel() {
     Core::getMap()->getPlayer()->setYPos((float)newPlayerYPos);
     Core::getMap()->setMoveMap(newMoveMap);
     if (Core::getMap()->getCurrentLevelID() != newCurrentLevel) {
-        //CFG::getMM()->getLoadingMenu()->updateTime();
-        //CFG::getMM()->getLoadingMenu()->loadingType = true;
-        //CFG::getMM()->setViewID(CFG::getMM()->eGameLoading);
+        CFG::getMenuManager()->getLoadingMenu()->updateTime();
+        CFG::getMenuManager()->getLoadingMenu()->loadingType = true;
+        CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGameLoading);
         Core::getMap()->getPlayer()->setCoins(0);
     }
     Core::getMap()->setCurrentLevelID(newCurrentLevel);

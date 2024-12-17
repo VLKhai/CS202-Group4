@@ -25,6 +25,7 @@ Map::Map(sf::RenderWindow& mainWindow)
 	//this->bTP = false;
 	player = new Player(mainWindow, 84, 480);
 	pEvent = nullptr;
+	CFG::getText()->setFont(mainWindow, "font");
 
 	srand((unsigned)time(NULL));
 
@@ -35,14 +36,54 @@ Map::Map(sf::RenderWindow& mainWindow)
 void Map::update()
 {
 	updateGifBlocks();
-	updatePlayer();
-	updateMinionBlocks();
-	updateMinions();
+	if (!player->getInLevelAnimation()) {
+		updateMinionBlocks();
+
+		updateMinions();
+
+		if (!inEvent) {
+			updatePlayer();
+
+			++iFrameID;
+			if (iFrameID > 32) {
+				iFrameID = 0;
+				if (iMapTime > 0) {
+					--iMapTime;
+					if (iMapTime == 90) {
+						CFG::getMusic()->StopMusic();
+						CFG::getMusic()->PlayChunk(CFG::getMusic()->cLOWTIME);
+					}
+					else if (iMapTime == 86) {
+						CFG::getMusic()->changeMusic(true, true);
+					}
+
+				/*	if (iMapTime <= 0) {
+						playerDeath(true, true);
+					}*/
+				}
+			}
+		}
+		else {
+			pEvent->Animation();
+		}
+
+		for (unsigned int i = 0; i < vPlatform.size(); i++) {
+			vPlatform[i]->update();
+		}
+	}
+	else {
+		player->powerUPAnimation();
+	}
+
+	
+	//updatePlayer();
+	//updateMinionBlocks();
+	//updateMinions();
 	updateMinionsCollisions();
 
-	for (unsigned int i = 0; i < vPlatform.size(); i++) {
+	/*for (unsigned int i = 0; i < vPlatform.size(); i++) {
 		vPlatform[i]->update();
-	}
+	}*/
 
 	// Update Block Debris
 	for (unsigned int i = 0; i < lBlockDebris.size(); i++) {
@@ -448,7 +489,7 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 			else {
 				lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
 				player->setScore(player->getScore() + 200);
-				//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
+				CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
 				player->setCoins(player->getCoins() + 1);	
 			}
 
@@ -468,7 +509,7 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 				lMap[nX][nY]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 9 : iLevelType == 1 ? 56 : 80);
 				//lMinion[getListID(32 * nX)].push_back(new Star(32 * nX, CFG::GameHeight - 16 - 32 * nY, nX, nY));
 				lMap[nX][nY]->startBlockAnimation();
-				//CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);
+				CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);
 			}
 			else if (lMap[nX][nY]->getSpawnMushroom()) {
 				lMap[nX][nY]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 9 : iLevelType == 1 ? 56 : 80);
@@ -484,7 +525,7 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 					lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, false, nX, nY));
 				}*/
 				lMap[nX][nY]->startBlockAnimation();
-				//CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);
+				CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);
 			}
 			else if (lMap[nX][nY]->getNumOfUse() > 0) {
 				lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
@@ -496,7 +537,7 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 					lMap[nX][nY]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 9 : iLevelType == 1 ? 56 : 80);
 				}
 
-				//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
+				CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
 
 				lMap[nX][nY]->startBlockAnimation();
 			}
@@ -504,11 +545,11 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 				if (player->getPowerLVL() > 0) {
 					lMap[nX][nY]->setBlockID(0);
 					lBlockDebris.push_back(new BlockDebris(nX * 32, CFG::GameHeight - 48 - nY * 32));
-					//CFG::getMusic()->PlayChunk(CFG::getMusic()->cBLOCKBREAK);
+					CFG::getMusic()->PlayChunk(CFG::getMusic()->cBLOCKBREAK);
 				}
 				else {
 					lMap[nX][nY]->startBlockAnimation();
-					//CFG::getMusic()->PlayChunk(CFG::getMusic()->cBLOCKHIT);
+					CFG::getMusic()->PlayChunk(CFG::getMusic()->cBLOCKHIT);
 				}
 			}
 
@@ -533,7 +574,7 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 				lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
 				player->setCoins(player->getCoins() + 1);
 				player->setScore(player->getScore() + 200);
-				//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
+				CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
 
 				lMap[nX][nY]->startBlockAnimation();
 			}
@@ -569,8 +610,8 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 	switch (iBlockID) {
 	case 29: case 71: case 72: case 73:// COIN
 		lMap[nX][nY]->setBlockID(iLevelType == 2 ? 94 : 0);
-		//player->addCoin();
-		//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
+		player->addCoin();
+		CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
 		return false;
 		break;
 		//case 36: case 38: case 60: case 62: case 103: case 105: case 118: case 120: // Pipe
@@ -1096,6 +1137,10 @@ Tile* Map::getMapBlock(int iX, int iY) {
 	return lMap[iX][iY];
 }
 
+Event* Map::getEvent() {
+	return pEvent;
+}
+
 std::string Map::getLevelName() {
 	return "" + std::to_string(1 + currentLevelID / 4) + "-" + std::to_string(currentLevelID % 4 + 1);
 }
@@ -1111,6 +1156,16 @@ bool Map::getDrawLines() {
 void Map::setDrawLines(bool drawLines) {
 	this->drawLines = drawLines;
 }
+
+int Map::getMapTime() {
+	return iMapTime;
+}
+
+void Map::setMapTime(int iMapTime) {
+	this->iMapTime = iMapTime;
+}
+
+
 
 void Map::loadGameData(sf::RenderWindow& mainWindow)
 {

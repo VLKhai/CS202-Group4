@@ -2,7 +2,7 @@
 
 #include "Text.h"
 #include "MenuManager.h"
-#include <SFML/Audio.hpp>
+#include "Music.h"
 
 class CFG
 {
@@ -15,15 +15,15 @@ public:
     static bool canMoveBackward;
 
     // Methods
-    static sf::Music* getMusic();
     static Text* getText();
     static MenuManager* getMenuManager();
     static IMG* getSMBLOGO();
+    static Music* getMusic();
 
     static std::string getKeyString(int keyID);
 private:
-    static sf::Music* music;
     static Text* oText;
     static MenuManager* oMM;
     static IMG* tSMBLOGO;
+    static Music* oMusic;
 };
