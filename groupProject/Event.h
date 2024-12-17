@@ -10,7 +10,7 @@ private:
     unsigned int stepID;
 public:
     Event(void);
-    ~Event(void);
+    ~Event(void) = default;
 
     enum animationType {
         eTOP,
@@ -86,7 +86,7 @@ public:
 
     // ----- Methods
 
-    void Draw(sf::RenderWindow& window);
+    void draw(sf::RenderWindow& window);
 
     void Animation();
     void newLevel();

@@ -27,6 +27,7 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event.cpp" />
+    <ClCompile Include="Flag.cpp" />
     <ClCompile Include="Goombas.cpp" />
     <ClCompile Include="IMG.cpp" />
     <ClCompile Include="LoadingMenu.cpp" />
@@ -56,6 +57,7 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="Flag.h" />
     <ClInclude Include="Goombas.h" />
     <ClInclude Include="IMG.h" />
     <ClInclude Include="Koppa.h" />
