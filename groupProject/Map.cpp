@@ -1072,6 +1072,11 @@ void Map::setUnderWater(bool underWater) {
 	this->underWater = underWater;
 }
 
+Flag* Map::getFlag()
+{
+	return pFlag;
+}
+
 Player* Map::getPlayer()
 {
     return player;

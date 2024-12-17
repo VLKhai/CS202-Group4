@@ -15,6 +15,7 @@
 #include "Goombas.h"
 #include "Coin.h"
 #include "Points.h"
+#include "Flag.h"
 
 class Map {
 private:
@@ -64,6 +65,8 @@ private:
 	// ----- POINTS & COIN -----
 	std::vector<Coin*> lCoin;
 	std::vector<Points*> lPoints;
+
+	Flag* pFlag;
 
     // ----Load----
     void loadGameData(sf::RenderWindow& mainWindow);
@@ -176,6 +179,7 @@ public:
 
 	void setSpawnPoint();
 
+	Flag* getFlag();
 	Player* getPlayer();
 	Platform* getPlatform(int iID);
 	Block* getBlock(int iID);
