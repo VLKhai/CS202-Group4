@@ -35,4 +35,5 @@ private:
     void inputMenu();
 
     void resetMove();
+    void resetKeys();
 };

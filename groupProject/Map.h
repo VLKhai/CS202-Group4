@@ -137,7 +137,7 @@ public:
 	// Load resources
 	void loadLVL();
 	void resetGameData();
-
+	void startLevelAnimation();
 	void moveMap(int nX, int nY);
 
 	// Structure object

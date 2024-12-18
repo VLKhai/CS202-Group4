@@ -366,15 +366,7 @@ void Map::updateMinionsCollisions() {
 									if (lMinion[i + 1][k]->killOtherUnits && lMinion[i + 1][k]->moveSpeed > 0 && lMinion[i][j]->minionSpawned) {
 										lMinion[i][j]->setMinionState(-2);
 										lMinion[i + 1][k]->collisionWithAnotherUnit();
-									}
-									/*
-									if(lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY < lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY) {
-										lMinion[i][j]->onAnotherMinion = true;
-										continue;
-									} else {
-										lMinion[i + 1][k]->onAnotherMinion = true;
-										continue;
-									}*/
+									}						
 
 									if (lMinion[i][j]->getYPos() - 4 <= lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY && lMinion[i][j]->getYPos() + 4 >= lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY) {
 										lMinion[i + 1][k]->onAnotherMinion = true;
@@ -395,7 +387,7 @@ void Map::updateMinionsCollisions() {
 		}
 	}
 
-	//if (!inEvent && !player->getInLevelAnimation()) {
+	if (!inEvent && !player->getInLevelAnimation()) {
 		// ----- COLLISION WITH PLAYER
 		for (int i = getListID(-(int)fXPos + player->getXPos()) - (getListID(-(int)fXPos + player->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
 			for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
@@ -411,7 +403,7 @@ void Map::updateMinionsCollisions() {
 				}
 			}
 		}
-	//}
+	}
 }
 
 void Map::draw(sf::RenderWindow& mainWindow)
@@ -896,6 +888,185 @@ void Map::resetGameData() {
 	setSpawnPoint();
 
 	loadLVL();
+}
+
+
+void Map::startLevelAnimation() {
+	pEvent->newUnderWater = false;
+
+	switch (currentLevelID) {
+	case 0:
+
+		break;
+	case 1:
+		pEvent->resetData();
+		player->resetJump();
+		player->stopMove();
+
+		pEvent->iSpeed = 2;
+		pEvent->newLevelType = 1;
+
+		pEvent->iDelay = 150;
+		pEvent->newCurrentLevel = 1;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 96;
+		pEvent->newPlayerYPos = 64;
+		pEvent->newMoveMap = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(7 * 32 + 4);
+
+		pEvent->vOLDDir.push_back(pEvent->ePLAYPIPERIGHT);
+		pEvent->vOLDLength.push_back(1);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(1 * 32 - 2);
+
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(75);
+
+		pEvent->reDrawX.push_back(220);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(220);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 5:
+		pEvent->resetData();
+		player->resetJump();
+		player->stopMove();
+
+		pEvent->iSpeed = 2;
+		pEvent->newLevelType = 2;
+
+		pEvent->iDelay = 150;
+		pEvent->newCurrentLevel = 5;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 96;
+		pEvent->newPlayerYPos = 64;
+		pEvent->newMoveMap = true;
+		pEvent->newUnderWater = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(7 * 32 + 4);
+
+		pEvent->vOLDDir.push_back(pEvent->ePLAYPIPERIGHT);
+		pEvent->vOLDLength.push_back(1);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(1 * 32 - 2);
+
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(75);
+
+		pEvent->reDrawX.push_back(230);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(230);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 13:
+		pEvent->resetData();
+		player->resetJump();
+		player->stopMove();
+
+		pEvent->iSpeed = 2;
+		pEvent->newLevelType = 1;
+
+		pEvent->iDelay = 150;
+		pEvent->newCurrentLevel = currentLevelID;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 96;
+		pEvent->newPlayerYPos = 64;
+		pEvent->newMoveMap = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(7 * 32 + 4);
+
+		pEvent->vOLDDir.push_back(pEvent->ePLAYPIPERIGHT);
+		pEvent->vOLDLength.push_back(1);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(1 * 32 - 2);
+
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(75);
+
+		pEvent->reDrawX.push_back(250);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(250);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 25:
+		pEvent->resetData();
+		player->resetJump();
+		player->stopMove();
+
+		pEvent->iSpeed = 2;
+		pEvent->newLevelType = 2;
+
+		pEvent->iDelay = 150;
+		pEvent->newCurrentLevel = 25;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 96;
+		pEvent->newPlayerYPos = 64;
+		pEvent->newMoveMap = true;
+		pEvent->newUnderWater = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(7 * 32 + 4);
+
+		pEvent->vOLDDir.push_back(pEvent->ePLAYPIPERIGHT);
+		pEvent->vOLDLength.push_back(1);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(1 * 32 - 2);
+
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(75);
+
+		pEvent->reDrawX.push_back(230);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(230);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 26:
+		pEvent->resetData();
+		player->resetJump();
+		player->stopMove();
+
+		pEvent->iSpeed = 2;
+		pEvent->newLevelType = 2;
+
+		pEvent->iDelay = 150;
+		pEvent->newCurrentLevel = 26;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 96;
+		pEvent->newPlayerYPos = 64;
+		pEvent->newMoveMap = true;
+		pEvent->newUnderWater = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(7 * 32 + 4);
+
+		pEvent->vOLDDir.push_back(pEvent->ePLAYPIPERIGHT);
+		pEvent->vOLDLength.push_back(1);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(1 * 32 - 2);
+
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(75);
+
+		pEvent->reDrawX.push_back(230);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(230);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
 }
 
 void Map::loadLVL()

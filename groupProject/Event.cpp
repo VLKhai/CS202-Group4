@@ -226,7 +226,7 @@ void Event::Normal() {
 						CFG::getMenuManager()->getLoadingMenu()->updateTime();
 						CFG::getMenuManager()->getLoadingMenu()->loadingType = true;
 						CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGameLoading);
-						//Core::getMap()->startLevelAnimation();
+						Core::getMap()->startLevelAnimation();
 					}
 
 					CFG::keySpace = false;

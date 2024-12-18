@@ -1199,7 +1199,7 @@ void Player::resetJump()
 	jumpState = 0;
 	jumpDistance = 0;
 	currentJumpDistance = 0;
-	currentFallingSpeed = 2.7f;
+	currentFallingSpeed = 2.7f;  
 	nextFallFrameID = 0;
 	springJump = false;
 }
