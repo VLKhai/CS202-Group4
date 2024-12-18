@@ -36,4 +36,5 @@ private:
     void inputPlayer();
     void mouseInput();
     void inputMenu();
+
 };
