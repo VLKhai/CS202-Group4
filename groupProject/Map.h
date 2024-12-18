@@ -142,8 +142,6 @@ public:
 	void startLevelAnimation();
 	void moveMap(int nX, int nY);
 
-	void startLevelAnimation();
-
 	// Structure object
 	void structBush(int X, int Y, int iSze);
 	void structGrass(int X, int Y, int iSize);
