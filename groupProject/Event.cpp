@@ -127,15 +127,15 @@ void Event::Normal() {
 							break;
 						}
 					}
-					Core::getMap()->getMapBlock(Core::getMap()->getBlockIDX((int)(Core::getMap()->getPlayer()->getXPos() + Core::getMap()->getPlayer()->getHitBoxX()/2 - Core::getMap()->getXPos()) + vOLDLength[stepID] - 1), 6)->setBlockID(0);
-					Core::getMap()->clearPlatforms(); 
+					//Core::getMap()->getMapBlock(Core::getMap()->getBlockIDX((int)(Core::getMap()->getPlayer()->getXPos() + Core::getMap()->getPlayer()->getHitBoxX()/2 - Core::getMap()->getXPos()) + vOLDLength[stepID] - 1), 6)->setBlockID(0);
+					Core::getMap()->clearPlatforms();
 					CFG::getMusic()->PlayChunk(CFG::getMusic()->cBRIDGEBREAK);
 					vOLDLength[stepID] = 0;
 					Core::getMap()->getPlayer()->setMoveDirection(false);
 					break;
 				case eBOSSEND2:
-					Core::getMap()->getMapBlock(Core::getMap()->getBlockIDX((int)(Core::getMap()->getPlayer()->getXPos() + Core::getMap()->getPlayer()->getHitBoxX()/2 - Core::getMap()->getXPos())) - 1, 5)->setBlockID(0);
-					Core::getMap()->getMapBlock(Core::getMap()->getBlockIDX((int)(Core::getMap()->getPlayer()->getXPos() + Core::getMap()->getPlayer()->getHitBoxX()/2 - Core::getMap()->getXPos())) - 1, 4)->setBlockID(0);
+					//Core::getMap()->getMapBlock(Core::getMap()->getBlockIDX((int)(Core::getMap()->getPlayer()->getXPos() + Core::getMap()->getPlayer()->getHitBoxX()/2 - Core::getMap()->getXPos())) - 1, 5)->setBlockID(0);
+					//Core::getMap()->getMapBlock(Core::getMap()->getBlockIDX((int)(Core::getMap()->getPlayer()->getXPos() + Core::getMap()->getPlayer()->getHitBoxX()/2 - Core::getMap()->getXPos())) - 1, 4)->setBlockID(0);
 					for (int i = Core::getMap()->getMapWidth() - 1; i > 0; i--) {
 						if (Core::getMap()->getMapBlock(i, 5)->getBlockID() == 79) {
 							Core::getMap()->getMapBlock(i, 5)->setBlockID(0);
@@ -158,7 +158,7 @@ void Event::Normal() {
 							break;
 						}
 					}
-					Core::getMap()->getMapBlock(Core::getMap()->getBlockIDX((int)(Core::getMap()->getPlayer()->getXPos() + Core::getMap()->getPlayer()->getHitBoxX()/2 - Core::getMap()->getXPos())) - vOLDLength[stepID], 4)->setBlockID(0);
+					//Core::getMap()->getMapBlock(Core::getMap()->getBlockIDX((int)(Core::getMap()->getPlayer()->getXPos() + Core::getMap()->getPlayer()->getHitBoxX()/2 - Core::getMap()->getXPos())) - vOLDLength[stepID], 4)->setBlockID(0);
 					CFG::getMusic()->PlayChunk(CFG::getMusic()->cBRIDGEBREAK);
 					Core::getMap()->getPlayer()->setMoveDirection(true);
 					vOLDLength[stepID] = 0;
@@ -174,7 +174,7 @@ void Event::Normal() {
 					vOLDLength[stepID] -= iSpeed;
 					break;
 				case eBOSSTEXT1:
-					Core::getMap()->addText(vOLDLength[stepID], CFG::GameHeight- 16 - 9 * 32, "THANK YOU MARIOz");
+					Core::getMap()->addText(vOLDLength[stepID], CFG::GameHeight - 16 - 9 * 32, "THANK YOU MARIOz");
 					vOLDLength[stepID] = 0;
 					break;
 				case eBOSSTEXT2:
@@ -205,7 +205,7 @@ void Event::Normal() {
 					Core::getMap()->getPlayer()->setMarioSpriteID(11);
 					break;
 				case eVINESPAWN:
-					//Core::getMap()->addVine(vOLDLength[stepID], 0, 1, newLevelType == 0 || newLevelType == 4 ? 34 : 36);
+					//Core::getMap()->addVine(vOLDLength[stepID], 0, 1, newLevelType == 0 || newLevelType == 4 ? 34 : 36); YET
 					vOLDLength[stepID] = 0;
 					break;
 				}
@@ -214,8 +214,8 @@ void Event::Normal() {
 				++stepID;
 				iTime = Core::coreClock.getElapsedTime().asMilliseconds();
 			}
-		}
-		else { 
+		} 
+		else {
 			if (!endGame) {
 				if (Core::coreClock.getElapsedTime().asMilliseconds() >= iTime + iDelay) {
 					bState = false;
@@ -299,6 +299,7 @@ void Event::Normal() {
 		}
 	}
 }
+
 
 void Event::end() {
     if (Core::getMap()->getFlag() != NULL && Core::getMap()->getFlag()->iYPos < CFG::GameHeight - 16 - 3 * 32 - 4) {
