@@ -3019,7 +3019,7 @@ void Map::loadLVL_1_1() {
 	loadMinionsLVL_1_1();
 
 	// ----- PIPEEVENT
-	//loadPipeEventsLVL_1_1();
+	loadPipeEventsLVL_1_1();
 
 	// ----- Bush -----
 
@@ -3223,6 +3223,136 @@ void Map::loadMinionsLVL_1_1() {
 
 	addGoombas(5568, 480, true);
 	addGoombas(5612, 480, true);
+}
+
+void Map::clearPipeEvents() {
+	for (unsigned int i = 0; i < lPipe.size(); i++) {
+		delete lPipe[i];
+	}
+
+	lPipe.clear();
+}
+
+void Map::loadPipeEventsLVL_1_1() {
+	lPipe.push_back(new Pipe(0, 57, 5, 58, 5, 242 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 253, 3, 253, 2, 163 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_1_2() {
+	lPipe.push_back(new Pipe(0, 103, 4, 104, 4, 242 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 253, 3, 253, 2, 115 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 1, true, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 166, 6, 166, 5, 284 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+
+	// -- WARP ZONE 2
+	lPipe.push_back(new Pipe(0, 186, 4, 187, 4, 84, CFG::GameHeight - 80, 4, 0, true, 350, 1, false));
+	// -- WARP ZONE 3
+	lPipe.push_back(new Pipe(0, 182, 4, 183, 4, 84, CFG::GameHeight - 80, 8, 4, true, 350, 1, false));
+	// -- WARP ZONE 4
+	lPipe.push_back(new Pipe(0, 178, 4, 179, 4, 84, CFG::GameHeight - 80, 12, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_2_1() {
+	lPipe.push_back(new Pipe(0, 103, 5, 104, 5, 232 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 243, 3, 243, 2, 115 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_2_2() {
+	lPipe.push_back(new Pipe(1, 189, 7, 189, 6, 274 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_3_1() {
+	lPipe.push_back(new Pipe(0, 38, 5, 39, 5, 242 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 253, 3, 253, 2, 67 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 4, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_4_1() {
+	lPipe.push_back(new Pipe(0, 132, 5, 133, 5, 252 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 263, 3, 263, 2, 163 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_4_2() {
+	lPipe.push_back(new Pipe(0, 84, 4, 85, 4, 272 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 283, 3, 283, 2, 131 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 1, true, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 187, 6, 187, 5, 394 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+
+	// -- WARP ZONE 5
+	lPipe.push_back(new Pipe(0, 214, 4, 215, 4, 84, CFG::GameHeight - 80, 16, 0, true, 350, 1, false));
+	// -- WARP ZONE 6
+	lPipe.push_back(new Pipe(0, 368, 4, 369, 4, 84, CFG::GameHeight - 80, 20, 4, true, 350, 1, false));
+	// -- WARP ZONE 7
+	lPipe.push_back(new Pipe(0, 364, 4, 365, 4, 84, CFG::GameHeight - 80, 24, 0, true, 350, 1, false));
+	// -- WARP ZONE 8
+	lPipe.push_back(new Pipe(0, 360, 4, 361, 4, 84, CFG::GameHeight - 80, 28, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_5_1() {
+	lPipe.push_back(new Pipe(0, 156, 7, 157, 7, 230 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 241, 3, 241, 2, 163 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_5_2() {
+	lPipe.push_back(new Pipe(0, 135, 4, 136, 4, 0, 32, currentLevelID, 2, true, 350, 1, true));
+
+	lPipe.push_back(new Pipe(1, 62, 7, 62, 6, 195 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_6_2() {
+	lPipe.push_back(new Pipe(0, 141, 6, 142, 6, 0, 32, currentLevelID, 2, true, 350, 1, true));
+
+	lPipe.push_back(new Pipe(1, 62, 7, 62, 6, 200 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 4, true, 350, 1, false));
+
+	lPipe.push_back(new Pipe(0, 104, 5, 105, 5, 332 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 343, 3, 343, 2, 120 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 4, true, 350, 1, false));
+
+	lPipe.push_back(new Pipe(0, 238, 4, 239, 4, 362 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 373, 3, 373, 2, 264 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 4, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_7_1() {
+	lPipe.push_back(new Pipe(0, 93, 4, 94, 4, 212 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 223, 3, 223, 2, 115 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_7_2() {
+	lPipe.push_back(new Pipe(1, 189, 7, 189, 6, 274 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_8_1() {
+	lPipe.push_back(new Pipe(0, 104, 5, 105, 5, 412 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 423, 3, 423, 2, 115 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_8_2() {
+	lPipe.push_back(new Pipe(0, 156, 5, 157, 5, 242 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 253, 3, 253, 2, 163 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_8_4() {
+	lPipe.push_back(new Pipe(2, 81, 6, 82, 6, 126 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));
+
+	lPipe.push_back(new Pipe(2, 163, 8, 164, 8, 215 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));
+
+	lPipe.push_back(new Pipe(2, 248, 6, 249, 6, 393 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 2, true, 250, 1, true));
+	lPipe.push_back(new Pipe(1, 458, 7, 458, 6, 302 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 350, 1, false));
+
+	lPipe.push_back(new Pipe(2, 51, 4, 52, 4, 19 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));
+	lPipe.push_back(new Pipe(2, 143, 3, 144, 3, 19 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));
+	lPipe.push_back(new Pipe(2, 232, 7, 232, 7, 19 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));
+	lPipe.push_back(new Pipe(2, 309, 3, 310, 3, 19 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));
 }
 
 void Map::createMap()

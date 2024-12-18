@@ -16,6 +16,7 @@
 #include "Coin.h"
 #include "Points.h"
 #include "Flag.h"
+#include "Pipe.h"
 
 class Map {
 private:
@@ -65,15 +66,11 @@ private:
 	// ----- POINTS & COIN -----
 	std::vector<Coin*> lCoin;
 	std::vector<Points*> lPoints;
+	std::vector<Pipe*> lPipe;
 
 	Flag* pFlag;
 
-    // ----Load----
-    void loadGameData(sf::RenderWindow& mainWindow);
-	void loadLVL_1_1();
-	void loadMinionsLVL_1_1();
-
-	void createMap();
+    void createMap();
 
 	void checkSpawnPoint();
 	int getNumOfSpawnPoints();
@@ -86,6 +83,31 @@ private:
 	void clearMap();
 	void clearMinions();
 	void clearPlatforms();
+	
+	// ----Load----
+    void loadGameData(sf::RenderWindow& mainWindow);
+	void loadLVL_1_1();
+	void loadMinionsLVL_1_1();
+
+	void clearPipeEvents();
+	void loadPipeEventsLVL_1_1();
+	void loadPipeEventsLVL_1_2();
+	void loadPipeEventsLVL_1_3();
+	void loadPipeEventsLVL_2_1();
+	void loadPipeEventsLVL_2_2();
+	void loadPipeEventsLVL_3_1();
+	void loadPipeEventsLVL_4_1();
+	void loadPipeEventsLVL_4_2();
+	void loadPipeEventsLVL_5_1();
+	void loadPipeEventsLVL_5_2();
+	void loadPipeEventsLVL_6_2();
+	void loadPipeEventsLVL_7_1();
+	void loadPipeEventsLVL_7_2();
+	void loadPipeEventsLVL_8_1();
+	void loadPipeEventsLVL_8_2();
+	void loadPipeEventsLVL_8_4();
+
+
 public:
 	Map() = default;
     Map(sf::RenderWindow& mainWindow);
