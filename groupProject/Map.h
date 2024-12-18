@@ -190,6 +190,8 @@ public:
 
 	void checkCollisionOnTopOfTheBlock(int nX, int nY);
 
+	void playerDeath(bool animation, bool instantDeath);
+
 	Vector2* getBlockID(int nX, int nY);
 	int getBlockIDX(int nX);
 	int getBlockIDY(int nY);
