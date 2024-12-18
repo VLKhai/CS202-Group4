@@ -40,17 +40,17 @@ void LoadingMenu::Update() {
 void LoadingMenu::Draw(sf::RenderWindow& window) {
 	if (loadingType) {
 		Core::getMap()->DrawGameLayout(window);
-		CFG::getText()->Draw(window, "WORLD", 320, 144);
-		CFG::getText()->Draw(window, Core::getMap()->getLevelName(), 416, 144);
+		CFG::getText()->Draw(window, "WORLD", 400, 130); 
+		CFG::getText()->Draw(window, Core::getMap()->getLevelName(), 500, 130);
 
-		Core::getMap()->getPlayer()->getMarioSprite()->getTexture()->draw(window, 342, 210 - Core::getMap()->getPlayer()->getHitBoxY() / 2);
+		Core::getMap()->getPlayer()->getMarioSprite()->getTexture()->draw(window, 400, 180 - Core::getMap()->getPlayer()->getHitBoxY() / 2); 
 
-		CFG::getText()->Draw(window, "y", 384, 208);
+		CFG::getText()->Draw(window, "y", 470, 176);
 
 		if (Core::getMap()->getPlayer()->getNumOfLives() > 9) {
-			Core::getMap()->getBlock(180)->getSprite()->getTexture()->draw(window, 410, 210);
+			Core::getMap()->getBlock(180)->getSprite()->getTexture()->draw(window, 500, 180);
 		}
-		CFG::getText()->Draw(window, std::to_string(Core::getMap()->getPlayer()->getNumOfLives()), 432, 208);
+		CFG::getText()->Draw(window, std::to_string(Core::getMap()->getPlayer()->getNumOfLives()), 520, 180);
 		CFG::getText()->DrawCenterX(window, "REMEMBER THAT YOU CAN RUN WITH " + CFG::getKeyString(CFG::keyIDShift), 400, 16);
 	}
 	else {
