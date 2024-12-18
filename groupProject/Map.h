@@ -16,6 +16,7 @@
 #include "Coin.h"
 #include "Points.h"
 #include "Flag.h"
+#include "LevelText.h"
 
 class Map {
 private:
@@ -34,7 +35,7 @@ private:
 
 	std::vector<Platform*> vPlatform;
 
-	//std::vector<LevelText*> vLevelText;
+	std::vector<LevelText*> vLevelText;
 
 	//std::vector<Bubble*> lBubble;
 
@@ -84,6 +85,7 @@ private:
 	int getEndBlock();
 
 	void clearMap();
+	void clearLevelText();
 	void clearMinions();
 	void clearPlatforms();
 public:
@@ -103,6 +105,7 @@ public:
 	void DrawGameLayout(sf::RenderWindow& mainWindow);
 
 	//Add 
+	void addText(int X, int Y, std::string sText);
 	void addPoints(int X, int Y, std::string sText, int iW, int iH);
 	void addGoombas(int iX, int iY, bool moveDirection);
 

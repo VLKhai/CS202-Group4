@@ -30,6 +30,7 @@
     <ClCompile Include="Flag.cpp" />
     <ClCompile Include="Goombas.cpp" />
     <ClCompile Include="IMG.cpp" />
+    <ClCompile Include="LevelText.cpp" />
     <ClCompile Include="LoadingMenu.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="Goombas.h" />
     <ClInclude Include="IMG.h" />
     <ClInclude Include="Koppa.h" />
+    <ClInclude Include="LevelText.h" />
     <ClInclude Include="LoadingMenu.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Map.h" />

@@ -75,15 +75,7 @@ void Map::update()
 		player->powerUPAnimation();
 	}
 
-	
-	//updatePlayer();
-	//updateMinionBlocks();
-	//updateMinions();
 	updateMinionsCollisions();
-
-	/*for (unsigned int i = 0; i < vPlatform.size(); i++) {
-		vPlatform[i]->update();
-	}*/
 
 	// Update Block Debris
 	for (unsigned int i = 0; i < lBlockDebris.size(); i++) {
@@ -377,9 +369,9 @@ void Map::draw(sf::RenderWindow& mainWindow)
 		lBlockDebris[i]->draw(mainWindow);
 	}
 
-	/*for (unsigned int i = 0; i < vLevelText.size(); i++) {
+	for (unsigned int i = 0; i < vLevelText.size(); i++) {
 		CFG::getText()->Draw(mainWindow, vLevelText[i]->getText(), vLevelText[i]->getXPos() + (int)fXPos, vLevelText[i]->getYPos());
-	}*/
+	}
 
 	/*for (unsigned int i = 0; i < lBubble.size(); i++) {
 		lBubble[i]->Draw(mainWindow, vBlock[lBubble[i]->getBlockID()]->getAniSprite()->getTexture());
@@ -3079,7 +3071,15 @@ void Map::clearMap()
 
 	//oEvent->eventTypeID = oEvent->eNormal;
 
-	//clearLevelText();
+	clearLevelText();
+}
+
+void Map::clearLevelText() {
+	for (unsigned int i = 0; i < vLevelText.size(); i++) {
+		delete vLevelText[i];
+	}
+
+	vLevelText.clear();
 }
 
 void Map::clearMinions()
@@ -3124,12 +3124,17 @@ int Map::getNumOfSpawnPoints() {
 	return 1;
 }
 
-// -- Minions -- 
+// -- Add -- 
 
 void Map::addPoints(int X, int Y, std::string sText, int iW, int iH) {
 	lPoints.push_back(new Points(X, Y, sText, iW, iH));
 }
 
+void Map::addText(int X, int Y, std::string sText) {
+	vLevelText.push_back(new LevelText(X, Y, sText));
+}
+
+// -- Minions --
 void Map::addGoombas(int iX, int iY, bool moveDirection) {
 	lMinion[getListID(iX)].push_back(new Goombas(iX, iY, iLevelType == 0 || iLevelType == 4 ? 0 : iLevelType == 1 ? 8 : 10, moveDirection));
 }

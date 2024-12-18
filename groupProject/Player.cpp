@@ -1032,7 +1032,7 @@ bool Player::getStarEffect() {
 
 void Player::setStarEffect(bool starEffect) {
 	if (starEffect && this->starEffect != starEffect) {
-		//CFG::getMusic()->PlayMusic(CFG::getMusic()->mSTAR);
+		CFG::getMusic()->PlayMusic(CFG::getMusic()->mSTAR);
 	}
 	this->starEffect = starEffect;
 	this->unKillAble = starEffect;
@@ -1054,9 +1054,9 @@ int Player::getPowerLVL() {
 void Player::setPowerLVL(int powerLVL) {
 	if (powerLVL <= 2) {
 		if (this->powerLVL < powerLVL) {
-			//CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMMEAT);
-			//setScore(getScore() + 1000);
-			//Core::getMap()->addPoints((int)(fXPos - Core::getMap()->getXPos() + getHitBoxX() / 2), (int)fYPos + 16, "1000", 8, 16);
+			CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMMEAT);
+			setScore(getScore() + 1000);
+			Core::getMap()->addPoints((int)(fXPos - Core::getMap()->getXPos() + getHitBoxX() / 2), (int)fYPos + 16, "1000", 8, 16);
 			inLevelAnimation = true;
 			inLevelAnimationFrameID = 0;
 			inLevelDownAnimationFrameID = 0;
@@ -1064,7 +1064,7 @@ void Player::setPowerLVL(int powerLVL) {
 			this->powerLVL = powerLVL;
 		}
 		else if (this->powerLVL > 0) {
-			//CFG::getMusic()->PlayChunk(CFG::getMusic()->cSHRINK);
+			CFG::getMusic()->PlayChunk(CFG::getMusic()->cSHRINK);
 			inLevelDownAnimation = true;
 			inLevelDownAnimationFrameID = 180;
 			inLevelAnimation = true;
@@ -1075,8 +1075,8 @@ void Player::setPowerLVL(int powerLVL) {
 	}
 	else {
 		++iNumOfLives;
-		//Core::getMap()->addPoints((int)(fXPos - Core::getMap()->getXPos() + getHitBoxX() / 2), (int)fYPos + 16, "1UP", 10, 14);
-		//CFG::getMusic()->PlayChunk(CFG::getMusic()->cONEUP);
+		Core::getMap()->addPoints((int)(fXPos - Core::getMap()->getXPos() + getHitBoxX() / 2), (int)fYPos + 16, "1UP", 10, 14);
+		CFG::getMusic()->PlayChunk(CFG::getMusic()->cONEUP);
 	}
 }
 
@@ -1179,16 +1179,16 @@ void Player::startJump(int iH) {
 			setMarioSpriteID(8);
 			//swimingAnimation();
 		}
-		//CFG::getMusic()->PlayChunk(CFG::getMusic()->cSWIM);
+		CFG::getMusic()->PlayChunk(CFG::getMusic()->cSWIM);
 	}
 
 
 	if (iH > 1) { // music
 		if (powerLVL == 0) {
-			//CFG::getMusic()->PlayChunk(CFG::getMusic()->cJUMP);
+			CFG::getMusic()->PlayChunk(CFG::getMusic()->cJUMP);
 		}
 		else {
-			//CFG::getMusic()->PlayChunk(CFG::getMusic()->cJUMPBIG);
+			CFG::getMusic()->PlayChunk(CFG::getMusic()->cJUMPBIG);
 		}
 	}
 	jumpState = 1;
@@ -1218,7 +1218,7 @@ void Player::createFireBall()
 		if (nextFireBallFrameID <= 0) {
 			//Core::getMap()->addPlayerFireBall((int)(fXPos - Core::getMap()->getXPos() + (moveDirection ? getHitBoxX() : -32)), (int)(fYPos + getHitBoxY() / 2), !moveDirection);
 			nextFireBallFrameID = 16;
-			//CFG::getMusic()->PlayChunk(CFG::getMusic()->cFIREBALL);
+			CFG::getMusic()->PlayChunk(CFG::getMusic()->cFIREBALL);
 		}
 	}
 }
@@ -1230,13 +1230,13 @@ void Player::setMarioSpriteID(int iID)
 
 int Player::getMarioSpriteID()
 {
-	if (starEffect && !inLevelAnimation){ //&& CFG::getMM()->getViewID() == CFG::getMM()->eGame) {
+	if (starEffect && !inLevelAnimation && CFG::getMenuManager()->getViewID() == CFG::getMenuManager()->eGame) {
 		if (unKillAbleTimeFrameID <= 0) {
 			starEffect = unKillAble = false;
 		}
 
 		if (unKillAbleTimeFrameID == 35) {
-			//CFG::getMusic()->changeMusic(true, true);
+			CFG::getMusic()->changeMusic(true, true);
 		}
 
 		++unKillAbleFrameID;
