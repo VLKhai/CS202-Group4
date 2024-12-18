@@ -939,6 +939,64 @@ void Map::structGND2(int X, int Y, int iWidth, int iHeight)
 	}
 }
 
+void Map::structUW1(int X, int Y, int iWidth, int iHeight) {
+	for (int i = 0; i < iWidth; i++) {
+		for (int j = 0; j < iHeight; j++) {
+			lMap[X + i][Y + j]->setBlockID(93);
+		}
+	}
+}
+
+void Map::structBonus(int X, int Y, int iWidth) {
+	for (int i = 0; i < iWidth; i++) {
+		lMap[X + i][Y]->setBlockID(125);
+	}
+}
+
+void Map::structBonusEnd(int X) {
+	for (int i = 0; i < 20; i++) {
+		lMap[X + i][0]->setBlockID(127);
+	}
+}
+
+void Map::structPipe(int X, int Y, int iHeight) {
+	for (int i = 0; i < iHeight; i++) {
+		lMap[X][Y + i]->setBlockID(iLevelType == 0 ? 20 : iLevelType == 2 ? 97 : iLevelType == 4 ? 112 : iLevelType == 5 ? 136 : iLevelType == 3 ? 176 : iLevelType == 7 ? 172 : 30);
+		lMap[X + 1][Y + i]->setBlockID(iLevelType == 0 ? 22 : iLevelType == 2 ? 99 : iLevelType == 4 ? 114 : iLevelType == 5 ? 138 : iLevelType == 3 ? 178 : iLevelType == 7 ? 174 : 32);
+	}
+
+	lMap[X][Y + iHeight]->setBlockID(iLevelType == 0 ? 21 : iLevelType == 2 ? 98 : iLevelType == 4 ? 113 : iLevelType == 5 ? 137 : iLevelType == 3 ? 177 : iLevelType == 7 ? 173 : 31);
+	lMap[X + 1][Y + iHeight]->setBlockID(iLevelType == 0 ? 23 : iLevelType == 2 ? 100 : iLevelType == 4 ? 115 : iLevelType == 5 ? 139 : iLevelType == 3 ? 179 : iLevelType == 7 ? 175 : 33);
+}
+
+void Map::structPipeVertical(int X, int Y, int iHeight) {
+	for (int i = 0; i < iHeight + 1; i++) {
+		lMap[X][Y + i]->setBlockID(iLevelType == 0 ? 20 : iLevelType == 2 ? 97 : iLevelType == 4 ? 112 : 30);
+		lMap[X + 1][Y + i]->setBlockID(iLevelType == 0 ? 22 : iLevelType == 2 ? 99 : iLevelType == 4 ? 114 : 32);
+	}
+}
+
+void Map::structPipeHorizontal(int X, int Y, int iWidth) {
+	lMap[X][Y]->setBlockID(iLevelType == 0 ? 62 : iLevelType == 2 ? 105 : iLevelType == 4 ? 120 : 38);
+	lMap[X][Y + 1]->setBlockID(iLevelType == 0 ? 60 : iLevelType == 2 ? 103 : iLevelType == 4 ? 118 : 36);
+
+	for (int i = 0; i < iWidth; i++) {
+		lMap[X + 1 + i][Y]->setBlockID(iLevelType == 0 ? 61 : iLevelType == 2 ? 104 : iLevelType == 4 ? 119 : 37);
+		lMap[X + 1 + i][Y + 1]->setBlockID(iLevelType == 0 ? 59 : iLevelType == 2 ? 102 : iLevelType == 4 ? 117 : 35);
+	}
+
+	lMap[X + 1 + iWidth][Y]->setBlockID(iLevelType == 0 ? 58 : iLevelType == 2 ? 101 : iLevelType == 4 ? 116 : 34);
+	lMap[X + 1 + iWidth][Y + 1]->setBlockID(iLevelType == 0 ? 63 : iLevelType == 2 ? 106 : iLevelType == 4 ? 121 : 39);
+}
+
+void Map::structCoins(int X, int Y, int iWidth, int iHeight) {
+	for (int i = 0; i < iWidth; i++) {
+		for (int j = 0; j < iHeight; j++) {
+			lMap[X + i][Y + j]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 71 : iLevelType == 1 ? 29 : iLevelType == 2 ? 73 : 29);
+		}
+	}
+}
+
 void Map::structBrick(int X, int Y, int iWidth, int iHeight)
 {
 	for (int i = 0; i < iWidth; i++) {
@@ -959,6 +1017,133 @@ void Map::struckBlockQ2(int X, int Y, int iWidth)
 {
 	for (int i = 0; i < iWidth; i++) {
 		lMap[X + i][Y]->setBlockID(24);
+	}
+}
+
+void Map::structEnd(int X, int Y, int iHeight) {
+	for (int i = 0; i < iHeight; i++) {
+		lMap[X][Y + i]->setBlockID(iLevelType == 4 ? 123 : 40);
+	}
+
+	pFlag = new Flag(X * 32 - 16, Y + iHeight + 72);
+
+	lMap[X][Y + iHeight]->setBlockID(iLevelType == 4 ? 124 : 41);
+
+	for (int i = Y + iHeight + 1; i < Y + iHeight + 4; i++) {
+		lMap[X][i]->setBlockID(182);
+	}
+}
+
+void Map::structCastleSmall(int X, int Y) {
+	for (int i = 0; i < 2; i++) {
+		lMap[X][Y + i]->setBlockID(iLevelType == 3 ? 155 : 43);
+		lMap[X + 1][Y + i]->setBlockID(iLevelType == 3 ? 155 : 43);
+		lMap[X + 3][Y + i]->setBlockID(iLevelType == 3 ? 155 : 43);
+		lMap[X + 4][Y + i]->setBlockID(iLevelType == 3 ? 155 : 43);
+
+		lMap[X + 2][Y + i]->setBlockID(iLevelType == 3 ? 159 : 47);
+	}
+
+	lMap[X + 2][Y + 1]->setBlockID(iLevelType == 3 ? 158 : 46);
+
+	for (int i = 0; i < 5; i++) {
+		lMap[X + i][Y + 2]->setBlockID(i == 0 || i == 4 ? iLevelType == 3 ? 157 : 45 : iLevelType == 3 ? 156 : 44);
+	}
+
+	lMap[X + 1][Y + 3]->setBlockID(iLevelType == 3 ? 160 : 48);
+	lMap[X + 2][Y + 3]->setBlockID(iLevelType == 3 ? 155 : 43);
+	lMap[X + 3][Y + 3]->setBlockID(iLevelType == 3 ? 161 : 49);
+
+	for (int i = 0; i < 3; i++) {
+		lMap[X + i + 1][Y + 4]->setBlockID(iLevelType == 3 ? 157 : 45);
+	}
+}
+
+void Map::structCastleBig(int X, int Y) {
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 5; j++) {
+			setBlockID(X + i, Y + j, iLevelType == 3 ? 155 : 43);
+			setBlockID(X + i + 7, Y + j, iLevelType == 3 ? 155 : 43);
+		}
+	}
+
+	for (int i = 0; i < 3; i++) {
+		setBlockID(X + 2 + i * 2, Y, iLevelType == 3 ? 159 : 47);
+		setBlockID(X + 2 + i * 2, Y + 1, iLevelType == 3 ? 158 : 46);
+	}
+
+	for (int i = 0; i < 9; i++) {
+		setBlockID(X + i, Y + 2, iLevelType == 3 ? 155 : 43);
+	}
+
+	for (int i = 0; i < 9; i++) {
+		if (i < 2 || i > 6) {
+			setBlockID(X + i, Y + 5, iLevelType == 3 ? 157 : 45);
+		}
+		else {
+			setBlockID(X + i, Y + 5, iLevelType == 3 ? 156 : 44);
+		}
+	}
+
+
+	for (int i = 0; i < 2; i++) {
+		setBlockID(X + 3 + i * 2, Y, iLevelType == 3 ? 155 : 43);
+		setBlockID(X + 3 + i * 2, Y + 1, iLevelType == 3 ? 155 : 43);
+	}
+
+	for (int i = 0; i < 2; i++) {
+		setBlockID(X + 3 + i * 2, Y + 3, iLevelType == 3 ? 159 : 47);
+		setBlockID(X + 3 + i * 2, Y + 4, iLevelType == 3 ? 158 : 46);
+	}
+
+	for (int i = 0; i < 3; i++) {
+		setBlockID(X + 2 + i * 2, Y + 3, iLevelType == 3 ? 155 : 43);
+		setBlockID(X + 2 + i * 2, Y + 4, iLevelType == 3 ? 155 : 43);
+	}
+
+	for (int i = 0; i < 2; i++) {
+		setBlockID(X + 2, Y + 6 + i, iLevelType == 3 ? 155 : 43);
+		setBlockID(X + 3, Y + 6 + i, iLevelType == 3 ? 155 : 43);
+		setBlockID(X + 5, Y + 6 + i, iLevelType == 3 ? 155 : 43);
+		setBlockID(X + 6, Y + 6 + i, iLevelType == 3 ? 155 : 43);
+	}
+
+	setBlockID(X + 4, Y + 6, iLevelType == 3 ? 159 : 47);
+	setBlockID(X + 4, Y + 7, iLevelType == 3 ? 158 : 46);
+
+	for (int i = 0; i < 3; i++) {
+		setBlockID(X + 3 + i, Y + 8, iLevelType == 3 ? 156 : 44);
+	}
+
+	setBlockID(X + 2, Y + 8, iLevelType == 3 ? 157 : 45);
+	setBlockID(X + 6, Y + 8, iLevelType == 3 ? 157 : 45);
+
+	setBlockID(X + 2, Y + 8, iLevelType == 3 ? 157 : 45);
+
+	setBlockID(X + 3, Y + 9, iLevelType == 3 ? 160 : 48);
+	setBlockID(X + 4, Y + 9, iLevelType == 3 ? 155 : 43);
+	setBlockID(X + 5, Y + 9, iLevelType == 3 ? 161 : 49);
+
+	for (int i = 0; i < 3; i++) {
+		setBlockID(X + 3 + i, Y + 10, iLevelType == 3 ? 157 : 45);
+	}
+}
+
+void Map::structCastleWall(int X, int Y, int iWidth, int iHeight) {
+	for (int i = 0; i < iWidth; i++) {
+		for (int j = 0; j < iHeight - 1; j++) {
+			lMap[X + i][Y + j]->setBlockID(iLevelType == 3 ? 155 : 43);
+		}
+	}
+
+	for (int i = 0; i < iWidth; i++) {
+		lMap[X + i][Y + iHeight - 1]->setBlockID(iLevelType == 3 ? 157 : 45);
+	}
+}
+
+void Map::setBlockID(int X, int Y, int iBlockID) {
+	if (X >= 0 && X < iMapWidth) {
+		lMap[X][Y]->setBlockID(iBlockID);
 	}
 }
 
@@ -2811,8 +2996,7 @@ void Map::loadGameData(sf::RenderWindow& mainWindow)
 	iMinionSize = vMinion.size();
 }
 
-void Map::loadLVL_1_1()
-{
+void Map::loadLVL_1_1() {
 	clearMap();
 
 	this->iMapWidth = 260;
@@ -2820,12 +3004,17 @@ void Map::loadLVL_1_1()
 	this->iLevelType = 0;
 	this->iMapTime = 400;
 
+	// ---------- LOAD LISTS ----------
 	createMap();
 
-	//---- Load Minions ---
+	// ----- MINIONS
 	loadMinionsLVL_1_1();
 
+	// ----- PIPEEVENT
+	loadPipeEventsLVL_1_1();
+
 	// ----- Bush -----
+
 	structBush(0, 2, 2);
 	structBush(16, 2, 1);
 	structBush(48, 2, 2);
@@ -2837,7 +3026,10 @@ void Map::loadLVL_1_1()
 	structBush(192, 2, 2);
 	structBush(208, 2, 1);
 
+	// ----- Bush -----
+
 	// ----- Clouds -----
+
 	structCloud(8, 10, 1);
 	structCloud(19, 11, 1);
 	structCloud(27, 10, 3);
@@ -2858,7 +3050,10 @@ void Map::loadLVL_1_1()
 	structCloud(211, 11, 1);
 	structCloud(219, 10, 3);
 
+	// ----- Clouds -----
+
 	// ----- Grass -----
+
 	structGrass(11, 2, 3);
 	structGrass(23, 2, 1);
 	structGrass(41, 2, 2);
@@ -2873,13 +3068,22 @@ void Map::loadLVL_1_1()
 	structGrass(205, 2, 1);
 	structGrass(215, 2, 1);
 
+	// ----- Grass -----
+
 	// ----- GND -----
+
 	structGND(0, 0, 69, 2);
+
 	structGND(71, 0, 15, 2);
+
 	structGND(89, 0, 64, 2);
+
 	structGND(155, 0, 85, 2);
 
+	// ----- GND -----
+
 	// ----- GND 2 -----
+
 	structGND2(134, 2, 4, true);
 	structGND2(140, 2, 4, false);
 	structGND2(148, 2, 4, true);
@@ -2887,10 +3091,13 @@ void Map::loadLVL_1_1()
 	structGND2(155, 2, 4, false);
 	structGND2(181, 2, 8, true);
 	structGND2(189, 2, 1, 8);
+
 	structGND2(198, 2, 1, 1);
 
+	// ----- GND 2 -----
 
 	// ----- BRICK -----
+
 	struckBlockQ(16, 5, 1);
 	structBrick(20, 5, 1, 1);
 	struckBlockQ(21, 5, 1);
@@ -2939,6 +3146,24 @@ void Map::loadLVL_1_1()
 
 	lMap[101][5]->setSpawnStar(true);
 
+	// ----- BRICK -----
+
+	// ----- PIPES -----
+
+	structPipe(28, 2, 1);
+	structPipe(38, 2, 2);
+	structPipe(46, 2, 3);
+	structPipe(57, 2, 3);
+	structPipe(163, 2, 1);
+	structPipe(179, 2, 1);
+
+	// ----- PIPES -----
+
+	// ----- END
+
+	structEnd(198, 3, 9);
+	structCastleSmall(202, 2);
+
 	// ----- MAP 1_1_2 -----
 
 	this->iLevelType = 1;
@@ -2949,10 +3174,18 @@ void Map::loadLVL_1_1()
 	structBrick(244, 2, 7, 3);
 	structBrick(244, 12, 7, 1);
 
+	structPipeVertical(255, 2, 10);
+	structPipeHorizontal(253, 2, 1);
+
+	structCoins(244, 5, 7, 1);
+	structCoins(244, 7, 7, 1);
+	structCoins(245, 9, 5, 1);
+
 	// ----- END LEVEL
 
 	this->iLevelType = 0;
 }
+
 
 void Map::loadMinionsLVL_1_1() {
 	clearMinions();
@@ -2982,6 +3215,136 @@ void Map::loadMinionsLVL_1_1() {
 
 	addGoombas(5568, 480, true);
 	addGoombas(5612, 480, true);
+}
+
+void Map::clearPipeEvents() {
+	for (unsigned int i = 0; i < lPipe.size(); i++) {
+		delete lPipe[i];
+	}
+
+	lPipe.clear();
+}
+
+void Map::loadPipeEventsLVL_1_1() {
+	lPipe.push_back(new Pipe(0, 57, 5, 58, 5, 242 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 253, 3, 253, 2, 163 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_1_2() {
+	lPipe.push_back(new Pipe(0, 103, 4, 104, 4, 242 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 253, 3, 253, 2, 115 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 1, true, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 166, 6, 166, 5, 284 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+
+	// -- WARP ZONE 2
+	lPipe.push_back(new Pipe(0, 186, 4, 187, 4, 84, CFG::GameHeight - 80, 4, 0, true, 350, 1, false));
+	// -- WARP ZONE 3
+	lPipe.push_back(new Pipe(0, 182, 4, 183, 4, 84, CFG::GameHeight - 80, 8, 4, true, 350, 1, false));
+	// -- WARP ZONE 4
+	lPipe.push_back(new Pipe(0, 178, 4, 179, 4, 84, CFG::GameHeight - 80, 12, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_2_1() {
+	lPipe.push_back(new Pipe(0, 103, 5, 104, 5, 232 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 243, 3, 243, 2, 115 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_2_2() {
+	lPipe.push_back(new Pipe(1, 189, 7, 189, 6, 274 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_3_1() {
+	lPipe.push_back(new Pipe(0, 38, 5, 39, 5, 242 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 253, 3, 253, 2, 67 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 4, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_4_1() {
+	lPipe.push_back(new Pipe(0, 132, 5, 133, 5, 252 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 263, 3, 263, 2, 163 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_4_2() {
+	lPipe.push_back(new Pipe(0, 84, 4, 85, 4, 272 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 283, 3, 283, 2, 131 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 1, true, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 187, 6, 187, 5, 394 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+
+	// -- WARP ZONE 5
+	lPipe.push_back(new Pipe(0, 214, 4, 215, 4, 84, CFG::GameHeight - 80, 16, 0, true, 350, 1, false));
+	// -- WARP ZONE 6
+	lPipe.push_back(new Pipe(0, 368, 4, 369, 4, 84, CFG::GameHeight - 80, 20, 4, true, 350, 1, false));
+	// -- WARP ZONE 7
+	lPipe.push_back(new Pipe(0, 364, 4, 365, 4, 84, CFG::GameHeight - 80, 24, 0, true, 350, 1, false));
+	// -- WARP ZONE 8
+	lPipe.push_back(new Pipe(0, 360, 4, 361, 4, 84, CFG::GameHeight - 80, 28, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_5_1() {
+	lPipe.push_back(new Pipe(0, 156, 7, 157, 7, 230 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 241, 3, 241, 2, 163 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_5_2() {
+	lPipe.push_back(new Pipe(0, 135, 4, 136, 4, 0, 32, currentLevelID, 2, true, 350, 1, true));
+
+	lPipe.push_back(new Pipe(1, 62, 7, 62, 6, 195 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_6_2() {
+	lPipe.push_back(new Pipe(0, 141, 6, 142, 6, 0, 32, currentLevelID, 2, true, 350, 1, true));
+
+	lPipe.push_back(new Pipe(1, 62, 7, 62, 6, 200 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 4, true, 350, 1, false));
+
+	lPipe.push_back(new Pipe(0, 104, 5, 105, 5, 332 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 343, 3, 343, 2, 120 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 4, true, 350, 1, false));
+
+	lPipe.push_back(new Pipe(0, 238, 4, 239, 4, 362 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 373, 3, 373, 2, 264 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 4, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_7_1() {
+	lPipe.push_back(new Pipe(0, 93, 4, 94, 4, 212 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 223, 3, 223, 2, 115 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_7_2() {
+	lPipe.push_back(new Pipe(1, 189, 7, 189, 6, 274 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_8_1() {
+	lPipe.push_back(new Pipe(0, 104, 5, 105, 5, 412 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 423, 3, 423, 2, 115 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_8_2() {
+	lPipe.push_back(new Pipe(0, 156, 5, 157, 5, 242 * 32, 32, currentLevelID, 1, false, 350, 1, false));
+
+	lPipe.push_back(new Pipe(1, 253, 3, 253, 2, 163 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
+}
+
+void Map::loadPipeEventsLVL_8_4() {
+	lPipe.push_back(new Pipe(2, 81, 6, 82, 6, 126 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));
+
+	lPipe.push_back(new Pipe(2, 163, 8, 164, 8, 215 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));
+
+	lPipe.push_back(new Pipe(2, 248, 6, 249, 6, 393 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 2, true, 250, 1, true));
+	lPipe.push_back(new Pipe(1, 458, 7, 458, 6, 302 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 350, 1, false));
+
+	lPipe.push_back(new Pipe(2, 51, 4, 52, 4, 19 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));
+	lPipe.push_back(new Pipe(2, 143, 3, 144, 3, 19 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));
+	lPipe.push_back(new Pipe(2, 232, 7, 232, 7, 19 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));
+	lPipe.push_back(new Pipe(2, 309, 3, 310, 3, 19 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));
 }
 
 void Map::createMap()
