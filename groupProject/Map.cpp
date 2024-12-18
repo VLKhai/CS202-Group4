@@ -24,7 +24,7 @@ Map::Map(sf::RenderWindow& mainWindow)
 
 	//this->bTP = false;
 	player = new Player(mainWindow, 84, 480);
-	pEvent = nullptr;
+	pEvent = new Event();
 	CFG::getText()->setFont(mainWindow, "font");
 
 	srand((unsigned)time(NULL));
@@ -57,9 +57,9 @@ void Map::update()
 						CFG::getMusic()->changeMusic(true, true);
 					}
 
-				/*	if (iMapTime <= 0) {
+					if (iMapTime <= 0) {
 						playerDeath(true, true);
-					}*/
+					}
 				}
 			}
 		}
@@ -107,6 +107,73 @@ void Map::update()
 			delete lPoints[i];
 			lPoints.erase(lPoints.begin() + i);
 		}
+	}
+}
+
+void Map::playerDeath(bool animation, bool instantDeath) {
+	if ((player->getPowerLVL() == 0 && !player->getUnkillAble()) || instantDeath) {
+		inEvent = true;
+
+		pEvent->resetData();
+		player->resetJump();
+		player->stopMove();
+
+		pEvent->iDelay = 150;
+		pEvent->newCurrentLevel = currentLevelID;
+
+		pEvent->newMoveMap = bMoveMap;
+
+		pEvent->eventTypeID = pEvent->eNormal;
+
+		player->resetPowerLVL();
+
+		if (animation) {
+			pEvent->iSpeed = 4;
+			pEvent->newLevelType = iLevelType;
+
+			player->setYPos(player->getYPos() + 4.0f);
+
+			pEvent->vOLDDir.push_back(pEvent->eDEATHNOTHING);
+			pEvent->vOLDLength.push_back(30);
+
+			pEvent->vOLDDir.push_back(pEvent->eDEATHTOP);
+			pEvent->vOLDLength.push_back(64);
+
+			pEvent->vOLDDir.push_back(pEvent->eDEATHBOT);
+			pEvent->vOLDLength.push_back(CFG::GameHeight - player->getYPos() + 128);
+		}
+		else {
+			pEvent->iSpeed = 4;
+			pEvent->newLevelType = iLevelType;
+
+			pEvent->vOLDDir.push_back(pEvent->eDEATHTOP);
+			pEvent->vOLDLength.push_back(1);
+		}
+
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(64);
+
+		if (player->getNumOfLives() > 1) {
+			pEvent->vOLDDir.push_back(pEvent->eLOADINGMENU);
+			pEvent->vOLDLength.push_back(90);
+
+			player->setNumOfLives(player->getNumOfLives() - 1);
+
+			CFG::getMusic()->StopMusic();
+			CFG::getMusic()->PlayChunk(CFG::getMusic()->cDEATH);
+		}
+		else {
+			pEvent->vOLDDir.push_back(pEvent->eGAMEOVER);
+			pEvent->vOLDLength.push_back(90);
+
+			player->setNumOfLives(player->getNumOfLives() - 1);
+
+			CFG::getMusic()->StopMusic();
+			CFG::getMusic()->PlayChunk(CFG::getMusic()->cDEATH);
+		}
+	}
+	else if (!player->getUnkillAble()) {
+		player->setPowerLVL(player->getPowerLVL() - 1);
 	}
 }
 
@@ -379,9 +446,9 @@ void Map::draw(sf::RenderWindow& mainWindow)
 
 	player->draw(mainWindow);
 
-	/*if (inEvent) {
-		oEvent->Draw(rR);
-	}*/
+	if (inEvent) {
+		pEvent->draw(mainWindow);
+	}
 
 	DrawGameLayout(mainWindow);
 }
@@ -1264,7 +1331,7 @@ void Map::setCurrentLevelID(int currentLevelID)
 {
 	if (this->currentLevelID != currentLevelID) {
 		this->currentLevelID = currentLevelID;
-		//oEvent->resetRedraw();
+		//pEvent->resetRedraw();
 		//loadLVL();
 		iSpawnPointID = 0;
 	}
@@ -3432,7 +3499,7 @@ void Map::clearMap()
 	//	oFlag = NULL;
 	//}
 
-	//oEvent->eventTypeID = oEvent->eNormal;
+	pEvent->eventTypeID = pEvent->eNormal;
 
 	clearLevelText();
 }
@@ -3472,7 +3539,7 @@ void Map::checkSpawnPoint() {
 		for (int i = iSpawnPointID + 1; i < getNumOfSpawnPoints(); i++) {
 			if (getSpawnPointXPos(i) > player->getXPos() - fXPos && getSpawnPointXPos(i) < player->getXPos() - fXPos + 128) {
 				iSpawnPointID = i;
-				//oPlayer->getCoins() - fcloseall() = fXPos + oPlayer;
+				//player->getCoins() - fcloseall() = fXPos + player;
 			}
 		}
 	}

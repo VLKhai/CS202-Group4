@@ -174,20 +174,20 @@ void Event::Normal() {
 					vOLDLength[stepID] -= iSpeed;
 					break;
 				case eBOSSTEXT1:
-					//Core::getMap()->addText(vOLDLength[stepID], CFG::GameHeight- 16 - 9 * 32, "THANK YOU MARIOz");
+					Core::getMap()->addText(vOLDLength[stepID], CFG::GameHeight- 16 - 9 * 32, "THANK YOU MARIOz");
 					vOLDLength[stepID] = 0;
 					break;
 				case eBOSSTEXT2:
-					//Core::getMap()->addText(vOLDLength[stepID] + 16, CFG::GAME_HEIGHT - 16 - 7 * 32, "BUT OUR PRINCESS IS IN");
-					//Core::getMap()->addText(vOLDLength[stepID] + 16, CFG::GAME_HEIGHT - 16 - 6 * 32, "ANOTHER CASTLEz");
+					Core::getMap()->addText(vOLDLength[stepID] + 16, CFG::GameHeight - 16 - 7 * 32, "BUT OUR PRINCESS IS IN");
+					Core::getMap()->addText(vOLDLength[stepID] + 16, CFG::GameHeight - 16 - 6 * 32, "ANOTHER CASTLEz");
 					vOLDLength[stepID] = 0;
 					break;
 				case eENDGAMEBOSSTEXT1:
-					//Core::getMap()->addText(vOLDLength[stepID], CFG::GAME_HEIGHT - 16 - 9 * 32, "THANK YOU MARIOz");
+					Core::getMap()->addText(vOLDLength[stepID], CFG::GameHeight - 16 - 9 * 32, "THANK YOU MARIOz");
 					vOLDLength[stepID] = 0;
 					break;
 				case eENDGAMEBOSSTEXT2:
-					//Core::getMap()->addText(vOLDLength[stepID] + 16, CFG::GAME_HEIGHT - 16 - 7 * 32, "YOUR QUEST IS OVER.");
+					Core::getMap()->addText(vOLDLength[stepID] + 16, CFG::GameHeight - 16 - 7 * 32, "YOUR QUEST IS OVER.");
 					vOLDLength[stepID] = 0;
 					break;
 				case eMARIOSPRITE1:
@@ -223,9 +223,9 @@ void Event::Normal() {
 					newLevel();
 					Core::getMap()->getPlayer()->stopMove();
 					if (inEvent) {
-						//CFG::getMM()->getLoadingMenu()->updateTime();
-						//CFG::getMM()->getLoadingMenu()->loadingType = true;
-						//CFG::getMM()->setViewID(CFG::getMM()->eGameLoading);
+						CFG::getMenuManager()->getLoadingMenu()->updateTime();
+						CFG::getMenuManager()->getLoadingMenu()->loadingType = true;
+						CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGameLoading);
 						//Core::getMap()->startLevelAnimation();
 					}
 
@@ -234,7 +234,7 @@ void Event::Normal() {
 			}
 			else {
 				Core::getMap()->resetGameData();
-				//CFG::getMM()->setViewID(CFG::getMM()->eMainMenu);
+				CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eMainMenu);
 				Core::getMap()->setInEvent(false);
 				Core::getMap()->getPlayer()->stopMove();
 				inEvent = false;
