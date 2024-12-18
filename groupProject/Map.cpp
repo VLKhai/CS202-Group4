@@ -947,6 +947,64 @@ void Map::structGND2(int X, int Y, int iWidth, int iHeight)
 	}
 }
 
+void Map::structUW1(int X, int Y, int iWidth, int iHeight) {
+	for (int i = 0; i < iWidth; i++) {
+		for (int j = 0; j < iHeight; j++) {
+			lMap[X + i][Y + j]->setBlockID(93);
+		}
+	}
+}
+
+void Map::structBonus(int X, int Y, int iWidth) {
+	for (int i = 0; i < iWidth; i++) {
+		lMap[X + i][Y]->setBlockID(125);
+	}
+}
+
+void Map::structBonusEnd(int X) {
+	for (int i = 0; i < 20; i++) {
+		lMap[X + i][0]->setBlockID(127);
+	}
+}
+
+void Map::structPipe(int X, int Y, int iHeight) {
+	for (int i = 0; i < iHeight; i++) {
+		lMap[X][Y + i]->setBlockID(iLevelType == 0 ? 20 : iLevelType == 2 ? 97 : iLevelType == 4 ? 112 : iLevelType == 5 ? 136 : iLevelType == 3 ? 176 : iLevelType == 7 ? 172 : 30);
+		lMap[X + 1][Y + i]->setBlockID(iLevelType == 0 ? 22 : iLevelType == 2 ? 99 : iLevelType == 4 ? 114 : iLevelType == 5 ? 138 : iLevelType == 3 ? 178 : iLevelType == 7 ? 174 : 32);
+	}
+
+	lMap[X][Y + iHeight]->setBlockID(iLevelType == 0 ? 21 : iLevelType == 2 ? 98 : iLevelType == 4 ? 113 : iLevelType == 5 ? 137 : iLevelType == 3 ? 177 : iLevelType == 7 ? 173 : 31);
+	lMap[X + 1][Y + iHeight]->setBlockID(iLevelType == 0 ? 23 : iLevelType == 2 ? 100 : iLevelType == 4 ? 115 : iLevelType == 5 ? 139 : iLevelType == 3 ? 179 : iLevelType == 7 ? 175 : 33);
+}
+
+void Map::structPipeVertical(int X, int Y, int iHeight) {
+	for (int i = 0; i < iHeight + 1; i++) {
+		lMap[X][Y + i]->setBlockID(iLevelType == 0 ? 20 : iLevelType == 2 ? 97 : iLevelType == 4 ? 112 : 30);
+		lMap[X + 1][Y + i]->setBlockID(iLevelType == 0 ? 22 : iLevelType == 2 ? 99 : iLevelType == 4 ? 114 : 32);
+	}
+}
+
+void Map::structPipeHorizontal(int X, int Y, int iWidth) {
+	lMap[X][Y]->setBlockID(iLevelType == 0 ? 62 : iLevelType == 2 ? 105 : iLevelType == 4 ? 120 : 38);
+	lMap[X][Y + 1]->setBlockID(iLevelType == 0 ? 60 : iLevelType == 2 ? 103 : iLevelType == 4 ? 118 : 36);
+
+	for (int i = 0; i < iWidth; i++) {
+		lMap[X + 1 + i][Y]->setBlockID(iLevelType == 0 ? 61 : iLevelType == 2 ? 104 : iLevelType == 4 ? 119 : 37);
+		lMap[X + 1 + i][Y + 1]->setBlockID(iLevelType == 0 ? 59 : iLevelType == 2 ? 102 : iLevelType == 4 ? 117 : 35);
+	}
+
+	lMap[X + 1 + iWidth][Y]->setBlockID(iLevelType == 0 ? 58 : iLevelType == 2 ? 101 : iLevelType == 4 ? 116 : 34);
+	lMap[X + 1 + iWidth][Y + 1]->setBlockID(iLevelType == 0 ? 63 : iLevelType == 2 ? 106 : iLevelType == 4 ? 121 : 39);
+}
+
+void Map::structCoins(int X, int Y, int iWidth, int iHeight) {
+	for (int i = 0; i < iWidth; i++) {
+		for (int j = 0; j < iHeight; j++) {
+			lMap[X + i][Y + j]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 71 : iLevelType == 1 ? 29 : iLevelType == 2 ? 73 : 29);
+		}
+	}
+}
+
 void Map::structBrick(int X, int Y, int iWidth, int iHeight)
 {
 	for (int i = 0; i < iWidth; i++) {
@@ -967,6 +1025,133 @@ void Map::struckBlockQ2(int X, int Y, int iWidth)
 {
 	for (int i = 0; i < iWidth; i++) {
 		lMap[X + i][Y]->setBlockID(24);
+	}
+}
+
+void Map::structEnd(int X, int Y, int iHeight) {
+	for (int i = 0; i < iHeight; i++) {
+		lMap[X][Y + i]->setBlockID(iLevelType == 4 ? 123 : 40);
+	}
+
+	pFlag = new Flag(X * 32 - 16, Y + iHeight + 72);
+
+	lMap[X][Y + iHeight]->setBlockID(iLevelType == 4 ? 124 : 41);
+
+	for (int i = Y + iHeight + 1; i < Y + iHeight + 4; i++) {
+		lMap[X][i]->setBlockID(182);
+	}
+}
+
+void Map::structCastleSmall(int X, int Y) {
+	for (int i = 0; i < 2; i++) {
+		lMap[X][Y + i]->setBlockID(iLevelType == 3 ? 155 : 43);
+		lMap[X + 1][Y + i]->setBlockID(iLevelType == 3 ? 155 : 43);
+		lMap[X + 3][Y + i]->setBlockID(iLevelType == 3 ? 155 : 43);
+		lMap[X + 4][Y + i]->setBlockID(iLevelType == 3 ? 155 : 43);
+
+		lMap[X + 2][Y + i]->setBlockID(iLevelType == 3 ? 159 : 47);
+	}
+
+	lMap[X + 2][Y + 1]->setBlockID(iLevelType == 3 ? 158 : 46);
+
+	for (int i = 0; i < 5; i++) {
+		lMap[X + i][Y + 2]->setBlockID(i == 0 || i == 4 ? iLevelType == 3 ? 157 : 45 : iLevelType == 3 ? 156 : 44);
+	}
+
+	lMap[X + 1][Y + 3]->setBlockID(iLevelType == 3 ? 160 : 48);
+	lMap[X + 2][Y + 3]->setBlockID(iLevelType == 3 ? 155 : 43);
+	lMap[X + 3][Y + 3]->setBlockID(iLevelType == 3 ? 161 : 49);
+
+	for (int i = 0; i < 3; i++) {
+		lMap[X + i + 1][Y + 4]->setBlockID(iLevelType == 3 ? 157 : 45);
+	}
+}
+
+void Map::structCastleBig(int X, int Y) {
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 5; j++) {
+			setBlockID(X + i, Y + j, iLevelType == 3 ? 155 : 43);
+			setBlockID(X + i + 7, Y + j, iLevelType == 3 ? 155 : 43);
+		}
+	}
+
+	for (int i = 0; i < 3; i++) {
+		setBlockID(X + 2 + i * 2, Y, iLevelType == 3 ? 159 : 47);
+		setBlockID(X + 2 + i * 2, Y + 1, iLevelType == 3 ? 158 : 46);
+	}
+
+	for (int i = 0; i < 9; i++) {
+		setBlockID(X + i, Y + 2, iLevelType == 3 ? 155 : 43);
+	}
+
+	for (int i = 0; i < 9; i++) {
+		if (i < 2 || i > 6) {
+			setBlockID(X + i, Y + 5, iLevelType == 3 ? 157 : 45);
+		}
+		else {
+			setBlockID(X + i, Y + 5, iLevelType == 3 ? 156 : 44);
+		}
+	}
+
+
+	for (int i = 0; i < 2; i++) {
+		setBlockID(X + 3 + i * 2, Y, iLevelType == 3 ? 155 : 43);
+		setBlockID(X + 3 + i * 2, Y + 1, iLevelType == 3 ? 155 : 43);
+	}
+
+	for (int i = 0; i < 2; i++) {
+		setBlockID(X + 3 + i * 2, Y + 3, iLevelType == 3 ? 159 : 47);
+		setBlockID(X + 3 + i * 2, Y + 4, iLevelType == 3 ? 158 : 46);
+	}
+
+	for (int i = 0; i < 3; i++) {
+		setBlockID(X + 2 + i * 2, Y + 3, iLevelType == 3 ? 155 : 43);
+		setBlockID(X + 2 + i * 2, Y + 4, iLevelType == 3 ? 155 : 43);
+	}
+
+	for (int i = 0; i < 2; i++) {
+		setBlockID(X + 2, Y + 6 + i, iLevelType == 3 ? 155 : 43);
+		setBlockID(X + 3, Y + 6 + i, iLevelType == 3 ? 155 : 43);
+		setBlockID(X + 5, Y + 6 + i, iLevelType == 3 ? 155 : 43);
+		setBlockID(X + 6, Y + 6 + i, iLevelType == 3 ? 155 : 43);
+	}
+
+	setBlockID(X + 4, Y + 6, iLevelType == 3 ? 159 : 47);
+	setBlockID(X + 4, Y + 7, iLevelType == 3 ? 158 : 46);
+
+	for (int i = 0; i < 3; i++) {
+		setBlockID(X + 3 + i, Y + 8, iLevelType == 3 ? 156 : 44);
+	}
+
+	setBlockID(X + 2, Y + 8, iLevelType == 3 ? 157 : 45);
+	setBlockID(X + 6, Y + 8, iLevelType == 3 ? 157 : 45);
+
+	setBlockID(X + 2, Y + 8, iLevelType == 3 ? 157 : 45);
+
+	setBlockID(X + 3, Y + 9, iLevelType == 3 ? 160 : 48);
+	setBlockID(X + 4, Y + 9, iLevelType == 3 ? 155 : 43);
+	setBlockID(X + 5, Y + 9, iLevelType == 3 ? 161 : 49);
+
+	for (int i = 0; i < 3; i++) {
+		setBlockID(X + 3 + i, Y + 10, iLevelType == 3 ? 157 : 45);
+	}
+}
+
+void Map::structCastleWall(int X, int Y, int iWidth, int iHeight) {
+	for (int i = 0; i < iWidth; i++) {
+		for (int j = 0; j < iHeight - 1; j++) {
+			lMap[X + i][Y + j]->setBlockID(iLevelType == 3 ? 155 : 43);
+		}
+	}
+
+	for (int i = 0; i < iWidth; i++) {
+		lMap[X + i][Y + iHeight - 1]->setBlockID(iLevelType == 3 ? 157 : 45);
+	}
+}
+
+void Map::setBlockID(int X, int Y, int iBlockID) {
+	if (X >= 0 && X < iMapWidth) {
+		lMap[X][Y]->setBlockID(iBlockID);
 	}
 }
 
@@ -2833,6 +3018,8 @@ void Map::loadLVL_1_1()
 	//---- Load Minions ---
 	loadMinionsLVL_1_1();
 
+	//*loadPipeEventsLVL_1_1();
+
 	// ----- Bush -----
 	structBush(0, 2, 2);
 	structBush(16, 2, 1);
@@ -2946,6 +3133,17 @@ void Map::loadLVL_1_1()
 	structBrick(171, 5, 1, 1);
 
 	lMap[101][5]->setSpawnStar(true);
+
+	structPipe(28, 2, 1);
+	structPipe(38, 2, 2);
+	structPipe(46, 2, 3);
+	structPipe(57, 2, 3);
+	structPipe(163, 2, 1);
+	structPipe(179, 2, 1);
+
+	// End
+	structEnd(198, 3, 9);
+	structCastleSmall(202, 2);
 
 	// ----- MAP 1_1_2 -----
 

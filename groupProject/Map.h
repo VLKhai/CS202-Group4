@@ -122,9 +122,28 @@ public:
 	void structGND(int X, int Y, int iWidth, int iHeight);
 	void structGND2(int X, int Y, int iSize, bool bDir); // true = LEFT, false = RIGHT
 	void structGND2(int X, int Y, int iWidth, int iHeight);
+	void structUW1(int X, int Y, int iWidth, int iHeight);
+
+	void structBonus(int X, int Y, int iWidth);
+	void structBonusEnd(int X);
+
+	void structPipe(int X, int Y, int iHeight);
+	void structPipeVertical(int X, int Y, int iHeight);
+	void structPipeHorizontal(int X, int Y, int iWidth);
+
+	void structCoins(int X, int Y, int iWidth, int iHeight);
+
 	void structBrick(int X, int Y, int iWidth, int iHeight);
 	void struckBlockQ(int X, int Y, int iWidth);
 	void struckBlockQ2(int X, int Y, int iWidth);
+
+	void structEnd(int X, int Y, int iHeight);
+
+	void structCastleSmall(int X, int Y);
+	void structCastleBig(int X, int Y);
+	void structCastleWall(int X, int Y, int iWidth, int iHeight);
+
+	void setBlockID(int X, int Y, int iBlockID); 
 
 	// --<COLLISION>--
 	bool checkCollision(Vector2* nV, bool checkVisible);
