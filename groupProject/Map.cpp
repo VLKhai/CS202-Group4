@@ -3004,8 +3004,7 @@ void Map::loadGameData(sf::RenderWindow& mainWindow)
 	iMinionSize = vMinion.size();
 }
 
-void Map::loadLVL_1_1()
-{
+void Map::loadLVL_1_1() {
 	clearMap();
 
 	this->iMapWidth = 260;
@@ -3013,14 +3012,17 @@ void Map::loadLVL_1_1()
 	this->iLevelType = 0;
 	this->iMapTime = 400;
 
+	// ---------- LOAD LISTS ----------
 	createMap();
 
-	//---- Load Minions ---
+	// ----- MINIONS
 	loadMinionsLVL_1_1();
 
-	//*loadPipeEventsLVL_1_1();
+	// ----- PIPEEVENT
+	//loadPipeEventsLVL_1_1();
 
 	// ----- Bush -----
+
 	structBush(0, 2, 2);
 	structBush(16, 2, 1);
 	structBush(48, 2, 2);
@@ -3032,7 +3034,10 @@ void Map::loadLVL_1_1()
 	structBush(192, 2, 2);
 	structBush(208, 2, 1);
 
+	// ----- Bush -----
+
 	// ----- Clouds -----
+
 	structCloud(8, 10, 1);
 	structCloud(19, 11, 1);
 	structCloud(27, 10, 3);
@@ -3053,7 +3058,10 @@ void Map::loadLVL_1_1()
 	structCloud(211, 11, 1);
 	structCloud(219, 10, 3);
 
+	// ----- Clouds -----
+
 	// ----- Grass -----
+
 	structGrass(11, 2, 3);
 	structGrass(23, 2, 1);
 	structGrass(41, 2, 2);
@@ -3068,13 +3076,22 @@ void Map::loadLVL_1_1()
 	structGrass(205, 2, 1);
 	structGrass(215, 2, 1);
 
+	// ----- Grass -----
+
 	// ----- GND -----
+
 	structGND(0, 0, 69, 2);
+
 	structGND(71, 0, 15, 2);
+
 	structGND(89, 0, 64, 2);
+
 	structGND(155, 0, 85, 2);
 
+	// ----- GND -----
+
 	// ----- GND 2 -----
+
 	structGND2(134, 2, 4, true);
 	structGND2(140, 2, 4, false);
 	structGND2(148, 2, 4, true);
@@ -3082,10 +3099,13 @@ void Map::loadLVL_1_1()
 	structGND2(155, 2, 4, false);
 	structGND2(181, 2, 8, true);
 	structGND2(189, 2, 1, 8);
+
 	structGND2(198, 2, 1, 1);
 
+	// ----- GND 2 -----
 
 	// ----- BRICK -----
+
 	struckBlockQ(16, 5, 1);
 	structBrick(20, 5, 1, 1);
 	struckBlockQ(21, 5, 1);
@@ -3134,6 +3154,10 @@ void Map::loadLVL_1_1()
 
 	lMap[101][5]->setSpawnStar(true);
 
+	// ----- BRICK -----
+
+	// ----- PIPES -----
+
 	structPipe(28, 2, 1);
 	structPipe(38, 2, 2);
 	structPipe(46, 2, 3);
@@ -3141,7 +3165,10 @@ void Map::loadLVL_1_1()
 	structPipe(163, 2, 1);
 	structPipe(179, 2, 1);
 
-	// End
+	// ----- PIPES -----
+
+	// ----- END
+
 	structEnd(198, 3, 9);
 	structCastleSmall(202, 2);
 
@@ -3155,10 +3182,18 @@ void Map::loadLVL_1_1()
 	structBrick(244, 2, 7, 3);
 	structBrick(244, 12, 7, 1);
 
+	structPipeVertical(255, 2, 10);
+	structPipeHorizontal(253, 2, 1);
+
+	structCoins(244, 5, 7, 1);
+	structCoins(244, 7, 7, 1);
+	structCoins(245, 9, 5, 1);
+
 	// ----- END LEVEL
 
 	this->iLevelType = 0;
 }
+
 
 void Map::loadMinionsLVL_1_1() {
 	clearMinions();
