@@ -264,3 +264,7 @@ void Core::resetMove()
 {
     this->keyAPressed = this->keyDPressed = false;
 }
+
+void Core::resetKeys() {
+    movePressed = keyMenuPressed = keyS = keyW = keyA = keyD = CFG::keySpace = keyShift = keyAPressed = keyDPressed = false;
+}

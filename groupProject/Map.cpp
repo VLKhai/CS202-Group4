@@ -3203,7 +3203,7 @@ void Map::loadMinionsLVL_1_1() {
 	addGoombas(3104, 480, true);
 	addGoombas(3152, 480, true);
 
-	//addKoppa(107 * 32, 480, 1, true);
+	//*addKoppa(107 * 32, 480, 1, true);
 
 	addGoombas(3648, 480, true);
 	addGoombas(3696, 480, true);
