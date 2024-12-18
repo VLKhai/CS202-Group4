@@ -84,7 +84,6 @@ private:
 	void clearMap();
 	void clearLevelText();
 	void clearMinions();
-	void clearPlatforms();
 	
 	// ----Load----
     void loadGameData(sf::RenderWindow& mainWindow);
@@ -131,6 +130,9 @@ public:
 	void addPoints(int X, int Y, std::string sText, int iW, int iH);
 	void addGoombas(int iX, int iY, bool moveDirection);
 
+	void lockMinions();
+	void clearPlatforms();
+
 	// Block Interaction
 	bool blockUse(int nX, int nY, int iBlockID, int POS);
 
@@ -139,6 +141,8 @@ public:
 	void resetGameData();
 
 	void moveMap(int nX, int nY);
+
+	void startLevelAnimation();
 
 	// Structure object
 	void structBush(int X, int Y, int iSze);

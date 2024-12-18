@@ -380,7 +380,7 @@ void Map::draw(sf::RenderWindow& mainWindow)
 	player->draw(mainWindow);
 
 	/*if (inEvent) {
-		oEvent->Draw(rR);
+		pEvent->Draw(rR);
 	}*/
 
 	DrawGameLayout(mainWindow);
@@ -851,6 +851,184 @@ void Map::moveMap(int nX, int nY)
 	}
 }
 
+void Map::startLevelAnimation() {
+	pEvent->newUnderWater = false;
+
+	switch (currentLevelID) {
+	case 0:
+
+		break;
+	case 1:
+		pEvent->resetData();
+		player->resetJump();
+		player->stopMove();
+
+		pEvent->iSpeed = 2;
+		pEvent->newLevelType = 1;
+
+		pEvent->iDelay = 150;
+		pEvent->newCurrentLevel = 1;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 96;
+		pEvent->newPlayerYPos = 64;
+		pEvent->newMoveMap = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(7 * 32 + 4);
+
+		pEvent->vOLDDir.push_back(pEvent->ePLAYPIPERIGHT);
+		pEvent->vOLDLength.push_back(1);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(1 * 32 - 2);
+
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(75);
+
+		pEvent->reDrawX.push_back(220);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(220);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 5:
+		pEvent->resetData();
+		player->resetJump();
+		player->stopMove();
+
+		pEvent->iSpeed = 2;
+		pEvent->newLevelType = 2;
+
+		pEvent->iDelay = 150;
+		pEvent->newCurrentLevel = 5;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 96;
+		pEvent->newPlayerYPos = 64;
+		pEvent->newMoveMap = true;
+		pEvent->newUnderWater = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(7 * 32 + 4);
+
+		pEvent->vOLDDir.push_back(pEvent->ePLAYPIPERIGHT);
+		pEvent->vOLDLength.push_back(1);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(1 * 32 - 2);
+
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(75);
+
+		pEvent->reDrawX.push_back(230);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(230);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 13:
+		pEvent->resetData();
+		player->resetJump();
+		player->stopMove();
+
+		pEvent->iSpeed = 2;
+		pEvent->newLevelType = 1;
+
+		pEvent->iDelay = 150;
+		pEvent->newCurrentLevel = currentLevelID;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 96;
+		pEvent->newPlayerYPos = 64;
+		pEvent->newMoveMap = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(7 * 32 + 4);
+
+		pEvent->vOLDDir.push_back(pEvent->ePLAYPIPERIGHT);
+		pEvent->vOLDLength.push_back(1);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(1 * 32 - 2);
+
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(75);
+
+		pEvent->reDrawX.push_back(250);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(250);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 25:
+		pEvent->resetData();
+		player->resetJump();
+		player->stopMove();
+
+		pEvent->iSpeed = 2;
+		pEvent->newLevelType = 2;
+
+		pEvent->iDelay = 150;
+		pEvent->newCurrentLevel = 25;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 96;
+		pEvent->newPlayerYPos = 64;
+		pEvent->newMoveMap = true;
+		pEvent->newUnderWater = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(7 * 32 + 4);
+
+		pEvent->vOLDDir.push_back(pEvent->ePLAYPIPERIGHT);
+		pEvent->vOLDLength.push_back(1);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(1 * 32 - 2);
+
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(75);
+
+		pEvent->reDrawX.push_back(230);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(230);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 26:
+		pEvent->resetData();
+		player->resetJump();
+		player->stopMove();
+
+		pEvent->iSpeed = 2;
+		pEvent->newLevelType = 2;
+
+		pEvent->iDelay = 150;
+		pEvent->newCurrentLevel = 26;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 96;
+		pEvent->newPlayerYPos = 64;
+		pEvent->newMoveMap = true;
+		pEvent->newUnderWater = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(7 * 32 + 4);
+
+		pEvent->vOLDDir.push_back(pEvent->ePLAYPIPERIGHT);
+		pEvent->vOLDLength.push_back(1);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(1 * 32 - 2);
+
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(75);
+
+		pEvent->reDrawX.push_back(230);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(230);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+}
+
 void Map::structBush(int X, int Y, int iSize)
 {
 	// ----- LEFT & RIGHT
@@ -1264,7 +1442,7 @@ void Map::setCurrentLevelID(int currentLevelID)
 {
 	if (this->currentLevelID != currentLevelID) {
 		this->currentLevelID = currentLevelID;
-		//oEvent->resetRedraw();
+		//pEvent->resetRedraw();
 		//loadLVL();
 		iSpawnPointID = 0;
 	}
@@ -3432,7 +3610,7 @@ void Map::clearMap()
 	//	oFlag = NULL;
 	//}
 
-	//oEvent->eventTypeID = oEvent->eNormal;
+	//pEvent->eventTypeID = pEvent->eNormal;
 
 	clearLevelText();
 }
@@ -3463,7 +3641,6 @@ void Map::clearPlatforms() {
 	for (unsigned int i = 0; i < vPlatform.size(); i++) {
 		delete vPlatform[i];
 	}
-
 	vPlatform.clear();
 }
 
@@ -3472,7 +3649,7 @@ void Map::checkSpawnPoint() {
 		for (int i = iSpawnPointID + 1; i < getNumOfSpawnPoints(); i++) {
 			if (getSpawnPointXPos(i) > player->getXPos() - fXPos && getSpawnPointXPos(i) < player->getXPos() - fXPos + 128) {
 				iSpawnPointID = i;
-				//oPlayer->getCoins() - fcloseall() = fXPos + oPlayer;
+				//player->getCoins() - fcloseall() = fXPos + player;
 			}
 		}
 	}
@@ -3500,4 +3677,12 @@ void Map::addText(int X, int Y, std::string sText) {
 // -- Minions --
 void Map::addGoombas(int iX, int iY, bool moveDirection) {
 	lMinion[getListID(iX)].push_back(new Goombas(iX, iY, iLevelType == 0 || iLevelType == 4 ? 0 : iLevelType == 1 ? 8 : 10, moveDirection));
+}
+
+void Map::lockMinions() {
+	for (unsigned int i = 0; i < lMinion.size(); i++) {
+		for (unsigned int j = 0; j < lMinion[i].size(); j++) {
+			lMinion[i][j]->lockMinion();
+		}
+	}
 }

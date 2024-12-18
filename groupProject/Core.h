@@ -18,6 +18,9 @@ public:
 
     static Map* getMap();
 
+    void resetMove();
+    static void resetKeys();
+
 private:
     sf::RenderWindow mainWindow;
     sf::Event mainEvent;
@@ -33,6 +36,4 @@ private:
     void inputPlayer();
     void mouseInput();
     void inputMenu();
-
-    void resetMove();
 };
