@@ -112,15 +112,19 @@ void Music::StopMusic() {
 
 void Music::PauseMusic() {
     for (auto& music : vMusic) {
-        if (music && music->getStatus() == sf::Music::Playing) {
-            music->pause();
-            musicStopped = true;
-        }
-        else if (music) {
-            music->play();
-            musicStopped = false;
+        if (music) {
+            if (!musicStopped && music->getStatus() == sf::Music::Playing) {
+                // Pause the currently playing music
+                music->pause();
+            }
+            else if (musicStopped && music->getStatus() == sf::Music::Paused) {
+                // Resume the paused music
+                music->play();
+            }
         }
     }
+    // Toggle the musicStopped state
+    musicStopped = !musicStopped;
 }
 
 /* ******************************************** */

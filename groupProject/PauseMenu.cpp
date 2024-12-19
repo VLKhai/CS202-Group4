@@ -64,7 +64,7 @@ void PauseMenu::enter() {
 	switch (activeMenuOption) {
 	case 0:
 		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGame);
-		//CFG::getMusic()->PlayMusic();
+		CFG::getMusic()->PlayMusic();
 		break;
 	case 1:
 		CFG::getMenuManager()->getOptions()->setEscapeToMainMenu(false);
@@ -84,7 +84,7 @@ void PauseMenu::enter() {
 
 void PauseMenu::escape() {
 	CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGame);
-	//CFG::getMusic()->PauseMusic();
+	CFG::getMusic()->PauseMusic();
 }
 
 void PauseMenu::updateActiveButton(int iDir) {

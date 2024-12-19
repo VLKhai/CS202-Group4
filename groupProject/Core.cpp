@@ -80,7 +80,6 @@ void Core::input()
             mainWindow.close();
         }
         inputPlayer();
-        //resetMove();
         inputMenu();
     }
 }
@@ -159,6 +158,7 @@ void Core::inputPlayer() {
                 keyMenuPressed = true;
             }
         }
+        
     }   
 
     if (keyAPressed) {

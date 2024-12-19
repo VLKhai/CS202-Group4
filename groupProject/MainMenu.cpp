@@ -28,7 +28,7 @@ MainMenu::~MainMenu(void) {
 /* ******************************************** */
 
 void MainMenu::Update() {
-	//CFG::getMusic()->StopMusic();
+	CFG::getMusic()->StopMusic();
 
 	Menu::update();
 }
