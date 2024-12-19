@@ -27,10 +27,6 @@ Minion::Minion(void) {
 	this->onAnotherMinion = false;
 }
 
-Minion::~Minion(void) {
-
-}
-
 /* ******************************************** */
 
 void Minion::Update() { }
@@ -98,7 +94,7 @@ void Minion::updateXPos() {
 	if (moveDirection) {
 		if (Core::getMap()->checkCollisionLB((int)fXPos - moveSpeed, (int)fYPos - 2, iHitBoxY, true) || Core::getMap()->checkCollisionLT((int)fXPos - moveSpeed, (int)fYPos + 2, true)) {
 			moveDirection = !moveDirection;
-			//if (killOtherUnits && fXPos > -Core::getMap()->getXPos() - 64 && fXPos < -Core::getMap()->getXPos() + CCFG::GAME_WIDTH + 64 + iHitBoxX) CCFG::getMusic()->PlayChunk(CCFG::getMusic()->cBLOCKHIT);
+			if (killOtherUnits && fXPos > -Core::getMap()->getXPos() - 64 && fXPos < -Core::getMap()->getXPos() + CFG::GameWidth + 64 + iHitBoxX) CFG::getMusic()->PlayChunk(CFG::getMusic()->cBLOCKHIT);
 		}
 		else {
 			fXPos -= (jumpState == 0 ? moveSpeed : moveSpeed / 2.0f);
@@ -108,7 +104,7 @@ void Minion::updateXPos() {
 	else {
 		if (Core::getMap()->checkCollisionRB((int)fXPos + moveSpeed, (int)fYPos - 2, iHitBoxX, iHitBoxY, true) || Core::getMap()->checkCollisionRT((int)fXPos + moveSpeed, (int)fYPos + 2, iHitBoxX, true)) {
 			moveDirection = !moveDirection;
-			//if (killOtherUnits && fXPos > -Core::getMap()->getXPos() - 64 && fXPos < -Core::getMap()->getXPos() + CCFG::GAME_WIDTH + 64 + iHitBoxX) CCFG::getMusic()->PlayChunk(CCFG::getMusic()->cBLOCKHIT);
+			if (killOtherUnits && fXPos > -Core::getMap()->getXPos() - 64 && fXPos < -Core::getMap()->getXPos() + CFG::GameWidth + 64 + iHitBoxX) CFG::getMusic()->PlayChunk(CFG::getMusic()->cBLOCKHIT);
 		}
 		else {
 			fXPos += (jumpState == 0 ? moveSpeed : moveSpeed / 2.0f);
@@ -180,11 +176,11 @@ void Minion::resetJump() {
 	currentFallingSpeed = 2.7f;
 }
 
-//void Minion::points(int iPoints) {
-//	Core::getMap()->addPoints((int)fXPos + 7, (int)fYPos, std::to_string(iPoints * Core::getMap()->getPlayer()->getComboPoints()), 8, 16);
-//	Core::getMap()->getPlayer()->setScore(Core::getMap()->getPlayer()->getScore() + iPoints * CCore::getMap()->getPlayer()->getComboPoints());
-//	Core::getMap()->getPlayer()->addComboPoints();
-//}
+void Minion::points(int iPoints) {
+	Core::getMap()->addPoints((int)fXPos + 7, (int)fYPos, std::to_string(iPoints * Core::getMap()->getPlayer()->getComboPoints()), 8, 16);
+	Core::getMap()->getPlayer()->setScore(Core::getMap()->getPlayer()->getScore() + iPoints * Core::getMap()->getPlayer()->getComboPoints());
+	Core::getMap()->getPlayer()->addComboPoints();
+}
 
 void Minion::minionDeathAnimation() {
 	fXPos += (moveDirection ? -1.5f : 1.5f);
@@ -230,9 +226,9 @@ void Minion::setMinionState(int minionState) {
 	if (minionState == -2) {
 		deadTime = 16;
 		fYPos -= iHitBoxY / 4;
-		//points(200);
+		points(200);
 		collisionOnlyWithPlayer = true;
-		//CCFG::getMusic()->PlayChunk(CCFG::getMusic()->cSHOT);
+		CFG::getMusic()->PlayChunk(CFG::getMusic()->cSHOT);
 	}
 }
 

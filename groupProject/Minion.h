@@ -10,7 +10,7 @@ class Minion
 {
 public:
 	Minion(void);
-	~Minion(void);
+	~Minion(void) = default;
 
 	int minionState;
 
@@ -62,7 +62,7 @@ public:
 	// ----- COLLISON
 
 	virtual void collisionWithPlayer(bool TOP);
-	//virtual void points(int iPoints);
+	virtual void points(int iPoints);
 
 	virtual void collisionWithAnotherUnit(); // -- PLAYERFIREBALL
 

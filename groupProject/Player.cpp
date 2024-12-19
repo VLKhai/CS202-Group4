@@ -347,58 +347,6 @@ Player::~Player()
 	delete tMarioLVLUP;
 }
 
-//void Player::movePlayer() {
-//	// if player is moving
-//	if (bMove && !changeMoveDirection && (!bSquat || powerLVL == 0)) {
-//		if (moveSpeed > currentMaxMove) {
-//			--moveSpeed;
-//		}
-//		else if (Core::coreClock.getElapsedTime().asMilliseconds() - (100 + 35 * moveSpeed) >= iTimePassed && moveSpeed < currentMaxMove) {
-//			++moveSpeed;
-//			iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
-//		}
-//		else if (moveSpeed == 0) {
-//			moveSpeed = 1;
-//		}
-//	}
-//	// not moving, change direction, or squat
-//	else {
-//		if (Core::coreClock.getElapsedTime().asMilliseconds() - (15 * (moveSpeed*5)) > iTimePassed && moveSpeed != 0) {
-//			--moveSpeed;
-//			iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
-//			if (jumpState == 0) setMarioSpriteID(6);
-//		}
-//
-//		if (changeMoveDirection && moveSpeed <= 1) {
-//			moveDirection = newMoveDirection;
-//			changeMoveDirection = false;
-//			bMove = true;
-//		}
-//	}
-//
-//	if (moveSpeed > 0) {
-//		if (moveDirection) {
-//			updateXPos(moveSpeed);
-//		}
-//		else {
-//			updateXPos(-moveSpeed);
-//		}
-//		if (!changeMoveDirection && jumpState == 0 && bMove) moveAnimation();
-//			
-//	}
-//	else if (jumpState == 0) {
-//		setMarioSpriteID(1);
-//		updateXPos(0);
-//	}
-//	else {
-//		updateXPos(0);
-//	}
-//
-//	if (bSquat && powerLVL > 0) {
-//		setMarioSpriteID(7);
-//	}
-//}
-
 void Player::movePlayer() {
 	if (bMove && !changeMoveDirection && (!bSquat || powerLVL == 0)) {
 		if (moveSpeed > currentMaxMove) {
@@ -787,7 +735,7 @@ void Player::updateYPos(int iN)
 {
 	bool bLEFT, bRIGHT;
 
-	if (iN > 0) {
+	if (iN > 0) { 
 		bLEFT = Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + iN, getHitBoxY(), true);
 		bRIGHT = Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + iN, getHitBoxX(), getHitBoxY(), true);
 

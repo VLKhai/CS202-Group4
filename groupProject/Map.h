@@ -27,7 +27,7 @@ private:
 	int iBlockSize; // Size of vBlock
 
 	std::vector<Block*> vMinion;
-	int iMinionSize; // Size of vMinion
+	int iMinionSize; // Size of vBlock
 
 	std::vector<std::vector<Tile*>> lMap;
 	int iMapWidth, iMapHeight;
@@ -41,9 +41,7 @@ private:
 	//std::vector<Bubble*> lBubble;
 
 	int currentLevelID;
-
 	int iLevelType; // 0, 1, 2;
-
 	bool underWater;
 
 	int iSpawnPointID;
@@ -51,64 +49,156 @@ private:
 	bool bMoveMap;
 
 	int iFrameID;
-
 	int iMapTime;
 
 	bool inEvent;
-    Event* pEvent;
-	bool drawLines;
+	Event* pEvent;
 
-    Player* player;
+	// ----- PLAYER -----
+	Player* player;
 
 	// ----- MINIONS -----
 	std::vector<std::vector<Minion*>> lMinion;
 	int iMinionListSize;
 
+	int getListID(int nXPos);
+
+	int getNumOfMinions(); // ----- Ilosc minionow w grze.
+	// ----- MINIONS -----
+
 	// ----- POINTS & COIN -----
+
 	std::vector<Coin*> lCoin;
 	std::vector<Points*> lPoints;
+
+	// ----- POINTS & COIN -----
+
+	// ----- PIPEEVENTS -----
+
 	std::vector<Pipe*> lPipe;
+
+	// ----- ENDEVENTS
 
 	Flag* pFlag;
 
-    void createMap();
+	bool drawLines;
+
+	// ---------- Methods ----------
+
+	int getStartBlock();
+	int getEndBlock();
+
+	// ----- Load -----
+	void loadGameData(sf::RenderWindow& window);
+
+	void createMap();
 
 	void checkSpawnPoint();
 	int getNumOfSpawnPoints();
 	int getSpawnPointXPos(int iID);
 	int getSpawnPointYPos(int iID);
 
-	int getStartBlock();
-	int getEndBlock();
+	void loadLVL_1_1(); // Done
+	void loadLVL_1_2();
+	void loadLVL_1_3();
+	void loadLVL_1_4();
+	void loadLVL_2_1();
+	void loadLVL_2_2();
+	void loadLVL_2_3();
+	void loadLVL_2_4();
+	void loadLVL_3_1();
+	void loadLVL_3_2();
+	void loadLVL_3_3();
+	void loadLVL_3_4();
+	void loadLVL_4_1();
+	void loadLVL_4_2();
+	void loadLVL_4_3();
+	void loadLVL_4_4();
+	void loadLVL_5_1();
+	void loadLVL_5_2();
+	void loadLVL_5_3();
+	void loadLVL_5_4();
+	void loadLVL_6_1();
+	void loadLVL_6_2();
+	void loadLVL_6_3();
+	void loadLVL_6_4();
+	void loadLVL_7_1();
+	void loadLVL_7_2();
+	void loadLVL_7_3();
+	void loadLVL_7_4();
+	void loadLVL_8_1();
+	void loadLVL_8_2();
+	void loadLVL_8_3();
+	void loadLVL_8_4();
+
+	void loadMinionsLVL_1_1();
+	void loadMinionsLVL_1_2();
+	void loadMinionsLVL_1_3();
+	void loadMinionsLVL_1_4();
+	void loadMinionsLVL_2_1();
+	void loadMinionsLVL_2_2();
+	void loadMinionsLVL_2_3();
+	void loadMinionsLVL_2_4();
+	void loadMinionsLVL_3_1();
+	void loadMinionsLVL_3_2();
+	void loadMinionsLVL_3_3();
+	void loadMinionsLVL_3_4();
+	void loadMinionsLVL_4_1();
+	void loadMinionsLVL_4_2();
+	void loadMinionsLVL_4_3();
+	void loadMinionsLVL_4_4();
+	void loadMinionsLVL_5_1();
+	void loadMinionsLVL_5_2();
+	void loadMinionsLVL_5_3();
+	void loadMinionsLVL_5_4();
+	void loadMinionsLVL_6_1();
+	void loadMinionsLVL_6_2();
+	void loadMinionsLVL_6_3();
+	void loadMinionsLVL_6_4();
+	void loadMinionsLVL_7_1();
+	void loadMinionsLVL_7_2();
+	void loadMinionsLVL_7_3();
+	void loadMinionsLVL_7_4();
+	void loadMinionsLVL_8_1();
+	void loadMinionsLVL_8_2();
+	void loadMinionsLVL_8_3();
+	void loadMinionsLVL_8_4();
+
+	void clearPipeEvents(); // Done
+	void loadPipeEventsLVL_1_1(); // Done
+	void loadPipeEventsLVL_1_2(); // Done
+	void loadPipeEventsLVL_1_3(); // Done
+	void loadPipeEventsLVL_2_1(); // Done
+	void loadPipeEventsLVL_2_2(); // Done
+	void loadPipeEventsLVL_3_1(); // Done
+	void loadPipeEventsLVL_4_1(); // Done
+	void loadPipeEventsLVL_4_2(); // Done
+	void loadPipeEventsLVL_5_1(); // Done
+	void loadPipeEventsLVL_5_2(); // Done
+	void loadPipeEventsLVL_6_2(); // Done
+	void loadPipeEventsLVL_7_1(); // Done
+	void loadPipeEventsLVL_7_2(); // Done
+	void loadPipeEventsLVL_8_1(); // Done
+	void loadPipeEventsLVL_8_2(); // Done
+	void loadPipeEventsLVL_8_4(); // Done
+
+	void clearLevelText();
+
+	void pipeUse();
+	void EndUse();
+	void EndBoss();
+	void EndBonus();
+
+	void TPUse();
+	void TPUse2();
+	void TPUse3();
+
+	bool bTP; // -- TP LOOP
+
+	void spawnVine(int nX, int nY, int iBlockID);
 
 	void clearMap();
-	void clearLevelText();
 	void clearMinions();
-	
-	// ----Load----
-    void loadGameData(sf::RenderWindow& mainWindow);
-	void loadLVL_1_1();
-	void loadMinionsLVL_1_1();
-
-	void clearPipeEvents();
-	void loadPipeEventsLVL_1_1();
-	void loadPipeEventsLVL_1_2();
-	void loadPipeEventsLVL_1_3();
-	void loadPipeEventsLVL_2_1();
-	void loadPipeEventsLVL_2_2();
-	void loadPipeEventsLVL_3_1();
-	void loadPipeEventsLVL_4_1();
-	void loadPipeEventsLVL_4_2();
-	void loadPipeEventsLVL_5_1();
-	void loadPipeEventsLVL_5_2();
-	void loadPipeEventsLVL_6_2();
-	void loadPipeEventsLVL_7_1();
-	void loadPipeEventsLVL_7_2();
-	void loadPipeEventsLVL_8_1();
-	void loadPipeEventsLVL_8_2();
-	void loadPipeEventsLVL_8_4();
-
-
 public:
 	Map() = default;
     Map(sf::RenderWindow& mainWindow);
@@ -220,7 +310,6 @@ public:
 	int getMapTime();
 	void setMapTime(int iMapTime);
 
-	int getListID(int nX);
 	std::string getLevelName();
 	void setBackgroundColor(sf::RenderWindow& mainWindow);
 
