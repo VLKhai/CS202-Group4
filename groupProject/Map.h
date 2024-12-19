@@ -19,6 +19,8 @@
 #include "LevelText.h"
 #include "Pipe.h"
 #include "Koppa.h"
+#include "Beetle.h"
+#include "Bowser.h"
 
 class Map {
 private:
@@ -221,7 +223,7 @@ public:
 	void addPoints(int X, int Y, std::string sText, int iW, int iH);
 	void addGoombas(int iX, int iY, bool moveDirection);
 	void addKoppa(int iX, int iY, int minionState, bool moveDirection);
-	//void addBeetle(int X, int Y, bool moveDirection);
+	void addBeetle(int X, int Y, bool moveDirection);
 	//void addPlant(int iX, int iY);
 	//void addToad(int X, int Y, bool peach);
 	//void addSquid(int X, int Y);
@@ -237,7 +239,7 @@ public:
 	//void addUpFire(int X, int iYEnd);
 	//void addSpring(int X, int Y);
 
-	//void addBowser(int X, int Y, bool spawnHammer = false);
+	void addBowser(int X, int Y, bool spawnHammer = false);
 
 	//void addFire(float fX, float fY, int toYPos);
 	//void addFireBall(int X, int Y, int iWidth, int iSliceID, bool LEFT);
@@ -373,4 +375,5 @@ public:
 	Block* getBlock(int iID);
 	Tile* getMapBlock(int iX, int iY);
 	Event* getEvent();
+	Block* getMinionBlock(int iID);
 };

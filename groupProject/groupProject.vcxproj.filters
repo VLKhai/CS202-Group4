@@ -108,6 +108,12 @@
     <ClCompile Include="Koppa.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Beetle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bowser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -198,6 +204,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LevelText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Beetle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bowser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

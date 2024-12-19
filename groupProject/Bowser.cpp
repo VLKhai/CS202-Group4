@@ -108,7 +108,7 @@ void Bowser::Draw(sf::RenderWindow& window, IMG* iIMG) {
 
 	if(spawnHammer) {
 		if(nextHammerFrameID <= 24 && moveDirection) {
-			//Core::getMap()->getMinionBlock(61)->getSprite()->getTexture()->Draw(window, (int)(fXPos + Core::getMap()->getXPos() + 4), (int)(fYPos - 20), moveDirection);
+			Core::getMap()->getMinionBlock(61)->getSprite()->getTexture()->draw(window, (int)(fXPos + Core::getMap()->getXPos() + 4), (int)(fYPos - 20), moveDirection);
 		}
 	}
 }

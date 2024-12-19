@@ -21,8 +21,10 @@
   <ItemGroup>
     <ClCompile Include="AboutMenu.cpp" />
     <ClCompile Include="AniSprite.cpp" />
+    <ClCompile Include="Beetle.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockDebris.cpp" />
+    <ClCompile Include="Bowser.cpp" />
     <ClCompile Include="CFG.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Core.cpp" />
@@ -54,8 +56,10 @@
   <ItemGroup>
     <ClInclude Include="AboutMenu.h" />
     <ClInclude Include="AniSprite.h" />
+    <ClInclude Include="Beetle.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockDebris.h" />
+    <ClInclude Include="Bowser.h" />
     <ClInclude Include="CFG.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Core.h" />

@@ -1779,6 +1779,10 @@ Event* Map::getEvent() {
 	return pEvent;
 }
 
+Block* Map::getMinionBlock(int iID) {
+	return vMinion[iID];
+}
+
 std::string Map::getLevelName() {
 	return "" + std::to_string(1 + currentLevelID / 4) + "-" + std::to_string(currentLevelID % 4 + 1);
 }
@@ -10211,6 +10215,18 @@ void Map::addKoppa(int iX, int iY, int minionState, bool moveDirection) {
 
 	lMinion[getListID(iX)].push_back(new Koppa(iX, iY, minionState, moveDirection, tempBlock));
 }
+
+void Map::addBeetle(int X, int Y, bool moveDirection) {
+	lMinion[getListID(X)].push_back(new Beetle(X, Y, moveDirection));
+}
+
+void Map::addBowser(int X, int Y, bool spawnHammer) {
+	lMinion[getListID(X)].push_back(new Bowser((float)X, (float)Y, spawnHammer));
+}
+
+//void Map::addHammer(int X, int Y, bool moveDirection) {
+//	lMinion[getListID(X)].push_back(new Hammer(X, Y, moveDirection));
+//}
 
 void Map::lockMinions() {
 	for (unsigned int i = 0; i < lMinion.size(); i++) {
