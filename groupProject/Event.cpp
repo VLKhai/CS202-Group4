@@ -300,7 +300,6 @@ void Event::Normal() {
 	}
 }
 
-
 void Event::end() {
     if (Core::getMap()->getFlag() != NULL && Core::getMap()->getFlag()->iYPos < CFG::GameHeight - 16 - 3 * 32 - 4) {
         Core::getMap()->getFlag()->Update();
