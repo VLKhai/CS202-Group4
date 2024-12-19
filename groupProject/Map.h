@@ -291,6 +291,22 @@ public:
 	void structCastleBig(int X, int Y);
 	void structCastleWall(int X, int Y, int iWidth, int iHeight);
 
+	void structT(int X, int Y, int iWidth, int iHeight);
+	void structTMush(int X, int Y, int iWidth, int iHeight);
+
+	void structWater(int X, int Y, int iWidth, int iHeight);
+	void structLava(int X, int Y, int iWidth, int iHeight);
+	void structBridge(int X, int Y, int iWidth);
+
+	void structTree(int X, int Y, int iHeigth, bool BIG);
+	void structFence(int X, int Y, int iWidth);
+	void structBridge2(int X, int Y, int iWidth);
+
+	void structSeeSaw(int X, int Y, int iWidth);
+	void structPlatformLine(int X);
+
+	void structBulletBill(int X, int Y, int iHieght);
+
 	void setBlockID(int X, int Y, int iBlockID); 
 
 	// --<COLLISION>--

@@ -858,7 +858,7 @@ void Player::updateYPos(int iN)
 	if (!Core::getMap()->getInEvent() && fYPos - getHitBoxY() > CFG::GameHeight) {
 		Core::getMap()->playerDeath(false, true);
 		fYPos = -80;
-	}s
+	}
 }
 
 void Player::moveAnimation()
