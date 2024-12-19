@@ -1084,12 +1084,106 @@ void Map::startLevelAnimation() {
 	}
 }
 
-void Map::loadLVL()
-{
+void Map::loadLVL() {
+	clearPipeEvents();
+
 	switch (currentLevelID) {
 	case 0:
 		loadLVL_1_1();
 		break;
+	case 1:
+		loadLVL_1_2();
+		break;
+	//case 2:
+	//	loadLVL_1_3();
+	//	break;
+	//case 3:
+	//	loadLVL_1_4();
+	//	break;
+	//case 4:
+	//	loadLVL_2_1();
+	//	break;
+	//case 5:
+	//	loadLVL_2_2();
+	//	break;
+	//case 6:
+	//	loadLVL_2_3();
+	//	break;
+	//case 7:
+	//	loadLVL_2_4();
+	//	break;
+	//case 8:
+	//	loadLVL_3_1();
+	//	break;
+	//case 9:
+	//	loadLVL_3_2();
+	//	break;
+	//case 10:
+	//	loadLVL_3_3();
+	//	break;
+	//case 11:
+	//	loadLVL_3_4();
+	//	break;
+	//case 12:
+	//	loadLVL_4_1();
+	//	break;
+	//case 13:
+	//	loadLVL_4_2();
+	//	break;
+	//case 14:
+	//	loadLVL_4_3();
+	//	break;
+	//case 15:
+	//	loadLVL_4_4();
+	//	break;
+	//case 16:
+	//	loadLVL_5_1();
+	//	break;
+	//case 17:
+	//	loadLVL_5_2();
+	//	break;
+	//case 18:
+	//	loadLVL_5_3();
+	//	break;
+	//case 19:
+	//	loadLVL_5_4();
+	//	break;
+	//case 20:
+	//	loadLVL_6_1();
+	//	break;
+	//case 21:
+	//	loadLVL_6_2();
+	//	break;
+	//case 22:
+	//	loadLVL_6_3();
+	//	break;
+	//case 23:
+	//	loadLVL_6_4();
+	//	break;
+	//case 24:
+	//	loadLVL_7_1();
+	//	break;
+	//case 25:
+	//	loadLVL_7_2();
+	//	break;
+	//case 26:
+	//	loadLVL_7_3();
+	//	break;
+	//case 27:
+	//	loadLVL_7_4();
+	//	break;
+	//case 28:
+	//	loadLVL_8_1();
+	//	break;
+	//case 29:
+	//	loadLVL_8_2();
+	//	break;
+	//case 30:
+	//	loadLVL_8_3();
+	//	break;
+	//case 31:
+	//	loadLVL_8_4();
+	//	break;
 	}
 }
 
