@@ -41,7 +41,7 @@ void CheepSpawner::minionPhysics() { }
 
 void CheepSpawner::spawnCheep() {
 	if(Core::getMap()->getPlayer()->getXPos() - Core::getMap()->getXPos() > fXPos && Core::getMap()->getPlayer()->getXPos() - Core::getMap()->getXPos() < iXEnd) {
-		//Core::getMap()->addCheep((int)(-Core::getMap()->getXPos() + 64 + rand()%(CFG::GameWidth - 128)), CFG::GameHeight - 4, 2, 2 + rand() % 32, !(rand()%4 == 0));
+		Core::getMap()->addCheep((int)(-Core::getMap()->getXPos() + 64 + rand()%(CFG::GameWidth - 128)), CFG::GameHeight - 4, 2, 2 + rand() % 32, !(rand()%4 == 0));
 	} else {
 		nextCheep();
 	}

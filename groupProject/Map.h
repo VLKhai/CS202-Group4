@@ -21,6 +21,22 @@
 #include "Koppa.h"
 #include "Beetle.h"
 #include "Bowser.h"
+#include "BulletBill.h"
+#include "BulletBillSpawner.h"
+#include "Cheep.h"
+#include "CheepSpawner.h"
+#include "Fire.h"
+#include "Flower.h"
+#include "Hammer.h"
+#include "HammerBro.h"
+#include "Lakito.h"
+#include "Mushroom.h"
+#include "Plant.h"
+#include "Spikey.h"
+#include "Star.h"
+#include "Toad.h"
+#include "Squid.h"
+
 
 class Map {
 private:
@@ -136,36 +152,36 @@ private:
 
 	void loadMinionsLVL_1_1();
 	void loadMinionsLVL_1_2();
-	//void loadMinionsLVL_1_3();
-	//void loadMinionsLVL_1_4();
-	//void loadMinionsLVL_2_1();
-	//void loadMinionsLVL_2_2();
-	//void loadMinionsLVL_2_3();
-	//void loadMinionsLVL_2_4();
-	//void loadMinionsLVL_3_1();
-	//void loadMinionsLVL_3_2();
-	//void loadMinionsLVL_3_3();
-	//void loadMinionsLVL_3_4();
-	//void loadMinionsLVL_4_1();
-	//void loadMinionsLVL_4_2();
-	//void loadMinionsLVL_4_3();
-	//void loadMinionsLVL_4_4();
-	//void loadMinionsLVL_5_1();
-	//void loadMinionsLVL_5_2();
-	//void loadMinionsLVL_5_3();
-	//void loadMinionsLVL_5_4();
-	//void loadMinionsLVL_6_1();
-	//void loadMinionsLVL_6_2();
-	//void loadMinionsLVL_6_3();
-	//void loadMinionsLVL_6_4();
-	//void loadMinionsLVL_7_1();
-	//void loadMinionsLVL_7_2();
-	//void loadMinionsLVL_7_3();
-	//void loadMinionsLVL_7_4();
-	//void loadMinionsLVL_8_1();
-	//void loadMinionsLVL_8_2();
-	//void loadMinionsLVL_8_3();
-	//void loadMinionsLVL_8_4();
+	void loadMinionsLVL_1_3();
+	void loadMinionsLVL_1_4();
+	void loadMinionsLVL_2_1();
+	void loadMinionsLVL_2_2();
+	void loadMinionsLVL_2_3();
+	void loadMinionsLVL_2_4();
+	void loadMinionsLVL_3_1();
+	void loadMinionsLVL_3_2();
+	void loadMinionsLVL_3_3();
+	void loadMinionsLVL_3_4();
+	void loadMinionsLVL_4_1();
+	void loadMinionsLVL_4_2();
+	void loadMinionsLVL_4_3();
+	void loadMinionsLVL_4_4();
+	void loadMinionsLVL_5_1();
+	void loadMinionsLVL_5_2();
+	void loadMinionsLVL_5_3();
+	void loadMinionsLVL_5_4();
+	void loadMinionsLVL_6_1();
+	void loadMinionsLVL_6_2();
+	void loadMinionsLVL_6_3();
+	void loadMinionsLVL_6_4();
+	void loadMinionsLVL_7_1();
+	void loadMinionsLVL_7_2();
+	void loadMinionsLVL_7_3();
+	void loadMinionsLVL_7_4();
+	void loadMinionsLVL_8_1();
+	void loadMinionsLVL_8_2();
+	void loadMinionsLVL_8_3();
+	void loadMinionsLVL_8_4();
 
 	void clearPipeEvents(); // Done
 	void loadPipeEventsLVL_1_1(); // Done
@@ -224,15 +240,15 @@ public:
 	void addGoombas(int iX, int iY, bool moveDirection);
 	void addKoppa(int iX, int iY, int minionState, bool moveDirection);
 	void addBeetle(int X, int Y, bool moveDirection);
-	//void addPlant(int iX, int iY);
-	//void addToad(int X, int Y, bool peach);
-	//void addSquid(int X, int Y);
-	//void addCheep(int X, int Y, int minionType, int moveSpeed, bool moveDirection = false);
-	//void addCheepSpawner(int X, int XEnd);
-	//void addHammerBro(int X, int Y);
-	//void addHammer(int X, int Y, bool moveDirection);
-	//void addLakito(int X, int Y, int iMaxXPos);
-	//void addSpikey(int X, int Y);
+	void addPlant(int iX, int iY);
+	void addToad(int X, int Y, bool peach);
+	void addSquid(int X, int Y);
+	void addCheep(int X, int Y, int minionType, int moveSpeed, bool moveDirection = false);
+	void addCheepSpawner(int X, int XEnd);
+	void addHammerBro(int X, int Y);
+	void addHammer(int X, int Y, bool moveDirection);
+	void addLakito(int X, int Y, int iMaxXPos);
+	void addSpikey(int X, int Y);
 
 	//void addPlayerFireBall(int X, int Y, bool moveDirection);
 
@@ -241,7 +257,7 @@ public:
 
 	void addBowser(int X, int Y, bool spawnHammer = false);
 
-	//void addFire(float fX, float fY, int toYPos);
+	void addFire(float fX, float fY, int toYPos);
 	//void addFireBall(int X, int Y, int iWidth, int iSliceID, bool LEFT);
 
 	//void addVine(int X, int Y, int minionState, int iBlockID);
@@ -249,8 +265,8 @@ public:
 	void addText(int X, int Y, std::string sText);
 
 	//void addBubble(int X, int Y);
-	//void addBulletBillSpawner(int X, int Y, int minionState);
-	//void addBulletBill(int X, int Y, bool moveDirection, int minionState);
+	void addBulletBillSpawner(int X, int Y, int minionState);
+	void addBulletBill(int X, int Y, bool moveDirection, int minionState);
 
 	// --- Clear ---
 	void lockMinions();

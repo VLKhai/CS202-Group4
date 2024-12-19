@@ -65,12 +65,12 @@ bool Star::updateMinion() {
 void Star::minionPhysics() {
 	if (jumpState == 1) {
 		if(minionState == 0) {
-			//updateYPos(-4 + (cuwindowentJumpDistance > 64 ? 2 : 0));
-			//cuwindowentJumpDistance += 2;
+			updateYPos(-4 + (currentJumpDistance > 64 ? 2 : 0));
+			currentJumpDistance += 2;
 
-			/*if (jumpDistance <= cuwindowentJumpDistance) {
+			if (jumpDistance <= currentJumpDistance) {
 				jumpState = 2;
-			}*/
+			}
 		}
 	} else {
 		if (!Core::getMap()->checkCollisionLB((int)fXPos + 2, (int)fYPos + 2, iHitBoxY, true) && !Core::getMap()->checkCollisionRB((int)fXPos - 2, (int)fYPos + 2, iHitBoxX, iHitBoxY, true)) {
