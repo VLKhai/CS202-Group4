@@ -63,7 +63,7 @@ private:
 
 	int getListID(int nXPos);
 
-	int getNumOfMinions(); // ----- Ilosc minionow w grze.
+	int getNumOfMinions();
 	// ----- MINIONS -----
 
 	// ----- POINTS & COIN -----
@@ -99,75 +99,75 @@ private:
 	int getSpawnPointYPos(int iID);
 
 	void loadLVL_1_1(); // Done
-	void loadLVL_1_2();
-	void loadLVL_1_3();
-	void loadLVL_1_4();
-	void loadLVL_2_1();
-	void loadLVL_2_2();
-	void loadLVL_2_3();
-	void loadLVL_2_4();
-	void loadLVL_3_1();
-	void loadLVL_3_2();
-	void loadLVL_3_3();
-	void loadLVL_3_4();
-	void loadLVL_4_1();
-	void loadLVL_4_2();
-	void loadLVL_4_3();
-	void loadLVL_4_4();
-	void loadLVL_5_1();
-	void loadLVL_5_2();
-	void loadLVL_5_3();
-	void loadLVL_5_4();
-	void loadLVL_6_1();
-	void loadLVL_6_2();
-	void loadLVL_6_3();
-	void loadLVL_6_4();
-	void loadLVL_7_1();
-	void loadLVL_7_2();
-	void loadLVL_7_3();
-	void loadLVL_7_4();
-	void loadLVL_8_1();
-	void loadLVL_8_2();
-	void loadLVL_8_3();
-	void loadLVL_8_4();
+	//void loadLVL_1_2();
+	//void loadLVL_1_3();
+	//void loadLVL_1_4();
+	//void loadLVL_2_1();
+	//void loadLVL_2_2();
+	//void loadLVL_2_3();
+	//void loadLVL_2_4();
+	//void loadLVL_3_1();
+	//void loadLVL_3_2();
+	//void loadLVL_3_3();
+	//void loadLVL_3_4();
+	//void loadLVL_4_1();
+	//void loadLVL_4_2();
+	//void loadLVL_4_3();
+	//void loadLVL_4_4();
+	//void loadLVL_5_1();
+	//void loadLVL_5_2();
+	//void loadLVL_5_3();
+	//void loadLVL_5_4();
+	//void loadLVL_6_1();
+	//void loadLVL_6_2();
+	//void loadLVL_6_3();
+	//void loadLVL_6_4();
+	//void loadLVL_7_1();
+	//void loadLVL_7_2();
+	//void loadLVL_7_3();
+	//void loadLVL_7_4();
+	//void loadLVL_8_1();
+	//void loadLVL_8_2();
+	//void loadLVL_8_3();
+	//void loadLVL_8_4();
 
 	void loadMinionsLVL_1_1();
-	void loadMinionsLVL_1_2();
-	void loadMinionsLVL_1_3();
-	void loadMinionsLVL_1_4();
-	void loadMinionsLVL_2_1();
-	void loadMinionsLVL_2_2();
-	void loadMinionsLVL_2_3();
-	void loadMinionsLVL_2_4();
-	void loadMinionsLVL_3_1();
-	void loadMinionsLVL_3_2();
-	void loadMinionsLVL_3_3();
-	void loadMinionsLVL_3_4();
-	void loadMinionsLVL_4_1();
-	void loadMinionsLVL_4_2();
-	void loadMinionsLVL_4_3();
-	void loadMinionsLVL_4_4();
-	void loadMinionsLVL_5_1();
-	void loadMinionsLVL_5_2();
-	void loadMinionsLVL_5_3();
-	void loadMinionsLVL_5_4();
-	void loadMinionsLVL_6_1();
-	void loadMinionsLVL_6_2();
-	void loadMinionsLVL_6_3();
-	void loadMinionsLVL_6_4();
-	void loadMinionsLVL_7_1();
-	void loadMinionsLVL_7_2();
-	void loadMinionsLVL_7_3();
-	void loadMinionsLVL_7_4();
-	void loadMinionsLVL_8_1();
-	void loadMinionsLVL_8_2();
-	void loadMinionsLVL_8_3();
-	void loadMinionsLVL_8_4();
+	//void loadMinionsLVL_1_2();
+	//void loadMinionsLVL_1_3();
+	//void loadMinionsLVL_1_4();
+	//void loadMinionsLVL_2_1();
+	//void loadMinionsLVL_2_2();
+	//void loadMinionsLVL_2_3();
+	//void loadMinionsLVL_2_4();
+	//void loadMinionsLVL_3_1();
+	//void loadMinionsLVL_3_2();
+	//void loadMinionsLVL_3_3();
+	//void loadMinionsLVL_3_4();
+	//void loadMinionsLVL_4_1();
+	//void loadMinionsLVL_4_2();
+	//void loadMinionsLVL_4_3();
+	//void loadMinionsLVL_4_4();
+	//void loadMinionsLVL_5_1();
+	//void loadMinionsLVL_5_2();
+	//void loadMinionsLVL_5_3();
+	//void loadMinionsLVL_5_4();
+	//void loadMinionsLVL_6_1();
+	//void loadMinionsLVL_6_2();
+	//void loadMinionsLVL_6_3();
+	//void loadMinionsLVL_6_4();
+	//void loadMinionsLVL_7_1();
+	//void loadMinionsLVL_7_2();
+	//void loadMinionsLVL_7_3();
+	//void loadMinionsLVL_7_4();
+	//void loadMinionsLVL_8_1();
+	//void loadMinionsLVL_8_2();
+	//void loadMinionsLVL_8_3();
+	//void loadMinionsLVL_8_4();
 
 	void clearPipeEvents(); // Done
 	void loadPipeEventsLVL_1_1(); // Done
 	void loadPipeEventsLVL_1_2(); // Done
-	void loadPipeEventsLVL_1_3(); // Done
+	//void loadPipeEventsLVL_1_3(); // Not used
 	void loadPipeEventsLVL_2_1(); // Done
 	void loadPipeEventsLVL_2_2(); // Done
 	void loadPipeEventsLVL_3_1(); // Done
@@ -189,13 +189,13 @@ private:
 	void EndBoss();
 	void EndBonus();
 
-	void TPUse();
-	void TPUse2();
-	void TPUse3();
+	//void TPUse();
+	//void TPUse2();
+	//void TPUse3();
 
 	bool bTP; // -- TP LOOP
 
-	void spawnVine(int nX, int nY, int iBlockID);
+	//void spawnVine(int nX, int nY, int iBlockID);
 
 	void clearMap();
 	void clearMinions();
@@ -219,40 +219,40 @@ public:
 	//Add 
 	void addPoints(int X, int Y, std::string sText, int iW, int iH);
 	void addGoombas(int iX, int iY, bool moveDirection);
-	void addKoppa(int iX, int iY, int minionState, bool moveDirection);
-	void addBeetle(int X, int Y, bool moveDirection);
-	void addPlant(int iX, int iY);
-	void addToad(int X, int Y, bool peach);
-	void addSquid(int X, int Y);
-	void addCheep(int X, int Y, int minionType, int moveSpeed, bool moveDirection = false);
-	void addCheepSpawner(int X, int XEnd);
-	void addHammerBro(int X, int Y);
-	void addHammer(int X, int Y, bool moveDirection);
-	void addLakito(int X, int Y, int iMaxXPos);
-	void addSpikey(int X, int Y);
+	//void addKoppa(int iX, int iY, int minionState, bool moveDirection);
+	//void addBeetle(int X, int Y, bool moveDirection);
+	//void addPlant(int iX, int iY);
+	//void addToad(int X, int Y, bool peach);
+	//void addSquid(int X, int Y);
+	//void addCheep(int X, int Y, int minionType, int moveSpeed, bool moveDirection = false);
+	//void addCheepSpawner(int X, int XEnd);
+	//void addHammerBro(int X, int Y);
+	//void addHammer(int X, int Y, bool moveDirection);
+	//void addLakito(int X, int Y, int iMaxXPos);
+	//void addSpikey(int X, int Y);
 
-	void addPlayerFireBall(int X, int Y, bool moveDirection);
+	//void addPlayerFireBall(int X, int Y, bool moveDirection);
 
-	void addUpFire(int X, int iYEnd);
-	void addSpring(int X, int Y);
+	//void addUpFire(int X, int iYEnd);
+	//void addSpring(int X, int Y);
 
-	void addBowser(int X, int Y, bool spawnHammer = false);
+	//void addBowser(int X, int Y, bool spawnHammer = false);
 
-	void addFire(float fX, float fY, int toYPos);
-	void addFireBall(int X, int Y, int iWidth, int iSliceID, bool LEFT);
+	//void addFire(float fX, float fY, int toYPos);
+	//void addFireBall(int X, int Y, int iWidth, int iSliceID, bool LEFT);
 
-	void addVine(int X, int Y, int minionState, int iBlockID);
+	//void addVine(int X, int Y, int minionState, int iBlockID);
 
 	void addText(int X, int Y, std::string sText);
 
-	void addBubble(int X, int Y);
-	void addBulletBillSpawner(int X, int Y, int minionState);
-	void addBulletBill(int X, int Y, bool moveDirection, int minionState);
+	//void addBubble(int X, int Y);
+	//void addBulletBillSpawner(int X, int Y, int minionState);
+	//void addBulletBill(int X, int Y, bool moveDirection, int minionState);
 
 	// --- Clear ---
 	void lockMinions();
 	void clearPlatforms();
-	void clearBubbles();
+	//void clearBubbles();
 
 	// Block Interaction
 	bool blockUse(int nX, int nY, int iBlockID, int POS);

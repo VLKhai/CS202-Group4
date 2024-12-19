@@ -91,8 +91,6 @@ void Map::update()
 		player->powerUPAnimation();
 	}
 
-	updateMinionsCollisions();
-
 	// Update Block Debris
 	for (unsigned int i = 0; i < lBlockDebris.size(); i++) {
 		if (lBlockDebris[i]->getDebrisState() != -1) {
@@ -463,9 +461,9 @@ void Map::draw(sf::RenderWindow& mainWindow)
 
 void Map::drawMap(sf::RenderWindow& mainWindow)
 {
-	/*if (oFlag != NULL) {
-		oFlag->DrawCastleFlag(rR, vBlock[51]->getAniSprite()->getTexture());
-	}*/
+	if (pFlag != NULL) {
+		pFlag->drawCastleFlag(mainWindow, vBlock[51]->getAniSprite()->getTexture());
+	}
 
 	for (int i = getStartBlock(), iEnd = getEndBlock(); i < iEnd && i < iMapWidth; i++) {
 		for (int j = iMapHeight - 1; j >= 0; j--) {
@@ -475,16 +473,16 @@ void Map::drawMap(sf::RenderWindow& mainWindow)
 		}
 	}
 
-	/*if (oFlag != NULL) {
-		oFlag->Draw(rR, vBlock[oFlag->iBlockID]->getAniSprite()->getTexture());
-	}*/
+	if (pFlag != NULL) {
+		pFlag->draw(mainWindow, vBlock[pFlag->iBlockID]->getAniSprite()->getTexture());
+	}
 }
 
 void Map::DrawMinions(sf::RenderWindow& mainWindow) {
 	for (int i = 0; i < iMinionListSize; i++) {
 		for (int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
 			lMinion[i][j]->Draw(mainWindow, vMinion[lMinion[i][j]->getBloockID()]->getAniSprite()->getFrame());
-			//CFG::getText()->DrawWS(rR, std::to_string(i), lMinion[i][j]->getXPos() + (int)fXPos, lMinion[i][j]->getYPos(), 0, 0, 0, 8);
+			//CFG::getText()->DrawWS(mainWindow, std::to_string(i), lMinion[i][j]->getXPos() + (int)fXPos, lMinion[i][j]->getYPos(), 0, 0, 0, 8);
 		}
 	}
 }
@@ -540,24 +538,24 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 		switch (iBlockID) {
 		case 8: case 55: // ----- BlockQ
 			if (lMap[nX][nY]->getSpawnMushroom()) {
-				/*if (lMap[nX][nY]->getPowerUP()) {
+				if (lMap[nX][nY]->getPowerUP()) {
 					if (player->getPowerLVL() == 0) {
-						lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, true, nX, nY));
+						//lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, true, nX, nY));
 					}
 					else {
-						lMinion[getListID(32 * nX)].push_back(new Flower(32 * nX, CFG::GameHeight - 16 - 32 * nY, nX, nY));
+						//lMinion[getListID(32 * nX)].push_back(new Flower(32 * nX, CFG::GameHeight - 16 - 32 * nY, nX, nY));
 					}
 				}
 				else {
-					lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, false, nX, nY));
+					//lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, false, nX, nY));
 				}
-				CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);*/
+				CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);
 			}
 			else {
 				lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
 				player->setScore(player->getScore() + 200);
 				CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
-				player->setCoins(player->getCoins() + 1);	
+				player->setCoins(player->getCoins() + 1);
 			}
 
 			if (lMap[nX][nY]->getNumOfUse() > 1) {
@@ -580,17 +578,17 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 			}
 			else if (lMap[nX][nY]->getSpawnMushroom()) {
 				lMap[nX][nY]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 9 : iLevelType == 1 ? 56 : 80);
-				/*if (lMap[nX][nY]->getPowerUP()) {
+				if (lMap[nX][nY]->getPowerUP()) {
 					if (player->getPowerLVL() == 0) {
-						lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, true, nX, nY));
+						//lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, true, nX, nY));
 					}
 					else {
-						lMinion[getListID(32 * nX)].push_back(new Flower(32 * nX, CFG::GameHeight - 16 - 32 * nY, nX, nY));
+						//lMinion[getListID(32 * nX)].push_back(new Flower(32 * nX, CFG::GameHeight - 16 - 32 * nY, nX, nY));
 					}
 				}
 				else {
-					lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, false, nX, nY));
-				}*/
+					//lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, false, nX, nY));
+				}
 				lMap[nX][nY]->startBlockAnimation();
 				CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);
 			}
@@ -624,18 +622,18 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 			break;
 		case 24: // ----- BlockQ2
 			if (lMap[nX][nY]->getSpawnMushroom()) {
-				/*if (lMap[nX][nY]->getPowerUP()) {
+				if (lMap[nX][nY]->getPowerUP()) {
 					if (player->getPowerLVL() == 0) {
-						lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, true, nX, nY));
+						//[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, true, nX, nY));
 					}
 					else {
-						lMinion[getListID(32 * nX)].push_back(new Flower(32 * nX, CFG::GameHeight - 16 - 32 * nY, nX, nY));
+						//lMinion[getListID(32 * nX)].push_back(new Flower(32 * nX, CFG::GameHeight - 16 - 32 * nY, nX, nY));
 					}
 				}
 				else {
-					lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, false, nX, nY));
+					//lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, false, nX, nY));
 				}
-				CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);*/
+				CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMAPPER);
 			}
 			else {
 				lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
@@ -658,21 +656,21 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 			break;
 		}
 	}
-	//else if (POS == 1) {
-	//	switch (iBlockID) {
-	//	case 21: case 23: case 31: case 33: case 98: case 100: case 113: case 115: case 137: case 139: case 177: case 179: // Pipe
-	//		pipeUse();
-	//		break;
-	//	case 40: case 41: case 123: case 124: case 182: // End
-	//		EndUse();
-	//		break;
-	//	case 82:
-	//		EndBoss();
-	//		break;
-	//	default:
-	//		break;
-	//	}
-	//}
+	else if (POS == 1) {
+		switch (iBlockID) {
+		case 21: case 23: case 31: case 33: case 98: case 100: case 113: case 115: case 137: case 139: case 177: case 179: // Pipe
+			pipeUse();
+			break;
+		case 40: case 41: case 123: case 124: case 182: // End
+			EndUse();
+			break;
+		case 82:
+			EndBoss();
+			break;
+		default:
+			break;
+		}
+	}
 
 	switch (iBlockID) {
 	case 29: case 71: case 72: case 73:// COIN
@@ -681,24 +679,25 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 		CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
 		return false;
 		break;
-		//case 36: case 38: case 60: case 62: case 103: case 105: case 118: case 120: // Pipe
-		//	pipeUse();
-		//	break;
-		//case 127: // BONUS END
-		//	EndBonus();
-		//	break;
-		//case 169:
-		//	TPUse();
-		//	break;
-		//case 170:
-		//	TPUse2();
-		//	break;
-		//case 171:
-		//	TPUse3();
-		//	break;
+	case 36: case 38: case 60: case 62: case 103: case 105: case 118: case 120: // Pipe
+		pipeUse();
+		break;
+	case 127: // BONUS END
+		EndBonus();
+		break;
+	case 169:
+		//TPUse();
+		break;
+	case 170:
+		//TPUse2();
+		break;
+	case 171:
+		//TPUse3();
+		break;
 	default:
 		break;
 	}
+
 	return true;
 }
 
@@ -1279,7 +1278,7 @@ void Map::structEnd(int X, int Y, int iHeight) {
 		lMap[X][Y + i]->setBlockID(iLevelType == 4 ? 123 : 40);
 	}
 
-	pFlag = new Flag(X * 32 - 16, Y + iHeight + 72);
+	pFlag = new Flag(X * 32 - 16, Y + iHeight + 72*2 + 15);
 
 	lMap[X][Y + iHeight]->setBlockID(iLevelType == 4 ? 124 : 41);
 
@@ -3753,6 +3752,17 @@ int Map::getListID(int nX) {
 	return (int)(nX / 160);
 }
 
+int Map::getNumOfMinions()
+{
+	int iOutput = 0;
+
+	for (int i = 0, size = lMinion.size(); i < size; i++) {
+		iOutput += lMinion[i].size();
+	}
+
+	return iOutput;
+}
+
 void Map::setBackgroundColor(sf::RenderWindow& mainWindow) {
 	sf::Color backgroundColor;
 
@@ -3795,12 +3805,12 @@ void Map::clearMap()
 
 	this->iMapWidth = this->iMapHeight = 0;
 
-	//if (oFlag != NULL) {
-	//	delete oFlag;
-	//	oFlag = NULL;
+	//if (pFlag != NULL) {
+	//	delete pFlag;
+	//	pFlag = NULL;
 	//}
 
-	//oEvent->eventTypeID = oEvent->eNormal;
+	//pEvent->eventTypeID = pEvent->eNormal;
 
 	clearLevelText();
 }
@@ -3811,6 +3821,890 @@ void Map::clearLevelText() {
 	}
 
 	vLevelText.clear();
+}
+
+void Map::pipeUse() {
+	for (unsigned int i = 0; i < lPipe.size(); i++) {
+		lPipe[i]->checkUse();
+	}
+}
+
+void Map::EndUse() {
+	inEvent = true;
+
+	pEvent->resetData();
+	player->resetJump();
+	player->stopMove();
+
+	pEvent->newUnderWater = false;
+
+	CFG::getMusic()->StopMusic();
+	CFG::getMusic()->PlayChunk(CFG::getMusic()->cLEVELEND);
+
+	pEvent->eventTypeID = pEvent->eEnd;
+
+	if (player->getYPos() < CFG::GameHeight - 16 - 10 * 32) {
+		pFlag->iPoints = 5000;
+	}
+	else if (player->getYPos() < CFG::GameHeight - 16 - 8 * 32) {
+		pFlag->iPoints = 2000;
+	}
+	else if (player->getYPos() < CFG::GameHeight - 16 - 6 * 32) {
+		pFlag->iPoints = 500;
+	}
+	else if (player->getYPos() < CFG::GameHeight - 16 - 4 * 32) {
+		pFlag->iPoints = 200;
+	}
+	else {
+		pFlag->iPoints = 100;
+	}
+
+	pEvent->vOLDDir.push_back(pEvent->eRIGHTEND);
+	pEvent->vOLDLength.push_back(player->getHitBoxX());
+
+	pEvent->vOLDDir.push_back(pEvent->eENDBOT1);
+	pEvent->vOLDLength.push_back((CFG::GameHeight - 16 - 32 * 2) - player->getYPos() - player->getHitBoxY() - 2);
+
+	pEvent->vOLDDir.push_back(pEvent->eENDBOT2);
+	pEvent->vOLDLength.push_back((CFG::GameHeight - 16 - 32 * 2) - player->getYPos() - player->getHitBoxY() - 2);
+
+	pEvent->vOLDDir.push_back(pEvent->eRIGHTEND);
+	pEvent->vOLDLength.push_back(player->getHitBoxX());
+
+	pEvent->vOLDDir.push_back(pEvent->eBOTRIGHTEND);
+	pEvent->vOLDLength.push_back(32);
+
+	pEvent->vOLDDir.push_back(pEvent->eRIGHTEND);
+	pEvent->vOLDLength.push_back(132);
+
+	pEvent->iSpeed = 3;
+
+	switch (currentLevelID) {
+	case 0: {
+		pEvent->newLevelType = 100;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = 1;
+		pEvent->inEvent = true;
+
+		pEvent->newMapXPos = -210 * 32;
+		pEvent->newPlayerXPos = 64;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = false;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(204);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(204);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(205);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(205);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 1: {
+		pEvent->newLevelType = 0;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = 2;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(309);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(309);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(310);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(310);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 2: {
+		pEvent->newLevelType = 3;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = 3;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = 150;
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(32);
+
+		pFlag->castleFlagExtraXPos = 32;
+
+		pEvent->reDrawX.push_back(159);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(159);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(160);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(160);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 4: {
+		pEvent->newLevelType = 100;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = 5;
+		pEvent->inEvent = true;
+
+		pEvent->newMapXPos = -220 * 32;
+		pEvent->newPlayerXPos = 64;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = false;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(206);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(206);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(207);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(207);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 5: {
+		pEvent->newLevelType = 0;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = 6;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(32);
+
+		pFlag->castleFlagExtraXPos = 32;
+
+		pEvent->reDrawX.push_back(299);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(299);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(300);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(300);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 6:
+		pEvent->newLevelType = 3;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = 150;
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(32);
+
+		pFlag->castleFlagExtraXPos = 32;
+
+		pEvent->reDrawX.push_back(232);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(232);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(234);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(234);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 8:
+		pEvent->newLevelType = 4;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(206);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(206);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(207);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(207);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 9:
+		pEvent->newLevelType = 4;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(215);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(215);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(216);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(216);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 10:
+		pEvent->newLevelType = 3;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = 150;
+		pEvent->newMoveMap = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(32);
+
+		pFlag->castleFlagExtraXPos = 32;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(158);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(158);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(159);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(159);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 12: {
+		pEvent->newLevelType = 100;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = true;
+
+		pEvent->newMapXPos = -240 * 32;
+		pEvent->newPlayerXPos = 64;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = false;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(231);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(231);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(232);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(232);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 13:
+		pEvent->newLevelType = 0;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(419);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(419);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(420);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(420);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 14:
+		pEvent->newLevelType = 3;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = 150;
+		pEvent->newMoveMap = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(32);
+
+		pFlag->castleFlagExtraXPos = 32;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(154);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(154);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(155);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(155);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 16: {
+		pEvent->newLevelType = 0;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = -80 * 32;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(205);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(205);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(206);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(206);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 17: {
+		pEvent->newLevelType = 0;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(286);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(286);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(287);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(287);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 18: {
+		pEvent->newLevelType = 3;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = 150;
+		pEvent->newMoveMap = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(32);
+
+		pFlag->castleFlagExtraXPos = 32;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(159);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(159);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(160);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(160);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 20: {
+		pEvent->newLevelType = 4;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = -85 * 32;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(96);
+
+		pFlag->castleFlagExtraXPos = 96;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(194);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(194);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(195);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(195);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 21: {
+		pEvent->newLevelType = 4;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(32);
+
+		pFlag->castleFlagExtraXPos = 32;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(307);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(307);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(308);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(308);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 22: {
+		pEvent->newLevelType = 3;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = 150;
+		pEvent->newMoveMap = true;
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(32);
+
+		pFlag->castleFlagExtraXPos = 32;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(174);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(174);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(175);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(175);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 24: {
+		pEvent->newLevelType = 100;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = true;
+
+		pEvent->newMapXPos = -220 * 32;
+		pEvent->newPlayerXPos = 64;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = false;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(185);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(185);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(186);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(186);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 25: {
+		pEvent->newLevelType = 0;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(32);
+
+		pFlag->castleFlagExtraXPos = 32;
+
+		pEvent->reDrawX.push_back(299);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(299);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(300);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(300);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 26:
+		pEvent->newLevelType = 3;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = 150;
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(32);
+
+		pFlag->castleFlagExtraXPos = 32;
+
+		pEvent->reDrawX.push_back(232);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(232);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(233);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(233);
+		pEvent->reDrawY.push_back(3);
+		break;
+	case 28: {
+		pEvent->newLevelType = 0;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(382);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(382);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(383);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(383);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 29: {
+		pEvent->newLevelType = 0;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->reDrawX.push_back(222);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(222);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(223);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(223);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	case 30: {
+		pEvent->newLevelType = 3;
+
+		pEvent->iDelay = 1500;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->inEvent = false;
+
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 84;
+		pEvent->newPlayerYPos = 150;
+		pEvent->newMoveMap = true;
+
+		player->setMoveDirection(true);
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(128);
+
+		pFlag->castleFlagExtraXPos = 128;
+
+		pEvent->reDrawX.push_back(224);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(224);
+		pEvent->reDrawY.push_back(3);
+		pEvent->reDrawX.push_back(225);
+		pEvent->reDrawY.push_back(2);
+		pEvent->reDrawX.push_back(225);
+		pEvent->reDrawY.push_back(3);
+		break;
+	}
+	}
+
+	pEvent->vOLDDir.push_back(pEvent->eENDPOINTS);
+	pEvent->vOLDLength.push_back(iMapTime);
+
+	pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+	pEvent->vOLDLength.push_back(128);
+}
+
+void Map::EndBoss() {
+	inEvent = true;
+
+	pEvent->resetData();
+	player->resetJump();
+	player->stopMove();
+
+	pEvent->endGame = false;
+
+	switch (currentLevelID) {
+	case 31:
+		pEvent->endGame = true;
+		break;
+	default:
+		CFG::getMusic()->StopMusic();
+		CFG::getMusic()->PlayChunk(CFG::getMusic()->cCASTLEEND);
+		break;
+	}
+
+	pEvent->eventTypeID = pEvent->eBossEnd;
+
+	pEvent->iSpeed = 3;
+
+	pEvent->newLevelType = 0;
+	pEvent->newCurrentLevel = currentLevelID + 1;
+	pEvent->newMoveMap = true;
+	pEvent->iDelay = 500;
+	pEvent->inEvent = false;
+
+	pEvent->newMapXPos = 0;
+	pEvent->newPlayerXPos = 64;
+	pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+	pEvent->newMoveMap = true;
+
+	switch (currentLevelID) {
+	case 7:
+		pEvent->newLevelType = 4;
+		break;
+	case 19:
+		pEvent->newLevelType = 4;
+		break;
+	}
+
+	bool addOne = false;
+
+	if (lMap[getBlockIDX((int)(player->getXPos() + player->getHitBoxX() / 2 - fXPos))][6]->getBlockID() == 82) {
+		pEvent->vOLDDir.push_back(pEvent->eBOT);
+		pEvent->vOLDLength.push_back(CFG::GameHeight - 16 - 5 * 32 - (player->getYPos() + player->getHitBoxY()));
+	}
+	else {
+		pEvent->vOLDDir.push_back(pEvent->eBOTRIGHTEND);
+		pEvent->vOLDLength.push_back(CFG::GameHeight - 16 - 5 * 32 - (player->getYPos() + player->getHitBoxY()));
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(32 - CFG::GameHeight - 16 - 5 * 32 - (player->getYPos() + player->getHitBoxY()));
+		addOne = true;
+	}
+
+	pEvent->vOLDDir.push_back(pEvent->eBOSSEND1);
+	pEvent->vOLDLength.push_back(1);
+	pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+	pEvent->vOLDLength.push_back(10);
+
+	pEvent->vOLDDir.push_back(pEvent->eBOSSEND2);
+	pEvent->vOLDLength.push_back(1);
+	pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+	pEvent->vOLDLength.push_back(3);
+
+	for (int i = 0; i < 6; i++) {
+		pEvent->vOLDDir.push_back(pEvent->eBOSSEND3);
+		pEvent->vOLDLength.push_back(2 + i);
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(3);
+	}
+
+	pEvent->vOLDDir.push_back(pEvent->eBOSSEND4);
+	pEvent->vOLDLength.push_back(1);
+
+	for (int i = 6; i < 12; i++) {
+		pEvent->vOLDDir.push_back(pEvent->eBOSSEND3);
+		pEvent->vOLDLength.push_back(2 + i);
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(3);
+	}
+
+	pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+	pEvent->vOLDLength.push_back(90);
+
+	if (currentLevelID == 31) {
+		CFG::getMusic()->StopMusic();
+		CFG::getMusic()->PlayChunk(CFG::getMusic()->cPRINCESSMUSIC);
+	}
+
+	pEvent->vOLDDir.push_back(pEvent->eBOTRIGHTBOSS);
+	pEvent->vOLDLength.push_back(8 * 32);
+
+	switch (currentLevelID) {
+	case 31:
+		pEvent->vOLDDir.push_back(pEvent->eENDGAMEBOSSTEXT1);
+		pEvent->vOLDLength.push_back(getBlockIDX((int)(player->getXPos() + player->getHitBoxX() / 2 - fXPos)) * 32 + 7 * 32 + (addOne ? 32 : 0));
+		break;
+	default:
+		pEvent->vOLDDir.push_back(pEvent->eBOSSTEXT1);
+		pEvent->vOLDLength.push_back(getBlockIDX((int)(player->getXPos() + player->getHitBoxX() / 2 - fXPos)) * 32 + 7 * 32 + (addOne ? 32 : 0));
+		break;
+	}
+
+	pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+	pEvent->vOLDLength.push_back(2 * 32 + 16);
+
+	pEvent->vOLDDir.push_back(pEvent->eMARIOSPRITE1);
+	pEvent->vOLDLength.push_back(1);
+
+	pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+	pEvent->vOLDLength.push_back(90);
+
+	switch (currentLevelID) {
+	case 31:
+		pEvent->vOLDDir.push_back(pEvent->eENDGAMEBOSSTEXT2);
+		pEvent->vOLDLength.push_back(getBlockIDX((int)(player->getXPos() + player->getHitBoxX() / 2 - fXPos)) * 32 + 5 * 32 + (addOne ? 32 : 0) + 28);
+		break;
+	default:
+		pEvent->vOLDDir.push_back(pEvent->eBOSSTEXT2);
+		pEvent->vOLDLength.push_back(getBlockIDX((int)(player->getXPos() + player->getHitBoxX() / 2 - fXPos)) * 32 + 5 * 32 + (addOne ? 32 : 0));
+		break;
+	}
+
+	pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+	pEvent->vOLDLength.push_back(300 + (currentLevelID == 31 ? 100 : 0));
+
+	switch (currentLevelID) {
+	case 31:
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(90);
+		break;
+	}
+}
+
+void Map::EndBonus() {
+	inEvent = true;
+
+	pEvent->resetData();
+	player->resetJump();
+	player->stopMove();
+
+	pEvent->eventTypeID = pEvent->eNormal;
+
+	pEvent->iSpeed = 3;
+
+	pEvent->newLevelType = iLevelType;
+	pEvent->newCurrentLevel = currentLevelID;
+	pEvent->newMoveMap = true;
+	pEvent->iDelay = 0;
+	pEvent->inEvent = false;
+
+	pEvent->newMoveMap = true;
+
+	switch (currentLevelID) {
+	case 4: {
+		pEvent->newMapXPos = -158 * 32 + 16;
+		pEvent->newPlayerXPos = 128;
+		pEvent->newPlayerYPos = -player->getHitBoxY();
+
+		break;
+	}
+	case 8: {
+		pEvent->newMapXPos = -158 * 32 + 16;
+		pEvent->newPlayerXPos = 128;
+		pEvent->newPlayerYPos = -player->getHitBoxY();
+		break;
+	}
+	case 17: {
+		pEvent->newMapXPos = -207 * 32 + 16;
+		pEvent->newPlayerXPos = 128;
+		pEvent->newPlayerYPos = -player->getHitBoxY();
+		break;
+	}
+	case 21: {
+		pEvent->newMapXPos = -243 * 32 + 16;
+		pEvent->newPlayerXPos = 128;
+		pEvent->newPlayerYPos = -player->getHitBoxY();
+		break;
+	}
+	}
+
+	pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+	pEvent->vOLDLength.push_back(1);
 }
 
 void Map::clearMinions()
