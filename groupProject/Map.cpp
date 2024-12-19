@@ -8087,7 +8087,7 @@ void Map::loadMinionsLVL_1_1() {
 	addGoombas(3104, 480, true);
 	addGoombas(3152, 480, true);
 
-	//*addKoppa(107 * 32, 480, 1, true);
+	addKoppa(107 * 32, 480, 1, true);
 
 	addGoombas(3648, 480, true);
 	addGoombas(3696, 480, true);
@@ -8111,10 +8111,10 @@ void Map::loadMinionsLVL_1_2() {
 
 	addGoombas(29 * 32, 368, true);
 
-	//addKoppa(44 * 32, 368, 1, true);
-	//addKoppa(45 * 32 + 16, 368, 1, true);
+	addKoppa(44 * 32, 368, 1, true);
+	addKoppa(45 * 32 + 16, 368, 1, true);
 
-	//addKoppa(59 * 32, 368, 1, true);
+	addKoppa(59 * 32, 368, 1, true);
 
 	addGoombas(62 * 32, 368, true);
 	addGoombas(64 * 32, 368, true);
@@ -8135,7 +8135,7 @@ void Map::loadMinionsLVL_1_2() {
 
 	this->iLevelType = 3;
 
-	//addKoppa(146 * 32, 368, 1, false);
+	addKoppa(146 * 32, 368, 1, false);
 
 	this->iLevelType = 1;
 	//addPlant(103 * 32 + 16, CFG::GameHeight - 10 - 4 * 32);
@@ -10192,6 +10192,24 @@ void Map::addText(int X, int Y, std::string sText) {
 // -- Minions --
 void Map::addGoombas(int iX, int iY, bool moveDirection) {
 	lMinion[getListID(iX)].push_back(new Goombas(iX, iY, iLevelType == 0 || iLevelType == 4 ? 0 : iLevelType == 1 ? 8 : 10, moveDirection));
+}
+
+void Map::addKoppa(int iX, int iY, int minionState, bool moveDirection) {
+	int tempBlock;
+
+	switch (minionState) {
+	case 0: case 3:
+		tempBlock = iLevelType == 0 || iLevelType == 4 ? 7 : iLevelType == 1 ? 14 : 17;
+		break;
+	case 1:
+		tempBlock = iLevelType == 0 || iLevelType == 4 ? 4 : iLevelType == 1 ? 12 : 15;
+		break;
+	case 2:
+		tempBlock = iLevelType == 0 || iLevelType == 4 ? 5 : iLevelType == 1 ? 13 : 16;
+		break;
+	}
+
+	lMinion[getListID(iX)].push_back(new Koppa(iX, iY, minionState, moveDirection, tempBlock));
 }
 
 void Map::lockMinions() {

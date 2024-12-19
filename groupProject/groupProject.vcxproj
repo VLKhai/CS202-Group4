@@ -30,6 +30,7 @@
     <ClCompile Include="Flag.cpp" />
     <ClCompile Include="Goombas.cpp" />
     <ClCompile Include="IMG.cpp" />
+    <ClCompile Include="Koppa.cpp" />
     <ClCompile Include="LevelText.cpp" />
     <ClCompile Include="LoadingMenu.cpp" />
     <ClCompile Include="main.cpp" />

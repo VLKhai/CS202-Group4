@@ -518,6 +518,7 @@ void Player::draw(sf::RenderWindow& window)
 
 void Player::update()
 {
+	this->starEffect = true; // Test
 	playerPhysics();
 	movePlayer();
 	

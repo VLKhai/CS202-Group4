@@ -18,6 +18,7 @@
 #include "Flag.h"
 #include "LevelText.h"
 #include "Pipe.h"
+#include "Koppa.h"
 
 class Map {
 private:
@@ -98,7 +99,7 @@ private:
 	int getSpawnPointXPos(int iID);
 	int getSpawnPointYPos(int iID);
 
-	void loadLVL_1_1(); // Done
+	void loadLVL_1_1();
 	void loadLVL_1_2();
 	void loadLVL_1_3();
 	void loadLVL_1_4();
@@ -219,7 +220,7 @@ public:
 	//Add 
 	void addPoints(int X, int Y, std::string sText, int iW, int iH);
 	void addGoombas(int iX, int iY, bool moveDirection);
-	//void addKoppa(int iX, int iY, int minionState, bool moveDirection);
+	void addKoppa(int iX, int iY, int minionState, bool moveDirection);
 	//void addBeetle(int X, int Y, bool moveDirection);
 	//void addPlant(int iX, int iY);
 	//void addToad(int X, int Y, bool peach);
