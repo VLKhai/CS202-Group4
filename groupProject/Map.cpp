@@ -2,6 +2,8 @@
 
 Map::Map(sf::RenderWindow& mainWindow)
 {
+	player = new Player(mainWindow, 84, 368);
+
 	this->currentLevelID = 0;
 
 	this->iMapWidth = 0;
@@ -20,17 +22,31 @@ Map::Map(sf::RenderWindow& mainWindow)
 
 	this->iFrameID = 0;
 
-	this->inEvent = false;
+	this->bTP = false;
 
-	//this->bTP = false;
-	player = new Player(mainWindow, 84, 480);
-	pEvent = new Event();
 	CFG::getText()->setFont(mainWindow, "font");
+
+	pEvent = new Event();
+	pFlag = NULL;
 
 	srand((unsigned)time(NULL));
 
 	loadGameData(mainWindow);
 	loadLVL();
+}
+
+Map::~Map()
+{
+	for (std::vector<Block*>::iterator i = vBlock.begin(); i != vBlock.end(); i++) {
+		delete (*i);
+	}
+
+	for (std::vector<Block*>::iterator i = vMinion.begin(); i != vMinion.end(); i++) {
+		delete (*i);
+	}
+
+	delete pEvent;
+	delete pFlag;
 }
 
 void Map::update()
@@ -1445,7 +1461,7 @@ void Map::checkCollisionOnTopOfTheBlock(int nX, int nY)
 	case 29: case 71: case 72: case 73:// COIN
 		lMap[nX][nY + 1]->setBlockID(0);
 		lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
-		//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
+		CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
 		player->setCoins(player->getCoins() + 1);
 		return;
 		break;
