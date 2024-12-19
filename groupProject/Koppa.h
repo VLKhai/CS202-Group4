@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef KOPPA_H
-#define KOPPA_H
-
 #include "Minion.h"
 
 class Koppa : public Minion
@@ -29,5 +26,3 @@ public:
 
 	void setMinion();
 };
-
-#endif

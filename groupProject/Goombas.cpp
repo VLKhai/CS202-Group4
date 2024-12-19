@@ -52,7 +52,7 @@ void Goombas::collisionWithPlayer(bool TOP) {
 			deadTime = Core::coreClock.getElapsedTime().asMilliseconds();
 			Core::getMap()->getPlayer()->resetJump();
 			Core::getMap()->getPlayer()->startJump(1);
-			//points(100);
+			points(100);
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cSTOMP);
 		}
 	}
