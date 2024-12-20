@@ -1,6 +1,77 @@
 #include "Player.h"
 #include "Core.h"
 
+
+int Player::iSpriteID;
+unsigned int Player::iMoveAnimationTime;
+
+//IMG* Player::tMarioLVLUP;
+
+int Player::iNumOfLives;
+
+bool Player::unKillAble;
+bool Player::starEffect;
+
+int Player::unKillAbleTimeFrameID;
+int Player::unKillAbleFrameID;
+
+unsigned int Player::iScore;
+unsigned int Player::iCoins;
+
+int Player::iComboPoints, Player::iFrameID;
+
+// ----- LVL UP
+
+// -- LEVEL CHANGE ANIMATION
+bool Player::inLevelAnimation;
+bool Player::inLevelAnimationType; // -- true = UP, false = DOWN
+int Player::inLevelAnimationFrameID;
+
+// ----- LVL UP
+// ----- MOVE
+
+bool Player::bMove;
+bool Player::changeMoveDirection;
+bool Player::newMoveDirection;
+
+const int Player::maxMove;
+int Player::currentMaxMove;
+int Player::moveSpeed;
+unsigned int Player::iTimePassed;
+
+bool Player::bSquat;
+
+int Player::onPlatformID;
+
+// ----- MOVE
+// ----- JUMP
+
+int Player::jumpState;
+
+float Player::startJumpSpeed;
+float Player::currentJumpSpeed;
+float Player::jumpDistance;
+float Player::currentJumpDistance;
+//float distPressJ
+
+float Player::currentFallingSpeed;
+
+bool Player::springJump;
+
+// ----- JUMP
+// ----- BUBBLE
+
+unsigned int Player::nextBubbleTime;
+int Player::nextFallFrameID;
+
+const int Player::iSmallX;
+const int Player::iSmallY;
+const int Player::iBigX;
+const int Player::iBigY;
+
+int Player::nextFireBallFrameID;
+
+
 Player::Player(sf::RenderWindow &window, float fXPos, float fYPos)
 {
 	this->fXPos = fXPos;
@@ -48,11 +119,6 @@ Player::Player(sf::RenderWindow &window, float fXPos, float fYPos)
 	this->nextFireBallFrameID = 8;
 
 	srand((unsigned)time(NULL));
-}
-
-Player::~Player()
-{
-	delete tMarioLVLUP;
 }
 
 void Player::movePlayer() {
@@ -729,9 +795,9 @@ void Player::resetPowerLVL() {
 	this->iSpriteID = 1;
 }
 
-IMG* Player::getMarioLVLUP() {
-	return tMarioLVLUP;
-}
+//IMG* Player::getMarioLVLUP() {
+//	return tMarioLVLUP;
+//}
 
 bool Player::getSquat() {
 	return bSquat;

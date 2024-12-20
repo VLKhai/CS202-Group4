@@ -4,7 +4,7 @@
 #include "Core.h"
 
 
-Map* Core::pMap = &Map::Instance();
+Map* Core::pMap;
 bool Core::mouseLeftPressed = false;
 bool Core::mouseRightPressed = false;
 int Core::mouseX = 0;

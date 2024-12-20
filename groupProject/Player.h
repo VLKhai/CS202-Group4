@@ -5,72 +5,72 @@
 
 class Player {
 private:
-	int iSpriteID;
-	unsigned int iMoveAnimationTime;
+	static int iSpriteID;
+	static unsigned int iMoveAnimationTime;
 
-	IMG* tMarioLVLUP;
+	//static IMG* tMarioLVLUP;
 
-	int iNumOfLives;
+	static int iNumOfLives;
 
-	bool unKillAble;
-	bool starEffect;
+	static bool unKillAble;
+	static bool starEffect;
 
-	int unKillAbleTimeFrameID;
-	int unKillAbleFrameID;
+	static int unKillAbleTimeFrameID;
+	static int unKillAbleFrameID;
 
-	unsigned int iScore;
-	unsigned int iCoins;
+	static unsigned int iScore;
+	static unsigned int iCoins;
 
-	int iComboPoints, iFrameID;
+	static int iComboPoints, iFrameID;
 
 	// ----- LVL UP
 
 	// -- LEVEL CHANGE ANIMATION
-	bool inLevelAnimation;
-	bool inLevelAnimationType; // -- true = UP, false = DOWN
-	int inLevelAnimationFrameID;
+	static bool inLevelAnimation;
+	static bool inLevelAnimationType; // -- true = UP, false = DOWN
+	static int inLevelAnimationFrameID;
 
 	// ----- LVL UP
 	// ----- MOVE
 
-	bool bMove;
-	bool changeMoveDirection;
-	bool newMoveDirection;
+	static bool bMove;
+	static bool changeMoveDirection;
+	static bool newMoveDirection;
 
 	static const int maxMove = 4;
-	int currentMaxMove;
-	int moveSpeed;
-	unsigned int iTimePassed;
+	static int currentMaxMove;
+	static int moveSpeed;
+	static unsigned int iTimePassed;
 
-	bool bSquat;
+	static bool bSquat;
 
-	int onPlatformID;
+	static int onPlatformID;
 
 	// ----- MOVE
 	// ----- JUMP
 
-	int jumpState;
+	static int jumpState;
 
-	float startJumpSpeed;
-	float currentJumpSpeed;
-	float jumpDistance;
-	float currentJumpDistance;
+	static float startJumpSpeed;
+	static float currentJumpSpeed;
+	static float jumpDistance;
+	static float currentJumpDistance;
 	//float distPressJ
 
-	float currentFallingSpeed;
+	static float currentFallingSpeed;
 
-	bool springJump;
+	static bool springJump;
 
 	// ----- JUMP
 	// ----- BUBBLE
 
-	unsigned int nextBubbleTime;
-	int nextFallFrameID;
+	static unsigned int nextBubbleTime;
+	static int nextFallFrameID;
 
 	const static int iSmallX = 24, iSmallY = 32;
 	const static int iBigX = 32, iBigY = 64;
 
-	int nextFireBallFrameID;
+	static int nextFireBallFrameID;
 
 	// ----- Method
 	void movePlayer();
@@ -99,9 +99,14 @@ protected:
 	
 	bool inLevelDownAnimation;
 	int inLevelDownAnimationFrameID;
+
+	Player(sf::RenderWindow& window, float fXPos, float fYPos);
+	Player() = delete;
+	Player(const Player&) = delete;
+	Player& operator=(const Player&) = delete;
 public:
-    Player(sf::RenderWindow& window, float fXPos, float fYPos);
-	virtual ~Player();
+    
+	virtual ~Player() = default;
     
     virtual void draw(sf::RenderWindow& window) = 0;
     void update();
@@ -170,7 +175,7 @@ public:
     void setPowerLVL(int powerLVL);
     void resetPowerLVL();
 
-	IMG* getMarioLVLUP();
+	//IMG* getMarioLVLUP();
 	virtual AniSprite* getSprite() = 0;
 
 	bool getSquat();
