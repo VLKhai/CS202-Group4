@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "Mario.h"
+#include "Luigi.h"
 #include "Block.h"
 #include "AniSprite.h"
 #include "Event.h"

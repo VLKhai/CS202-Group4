@@ -303,17 +303,16 @@ void Mario::draw(sf::RenderWindow& window)
 {
 	if (!inLevelDownAnimation || Core::getMap()->getInEvent()) {
 		// Super Mario
-		sMario[getMarioSpriteID()]->getTexture()->draw(window, (int)fXPos, (int)fYPos + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);
+		sMario[getSpriteID()]->getTexture()->draw(window, (int)fXPos, (int)fYPos + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);
 	}
 	else {
 		if (inLevelDownAnimationFrameID % 15 < (inLevelDownAnimationFrameID > 120 ? 7 : inLevelDownAnimationFrameID > 90 ? 9 : inLevelDownAnimationFrameID > 60 ? 11 : inLevelDownAnimationFrameID > 30 ? 13 : 14)) {
-			sMario[getMarioSpriteID()]->getTexture()->draw(window, (int)fXPos, (int)fYPos + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);
+			sMario[getSpriteID()]->getTexture()->draw(window, (int)fXPos, (int)fYPos + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);
 		}
 	}
 }
 
-AniSprite* Mario::getMarioSprite()
+AniSprite* Mario::getSprite()
 {
 	return sMario[1 + 11 * powerLVL];
 }
-

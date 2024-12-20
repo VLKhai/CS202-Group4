@@ -138,8 +138,8 @@ public:
 	void createFireBall();
     
     // --<GET & SET>--
-    void setMarioSpriteID(int iID);
-	int getMarioSpriteID();
+    void setSpriteID(int iID);
+	int getSpriteID();
 
 	bool getInLevelAnimation();
 	void setInLevelAnimation(bool inLevelAnimation);
@@ -171,7 +171,7 @@ public:
     void resetPowerLVL();
 
 	IMG* getMarioLVLUP();
-	virtual AniSprite* getMarioSprite() = 0;
+	virtual AniSprite* getSprite() = 0;
 
 	bool getSquat();
 	void setSquat(bool bSquat);

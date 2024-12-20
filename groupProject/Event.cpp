@@ -50,7 +50,7 @@ void Event::Normal() {
 				case eENDBOT1:
 					Core::getMap()->getPlayer()->setYPos((float)Core::getMap()->getPlayer()->getYPos() + iSpeed);
 					vOLDLength[stepID] -= iSpeed;
-					Core::getMap()->getPlayer()->setMarioSpriteID(10);
+					Core::getMap()->getPlayer()->setSpriteID(10);
 					break;
 				case eENDBOT2:
 					vOLDLength[stepID] -= iSpeed;
@@ -72,17 +72,17 @@ void Event::Normal() {
 					break;
 				case eDEATHNOTHING:
 					vOLDLength[stepID] -= iSpeed;
-					Core::getMap()->getPlayer()->setMarioSpriteID(0);
+					Core::getMap()->getPlayer()->setSpriteID(0);
 					break;
 				case eDEATHTOP: // DEATH TOP
 					Core::getMap()->getPlayer()->setYPos((float)Core::getMap()->getPlayer()->getYPos() - iSpeed);
 					vOLDLength[stepID] -= iSpeed;
-					Core::getMap()->getPlayer()->setMarioSpriteID(0);
+					Core::getMap()->getPlayer()->setSpriteID(0);
 					break;
 				case eDEATHBOT: // DEATH BOT
 					Core::getMap()->getPlayer()->setYPos((float)Core::getMap()->getPlayer()->getYPos() + iSpeed);
 					vOLDLength[stepID] -= iSpeed;
-					Core::getMap()->getPlayer()->setMarioSpriteID(0);
+					Core::getMap()->getPlayer()->setSpriteID(0);
 					break;
 				case eNOTHING: // NOTHING YAY
 					vOLDLength[stepID] -= 1;
@@ -191,18 +191,18 @@ void Event::Normal() {
 					vOLDLength[stepID] = 0;
 					break;
 				case eMARIOSPRITE1:
-					Core::getMap()->getPlayer()->setMarioSpriteID(1);
+					Core::getMap()->getPlayer()->setSpriteID(1);
 					vOLDLength[stepID] = 0;
 					break;
 				case eVINE1:
 					Core::getMap()->getPlayer()->setYPos((float)Core::getMap()->getPlayer()->getYPos() - iSpeed);
 					vOLDLength[stepID] -= iSpeed;
-					Core::getMap()->getPlayer()->setMarioSpriteID(10);
+					Core::getMap()->getPlayer()->setSpriteID(10);
 					break;
 				case eVINE2:
 					Core::getMap()->getPlayer()->setYPos((float)Core::getMap()->getPlayer()->getYPos() - iSpeed);
 					vOLDLength[stepID] -= iSpeed;
-					Core::getMap()->getPlayer()->setMarioSpriteID(11);
+					Core::getMap()->getPlayer()->setSpriteID(11);
 					break;
 				case eVINESPAWN:
 					//Core::getMap()->addVine(vOLDLength[stepID], 0, 1, newLevelType == 0 || newLevelType == 4 ? 34 : 36); YET
@@ -276,12 +276,12 @@ void Event::Normal() {
 				case eVINE1:
 					Core::getMap()->getPlayer()->setYPos((float)Core::getMap()->getPlayer()->getYPos() - iSpeed);
 					vNEWLength[stepID] -= iSpeed;
-					Core::getMap()->getPlayer()->setMarioSpriteID(10);
+					Core::getMap()->getPlayer()->setSpriteID(10);
 					break;
 				case eVINE2:
 					Core::getMap()->getPlayer()->setYPos((float)Core::getMap()->getPlayer()->getYPos() - iSpeed);
 					vNEWLength[stepID] -= iSpeed;
-					Core::getMap()->getPlayer()->setMarioSpriteID(11);
+					Core::getMap()->getPlayer()->setSpriteID(11);
 					break;
 				}
 			}

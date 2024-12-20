@@ -2,7 +2,7 @@
 
 Map::Map(sf::RenderWindow& mainWindow)
 {
-	player = new Mario(mainWindow, 84, 480);
+	player = new Luigi(mainWindow, 84, 480);
 
 	this->currentLevelID = 0;
 

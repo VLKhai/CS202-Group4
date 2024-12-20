@@ -43,7 +43,7 @@ void LoadingMenu::Draw(sf::RenderWindow& window) {
 		CFG::getText()->Draw(window, "WORLD", 400, 130); 
 		CFG::getText()->Draw(window, Core::getMap()->getLevelName(), 500, 130);
 
-		Core::getMap()->getPlayer()->getMarioSprite()->getTexture()->draw(window, 400, 180 - Core::getMap()->getPlayer()->getHitBoxY() / 2); 
+		Core::getMap()->getPlayer()->getSprite()->getTexture()->draw(window, 400, 180 - Core::getMap()->getPlayer()->getHitBoxY() / 2); 
 
 		CFG::getText()->Draw(window, "y", 470, 176);
 

@@ -72,7 +72,7 @@ void Player::movePlayer() {
 		if (Core::coreClock.getElapsedTime().asMilliseconds() - (75 * (moveSpeed) * (bSquat && powerLVL > 0 ? 6 : 1)) > iTimePassed && moveSpeed != 0) {
 			--moveSpeed;
 			iTimePassed = Core::coreClock.getElapsedTime().asMilliseconds();
-			if (jumpState == 0 && !Core::getMap()->getUnderWater()) setMarioSpriteID(6);
+			if (jumpState == 0 && !Core::getMap()->getUnderWater()) setSpriteID(6);
 		}
 
 		if (changeMoveDirection && moveSpeed <= 1) {
@@ -100,7 +100,7 @@ void Player::movePlayer() {
 		// ----- SPRITE ANIMATION
 	}
 	else if (jumpState == 0) {
-		setMarioSpriteID(1);
+		setSpriteID(1);
 		updateXPos(0);
 	}
 	else {
@@ -108,7 +108,7 @@ void Player::movePlayer() {
 	}
 
 	if (bSquat && !Core::getMap()->getUnderWater() && powerLVL > 0) {
-		setMarioSpriteID(7);
+		setSpriteID(7);
 	}
 }
 
@@ -320,7 +320,7 @@ void Player::playerPhysics()
 
 				 jumpState = 2;
 
-				 setMarioSpriteID(5);
+				 setSpriteID(5);
 			}
 			else if (jumpState == 2) { // Falling
 				resetJump();
@@ -562,7 +562,7 @@ void Player::moveAnimation()
 	if (Core::coreClock.getElapsedTime().asMilliseconds() - (65 + moveSpeed * 4) > iMoveAnimationTime) {
 		iMoveAnimationTime = Core::coreClock.getElapsedTime().asMilliseconds();
 		if (iSpriteID >= 4 + 11 * powerLVL) {
-			setMarioSpriteID(2);
+			setSpriteID(2);
 		}
 		else {
 			++iSpriteID;
@@ -575,10 +575,10 @@ void Player::swimingAnimation()
 	if (Core::coreClock.getElapsedTime().asMilliseconds() - 105 > iMoveAnimationTime) {
 		iMoveAnimationTime = Core::coreClock.getElapsedTime().asMilliseconds();
 		if (iSpriteID % 11 == 8) {
-			setMarioSpriteID(9);
+			setSpriteID(9);
 		}
 		else {
-			setMarioSpriteID(8);
+			setSpriteID(8);
 		}
 	}
 }
@@ -613,7 +613,7 @@ void Player::powerUPAnimation()
 			inLevelAnimation = false;
 			fYPos += 32;
 			if (jumpState != 0) {
-				setMarioSpriteID(5);
+				setSpriteID(5);
 			}
 		}
 	}
@@ -644,7 +644,7 @@ void Player::powerUPAnimation()
 		if (inLevelAnimationFrameID > 59) {
 			inLevelAnimation = false;
 			if (jumpState != 0) {
-				setMarioSpriteID(5);
+				setSpriteID(5);
 			}
 		}
 	}
@@ -660,7 +660,7 @@ void Player::powerUPAnimation()
 		if (inLevelAnimationFrameID > 59) {
 			inLevelAnimation = false;
 			if (jumpState != 0) {
-				setMarioSpriteID(5);
+				setSpriteID(5);
 			}
 			iSpriteID = iSpriteID % 11 + 22;
 		}
@@ -811,12 +811,12 @@ void Player::startJump(int iH) {
 	currentJumpDistance = 0;
 
 	if (!Core::getMap()->getUnderWater()) {
-		setMarioSpriteID(5);
+		setSpriteID(5);
 	}
 	else { // In water
 		if (jumpState == 0) {
 			iMoveAnimationTime = Core::coreClock.getElapsedTime().asMilliseconds();
-			setMarioSpriteID(8);
+			setSpriteID(8);
 			//swimingAnimation();
 		}
 		CFG::getMusic()->PlayChunk(CFG::getMusic()->cSWIM);
@@ -863,12 +863,12 @@ void Player::createFireBall()
 	}
 }
 
-void Player::setMarioSpriteID(int iID)
+void Player::setSpriteID(int iID)
 {
 	this->iSpriteID = iID + 11 * powerLVL;
 }
 
-int Player::getMarioSpriteID()
+int Player::getSpriteID()
 {
 	if (starEffect && !inLevelAnimation && CFG::getMenuManager()->getViewID() == CFG::getMenuManager()->eGame) {
 		if (unKillAbleTimeFrameID <= 0) {
@@ -965,7 +965,7 @@ void Player::startMove()
 	moveSpeed = 1;
 	bMove = true;
 	if (Core::getMap()->getUnderWater()) {
-		setMarioSpriteID(8);
+		setSpriteID(8);
 	}
 }
 
@@ -979,7 +979,7 @@ void Player::stopMove()
 	bMove = false;
 	changeMoveDirection = false;
 	bSquat = false;
-	setMarioSpriteID(1);
+	setSpriteID(1);
 }
 
 void Player::setMoveDirection(bool moveDirection)

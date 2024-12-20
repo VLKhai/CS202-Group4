@@ -44,6 +44,7 @@
     <ClCompile Include="Lakito.cpp" />
     <ClCompile Include="LevelText.cpp" />
     <ClCompile Include="LoadingMenu.cpp" />
+    <ClCompile Include="Luigi.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="Lakito.h" />
     <ClInclude Include="LevelText.h" />
     <ClInclude Include="LoadingMenu.h" />
+    <ClInclude Include="Luigi.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mario.h" />
