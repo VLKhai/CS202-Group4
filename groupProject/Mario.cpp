@@ -5,6 +5,8 @@ Mario::Mario(sf::RenderWindow& window, float fXPos, float fYPos) : Player(window
 	limSmallJumpBlock = 2;
 	limBigJumpBlock = 4;
 
+	this->explodeSkill = new ExplodeSkill(window, fXPos, fYPos);
+
 	// LOAD SPRITE
 	std::vector<std::string> tempS;
 	std::vector<unsigned int> tempI;
@@ -299,8 +301,15 @@ Mario::~Mario()
 	}
 }
 
+void Mario::update()
+{
+	Player::update();
+	explodeSkill->update(fXPos + Player::getHitBoxX() / 2, fYPos + Player::getHitBoxY() / 2);
+}
+
 void Mario::draw(sf::RenderWindow& window)
 {
+	explodeSkill->draw(window);
 	if (!inLevelDownAnimation || Core::getMap()->getInEvent()) {
 		// Super Mario
 		sMario[getSpriteID()]->getTexture()->draw(window, (int)fXPos, (int)fYPos + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);

@@ -106,7 +106,7 @@ public:
 	virtual ~Player() = default;
     
     virtual void draw(sf::RenderWindow& window) = 0;
-    void update();
+	virtual void update();
 
     void playerPhysics(); 
 

@@ -1,9 +1,9 @@
 #pragma once
 #include "IMG.h"
 
-IMG::IMG(std::string fileName, sf::RenderWindow &mainWindow)
+IMG::IMG(std::string fileName, sf::RenderWindow &mainWindow, std::string sType)
 {
-    this->setIMG(fileName, mainWindow);
+    this->setIMG(fileName, mainWindow, sType);
 }
 
 IMG::IMG(){
@@ -17,39 +17,25 @@ IMG::~IMG()
     delete this->sIMG;
 }
 
-void IMG::setIMG(std::string fileName, sf::RenderWindow& mainWindow) {
-    fileName = "files/images/" + fileName + ".bmp";
-
-	// Handle delete background magenta color
-    sf::Image image;
-    if (!image.loadFromFile(fileName)) {
-        std::cout << "Error loading image: " << fileName << std::endl;
-        return;
-    }
-    // Set magenta (255, 0, 255) to be transparent
-    //sf::Color transparentColor = sf::Color(255, 0, 255);
-    //for (unsigned int x = 0; x < image.getSize().x; ++x) {
-    //    for (unsigned int y = 0; y < image.getSize().y; ++y) {
-    //        if (image.getPixel(x, y) == transparentColor) {
-    //            image.setPixel(x, y, sf::Color(0, 0, 0, 0)); // Set to transparent
-    //        }
-    //    }
-    //}
+void IMG::setIMG(std::string fileName, sf::RenderWindow& mainWindow, std::string sType) {
+    fileName = "files/images/" + fileName + sType;
 
 	// Load image to texture
     this->tIMG = new sf::Texture();
-    if (!this->tIMG->loadFromImage(image)) {
+    if (!this->tIMG->loadFromFile(fileName)) {
         std::cout << "Error creating texture from image: " << fileName << std::endl;
         return;
     }
     this->sIMG = new sf::Sprite(*this->tIMG);
+
+	xHitBox = sIMG->getGlobalBounds().width;
+	yHitBox = sIMG->getGlobalBounds().height;
 }
 
 void IMG::draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset)
 {
 	sIMG->setPosition(iXOffset, iYOffset);
     mainWindow.draw(*sIMG);
-	//drawBoundingBox(mainWindow, iXOffset, iYOffset);
 }
 
 void IMG::draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset, bool bRotate)
@@ -58,16 +44,13 @@ void IMG::draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset, bool bR
     if (!bRotate) {
         sIMG->setPosition(iXOffset, iYOffset);
         mainWindow.draw(*sIMG);
-	    //drawBoundingBox(mainWindow, iXOffset, iYOffset);
         return;
         
     }
     sIMG->setScale(-1.f, 1.f);
 	sIMG->setPosition(iXOffset + sIMG->getGlobalBounds().width, iYOffset);
 	mainWindow.draw(*sIMG);
-    sIMG->setScale(1, 1);
-	//drawBoundingBox(mainWindow, iXOffset, iYOffset);
-    
+    sIMG->setScale(1, 1);    
 }
 
 
@@ -95,6 +78,14 @@ void IMG::drawVert(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset) {
     sIMG->setScale(1, 1);
 }
 
+void IMG::drawFromCenter(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset)
+{
+	sIMG->setOrigin(sIMG->getGlobalBounds().width / 2, sIMG->getGlobalBounds().height / 2);
+	sIMG->setPosition(iXOffset, iYOffset);
+	mainWindow.draw(*sIMG);
+	sIMG->setOrigin(0, 0);
+}
+
 void IMG::drawBoundingBox(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset) {
     sf::FloatRect bounds = sIMG->getGlobalBounds();
     sf::RectangleShape boundingBox(sf::Vector2f(bounds.width, bounds.height));
@@ -112,4 +103,14 @@ sf::Texture* IMG::getIMG() {
 
 void IMG::setColor(int iR, int iG, int iB){
     sIMG->setColor(sf::Color(iR, iG, iB));
+}
+
+int IMG::getHitBoxX()
+{
+    return xHitBox;
+}
+
+int IMG::getHitBoxY()
+{
+	return yHitBox;
 }

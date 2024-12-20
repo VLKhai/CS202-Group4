@@ -1,7 +1,7 @@
 #include "AniSprite.h"
 #include "Core.h"
 
-AniSprite::AniSprite(sf::RenderWindow &window, std::vector<std::string> sFilename, std::vector<unsigned int> iDelay, bool bRotate)
+AniSprite::AniSprite(sf::RenderWindow &window, std::vector<std::string> sFilename, std::vector<unsigned int> iDelay, bool bRotate, std::string sType)
 {
     this->iDelay = iDelay;
     this->bRotate = bRotate;
@@ -11,7 +11,7 @@ AniSprite::AniSprite(sf::RenderWindow &window, std::vector<std::string> sFilenam
     this->iEndFrame = sFilename.size() - 1;
 
     for (int i = 0; i <= this->iEndFrame; i++) {
-        this->imgFrame.push_back(new IMG(sFilename[i], window));
+        this->imgFrame.push_back(new IMG(sFilename[i], window, sType));
     }
 
     this->lTimePassed = 0;

@@ -33,6 +33,7 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Event.cpp" />
+    <ClCompile Include="ExplodeSkill.cpp" />
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Flag.cpp" />
     <ClCompile Include="Flower.cpp" />
@@ -85,6 +86,7 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="ExplodeSkill.h" />
     <ClInclude Include="Fire.h" />
     <ClInclude Include="Flag.h" />
     <ClInclude Include="Flower.h" />

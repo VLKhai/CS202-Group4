@@ -5,7 +5,7 @@
 class AniSprite {
 public:
 	AniSprite() = default;
-    AniSprite(sf::RenderWindow& window, std::vector<std::string> sSprite, std::vector<unsigned int> iDelay, bool bRotate);
+    AniSprite(sf::RenderWindow& window, std::vector<std::string> sSprite, std::vector<unsigned int> iDelay, bool bRotate, std::string sType=".bmp");
     ~AniSprite();
     void update();
     
