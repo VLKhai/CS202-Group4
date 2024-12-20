@@ -203,6 +203,7 @@ void Core::inputPlayer() {
 }
 
 void Core::mouseInput()
+
 {
 }
 

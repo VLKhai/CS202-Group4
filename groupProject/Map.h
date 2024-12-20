@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "Player.h"
+#include "Mario.h"
 #include "Block.h"
 #include "AniSprite.h"
 #include "Event.h"

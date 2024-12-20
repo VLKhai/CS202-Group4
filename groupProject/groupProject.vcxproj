@@ -47,6 +47,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Mario.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="MenuOption.cpp" />
@@ -96,6 +97,7 @@
     <ClInclude Include="LoadingMenu.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Mario.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="MenuOption.h" />

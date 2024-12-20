@@ -5,13 +5,11 @@
 
 class Player {
 private:
-	std::vector<AniSprite*> sMario;
 	int iSpriteID;
 	unsigned int iMoveAnimationTime;
 
 	IMG* tMarioLVLUP;
 
-	float fXPos, fYPos;
 	int iNumOfLives;
 
 	bool unKillAble;
@@ -20,9 +18,6 @@ private:
 	int unKillAbleTimeFrameID;
 	int unKillAbleFrameID;
 
-	bool inLevelDownAnimation;
-	int inLevelDownAnimationFrameID;
-
 	unsigned int iScore;
 	unsigned int iCoins;
 
@@ -30,17 +25,14 @@ private:
 
 	// ----- LVL UP
 
-	int powerLVL;
 	// -- LEVEL CHANGE ANIMATION
 	bool inLevelAnimation;
 	bool inLevelAnimationType; // -- true = UP, false = DOWN
-
 	int inLevelAnimationFrameID;
 
 	// ----- LVL UP
 	// ----- MOVE
 
-	bool moveDirection; // true = LEFT, false = RIGHT
 	bool bMove;
 	bool changeMoveDirection;
 	bool newMoveDirection;
@@ -63,6 +55,7 @@ private:
 	float currentJumpSpeed;
 	float jumpDistance;
 	float currentJumpDistance;
+	//float distPressJ
 
 	float currentFallingSpeed;
 
@@ -94,12 +87,23 @@ private:
 	Vector2* getBlockLT(float nX, float nY);
 	Vector2* getBlockRT(float nX, float nY);
 protected:
+	float fXPos, fYPos;
 
+	bool moveDirection; // true = LEFT, false = RIGHT
+
+	int powerLVL;
+
+	// Block = 32px
+	int limSmallJumpBlock; // Mario: 2 blocks, Luigi: 3 blocks
+	int limBigJumpBlock; // Mario: 4 blocks, Luigi: 6 blocks	
+	
+	bool inLevelDownAnimation;
+	int inLevelDownAnimationFrameID;
 public:
     Player(sf::RenderWindow& window, float fXPos, float fYPos);
-    ~Player();
+	virtual ~Player();
     
-    void draw(sf::RenderWindow& window);
+    virtual void draw(sf::RenderWindow& window) = 0;
     void update();
 
     void playerPhysics(); 
@@ -167,7 +171,7 @@ public:
     void resetPowerLVL();
 
 	IMG* getMarioLVLUP();
-	AniSprite* getMarioSprite();
+	virtual AniSprite* getMarioSprite() = 0;
 
 	bool getSquat();
 	void setSquat(bool bSquat);
