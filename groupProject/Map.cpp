@@ -2,7 +2,7 @@
 
 Map::Map(sf::RenderWindow& mainWindow)
 {
-	player = new Luigi(mainWindow, 84, 480);
+	pPlayer = new Luigi(mainWindow, 84, 480);
 
 	this->currentLevelID = 0;
 
@@ -52,7 +52,7 @@ Map::~Map()
 void Map::update()
 {
 	updateGifBlocks();
-	if (!player->getInLevelAnimation()) {
+	if (!pPlayer->getInLevelAnimation()) {
 		updateMinionBlocks();
 
 		updateMinions();
@@ -88,7 +88,7 @@ void Map::update()
 		}
 	}
 	else {
-		player->powerUPAnimation();
+		pPlayer->powerUPAnimation();
 	}
 
 	// Update Block Debris
@@ -125,12 +125,12 @@ void Map::update()
 }
 
 void Map::playerDeath(bool animation, bool instantDeath) {
-	if ((player->getPowerLVL() == 0 && !player->getUnkillAble()) || instantDeath) {
+	if ((pPlayer->getPowerLVL() == 0 && !pPlayer->getUnkillAble()) || instantDeath) {
 		inEvent = true;
 
 		pEvent->resetData();
-		player->resetJump();
-		player->stopMove();
+		pPlayer->resetJump();
+		pPlayer->stopMove();
 
 		pEvent->iDelay = 150;
 		pEvent->newCurrentLevel = currentLevelID;
@@ -139,13 +139,13 @@ void Map::playerDeath(bool animation, bool instantDeath) {
 
 		pEvent->eventTypeID = pEvent->eNormal;
 
-		player->resetPowerLVL();
+		pPlayer->resetPowerLVL();
 
 		if (animation) {
 			pEvent->iSpeed = 4;
 			pEvent->newLevelType = iLevelType;
 
-			player->setYPos(player->getYPos() + 4.0f);
+			pPlayer->setYPos(pPlayer->getYPos() + 4.0f);
 
 			pEvent->vOLDDir.push_back(pEvent->eDEATHNOTHING);
 			pEvent->vOLDLength.push_back(30);
@@ -154,7 +154,7 @@ void Map::playerDeath(bool animation, bool instantDeath) {
 			pEvent->vOLDLength.push_back(64);
 
 			pEvent->vOLDDir.push_back(pEvent->eDEATHBOT);
-			pEvent->vOLDLength.push_back(CFG::GameHeight - player->getYPos() + 128);
+			pEvent->vOLDLength.push_back(CFG::GameHeight - pPlayer->getYPos() + 128);
 		}
 		else {
 			pEvent->iSpeed = 4;
@@ -167,11 +167,11 @@ void Map::playerDeath(bool animation, bool instantDeath) {
 		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
 		pEvent->vOLDLength.push_back(64);
 
-		if (player->getNumOfLives() > 1) {
+		if (pPlayer->getNumOfLives() > 1) {
 			pEvent->vOLDDir.push_back(pEvent->eLOADINGMENU);
 			pEvent->vOLDLength.push_back(90);
 
-			player->setNumOfLives(player->getNumOfLives() - 1);
+			pPlayer->setNumOfLives(pPlayer->getNumOfLives() - 1);
 
 			CFG::getMusic()->StopMusic();
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cDEATH);
@@ -180,14 +180,14 @@ void Map::playerDeath(bool animation, bool instantDeath) {
 			pEvent->vOLDDir.push_back(pEvent->eGAMEOVER);
 			pEvent->vOLDLength.push_back(90);
 
-			player->setNumOfLives(player->getNumOfLives() - 1);
+			pPlayer->setNumOfLives(pPlayer->getNumOfLives() - 1);
 
 			CFG::getMusic()->StopMusic();
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cDEATH);
 		}
 	}
-	else if (!player->getUnkillAble()) {
-		player->setPowerLVL(player->getPowerLVL() - 1);
+	else if (!pPlayer->getUnkillAble()) {
+		pPlayer->setPowerLVL(pPlayer->getPowerLVL() - 1);
 	}
 }
 
@@ -207,7 +207,7 @@ void Map::updateGifBlocks()
 
 void Map::updatePlayer()
 {
-	player->update();
+	pPlayer->update();
 }
 
 void Map::updateMinionBlocks() {
@@ -401,16 +401,16 @@ void Map::updateMinionsCollisions() {
 		}
 	}
 
-	if (!inEvent && !player->getInLevelAnimation()) {
+	if (!inEvent && !pPlayer->getInLevelAnimation()) {
 		// ----- COLLISION WITH PLAYER
-		for (int i = getListID(-(int)fXPos + player->getXPos()) - (getListID(-(int)fXPos + player->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
+		for (int i = getListID(-(int)fXPos + pPlayer->getXPos()) - (getListID(-(int)fXPos + pPlayer->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
 			for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
 				if (lMinion[i][j]->deadTime < 0) {
-					if ((player->getXPos() - fXPos >= lMinion[i][j]->getXPos() && player->getXPos() - fXPos <= lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX) || (player->getXPos() - fXPos + player->getHitBoxX() >= lMinion[i][j]->getXPos() && player->getXPos() - fXPos + player->getHitBoxX() <= lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX)) {
-						if (lMinion[i][j]->getYPos() - 2 <= player->getYPos() + player->getHitBoxY() && lMinion[i][j]->getYPos() + 16 >= player->getYPos() + player->getHitBoxY()) {
+					if ((pPlayer->getXPos() - fXPos >= lMinion[i][j]->getXPos() && pPlayer->getXPos() - fXPos <= lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX) || (pPlayer->getXPos() - fXPos + pPlayer->getHitBoxX() >= lMinion[i][j]->getXPos() && pPlayer->getXPos() - fXPos + pPlayer->getHitBoxX() <= lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX)) {
+						if (lMinion[i][j]->getYPos() - 2 <= pPlayer->getYPos() + pPlayer->getHitBoxY() && lMinion[i][j]->getYPos() + 16 >= pPlayer->getYPos() + pPlayer->getHitBoxY()) {
 							lMinion[i][j]->collisionWithPlayer(true);
 						}
-						else if ((lMinion[i][j]->getYPos() <= player->getYPos() + player->getHitBoxY() && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= player->getYPos() + player->getHitBoxY()) || (lMinion[i][j]->getYPos() <= player->getYPos() && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= player->getYPos())) {
+						else if ((lMinion[i][j]->getYPos() <= pPlayer->getYPos() + pPlayer->getHitBoxY() && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= pPlayer->getYPos() + pPlayer->getHitBoxY()) || (lMinion[i][j]->getYPos() <= pPlayer->getYPos() && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= pPlayer->getYPos())) {
 							lMinion[i][j]->collisionWithPlayer(false);
 						}
 					}
@@ -450,7 +450,7 @@ void Map::draw(sf::RenderWindow& mainWindow)
 		lBubble[i]->Draw(mainWindow, vBlock[lBubble[i]->getBlockID()]->getAniSprite()->getTexture());
 	}*/
 
-	player->draw(mainWindow);
+	pPlayer->draw(mainWindow);
 
 	if (inEvent) {
 		pEvent->draw(mainWindow);
@@ -490,20 +490,20 @@ void Map::DrawMinions(sf::RenderWindow& mainWindow) {
 void Map::DrawGameLayout(sf::RenderWindow& mainWindow) {
 	CFG::getText()->Draw(mainWindow, "MARIO", 54, 16);
 
-	if (player->getScore() < 100) {
-		CFG::getText()->Draw(mainWindow, "00000" + std::to_string(player->getScore()), 54, 32);
+	if (pPlayer->getScore() < 100) {
+		CFG::getText()->Draw(mainWindow, "00000" + std::to_string(pPlayer->getScore()), 54, 32);
 	}
-	else if (player->getScore() < 1000) {
-		CFG::getText()->Draw(mainWindow, "000" + std::to_string(player->getScore()), 54, 32);
+	else if (pPlayer->getScore() < 1000) {
+		CFG::getText()->Draw(mainWindow, "000" + std::to_string(pPlayer->getScore()), 54, 32);
 	}
-	else if (player->getScore() < 10000) {
-		CFG::getText()->Draw(mainWindow, "00" + std::to_string(player->getScore()), 54, 32);
+	else if (pPlayer->getScore() < 10000) {
+		CFG::getText()->Draw(mainWindow, "00" + std::to_string(pPlayer->getScore()), 54, 32);
 	}
-	else if (player->getScore() < 100000) {
-		CFG::getText()->Draw(mainWindow, "0" + std::to_string(player->getScore()), 54, 32);
+	else if (pPlayer->getScore() < 100000) {
+		CFG::getText()->Draw(mainWindow, "0" + std::to_string(pPlayer->getScore()), 54, 32);
 	}
 	else {
-		CFG::getText()->Draw(mainWindow, std::to_string(player->getScore()), 54, 32);
+		CFG::getText()->Draw(mainWindow, std::to_string(pPlayer->getScore()), 54, 32);
 	}
 
 	CFG::getText()->Draw(mainWindow, "WORLD", 462, 16);
@@ -516,7 +516,7 @@ void Map::DrawGameLayout(sf::RenderWindow& mainWindow) {
 		vBlock[57]->draw(mainWindow, 268, 32);
 	}
 	CFG::getText()->Draw(mainWindow, "y", 286, 32);
-	CFG::getText()->Draw(mainWindow, (player->getCoins() < 10 ? "0" : "") + std::to_string(player->getCoins()), 302, 32);
+	CFG::getText()->Draw(mainWindow, (pPlayer->getCoins() < 10 ? "0" : "") + std::to_string(pPlayer->getCoins()), 302, 32);
 
 	CFG::getText()->Draw(mainWindow, "TIME", 672, 16);
 	if (CFG::getMenuManager()->getViewID() == CFG::getMenuManager()->eGame) {
@@ -539,7 +539,7 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 		case 8: case 55: // ----- BlockQ
 			if (lMap[nX][nY]->getSpawnMushroom()) {
 				if (lMap[nX][nY]->getPowerUP()) {
-					if (player->getPowerLVL() == 0) {
+					if (pPlayer->getPowerLVL() == 0) {
 						lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, true, nX, nY));
 					}
 					else {
@@ -553,9 +553,9 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 			}
 			else {
 				lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
-				player->setScore(player->getScore() + 200);
+				pPlayer->setScore(pPlayer->getScore() + 200);
 				CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
-				player->setCoins(player->getCoins() + 1);
+				pPlayer->setCoins(pPlayer->getCoins() + 1);
 			}
 
 			if (lMap[nX][nY]->getNumOfUse() > 1) {
@@ -579,7 +579,7 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 			else if (lMap[nX][nY]->getSpawnMushroom()) {
 				lMap[nX][nY]->setBlockID(iLevelType == 0 || iLevelType == 4 ? 9 : iLevelType == 1 ? 56 : 80);
 				if (lMap[nX][nY]->getPowerUP()) {
-					if (player->getPowerLVL() == 0) {
+					if (pPlayer->getPowerLVL() == 0) {
 						lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, true, nX, nY));
 					}
 					else {
@@ -594,8 +594,8 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 			}
 			else if (lMap[nX][nY]->getNumOfUse() > 0) {
 				lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
-				player->setScore(player->getScore() + 200);
-				player->setCoins(player->getCoins() + 1);
+				pPlayer->setScore(pPlayer->getScore() + 200);
+				pPlayer->setCoins(pPlayer->getCoins() + 1);
 
 				lMap[nX][nY]->setNumOfUse(lMap[nX][nY]->getNumOfUse() - 1);
 				if (lMap[nX][nY]->getNumOfUse() == 0) {
@@ -607,7 +607,7 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 				lMap[nX][nY]->startBlockAnimation();
 			}
 			else {
-				if (player->getPowerLVL() > 0) {
+				if (pPlayer->getPowerLVL() > 0) {
 					lMap[nX][nY]->setBlockID(0);
 					lBlockDebris.push_back(new BlockDebris(nX * 32, CFG::GameHeight - 48 - nY * 32));
 					CFG::getMusic()->PlayChunk(CFG::getMusic()->cBLOCKBREAK);
@@ -623,7 +623,7 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 		case 24: // ----- BlockQ2
 			if (lMap[nX][nY]->getSpawnMushroom()) {
 				if (lMap[nX][nY]->getPowerUP()) {
-					if (player->getPowerLVL() == 0) {
+					if (pPlayer->getPowerLVL() == 0) {
 						lMinion[getListID(32 * nX)].push_back(new Mushroom(32 * nX, CFG::GameHeight - 16 - 32 * nY, true, nX, nY));
 					}
 					else {
@@ -637,8 +637,8 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 			}
 			else {
 				lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
-				player->setCoins(player->getCoins() + 1);
-				player->setScore(player->getScore() + 200);
+				pPlayer->setCoins(pPlayer->getCoins() + 1);
+				pPlayer->setScore(pPlayer->getScore() + 200);
 				CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
 
 				lMap[nX][nY]->startBlockAnimation();
@@ -675,7 +675,7 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 	switch (iBlockID) {
 	case 29: case 71: case 72: case 73:// COIN
 		lMap[nX][nY]->setBlockID(iLevelType == 2 ? 94 : 0);
-		player->addCoin();
+		pPlayer->addCoin();
 		CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
 		return false;
 		break;
@@ -864,13 +864,13 @@ int Map::getSpawnPointYPos(int iID) {
 		case 0:
 			return 64;
 		case 1:
-			return CFG::GameHeight - 48 - player->getHitBoxY();;
+			return CFG::GameHeight - 48 - pPlayer->getHitBoxY();;
 		}
 	case 3: case 7: case 11: case 15: case 19: case 23: case 27: case 31:
 		return 150;
 	}
 
-	return CFG::GameHeight - 48 - player->getHitBoxY();
+	return CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 }
 
 void Map::setSpawnPoint() {
@@ -878,27 +878,27 @@ void Map::setSpawnPoint() {
 
 	if (X > 6 * 32) {
 		fXPos = -(X - 6 * 32);
-		player->setXPos(6 * 32);
-		player->setYPos((float)getSpawnPointYPos(iSpawnPointID));
+		pPlayer->setXPos(6 * 32);
+		pPlayer->setYPos((float)getSpawnPointYPos(iSpawnPointID));
 	}
 	else {
 		fXPos = 0;
-		player->setXPos(X);
-		player->setYPos((float)getSpawnPointYPos(iSpawnPointID));
+		pPlayer->setXPos(X);
+		pPlayer->setYPos((float)getSpawnPointYPos(iSpawnPointID));
 	}
 
-	player->setMoveDirection(true);
+	pPlayer->setMoveDirection(true);
 }
 
 void Map::resetGameData() {
 	this->currentLevelID = 0;
 	this->iSpawnPointID = 0;
 
-	player->setCoins(0);
-	player->setScore(0);
-	player->resetPowerLVL();
+	pPlayer->setCoins(0);
+	pPlayer->setScore(0);
+	pPlayer->resetPowerLVL();
 
-	player->setNumOfLives(3);
+	pPlayer->setNumOfLives(3);
 
 	setSpawnPoint();
 
@@ -915,8 +915,8 @@ void Map::startLevelAnimation() {
 		break;
 	case 1:
 		pEvent->resetData();
-		player->resetJump();
-		player->stopMove();
+		pPlayer->resetJump();
+		pPlayer->stopMove();
 
 		pEvent->iSpeed = 2;
 		pEvent->newLevelType = 1;
@@ -948,8 +948,8 @@ void Map::startLevelAnimation() {
 		break;
 	case 5:
 		pEvent->resetData();
-		player->resetJump();
-		player->stopMove();
+		pPlayer->resetJump();
+		pPlayer->stopMove();
 
 		pEvent->iSpeed = 2;
 		pEvent->newLevelType = 2;
@@ -982,8 +982,8 @@ void Map::startLevelAnimation() {
 		break;
 	case 13:
 		pEvent->resetData();
-		player->resetJump();
-		player->stopMove();
+		pPlayer->resetJump();
+		pPlayer->stopMove();
 
 		pEvent->iSpeed = 2;
 		pEvent->newLevelType = 1;
@@ -1015,8 +1015,8 @@ void Map::startLevelAnimation() {
 		break;
 	case 25:
 		pEvent->resetData();
-		player->resetJump();
-		player->stopMove();
+		pPlayer->resetJump();
+		pPlayer->stopMove();
 
 		pEvent->iSpeed = 2;
 		pEvent->newLevelType = 2;
@@ -1049,8 +1049,8 @@ void Map::startLevelAnimation() {
 		break;
 	case 26:
 		pEvent->resetData();
-		player->resetJump();
-		player->stopMove();
+		pPlayer->resetJump();
+		pPlayer->stopMove();
 
 		pEvent->iSpeed = 2;
 		pEvent->newLevelType = 2;
@@ -1190,7 +1190,7 @@ void Map::loadLVL() {
 void Map::moveMap(int nX, int nY)
 {
 	if (fXPos + nX > 0) {
-		player->updateXPos((int)(nX - fXPos));
+		pPlayer->updateXPos((int)(nX - fXPos));
 		fXPos = 0;
 	}
 	else {
@@ -1669,7 +1669,7 @@ void Map::checkCollisionOnTopOfTheBlock(int nX, int nY)
 		lMap[nX][nY + 1]->setBlockID(0);
 		lCoin.push_back(new Coin(nX * 32 + 7, CFG::GameHeight - nY * 32 - 48));
 		CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
-		player->setCoins(player->getCoins() + 1);
+		pPlayer->setCoins(pPlayer->getCoins() + 1);
 		return;
 		break;
 	}
@@ -1758,7 +1758,7 @@ Flag* Map::getFlag()
 
 Player* Map::getPlayer()
 {
-    return player;
+    return pPlayer;
 }
 
 Platform* Map::getPlatform(int iID)
@@ -3480,7 +3480,7 @@ void Map::loadLVL_1_1() {
 
 	// ----- Bush -----
 
-	structBush(0, 2, 2);
+	structBush(4, 2, 1);
 	structBush(16, 2, 1);
 	structBush(48, 2, 2);
 	structBush(64, 2, 1);
@@ -9268,8 +9268,8 @@ void Map::EndUse() {
 	inEvent = true;
 
 	pEvent->resetData();
-	player->resetJump();
-	player->stopMove();
+	pPlayer->resetJump();
+	pPlayer->stopMove();
 
 	pEvent->newUnderWater = false;
 
@@ -9278,16 +9278,16 @@ void Map::EndUse() {
 
 	pEvent->eventTypeID = pEvent->eEnd;
 
-	if (player->getYPos() < CFG::GameHeight - 16 - 10 * 32) {
+	if (pPlayer->getYPos() < CFG::GameHeight - 16 - 10 * 32) {
 		pFlag->iPoints = 5000;
 	}
-	else if (player->getYPos() < CFG::GameHeight - 16 - 8 * 32) {
+	else if (pPlayer->getYPos() < CFG::GameHeight - 16 - 8 * 32) {
 		pFlag->iPoints = 2000;
 	}
-	else if (player->getYPos() < CFG::GameHeight - 16 - 6 * 32) {
+	else if (pPlayer->getYPos() < CFG::GameHeight - 16 - 6 * 32) {
 		pFlag->iPoints = 500;
 	}
-	else if (player->getYPos() < CFG::GameHeight - 16 - 4 * 32) {
+	else if (pPlayer->getYPos() < CFG::GameHeight - 16 - 4 * 32) {
 		pFlag->iPoints = 200;
 	}
 	else {
@@ -9295,16 +9295,16 @@ void Map::EndUse() {
 	}
 
 	pEvent->vOLDDir.push_back(pEvent->eRIGHTEND);
-	pEvent->vOLDLength.push_back(player->getHitBoxX());
+	pEvent->vOLDLength.push_back(pPlayer->getHitBoxX());
 
 	pEvent->vOLDDir.push_back(pEvent->eENDBOT1);
-	pEvent->vOLDLength.push_back((CFG::GameHeight - 16 - 32 * 2) - player->getYPos() - player->getHitBoxY() - 2);
+	pEvent->vOLDLength.push_back((CFG::GameHeight - 16 - 32 * 2) - pPlayer->getYPos() - pPlayer->getHitBoxY() - 2);
 
 	pEvent->vOLDDir.push_back(pEvent->eENDBOT2);
-	pEvent->vOLDLength.push_back((CFG::GameHeight - 16 - 32 * 2) - player->getYPos() - player->getHitBoxY() - 2);
+	pEvent->vOLDLength.push_back((CFG::GameHeight - 16 - 32 * 2) - pPlayer->getYPos() - pPlayer->getHitBoxY() - 2);
 
 	pEvent->vOLDDir.push_back(pEvent->eRIGHTEND);
-	pEvent->vOLDLength.push_back(player->getHitBoxX());
+	pEvent->vOLDLength.push_back(pPlayer->getHitBoxX());
 
 	pEvent->vOLDDir.push_back(pEvent->eBOTRIGHTEND);
 	pEvent->vOLDLength.push_back(32);
@@ -9324,10 +9324,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = -210 * 32;
 		pEvent->newPlayerXPos = 64;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = false;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(204);
 		pEvent->reDrawY.push_back(2);
@@ -9348,10 +9348,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = 0;
 		pEvent->newPlayerXPos = 84;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(309);
 		pEvent->reDrawY.push_back(2);
@@ -9375,7 +9375,7 @@ void Map::EndUse() {
 		pEvent->newPlayerYPos = 150;
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
 		pEvent->vOLDLength.push_back(32);
@@ -9401,10 +9401,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = -220 * 32;
 		pEvent->newPlayerXPos = 64;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = false;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(206);
 		pEvent->reDrawY.push_back(2);
@@ -9425,10 +9425,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = 0;
 		pEvent->newPlayerXPos = 84;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
 		pEvent->vOLDLength.push_back(32);
@@ -9457,7 +9457,7 @@ void Map::EndUse() {
 		pEvent->newPlayerYPos = 150;
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
 		pEvent->vOLDLength.push_back(32);
@@ -9482,10 +9482,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = 0;
 		pEvent->newPlayerXPos = 84;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(206);
 		pEvent->reDrawY.push_back(2);
@@ -9505,10 +9505,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = 0;
 		pEvent->newPlayerXPos = 84;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(215);
 		pEvent->reDrawY.push_back(2);
@@ -9536,7 +9536,7 @@ void Map::EndUse() {
 
 		pFlag->castleFlagExtraXPos = 32;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(158);
 		pEvent->reDrawY.push_back(2);
@@ -9556,10 +9556,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = -240 * 32;
 		pEvent->newPlayerXPos = 64;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = false;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(231);
 		pEvent->reDrawY.push_back(2);
@@ -9579,10 +9579,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = 0;
 		pEvent->newPlayerXPos = 84;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(419);
 		pEvent->reDrawY.push_back(2);
@@ -9610,7 +9610,7 @@ void Map::EndUse() {
 
 		pFlag->castleFlagExtraXPos = 32;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(154);
 		pEvent->reDrawY.push_back(2);
@@ -9631,10 +9631,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = -80 * 32;
 		pEvent->newPlayerXPos = 84;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(205);
 		pEvent->reDrawY.push_back(2);
@@ -9655,10 +9655,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = 0;
 		pEvent->newPlayerXPos = 84;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(286);
 		pEvent->reDrawY.push_back(2);
@@ -9687,7 +9687,7 @@ void Map::EndUse() {
 
 		pFlag->castleFlagExtraXPos = 32;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(159);
 		pEvent->reDrawY.push_back(2);
@@ -9708,7 +9708,7 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = -85 * 32;
 		pEvent->newPlayerXPos = 84;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = true;
 
 		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
@@ -9716,7 +9716,7 @@ void Map::EndUse() {
 
 		pFlag->castleFlagExtraXPos = 96;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(194);
 		pEvent->reDrawY.push_back(2);
@@ -9737,7 +9737,7 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = 0;
 		pEvent->newPlayerXPos = 84;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = true;
 
 		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
@@ -9745,7 +9745,7 @@ void Map::EndUse() {
 
 		pFlag->castleFlagExtraXPos = 32;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(307);
 		pEvent->reDrawY.push_back(2);
@@ -9774,7 +9774,7 @@ void Map::EndUse() {
 
 		pFlag->castleFlagExtraXPos = 32;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(174);
 		pEvent->reDrawY.push_back(2);
@@ -9795,10 +9795,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = -220 * 32;
 		pEvent->newPlayerXPos = 64;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = false;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(185);
 		pEvent->reDrawY.push_back(2);
@@ -9819,10 +9819,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = 0;
 		pEvent->newPlayerXPos = 84;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
 		pEvent->vOLDLength.push_back(32);
@@ -9851,7 +9851,7 @@ void Map::EndUse() {
 		pEvent->newPlayerYPos = 150;
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
 		pEvent->vOLDLength.push_back(32);
@@ -9876,10 +9876,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = 0;
 		pEvent->newPlayerXPos = 84;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(382);
 		pEvent->reDrawY.push_back(2);
@@ -9900,10 +9900,10 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = 0;
 		pEvent->newPlayerXPos = 84;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->reDrawX.push_back(222);
 		pEvent->reDrawY.push_back(2);
@@ -9927,7 +9927,7 @@ void Map::EndUse() {
 		pEvent->newPlayerYPos = 150;
 		pEvent->newMoveMap = true;
 
-		player->setMoveDirection(true);
+		pPlayer->setMoveDirection(true);
 
 		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
 		pEvent->vOLDLength.push_back(128);
@@ -9957,8 +9957,8 @@ void Map::EndBoss() {
 	inEvent = true;
 
 	pEvent->resetData();
-	player->resetJump();
-	player->stopMove();
+	pPlayer->resetJump();
+	pPlayer->stopMove();
 
 	pEvent->endGame = false;
 
@@ -9984,7 +9984,7 @@ void Map::EndBoss() {
 
 	pEvent->newMapXPos = 0;
 	pEvent->newPlayerXPos = 64;
-	pEvent->newPlayerYPos = CFG::GameHeight - 48 - player->getHitBoxY();
+	pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
 	pEvent->newMoveMap = true;
 
 	switch (currentLevelID) {
@@ -9998,16 +9998,16 @@ void Map::EndBoss() {
 
 	bool addOne = false;
 
-	if (lMap[getBlockIDX((int)(player->getXPos() + player->getHitBoxX() / 2 - fXPos))][6]->getBlockID() == 82) {
+	if (lMap[getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos))][6]->getBlockID() == 82) {
 		pEvent->vOLDDir.push_back(pEvent->eBOT);
-		pEvent->vOLDLength.push_back(CFG::GameHeight - 16 - 5 * 32 - (player->getYPos() + player->getHitBoxY()));
+		pEvent->vOLDLength.push_back(CFG::GameHeight - 16 - 5 * 32 - (pPlayer->getYPos() + pPlayer->getHitBoxY()));
 	}
 	else {
 		pEvent->vOLDDir.push_back(pEvent->eBOTRIGHTEND);
-		pEvent->vOLDLength.push_back(CFG::GameHeight - 16 - 5 * 32 - (player->getYPos() + player->getHitBoxY()));
+		pEvent->vOLDLength.push_back(CFG::GameHeight - 16 - 5 * 32 - (pPlayer->getYPos() + pPlayer->getHitBoxY()));
 
 		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
-		pEvent->vOLDLength.push_back(32 - CFG::GameHeight - 16 - 5 * 32 - (player->getYPos() + player->getHitBoxY()));
+		pEvent->vOLDLength.push_back(32 - CFG::GameHeight - 16 - 5 * 32 - (pPlayer->getYPos() + pPlayer->getHitBoxY()));
 		addOne = true;
 	}
 
@@ -10052,11 +10052,11 @@ void Map::EndBoss() {
 	switch (currentLevelID) {
 	case 31:
 		pEvent->vOLDDir.push_back(pEvent->eENDGAMEBOSSTEXT1);
-		pEvent->vOLDLength.push_back(getBlockIDX((int)(player->getXPos() + player->getHitBoxX() / 2 - fXPos)) * 32 + 7 * 32 + (addOne ? 32 : 0));
+		pEvent->vOLDLength.push_back(getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos)) * 32 + 7 * 32 + (addOne ? 32 : 0));
 		break;
 	default:
 		pEvent->vOLDDir.push_back(pEvent->eBOSSTEXT1);
-		pEvent->vOLDLength.push_back(getBlockIDX((int)(player->getXPos() + player->getHitBoxX() / 2 - fXPos)) * 32 + 7 * 32 + (addOne ? 32 : 0));
+		pEvent->vOLDLength.push_back(getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos)) * 32 + 7 * 32 + (addOne ? 32 : 0));
 		break;
 	}
 
@@ -10072,11 +10072,11 @@ void Map::EndBoss() {
 	switch (currentLevelID) {
 	case 31:
 		pEvent->vOLDDir.push_back(pEvent->eENDGAMEBOSSTEXT2);
-		pEvent->vOLDLength.push_back(getBlockIDX((int)(player->getXPos() + player->getHitBoxX() / 2 - fXPos)) * 32 + 5 * 32 + (addOne ? 32 : 0) + 28);
+		pEvent->vOLDLength.push_back(getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos)) * 32 + 5 * 32 + (addOne ? 32 : 0) + 28);
 		break;
 	default:
 		pEvent->vOLDDir.push_back(pEvent->eBOSSTEXT2);
-		pEvent->vOLDLength.push_back(getBlockIDX((int)(player->getXPos() + player->getHitBoxX() / 2 - fXPos)) * 32 + 5 * 32 + (addOne ? 32 : 0));
+		pEvent->vOLDLength.push_back(getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos)) * 32 + 5 * 32 + (addOne ? 32 : 0));
 		break;
 	}
 
@@ -10095,8 +10095,8 @@ void Map::EndBonus() {
 	inEvent = true;
 
 	pEvent->resetData();
-	player->resetJump();
-	player->stopMove();
+	pPlayer->resetJump();
+	pPlayer->stopMove();
 
 	pEvent->eventTypeID = pEvent->eNormal;
 
@@ -10114,26 +10114,26 @@ void Map::EndBonus() {
 	case 4: {
 		pEvent->newMapXPos = -158 * 32 + 16;
 		pEvent->newPlayerXPos = 128;
-		pEvent->newPlayerYPos = -player->getHitBoxY();
+		pEvent->newPlayerYPos = -pPlayer->getHitBoxY();
 
 		break;
 	}
 	case 8: {
 		pEvent->newMapXPos = -158 * 32 + 16;
 		pEvent->newPlayerXPos = 128;
-		pEvent->newPlayerYPos = -player->getHitBoxY();
+		pEvent->newPlayerYPos = -pPlayer->getHitBoxY();
 		break;
 	}
 	case 17: {
 		pEvent->newMapXPos = -207 * 32 + 16;
 		pEvent->newPlayerXPos = 128;
-		pEvent->newPlayerYPos = -player->getHitBoxY();
+		pEvent->newPlayerYPos = -pPlayer->getHitBoxY();
 		break;
 	}
 	case 21: {
 		pEvent->newMapXPos = -243 * 32 + 16;
 		pEvent->newPlayerXPos = 128;
-		pEvent->newPlayerYPos = -player->getHitBoxY();
+		pEvent->newPlayerYPos = -pPlayer->getHitBoxY();
 		break;
 	}
 	}
@@ -10166,9 +10166,9 @@ void Map::clearPlatforms() {
 void Map::checkSpawnPoint() {
 	if (getNumOfSpawnPoints() > 1) {
 		for (int i = iSpawnPointID + 1; i < getNumOfSpawnPoints(); i++) {
-			if (getSpawnPointXPos(i) > player->getXPos() - fXPos && getSpawnPointXPos(i) < player->getXPos() - fXPos + 128) {
+			if (getSpawnPointXPos(i) > pPlayer->getXPos() - fXPos && getSpawnPointXPos(i) < pPlayer->getXPos() - fXPos + 128) {
 				iSpawnPointID = i;
-				//player->getCoins() - fcloseall() = fXPos + player;
+				//pPlayer->getCoins() - fcloseall() = fXPos + pPlayer;
 			}
 		}
 	}
