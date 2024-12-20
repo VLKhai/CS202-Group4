@@ -508,28 +508,29 @@ void Map::DrawGameLayout(sf::RenderWindow& mainWindow) {
 		CFG::getText()->Draw(mainWindow, std::to_string(pPlayer->getScore()), 54, 32);
 	}
 
-	CFG::getText()->Draw(mainWindow, "WORLD", 462, 16);
-	CFG::getText()->Draw(mainWindow, getLevelName(), 480, 32);
+	CFG::getText()->Draw(mainWindow, "WORLD", 462+150, 16);
+	CFG::getText()->Draw(mainWindow, getLevelName(), 480+150, 32);
 
 	if (iLevelType != 1) {
-		vBlock[2]->draw(mainWindow, 268, 32);
+		vBlock[2]->draw(mainWindow, 268+90, 32);
 	}
 	else {
-		vBlock[57]->draw(mainWindow, 268, 32);
+		vBlock[57]->draw(mainWindow, 268+90, 32); 
 	}
-	CFG::getText()->Draw(mainWindow, "y", 286, 32);
-	CFG::getText()->Draw(mainWindow, (pPlayer->getCoins() < 10 ? "0" : "") + std::to_string(pPlayer->getCoins()), 302, 32);
+	CFG::getText()->Draw(mainWindow, "y", 286+90, 32);
+	CFG::getText()->Draw(mainWindow, (pPlayer->getCoins() < 10 ? "0" : "") + std::to_string(pPlayer->getCoins()), 302+90, 32);
 
-	CFG::getText()->Draw(mainWindow, "TIME", 672, 16);
+	// Time
+	CFG::getText()->Draw(mainWindow, "TIME", 672+200, 16);
 	if (CFG::getMenuManager()->getViewID() == CFG::getMenuManager()->eGame) {
 		if (iMapTime > 100) {
-			CFG::getText()->Draw(mainWindow, std::to_string(iMapTime), 680, 32);
+			CFG::getText()->Draw(mainWindow, std::to_string(iMapTime), 680+200, 32);
 		}
 		else if (iMapTime > 10) {
-			CFG::getText()->Draw(mainWindow, "0" + std::to_string(iMapTime), 680, 32);
+			CFG::getText()->Draw(mainWindow, "0" + std::to_string(iMapTime), 680+200, 32);
 		}
 		else {
-			CFG::getText()->Draw(mainWindow, "00" + std::to_string(iMapTime), 680, 32);
+			CFG::getText()->Draw(mainWindow, "00" + std::to_string(iMapTime), 680+200, 32);
 		}
 	}
 }
