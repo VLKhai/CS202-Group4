@@ -262,6 +262,7 @@ void Core::inputMenu()
             CFG::keyRight = false;
 		if (mainEvent.key.code == sf::Keyboard::Left || mainEvent.key.code == sf::Keyboard::A)
 			CFG::keyLeft = false;
+
         switch (mainEvent.key.code) {
         case sf::Keyboard::S: case sf::Keyboard::Down:
         case sf::Keyboard::W: case sf::Keyboard::Up:
@@ -282,5 +283,7 @@ void Core::resetMove()
 }
 
 void Core::resetKeys() {
-    CFG::keyEnter = movePressed = keyMenuPressed = keyS = keyW = keyA = keyD = CFG::keySpace = keyShift = keyAPressed = keyDPressed = false;
+	CFG::keyEnter = CFG::keySpace = CFG::keyLeft = CFG::keyRight = false;
+        movePressed = keyMenuPressed = keyS = keyW = keyA = keyD =  keyShift 
+        = keyAPressed = keyDPressed = false;
 }

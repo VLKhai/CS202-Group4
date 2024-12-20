@@ -90,7 +90,7 @@ void MainMenu::enter() {
 			CFG::getMenuManager()->getLoadingMenu()->loadingType = true;
 			Core::getMap()->setSpawnPointID(0);
 			selectWorld = false;
-			CFG::keyEnter = false;
+			Core::resetKeys();
 		}
 		break;	
 	case 1:

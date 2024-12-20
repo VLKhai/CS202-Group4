@@ -16,9 +16,14 @@ LoadingMenu::~LoadingMenu(void) {
 /* ******************************************** */
 
 void LoadingMenu::Update() {
-	//if (CFG::keyLeft) {
-	//	
-	//}
+	if (CFG::keyLeft) {
+		Core::getMap()->moveSelectPlayer(-1);
+		Core::resetKeys();
+	}
+	else if (CFG::keyRight) {
+		Core::getMap()->moveSelectPlayer(1);
+		Core::resetKeys();
+	}
 	
 	if (CFG::keyEnter ||
 		(Core::coreClock.getElapsedTime().asMilliseconds() >= iTime + 5250 && !loadingType)) { // Game Over

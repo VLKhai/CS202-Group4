@@ -536,7 +536,7 @@ void Map::moveSelectPlayer(int iD)
 {
 	indexPlayer += iD;
 	if (indexPlayer < 0) {
-		indexPlayer = vPlayer.size()+1;
+		indexPlayer = vPlayer.size()-1;
 	}
 	else if (indexPlayer >= vPlayer.size()) {
 		indexPlayer = 0;
