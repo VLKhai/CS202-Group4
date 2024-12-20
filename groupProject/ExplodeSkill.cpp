@@ -77,7 +77,7 @@ ExplodeSkill::~ExplodeSkill()
 
 void ExplodeSkill::update(float fX, float fY)
 {
-	this->fX = fX; this->fY = fY;
+	this->fX = fX; this->fY = fY; //- sExplodeSkill[getSpriteID()]->getFrame()->getHitBoxY() / 2;
 	updateAnimation();
 }
 
