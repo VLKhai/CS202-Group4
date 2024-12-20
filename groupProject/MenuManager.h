@@ -47,5 +47,4 @@ public:
 
 	LoadingMenu* getLoadingMenu(); 
 	OptionsMenu* getOptions();
-
 };

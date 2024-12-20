@@ -294,7 +294,6 @@ void Event::Normal() {
 			Core::getMap()->getPlayer()->stopMove();
 			CFG::getMusic()->changeMusic(true, true);
 			inEvent = false;
-			CFG::keySpace = false;
 			Core::resetKeys();
 		}
 	}

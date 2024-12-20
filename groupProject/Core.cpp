@@ -57,14 +57,11 @@ void Core::mainLoop()
 
 void Core::update()
 {
-    //pMap->update();
     CFG::getMenuManager()->update();
 }
 
 void Core::draw()
 {
-	//mainWindow.clear(sf::Color::Black);
-    //pMap->draw(mainWindow);
     CFG::getMenuManager()->draw(mainWindow);
 	mainWindow.display();
 }
@@ -254,9 +251,11 @@ void Core::inputMenu()
     }
     if (mainEvent.type == sf::Event::KeyReleased) {
         switch (mainEvent.key.code) {
+        case sf::Keyboard::Enter:
+			CFG::keyEnter = false;
         case sf::Keyboard::S: case sf::Keyboard::Down:
         case sf::Keyboard::W: case sf::Keyboard::Up:
-		case sf::Keyboard::Escape: case sf::Keyboard::Enter:
+		case sf::Keyboard::Escape:
         case sf::Keyboard::A: case sf::Keyboard::Right:
         case sf::Keyboard::Left: case sf::Keyboard::D:
             keyMenuPressed = false;
@@ -273,5 +272,5 @@ void Core::resetMove()
 }
 
 void Core::resetKeys() {
-    CFG::keySpace = movePressed = keyMenuPressed = keyS = keyW = keyA = keyD = CFG::keySpace = keyShift = keyAPressed = keyDPressed = false;
+    CFG::keyEnter = movePressed = keyMenuPressed = keyS = keyW = keyA = keyD = CFG::keySpace = keyShift = keyAPressed = keyDPressed = false;
 }

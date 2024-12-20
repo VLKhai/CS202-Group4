@@ -16,8 +16,6 @@ LoadingMenu::~LoadingMenu(void) {
 /* ******************************************** */
 
 void LoadingMenu::Update() {
-	std::cout << CFG::keyEnter << std::endl;
-	//if (Core::coreClock.getElapsedTime().asMilliseconds() >= iTime + 2500 + (loadingType ? 0 : 2750)) {
 	if (CFG::keyEnter ||
 		(Core::coreClock.getElapsedTime().asMilliseconds() >= iTime + 5250 && !loadingType)) { // Game Over
 		if (loadingType) {
