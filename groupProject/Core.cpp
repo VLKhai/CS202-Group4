@@ -85,6 +85,9 @@ void Core::input()
 }
 
 void Core::inputPlayer() {
+	// Pause game when focus is lost
+
+
     if (mainEvent.type == sf::Event::KeyReleased) {
        
         // Handle [D] key
@@ -112,10 +115,10 @@ void Core::inputPlayer() {
     
         // Handle [LShift] key
         if (mainEvent.key.code == CFG::keyIDShift) {
-            if(!keyShift) {
-				pMap->getPlayer()->jump();
-				CFG::keySpace = true;
-			}
+            if (keyShift) {
+                pMap->getPlayer()->resetRun();
+                keyShift = false;
+            }
         }
     }
 
@@ -128,7 +131,8 @@ void Core::inputPlayer() {
         if (mainEvent.key.code == CFG::keyIDS) {
             if (!keyS) {
                 keyS = true;
-				pMap->getPlayer()->setSquat(true);
+                if (!pMap->getUnderWater() && !pMap->getPlayer()->getInLevelAnimation()) 
+                    pMap->getPlayer()->setSquat(true);
             }
         }
 

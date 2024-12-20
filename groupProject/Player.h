@@ -93,6 +93,7 @@ private:
 
 	Vector2* getBlockLT(float nX, float nY);
 	Vector2* getBlockRT(float nX, float nY);
+protected:
 
 public:
     Player(sf::RenderWindow& window, float fXPos, float fYPos);
