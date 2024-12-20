@@ -32,6 +32,7 @@ int CFG::keyIDSpace = 0;
 int CFG::keyIDShift = 0;
 
 bool CFG::canMoveBackward = true;
+bool CFG::keyEnter = false;
 
 /* ******************************************** */
 

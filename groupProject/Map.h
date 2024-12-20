@@ -75,7 +75,7 @@ private:
 	Event* pEvent;
 
 	// ----- PLAYER -----
-	std::vector<Player*> lPlayer;
+	std::vector<Player*> vPlayer;
 	Player* pPlayer;
 
 	// ----- MINIONS -----

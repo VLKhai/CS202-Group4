@@ -2,7 +2,9 @@
 
 Map::Map(sf::RenderWindow& mainWindow)
 {
-	pPlayer = new Luigi(mainWindow, 84, 480);
+	vPlayer.push_back(new Mario(mainWindow, 84, 480));
+	vPlayer.push_back(new Luigi(mainWindow, 84, 480));
+	pPlayer = vPlayer[0];
 
 	this->currentLevelID = 0;
 

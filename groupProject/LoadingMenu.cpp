@@ -16,7 +16,10 @@ LoadingMenu::~LoadingMenu(void) {
 /* ******************************************** */
 
 void LoadingMenu::Update() {
-	if (Core::coreClock.getElapsedTime().asMilliseconds() >= iTime + 2500 + (loadingType ? 0 : 2750)) {
+	std::cout << CFG::keyEnter << std::endl;
+	//if (Core::coreClock.getElapsedTime().asMilliseconds() >= iTime + 2500 + (loadingType ? 0 : 2750)) {
+	if (CFG::keyEnter ||
+		(Core::coreClock.getElapsedTime().asMilliseconds() >= iTime + 5250 && !loadingType)) { // Game Over
 		if (loadingType) {
 			if (!Core::getMap()->getInEvent()) {
 				Core::getMap()->setSpawnPoint();
@@ -52,6 +55,7 @@ void LoadingMenu::Draw(sf::RenderWindow& window) {
 		}
 		CFG::getText()->Draw(window, std::to_string(Core::getMap()->getPlayer()->getNumOfLives()), 520, 180);
 		CFG::getText()->DrawCenterX(window, "REMEMBER THAT YOU CAN RUN WITH " + CFG::getKeyString(CFG::keyIDShift), 400, 16);
+		CFG::getText()->DrawCenterX(window, "PRESS ENTER TO CONTINUE THE NEXT LEVEL", 430, 16);
 	}
 	else {
 		Core::getMap()->DrawGameLayout(window);

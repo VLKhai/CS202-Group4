@@ -11,6 +11,7 @@ public:
     ~CFG();
     static int GameWidth, GameHeight;
 	static bool keySpace;
+    static bool keyEnter;
 	static int keyIDA, keyIDS, keyIDD, keyIDSpace, keyIDShift;
     static bool canMoveBackward;
 

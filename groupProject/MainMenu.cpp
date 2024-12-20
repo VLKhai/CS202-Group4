@@ -78,11 +78,11 @@ void MainMenu::Draw(sf::RenderWindow& mainWindow) {
 
 void MainMenu::enter() {
 	switch (activeMenuOption) {
-	case 0:
+	case 0: // 
 		if (!selectWorld) {
 			selectWorld = true;
 		}
-		else {
+		else { 
 			CFG::getMenuManager()->getLoadingMenu()->updateTime();
 			Core::getMap()->resetGameData();
 			Core::getMap()->setCurrentLevelID(activeWorldID * 4 + activeSecondWorldID);
@@ -90,6 +90,7 @@ void MainMenu::enter() {
 			CFG::getMenuManager()->getLoadingMenu()->loadingType = true;
 			Core::getMap()->setSpawnPointID(0);
 			selectWorld = false;
+			CFG::keyEnter = false;
 		}
 		break;	
 	case 1:

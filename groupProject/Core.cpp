@@ -38,6 +38,7 @@ Core::Core()
     CFG::keyIDS = sf::Keyboard::S;
     CFG::keyIDSpace = sf::Keyboard::Space;
     CFG::keyIDShift = sf::Keyboard::LShift;
+	CFG::keySpace = false;
     CFG::getText()->setFont(mainWindow, "font");
     CFG::getSMBLOGO()->setIMG("super_mario_bros", mainWindow);
     CFG::getMenuManager()->setActiveOption(mainWindow); 
@@ -225,6 +226,7 @@ void Core::inputMenu()
             }
             break;
         case sf::Keyboard::Enter:
+            CFG::keyEnter = true;
             if (!keyMenuPressed) {
                 CFG::getMenuManager()->enter();
                 keyMenuPressed = true;
@@ -254,7 +256,7 @@ void Core::inputMenu()
         switch (mainEvent.key.code) {
         case sf::Keyboard::S: case sf::Keyboard::Down:
         case sf::Keyboard::W: case sf::Keyboard::Up:
-        case sf::Keyboard::Enter: case sf::Keyboard::Escape:
+		case sf::Keyboard::Escape: case sf::Keyboard::Enter:
         case sf::Keyboard::A: case sf::Keyboard::Right:
         case sf::Keyboard::Left: case sf::Keyboard::D:
             keyMenuPressed = false;
@@ -271,5 +273,5 @@ void Core::resetMove()
 }
 
 void Core::resetKeys() {
-    movePressed = keyMenuPressed = keyS = keyW = keyA = keyD = CFG::keySpace = keyShift = keyAPressed = keyDPressed = false;
+    CFG::keySpace = movePressed = keyMenuPressed = keyS = keyW = keyA = keyD = CFG::keySpace = keyShift = keyAPressed = keyDPressed = false;
 }
