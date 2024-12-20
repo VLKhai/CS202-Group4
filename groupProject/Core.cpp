@@ -3,7 +3,8 @@
 
 #include "Core.h"
 
-Map* Core::pMap = new Map();
+
+Map* Core::pMap = &Map::Instance();
 bool Core::mouseLeftPressed = false;
 bool Core::mouseRightPressed = false;
 int Core::mouseX = 0;
@@ -25,8 +26,9 @@ Core::Core()
 {   //1000 X 560 or 800 x 448
     this->mainWindow.create(sf::VideoMode(1000, 560), "Mario Game");
 	this->mainWindow.setFramerateLimit(60);
-
-	this->pMap = new Map(this->mainWindow);
+    
+    this->pMap = &Map::Instance();
+    this->pMap->loadMap(this->mainWindow);
 
     this->keyMenuPressed = this->movePressed = this->keyS = this->keyW = this->keyA = this->keyD = this->keyShift = false;
     this->keyAPressed = this->keyDPressed = this->firstDir = false;
@@ -39,6 +41,9 @@ Core::Core()
     CFG::keyIDSpace = sf::Keyboard::Space;
     CFG::keyIDShift = sf::Keyboard::LShift;
 	CFG::keySpace = false;
+	CFG::keyEnter = false;
+	CFG::keyLeft = false;
+	CFG::keyRight = false;
     CFG::getText()->setFont(mainWindow, "font");
     CFG::getSMBLOGO()->setIMG("super_mario_bros", mainWindow);
     CFG::getMenuManager()->setActiveOption(mainWindow); 
@@ -235,13 +240,15 @@ void Core::inputMenu()
                 keyMenuPressed = true;
             }
             break;*/
-        case sf::Keyboard::Left: case sf::Keyboard::D:
+        case sf::Keyboard::Right: case sf::Keyboard::D:
+			CFG::keyRight = true;
             if (!keyMenuPressed) {
                 CFG::getMenuManager()->keyPressed(3);
                 keyMenuPressed = true;
             }
             break;
-        case sf::Keyboard::Right: case sf::Keyboard::A:
+        case sf::Keyboard::Left: case sf::Keyboard::A:
+			CFG::keyLeft = true;
             if (!keyMenuPressed) {
                 CFG::getMenuManager()->keyPressed(1);
                 keyMenuPressed = true;
@@ -250,12 +257,15 @@ void Core::inputMenu()
         }
     }
     if (mainEvent.type == sf::Event::KeyReleased) {
+		if (mainEvent.key.code == sf::Keyboard::Enter) CFG::keyEnter = false;
+		if (mainEvent.key.code == sf::Keyboard::Right || mainEvent.key.code == sf::Keyboard::D) 
+            CFG::keyRight = false;
+		if (mainEvent.key.code == sf::Keyboard::Left || mainEvent.key.code == sf::Keyboard::A)
+			CFG::keyLeft = false;
         switch (mainEvent.key.code) {
-        case sf::Keyboard::Enter:
-			CFG::keyEnter = false;
         case sf::Keyboard::S: case sf::Keyboard::Down:
         case sf::Keyboard::W: case sf::Keyboard::Up:
-		case sf::Keyboard::Escape:
+		case sf::Keyboard::Escape: case sf::Keyboard::Enter:
         case sf::Keyboard::A: case sf::Keyboard::Right:
         case sf::Keyboard::Left: case sf::Keyboard::D:
             keyMenuPressed = false;

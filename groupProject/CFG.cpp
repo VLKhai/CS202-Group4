@@ -22,7 +22,7 @@ CFG::~CFG() {
 int CFG::GameWidth  = 1000;
 int CFG::GameHeight = 560;
 
-bool CFG::keySpace = false;
+
 
 
 int CFG::keyIDA = 0;
@@ -32,7 +32,10 @@ int CFG::keyIDSpace = 0;
 int CFG::keyIDShift = 0;
 
 bool CFG::canMoveBackward = true;
+bool CFG::keySpace = false;
 bool CFG::keyEnter = false;
+bool CFG::keyLeft = false;
+bool CFG::keyRight = false;
 
 /* ******************************************** */
 

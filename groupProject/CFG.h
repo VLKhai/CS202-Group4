@@ -10,8 +10,7 @@ public:
     CFG();
     ~CFG();
     static int GameWidth, GameHeight;
-	static bool keySpace;
-    static bool keyEnter;
+	static bool keySpace, keyEnter, keyLeft, keyRight;
 	static int keyIDA, keyIDS, keyIDD, keyIDSpace, keyIDShift;
     static bool canMoveBackward;
 

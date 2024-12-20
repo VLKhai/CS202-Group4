@@ -1,11 +1,7 @@
 #include "Map.h"
 
-Map::Map(sf::RenderWindow& mainWindow)
+Map::Map()
 {
-	vPlayer.push_back(new Mario(mainWindow, 84, 480));
-	vPlayer.push_back(new Luigi(mainWindow, 84, 480));
-	pPlayer = vPlayer[0];
-
 	this->currentLevelID = 0;
 
 	this->iMapWidth = 0;
@@ -26,15 +22,10 @@ Map::Map(sf::RenderWindow& mainWindow)
 
 	this->bTP = false;
 
-	CFG::getText()->setFont(mainWindow, "font");
-
 	pEvent = new Event();
 	pFlag = NULL;
 
 	srand((unsigned)time(NULL));
-
-	loadGameData(mainWindow);
-	loadLVL();
 }
 
 Map::~Map()
@@ -49,6 +40,12 @@ Map::~Map()
 
 	delete pEvent;
 	delete pFlag;
+}
+
+Map& Map::Instance()
+{
+	static Map singleTon;
+	return singleTon;
 }
 
 void Map::update()
@@ -535,6 +532,18 @@ void Map::DrawGameLayout(sf::RenderWindow& mainWindow) {
 	}
 }
 
+void Map::moveSelectPlayer(int iD)
+{
+	indexPlayer += iD;
+	if (indexPlayer < 0) {
+		indexPlayer = vPlayer.size()+1;
+	}
+	else if (indexPlayer >= vPlayer.size()) {
+		indexPlayer = 0;
+	}
+	pPlayer = vPlayer[indexPlayer];
+}
+
 // POS 0 = TOP, 1 = BOT
 bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 	if (POS == 0) {
@@ -907,7 +916,6 @@ void Map::resetGameData() {
 
 	loadLVL();
 }
-
 
 void Map::startLevelAnimation() {
 	pEvent->newUnderWater = false;
@@ -1812,8 +1820,21 @@ void Map::setMapTime(int iMapTime) {
 
 
 
+void Map::loadMap(sf::RenderWindow& mainWindow)
+{
+	loadGameData(mainWindow);
+	loadLVL();
+}
+
 void Map::loadGameData(sf::RenderWindow& mainWindow)
 {
+	vPlayer.push_back(new Mario(mainWindow, 84, 480));
+	vPlayer.push_back(new Luigi(mainWindow, 84, 480));
+	indexPlayer = 0;
+	pPlayer = vPlayer[indexPlayer];
+
+	CFG::getText()->setFont(mainWindow, "font");
+
 	std::vector<std::string> tSprite;
 	std::vector<unsigned int> iDelay;
 

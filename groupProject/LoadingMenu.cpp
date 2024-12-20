@@ -16,6 +16,10 @@ LoadingMenu::~LoadingMenu(void) {
 /* ******************************************** */
 
 void LoadingMenu::Update() {
+	//if (CFG::keyLeft) {
+	//	
+	//}
+	
 	if (CFG::keyEnter ||
 		(Core::coreClock.getElapsedTime().asMilliseconds() >= iTime + 5250 && !loadingType)) { // Game Over
 		if (loadingType) {

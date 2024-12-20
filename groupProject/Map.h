@@ -41,6 +41,7 @@
 
 class Map {
 private:
+	friend class Core;
 	float fXPos, fYPos;
 
 	std::vector<Block*> vBlock;
@@ -76,6 +77,7 @@ private:
 
 	// ----- PLAYER -----
 	std::vector<Player*> vPlayer;
+	int indexPlayer;
 	Player* pPlayer;
 
 	// ----- MINIONS -----
@@ -109,15 +111,17 @@ private:
 	int getStartBlock();
 	int getEndBlock();
 
-	// ----- Load -----
-	void loadGameData(sf::RenderWindow& window);
-
-	void createMap();
 
 	void checkSpawnPoint();
 	int getNumOfSpawnPoints();
 	int getSpawnPointXPos(int iID);
 	int getSpawnPointYPos(int iID);
+
+	// ----- Load -----
+	void loadMap(sf::RenderWindow& mainWindow);
+	void loadGameData(sf::RenderWindow& window);
+	void createMap();
+
 
 	void loadLVL_1_1();
 	void loadLVL_1_2();
@@ -220,11 +224,15 @@ private:
 
 	void clearMap();
 	void clearMinions();
+
+	// SingleTon design pattern
+	Map();
+	Map(const Map&) = delete;
+	Map& operator=(const Map&) = delete;
 public:
-	Map() = default;
-    Map(sf::RenderWindow& mainWindow); 
+	static Map& Instance();
 	~Map();
-	
+
     void update();
 	void updateGifBlocks();
 	void updatePlayer();
@@ -236,6 +244,8 @@ public:
 	void drawMap(sf::RenderWindow& mainWindow);
 	void DrawMinions(sf::RenderWindow& mainWindow);
 	void DrawGameLayout(sf::RenderWindow& mainWindow);
+
+	void moveSelectPlayer(int iD);
 
 	//Add 
 	void addPoints(int X, int Y, std::string sText, int iW, int iH);
