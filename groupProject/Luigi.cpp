@@ -313,3 +313,8 @@ AniSprite* Luigi::getSprite()
 {
 	return sLuigi[1 + 11 * powerLVL];
 }
+
+std::string Luigi::getStringName()
+{
+	return "LUIGI";
+}

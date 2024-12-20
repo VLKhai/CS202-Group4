@@ -316,3 +316,8 @@ AniSprite* Mario::getSprite()
 {
 	return sMario[1 + 11 * powerLVL];
 }
+
+std::string Mario::getStringName()
+{
+	return "MARIO";
+}

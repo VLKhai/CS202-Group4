@@ -8,8 +8,6 @@ private:
 	static int iSpriteID;
 	static unsigned int iMoveAnimationTime;
 
-	//static IMG* tMarioLVLUP;
-
 	static int iNumOfLives;
 
 	static bool unKillAble;
@@ -105,7 +103,6 @@ protected:
 	Player(const Player&) = delete;
 	Player& operator=(const Player&) = delete;
 public:
-    
 	virtual ~Player() = default;
     
     virtual void draw(sf::RenderWindow& window) = 0;
@@ -175,8 +172,8 @@ public:
     void setPowerLVL(int powerLVL);
     void resetPowerLVL();
 
-	//IMG* getMarioLVLUP();
 	virtual AniSprite* getSprite() = 0;
+	virtual std::string getStringName() = 0;
 
 	bool getSquat();
 	void setSquat(bool bSquat);

@@ -7,6 +7,9 @@ private:
 public:
 	Luigi(sf::RenderWindow& window, float fXPos, float fYPos);
 	~Luigi();
+	
 	void draw(sf::RenderWindow& window) override;
+	
 	AniSprite* getSprite() override;
+	std::string getStringName() override;
 };

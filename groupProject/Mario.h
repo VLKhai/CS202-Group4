@@ -7,6 +7,9 @@ private:
 public:
 	Mario(sf::RenderWindow& window, float fXPos, float fYPos);
 	~Mario();
+	
 	void draw(sf::RenderWindow& window) override;
+	
 	AniSprite* getSprite() override;
+	std::string getStringName() override;
 };

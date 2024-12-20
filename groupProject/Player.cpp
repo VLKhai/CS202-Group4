@@ -5,8 +5,6 @@
 int Player::iSpriteID;
 unsigned int Player::iMoveAnimationTime;
 
-//IMG* Player::tMarioLVLUP;
-
 int Player::iNumOfLives;
 
 bool Player::unKillAble;
@@ -794,10 +792,6 @@ void Player::resetPowerLVL() {
 	this->powerLVL = 0;
 	this->iSpriteID = 1;
 }
-
-//IMG* Player::getMarioLVLUP() {
-//	return tMarioLVLUP;
-//}
 
 bool Player::getSquat() {
 	return bSquat;
