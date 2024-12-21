@@ -239,6 +239,7 @@ public:
 	void updateMinionBlocks();
 	void updateMinions();
 	void updateMinionsCollisions();
+	void updateSkillCollisions(Minion* pMinion);
 
 	void draw(sf::RenderWindow& mainWindow);
 	void drawMap(sf::RenderWindow& mainWindow);

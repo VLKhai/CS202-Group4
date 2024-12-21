@@ -152,12 +152,14 @@ void Minion::collisionEffect() {
 
 bool Minion::checkVerticalOverlap(float leftX, float rightX)
 {
-	return ((fXPos <= leftX && leftX <= fXPos + iHitBoxX) || (fXPos <= rightX && rightX <= fXPos + iHitBoxX));
+	return ((fXPos <= leftX && leftX <= fXPos + iHitBoxX) || (fXPos <= rightX && rightX <= fXPos + iHitBoxX) 
+		|| (leftX < fXPos && rightX > fXPos+iHitBoxX));
 }
 
 bool Minion::checkHorizontalOverlap(float topY, float botY)
 {
-	return ((fYPos <= topY && topY <= fYPos + iHitBoxY) || (fYPos <= botY && botY <= fYPos + iHitBoxY));
+	return ((fYPos <= topY && topY <= fYPos + iHitBoxY) || (fYPos <= botY && botY <= fYPos + iHitBoxY) 
+		|| (topY < fYPos && botY > fYPos+iHitBoxY));
 }
 
 bool Minion::checkHorizontalTopOverlap(float botY)

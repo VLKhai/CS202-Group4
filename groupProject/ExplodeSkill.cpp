@@ -7,6 +7,7 @@ ExplodeSkill::ExplodeSkill(sf::RenderWindow& window, float fX, float fY)
 	this->iMoveAnimationTime = Core::coreClock.getElapsedTime().asMilliseconds();
 	
 	this->fX = fX; this->fY = fY;
+	this->iHitBoxX = 0; this->iHitBoxY = 0;
 
 	// LOAD SPRITE
 	std::vector<std::string> tempS;
@@ -75,15 +76,19 @@ ExplodeSkill::~ExplodeSkill()
 		delete sp;
 }
 
-void ExplodeSkill::update(float fX, float fY)
+void ExplodeSkill::update(float fXcen, float fYcen)
 {
-	this->fX = fX; this->fY = fY + 20;
+	this->fXcen = fXcen; this->fYcen = fYcen - 50;
+	this->fX = fXcen - iHitBoxX/2; this->fY = fYcen - iHitBoxY/2;
+	if (2 <= iSpriteID && iSpriteID <= 6) setHitBox(140, 150);
+	else if (iSpriteID == 7) setHitBox(0, 0);
 	updateAnimation();
 }
 
 void ExplodeSkill::updateAnimation()
 {
-	if (Core::coreClock.getElapsedTime().asMilliseconds() - iMoveAnimationTime > 100) {
+	int deltaT = (2 <= iSpriteID && iSpriteID <= 6) ? 40 : 150;
+	if (Core::coreClock.getElapsedTime().asMilliseconds() - iMoveAnimationTime > deltaT) {
 		iSpriteID = (iSpriteID + 1) % 14;
 		iMoveAnimationTime = Core::coreClock.getElapsedTime().asMilliseconds();
 	}
@@ -91,7 +96,29 @@ void ExplodeSkill::updateAnimation()
 
 void ExplodeSkill::draw(sf::RenderWindow& window)
 {
-	sExplodeSkill[getSpriteID()]->getFrame()->drawFromBotCen(window, fX, fY);
+	sExplodeSkill[getSpriteID()]->getFrame()->drawFromCenter(window, fXcen, fYcen);
+	drawHitBox(window);
+}
+
+void ExplodeSkill::drawHitBox(sf::RenderWindow& window)
+{
+	sf::RectangleShape rect(sf::Vector2f(iHitBoxX, iHitBoxY));
+	rect.setFillColor(sf::Color::Transparent);
+	rect.setOutlineColor(sf::Color::Green);
+	rect.setOutlineThickness(1);
+	rect.setOrigin(iHitBoxX / 2, iHitBoxY / 2);
+	rect.setPosition(fXcen, fYcen);
+	window.draw(rect);
+}
+
+int ExplodeSkill::getXPos()
+{
+	return fX;
+}
+
+int ExplodeSkill::getYPos()
+{
+	return fY;
 }
 
 int ExplodeSkill::getSpriteID()
@@ -99,4 +126,8 @@ int ExplodeSkill::getSpriteID()
 	return this->iSpriteID;
 }
 
-
+void ExplodeSkill::setHitBox(int x, int y)
+{
+	this->iHitBoxX = x;
+	this->iHitBoxY = y;
+}

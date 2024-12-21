@@ -10,6 +10,7 @@ public:
 	
 	void draw(sf::RenderWindow& window) override;
 	
+	void useSkill(Minion* pMinion) override;
 	AniSprite* getSprite() override;
 	std::string getStringName() override;
 };

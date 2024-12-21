@@ -321,6 +321,14 @@ void Mario::draw(sf::RenderWindow& window)
 	}
 }
 
+
+void Mario::useSkill(Minion* pMinion)
+{
+	//setUseSkill(true)
+	//if (pMinion )
+
+}
+
 AniSprite* Mario::getSprite()
 {
 	return sMario[1 + 11 * powerLVL];

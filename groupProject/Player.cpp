@@ -72,6 +72,8 @@ int Player::nextFireBallFrameID;
 
 Player::Player(sf::RenderWindow &window, float fXPos, float fYPos)
 {
+	this->bUseSkill = true;
+	
 	this->fXPos = fXPos;
 	this->fYPos = fYPos;
 	this->iNumOfLives = 3;
@@ -1073,4 +1075,9 @@ void Player::setYPos(float fYPos) {
 void Player::setSpringJump(bool springJump)
 {
 	this->springJump = springJump;
+}
+
+bool Player::getUseSkill()
+{
+	return bUseSkill;
 }

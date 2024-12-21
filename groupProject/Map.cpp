@@ -400,9 +400,8 @@ void Map::updateMinionsCollisions() {
 		}
 	}
 
+	// ----- COLLISION WITH PLAYER
 	if (!inEvent && !pPlayer->getInLevelAnimation()) {
-		// ----- COLLISION WITH PLAYER
-		// 
 		for (int i = getListID(-(int)fXPos + pPlayer->getXPos()) - (getListID(-(int)fXPos + pPlayer->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
 			for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
 				//std::cout << lMinion[i][j]->deadTime << std::endl;
@@ -424,6 +423,12 @@ void Map::updateMinionsCollisions() {
 			}
 		}
 	}
+}
+
+void Map::updateSkillCollisions(Minion* pMinion)
+{
+	if (!pPlayer->getUseSkill()) return;
+	//pPlayer->useSkill(pMinion);
 }
 
 void Map::draw(sf::RenderWindow& mainWindow)
