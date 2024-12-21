@@ -402,27 +402,21 @@ void Map::updateMinionsCollisions() {
 
 	if (!inEvent && !pPlayer->getInLevelAnimation()) {
 		// ----- COLLISION WITH PLAYER
+		// 
 		for (int i = getListID(-(int)fXPos + pPlayer->getXPos()) - (getListID(-(int)fXPos + pPlayer->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
 			for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
-				if (lMinion[i][j]->deadTime < 0) {
-
-					// if (player.vX >= )
-					if ((pPlayer->getXPos() - fXPos >= lMinion[i][j]->getXPos() 
-					&& pPlayer->getXPos() - fXPos <= lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX) 
-					|| (pPlayer->getXPos() - fXPos + pPlayer->getHitBoxX() >= lMinion[i][j]->getXPos() 
-					&& pPlayer->getXPos() - fXPos + pPlayer->getHitBoxX() <= lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX)) {
+				//std::cout << lMinion[i][j]->deadTime << std::endl;
+				if (lMinion[i][j]->isAlive()) {
+					int playerLeftX = pPlayer->getXPos() - fXPos;
+					// if (minion.leftX <= player.leftX <= minion.rightX) or (minion.leftX <= player.rightX <= minion.rightX)
+					if (lMinion[i][j]->checkVerticalOverlap(playerLeftX, playerLeftX + pPlayer->getHitBoxX())) {
 						
 						// if (minion.y - 2 <= player.botY <= minion.y + 16) when player is on top of minion 2 px
-						if (lMinion[i][j]->getYPos() - 2 <= pPlayer->getYPos() + pPlayer->getHitBoxY() 
-						&& lMinion[i][j]->getYPos() + 16 >= pPlayer->getYPos() + pPlayer->getHitBoxY()) {
-							//std::cout << "Player Bot Y: " << pPlayer->getYPos() + pPlayer->getHitBoxY() << std::endl;
-							//std::cout << "Minion Y: " << lMinion[i][j]->getYPos() << std::endl;
+						if (lMinion[i][j]->checkHorizontalTopOverlap(pPlayer->getYPos() + pPlayer->getHitBoxY())) {
 							lMinion[i][j]->collisionWithPlayer(true);
 						}
 						// if (minion.y <= player.botY <= minion.botY) or (minion.y <= player.y <= minion.botY)
-						else if ((lMinion[i][j]->getYPos() <= pPlayer->getYPos() + pPlayer->getHitBoxY() 
-						&& lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= pPlayer->getYPos() + pPlayer->getHitBoxY()) 
-						|| (lMinion[i][j]->getYPos() <= pPlayer->getYPos() && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= pPlayer->getYPos())) {
+						else if (lMinion[i][j]->checkHorizontalOverlap(pPlayer->getYPos(), pPlayer->getYPos()+ pPlayer->getHitBoxY())) {
 							lMinion[i][j]->collisionWithPlayer(false);
 						}
 					}
@@ -434,12 +428,6 @@ void Map::updateMinionsCollisions() {
 
 void Map::draw(sf::RenderWindow& mainWindow)
 {
-	sf::RectangleShape rec(sf::Vector2f(10, 10));
-	rec.setFillColor(sf::Color::Red);
-	rec.setPosition(fXPos, fYPos);
-	mainWindow.draw(rec);
-	std::cout << "X: " << fXPos << " Y: " << fYPos << std::endl;
-
 	drawMap(mainWindow);
 
 	for (unsigned int i = 0; i < vPlatform.size(); i++) {

@@ -42,7 +42,7 @@
 class Map {
 private:
 	friend class Core;
-	float fXPos, fYPos;
+	float fXPos, fYPos; // Coordinate of the view window in the virtual world
 
 	std::vector<Block*> vBlock;
 	int iBlockSize; // Size of vBlock
