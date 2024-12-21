@@ -1,17 +1,10 @@
 #pragma once
-#include "AniSprite.h"
+#include "Skill.h"
 
-class ExplodeSkill
+class ExplodeSkill : public Skill
 {
 private:
-	float fX, fY;
 	float fXcen, fYcen;
-	std::vector<AniSprite*> sExplodeSkill;
-	int iSpriteID;
-	int iMoveAnimationTime;
-
-	int iHitBoxX, iHitBoxY;
-	bool bTrigger;
 public:
 	ExplodeSkill(sf::RenderWindow& window, float fX, float fY);
 	~ExplodeSkill();
@@ -20,16 +13,4 @@ public:
 	void updateAnimation();
 
 	void draw(sf::RenderWindow& window);
-	void drawHitBox(sf::RenderWindow& window);
-	
-	int getXPos();
-	int getYPos();
-	
-	int getSpriteID();
-
-	int getHitBoxX();
-	int getHitBoxY();
-	void setHitBox(int x, int y);
-
-	bool getTrigger();
 };

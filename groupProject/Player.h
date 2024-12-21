@@ -3,6 +3,7 @@
 #include "AniSprite.h"
 #include "Vector2.h"
 #include "Minion.h"
+#include "Skill.h"
 
 class Player {
 private:
@@ -71,8 +72,6 @@ private:
 
 	static int nextFireBallFrameID;
 
-	bool bUseSkill;
-
 	// ----- Method
 	void movePlayer();
 
@@ -102,6 +101,8 @@ protected:
 	int inLevelDownAnimationFrameID;
 
 	int iSkillCooldown;
+	bool bUseSkill;
+	Skill* pSkill;
 
 	Player(sf::RenderWindow& window, float fXPos, float fYPos);
 	Player() = delete;
@@ -199,5 +200,5 @@ public:
 	void setSpringJump(bool springJump);
 
 	bool getUseSkill();
-	void setUseSkill(bool bUseSkill);
+	virtual void setUseSkill(bool bUseSkill);
 };

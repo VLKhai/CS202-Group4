@@ -62,6 +62,7 @@
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Points.cpp" />
+    <ClCompile Include="Skill.cpp" />
     <ClCompile Include="Spikey.cpp" />
     <ClCompile Include="Squid.cpp" />
     <ClCompile Include="Star.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Plant.h" />
     <ClInclude Include="Points.h" />
+    <ClInclude Include="Skill.h" />
     <ClInclude Include="Spikey.h" />
     <ClInclude Include="Squid.h" />
     <ClInclude Include="Star.h" />

@@ -71,7 +71,7 @@ int Player::nextFireBallFrameID;
 
 Player::Player(sf::RenderWindow &window, float fXPos, float fYPos)
 {
-	this->bUseSkill = true;
+	this->bUseSkill = false;
 	
 	this->fXPos = fXPos;
 	this->fYPos = fYPos;
@@ -1089,4 +1089,12 @@ bool Player::getUseSkill()
 void Player::setUseSkill(bool bUseSkill)
 {
 	this->bUseSkill = bUseSkill;
+	if (bUseSkill) {
+		this->setUnkillAble(true);
+		this->pSkill->setTrigger(true);
+	}
+	else {
+		this->setUnkillAble(false);
+		this->pSkill->setTrigger(false);
+	}
 }

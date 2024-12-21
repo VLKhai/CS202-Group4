@@ -5,8 +5,6 @@
 class Mario : public Player {
 private:
 	std::vector<AniSprite*> sMario;
-	
-	ExplodeSkill* explodeSkill;
 public:
 	Mario(sf::RenderWindow& window, float fXPos, float fYPos);
 	~Mario();

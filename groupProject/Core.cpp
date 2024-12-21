@@ -172,10 +172,10 @@ void Core::inputPlayer() {
             }
         }
 
-        if (mainEvent.key.code == CFG::keyIDSpace) {
+        if (mainEvent.key.code == CFG::keyIDSkill) {
             if (!CFG::keySkill) {
                 pMap->getPlayer()->setUseSkill(true);
-                CFG::keySpace = true;
+                CFG::keySkill = true;
             }
         }
         

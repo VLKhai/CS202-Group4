@@ -5,7 +5,7 @@ Mario::Mario(sf::RenderWindow& window, float fXPos, float fYPos) : Player(window
 	limSmallJumpBlock = 2;
 	limBigJumpBlock = 4;
 
-	this->explodeSkill = new ExplodeSkill(window, fXPos, fYPos);
+	this->pSkill = new ExplodeSkill(window, fXPos, fYPos);
 
 	// LOAD SPRITE
 	std::vector<std::string> tempS;
@@ -304,16 +304,15 @@ Mario::~Mario()
 void Mario::update()
 {
 	Player::update();
-	explodeSkill->update(fXPos + Player::getHitBoxX() / 2, fYPos + Player::getHitBoxY() / 2);
-	if (!explodeSkill->getTrigger()) {
-		setUnkillAble(false);
-		setUseSkill(false);
-	}
+	if (bUseSkill) {
+		pSkill->update(fXPos + Player::getHitBoxX() / 2, fYPos + Player::getHitBoxY() / 2);
+	} 
+	if (!pSkill->getTrigger()) setUseSkill(false);
 }
 
 void Mario::draw(sf::RenderWindow& window)
 {
-	explodeSkill->draw(window);
+	if (bUseSkill) pSkill->draw(window);
 	if (!inLevelDownAnimation || Core::getMap()->getInEvent()) {
 		// Super Mario
 		sMario[getSpriteID()]->getTexture()->draw(window, (int)fXPos, (int)fYPos + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);
@@ -327,13 +326,11 @@ void Mario::draw(sf::RenderWindow& window)
 
 void Mario::useSkill(Minion* pMinion, float fXmap)
 {
-	//setUseSkill(true)
-	setUnkillAble(true);
 	std::cout << "SKILL" << std::endl;
-	float fXSkill = explodeSkill->getXPos() - fXmap;
-	float fYSkill = explodeSkill->getYPos();
-	if (pMinion->checkHorizontalOverlap(fYSkill-2, fYSkill+explodeSkill->getHitBoxY()+2)
-		&& pMinion->checkVerticalOverlap(fXSkill-2, fXSkill + explodeSkill->getHitBoxX()+2)) {
+	float fXSkill = pSkill->getXPos() - fXmap;
+	float fYSkill = pSkill->getYPos();
+	if (pMinion->checkHorizontalOverlap(fYSkill-2, fYSkill+pSkill->getHitBoxY()+2)
+		&& pMinion->checkVerticalOverlap(fXSkill-2, fXSkill + pSkill->getHitBoxX()+2)) {
 		std::cout << "KILL" << std::endl;
 		pMinion->killMinion();
 	}
