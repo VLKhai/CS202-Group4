@@ -405,6 +405,9 @@ void Map::updateMinionsCollisions() {
 		for (int i = getListID(-(int)fXPos + pPlayer->getXPos()) - (getListID(-(int)fXPos + pPlayer->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
 			for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
 				//std::cout << lMinion[i][j]->deadTime << std::endl;
+				
+				if (lMinion[i][j]->isAlive()) updateSkillCollisions(lMinion[i][j]);
+				
 				if (lMinion[i][j]->isAlive()) {
 					int playerLeftX = pPlayer->getXPos() - fXPos;
 					// if (minion.leftX <= player.leftX <= minion.rightX) or (minion.leftX <= player.rightX <= minion.rightX)
@@ -428,7 +431,7 @@ void Map::updateMinionsCollisions() {
 void Map::updateSkillCollisions(Minion* pMinion)
 {
 	if (!pPlayer->getUseSkill()) return;
-	//pPlayer->useSkill(pMinion);
+	pPlayer->useSkill(pMinion, fXPos);
 }
 
 void Map::draw(sf::RenderWindow& mainWindow)
@@ -493,6 +496,7 @@ void Map::DrawMinions(sf::RenderWindow& mainWindow) {
 	for (int i = 0; i < iMinionListSize; i++) {
 		for (int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
 			lMinion[i][j]->Draw(mainWindow, vMinion[lMinion[i][j]->getBloockID()]->getAniSprite()->getFrame());
+			lMinion[i][j]->drawBoundingBox(mainWindow);
 			//CFG::getText()->DrawWS(mainWindow, std::to_string(i), lMinion[i][j]->getXPos() + (int)fXPos, lMinion[i][j]->getYPos(), 0, 0, 0, 8);
 		}
 	}

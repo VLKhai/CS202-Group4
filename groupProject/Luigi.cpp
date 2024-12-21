@@ -309,7 +309,7 @@ void Luigi::draw(sf::RenderWindow& window)
 	}
 }
 
-void Luigi::useSkill(Minion* pMinion)
+void Luigi::useSkill(Minion* pMinion, float fXmap)
 {
 }
 

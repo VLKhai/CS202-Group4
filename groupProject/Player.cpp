@@ -6,7 +6,6 @@ int Player::iSpriteID;
 unsigned int Player::iMoveAnimationTime;
 
 int Player::iNumOfLives;
-
 bool Player::unKillAble;
 bool Player::starEffect;
 
@@ -1008,6 +1007,11 @@ bool Player::getUnkillAble()
 	return unKillAble;
 }
 
+void Player::setUnkillAble(bool b)
+{
+	unKillAble = b;
+}
+
 int Player::getNumOfLives() {
 	return iNumOfLives;
 }
@@ -1080,4 +1084,9 @@ void Player::setSpringJump(bool springJump)
 bool Player::getUseSkill()
 {
 	return bUseSkill;
+}
+
+void Player::setUseSkill(bool bUseSkill)
+{
+	this->bUseSkill = bUseSkill;
 }

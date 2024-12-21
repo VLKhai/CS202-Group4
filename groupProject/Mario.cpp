@@ -304,7 +304,11 @@ Mario::~Mario()
 void Mario::update()
 {
 	Player::update();
-	explodeSkill->update(fXPos + Player::getHitBoxX() / 2, fYPos + Player::getHitBoxY()); // Bottom center
+	explodeSkill->update(fXPos + Player::getHitBoxX() / 2, fYPos + Player::getHitBoxY() / 2);
+	if (!explodeSkill->getTrigger()) {
+		setUnkillAble(false);
+		setUseSkill(false);
+	}
 }
 
 void Mario::draw(sf::RenderWindow& window)
@@ -321,12 +325,18 @@ void Mario::draw(sf::RenderWindow& window)
 	}
 }
 
-
-void Mario::useSkill(Minion* pMinion)
+void Mario::useSkill(Minion* pMinion, float fXmap)
 {
 	//setUseSkill(true)
-	//if (pMinion )
-
+	setUnkillAble(true);
+	std::cout << "SKILL" << std::endl;
+	float fXSkill = explodeSkill->getXPos() - fXmap;
+	float fYSkill = explodeSkill->getYPos();
+	if (pMinion->checkHorizontalOverlap(fYSkill-2, fYSkill+explodeSkill->getHitBoxY()+2)
+		&& pMinion->checkVerticalOverlap(fXSkill-2, fXSkill + explodeSkill->getHitBoxX()+2)) {
+		std::cout << "KILL" << std::endl;
+		pMinion->killMinion();
+	}
 }
 
 AniSprite* Mario::getSprite()

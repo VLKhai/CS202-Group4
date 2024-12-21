@@ -40,6 +40,7 @@ Core::Core()
     CFG::keyIDS = sf::Keyboard::S;
     CFG::keyIDSpace = sf::Keyboard::Space;
     CFG::keyIDShift = sf::Keyboard::LShift;
+	CFG::keyIDSkill = sf::Keyboard::E;
 	CFG::keySpace = false;
 	CFG::keyEnter = false;
 	CFG::keyLeft = false;
@@ -123,6 +124,11 @@ void Core::inputPlayer() {
                 keyShift = false;
             }
         }
+
+        if (mainEvent.key.code == CFG::keyIDSkill) {
+            CFG::keySkill = false;
+        }
+
     }
 
     if (mainEvent.type == sf::Event::KeyPressed) {
@@ -163,6 +169,13 @@ void Core::inputPlayer() {
                 CFG::getMusic()->PlayChunk(CFG::getMusic()->cPAUSE);
                 CFG::getMusic()->PauseMusic();
                 keyMenuPressed = true;
+            }
+        }
+
+        if (mainEvent.key.code == CFG::keyIDSpace) {
+            if (!CFG::keySkill) {
+                pMap->getPlayer()->setUseSkill(true);
+                CFG::keySpace = true;
             }
         }
         

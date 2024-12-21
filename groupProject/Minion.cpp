@@ -32,6 +32,16 @@ Minion::Minion(void) {
 void Minion::Update() { }
 void Minion::Draw(sf::RenderWindow& MainWindow, IMG* iIMG) {}
 
+void Minion::drawBoundingBox(sf::RenderWindow& MainWindow)
+{
+	sf::RectangleShape rect(sf::Vector2f(iHitBoxX, iHitBoxY));
+	rect.setFillColor(sf::Color::Transparent);
+	rect.setOutlineColor(sf::Color::Green);
+	rect.setOutlineThickness(1);
+	rect.setPosition((int)fXPos + (int)Core::getMap()->getXPos(), fYPos);
+	MainWindow.draw(rect);
+}
+
 bool Minion::updateMinion() {
 	if (!minionSpawned) {
 		Spawn();
@@ -191,6 +201,11 @@ void Minion::startJump(int iH) {
 void Minion::resetJump() {
 	jumpState = 0;
 	currentFallingSpeed = 2.7f;
+}
+
+void Minion::killMinion()
+{
+	setMinionState(-2);
 }
 
 void Minion::points(int iPoints) {

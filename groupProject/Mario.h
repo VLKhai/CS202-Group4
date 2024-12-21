@@ -15,7 +15,8 @@ public:
 
 	void draw(sf::RenderWindow& window) override;
 	
-	void useSkill(Minion* pMinion) override;
+	void useSkill(Minion* pMinion, float fXmap) override;
+
 	AniSprite* getSprite() override;
 	std::string getStringName() override;
 };

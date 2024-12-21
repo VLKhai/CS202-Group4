@@ -78,10 +78,9 @@ ExplodeSkill::~ExplodeSkill()
 
 void ExplodeSkill::update(float fXcen, float fYcen)
 {
-	this->fXcen = fXcen; this->fYcen = fYcen - 50;
-	this->fX = fXcen - iHitBoxX/2; this->fY = fYcen - iHitBoxY/2;
+	this->fXcen = fXcen; this->fYcen = fYcen - 30;
+	this->fX = fXcen - iHitBoxX/2; this->fY = this->fYcen - iHitBoxY/2;
 	if (2 <= iSpriteID && iSpriteID <= 6) setHitBox(140, 150);
-	else if (iSpriteID == 7) setHitBox(0, 0);
 	updateAnimation();
 }
 
@@ -89,6 +88,7 @@ void ExplodeSkill::updateAnimation()
 {
 	int deltaT = (2 <= iSpriteID && iSpriteID <= 6) ? 40 : 150;
 	if (Core::coreClock.getElapsedTime().asMilliseconds() - iMoveAnimationTime > deltaT) {
+		if (iSpriteID == 13) bTrigger = false;
 		iSpriteID = (iSpriteID + 1) % 14;
 		iMoveAnimationTime = Core::coreClock.getElapsedTime().asMilliseconds();
 	}
@@ -97,7 +97,7 @@ void ExplodeSkill::updateAnimation()
 void ExplodeSkill::draw(sf::RenderWindow& window)
 {
 	sExplodeSkill[getSpriteID()]->getFrame()->drawFromCenter(window, fXcen, fYcen);
-	drawHitBox(window);
+	//drawHitBox(window);
 }
 
 void ExplodeSkill::drawHitBox(sf::RenderWindow& window)
@@ -109,6 +109,10 @@ void ExplodeSkill::drawHitBox(sf::RenderWindow& window)
 	rect.setOrigin(iHitBoxX / 2, iHitBoxY / 2);
 	rect.setPosition(fXcen, fYcen);
 	window.draw(rect);
+	//rect.setOutlineColor(sf::Color::Red);
+	//rect.setOrigin(0, 0);
+	//rect.setPosition(fX, fY);
+	//window.draw(rect);
 }
 
 int ExplodeSkill::getXPos()
@@ -126,8 +130,23 @@ int ExplodeSkill::getSpriteID()
 	return this->iSpriteID;
 }
 
+int ExplodeSkill::getHitBoxX()
+{
+	return iHitBoxX;
+}
+
+int ExplodeSkill::getHitBoxY()
+{
+	return iHitBoxY;
+}
+
 void ExplodeSkill::setHitBox(int x, int y)
 {
 	this->iHitBoxX = x;
 	this->iHitBoxY = y;
+}
+
+bool ExplodeSkill::getTrigger()
+{
+	return bTrigger;
 }

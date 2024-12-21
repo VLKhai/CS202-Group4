@@ -2,8 +2,7 @@
 #include <vector>
 #include "AniSprite.h"
 #include "Vector2.h"
-
-class Minion;
+#include "Minion.h"
 
 class Player {
 private:
@@ -102,6 +101,8 @@ protected:
 	bool inLevelDownAnimation;
 	int inLevelDownAnimationFrameID;
 
+	int iSkillCooldown;
+
 	Player(sf::RenderWindow& window, float fXPos, float fYPos);
 	Player() = delete;
 	Player(const Player&) = delete;
@@ -117,7 +118,7 @@ public:
 	void updateXPos(int iN); 
 	void updateYPos(int iN); 
 
-	virtual void useSkill(Minion* pMinion) = 0;
+	virtual void useSkill(Minion* pMinion, float fXmap) = 0;
 
 	// --<ANIMATION>--
     void moveAnimation();
@@ -160,6 +161,7 @@ public:
 	void setMoveSpeed(int moveSpeed);
     
 	bool getUnkillAble();
+	void setUnkillAble(bool b);
 
 	int getNumOfLives();
 	void setNumOfLives(int iNumOfLives);
@@ -197,4 +199,5 @@ public:
 	void setSpringJump(bool springJump);
 
 	bool getUseSkill();
+	void setUseSkill(bool bUseSkill);
 };

@@ -38,6 +38,7 @@ public:
 	// ---------- Methods
 	virtual void Update();
 	virtual void Draw(sf::RenderWindow& MainWindow, IMG* iIMG);
+	void drawBoundingBox(sf::RenderWindow& MainWindow);
 
 	virtual void updateYPos(int iN);
 	virtual void updateXPos();
@@ -59,6 +60,8 @@ public:
 	void Spawn();
 	void startJump(int iH);
 	void resetJump();
+
+	void killMinion();
 
 	// ----- COLLISON
 

@@ -11,6 +11,7 @@ private:
 	int iMoveAnimationTime;
 
 	int iHitBoxX, iHitBoxY;
+	bool bTrigger;
 public:
 	ExplodeSkill(sf::RenderWindow& window, float fX, float fY);
 	~ExplodeSkill();
@@ -26,5 +27,9 @@ public:
 	
 	int getSpriteID();
 
+	int getHitBoxX();
+	int getHitBoxY();
 	void setHitBox(int x, int y);
+
+	bool getTrigger();
 };

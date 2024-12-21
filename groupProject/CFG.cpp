@@ -30,12 +30,14 @@ int CFG::keyIDD = 0;
 int CFG::keyIDS = 0;
 int CFG::keyIDSpace = 0;
 int CFG::keyIDShift = 0;
+int CFG::keyIDSkill = 0;
 
 bool CFG::canMoveBackward = true;
 bool CFG::keySpace = false;
 bool CFG::keyEnter = false;
 bool CFG::keyLeft = false;
 bool CFG::keyRight = false;
+bool CFG::keySkill = false;
 
 /* ******************************************** */
 
