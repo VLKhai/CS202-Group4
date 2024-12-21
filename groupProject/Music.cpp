@@ -27,7 +27,6 @@ Music::Music() {
     this->currentMusic = mNOTHING;
 }
 
-
 Music::~Music() {
     for (auto& music : vMusic) delete music;
     for (auto& buffer : vChunkBuffers) delete buffer;

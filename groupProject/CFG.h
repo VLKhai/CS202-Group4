@@ -19,8 +19,8 @@ public:
     static MenuManager* getMenuManager();
     static IMG* getSMBLOGO();
     static Music* getMusic();
-
     static std::string getKeyString(int keyID);
+
 private:
     static Text* oText;
     static MenuManager* oMM;

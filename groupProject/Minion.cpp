@@ -150,6 +150,23 @@ void Minion::collisionEffect() {
 		moveDirection = !moveDirection;
 }
 
+bool Minion::checkVerticalOverlap(float leftX, float rightX)
+{
+	return ((fXPos <= leftX && leftX <= fXPos + iHitBoxX) || (fXPos <= rightX && rightX <= fXPos + iHitBoxX) 
+		|| (leftX < fXPos && rightX > fXPos+iHitBoxX));
+}
+
+bool Minion::checkHorizontalOverlap(float topY, float botY)
+{
+	return ((fYPos <= topY && topY <= fYPos + iHitBoxY) || (fYPos <= botY && botY <= fYPos + iHitBoxY) 
+		|| (topY < fYPos && botY > fYPos+iHitBoxY));
+}
+
+bool Minion::checkHorizontalTopOverlap(float botY)
+{
+	return (fYPos-2 <= botY && botY <= fYPos+16);
+}
+
 void Minion::collisionWithPlayer(bool TOP) { }
 
 void Minion::collisionWithAnotherUnit() { };
@@ -215,6 +232,11 @@ int Minion::getYPos() {
 
 void Minion::setYPos(int iYPos) {
 	this->fYPos = (float)iYPos;
+}
+
+bool Minion::isAlive()
+{
+	return (deadTime<0);
 }
 
 int Minion::getMinionState() {

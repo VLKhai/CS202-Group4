@@ -47,6 +47,10 @@ public:
 
 	virtual void collisionEffect();
 
+	bool checkVerticalOverlap(float leftX, float rightX);
+	bool checkHorizontalOverlap(float topY, float botY);
+	bool checkHorizontalTopOverlap(float botY);
+
 	virtual void minionDeathAnimation();
 
 	void physicsState1();
@@ -76,4 +80,6 @@ public:
 	int getXPos();
 	int getYPos();
 	void setYPos(int iYPos);
+
+	bool isAlive();
 };

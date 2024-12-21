@@ -3,6 +3,8 @@
 #include "AniSprite.h"
 #include "Vector2.h"
 
+class Minion;
+
 class Player {
 private:
 	static int iSpriteID;
@@ -70,6 +72,8 @@ private:
 
 	static int nextFireBallFrameID;
 
+	bool bUseSkill;
+
 	// ----- Method
 	void movePlayer();
 
@@ -112,6 +116,8 @@ public:
 
 	void updateXPos(int iN); 
 	void updateYPos(int iN); 
+
+	virtual void useSkill(Minion* pMinion) = 0;
 
 	// --<ANIMATION>--
     void moveAnimation();
@@ -189,4 +195,6 @@ public:
 	void setCoins(unsigned int iCoins);
 
 	void setSpringJump(bool springJump);
+
+	bool getUseSkill();
 };

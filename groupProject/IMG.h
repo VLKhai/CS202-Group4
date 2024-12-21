@@ -18,6 +18,7 @@ public:
     void draw(sf::RenderWindow& mainWindow, sf::IntRect rCrop, sf::IntRect rRect);
     void drawVert(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset);
 	void drawFromCenter(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset);
+	void drawFromBotCen(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset);
     void drawBoundingBox(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset);
 
     /* ----- get & set ----- */

@@ -72,6 +72,8 @@ int Player::nextFireBallFrameID;
 
 Player::Player(sf::RenderWindow &window, float fXPos, float fYPos)
 {
+	this->bUseSkill = true;
+	
 	this->fXPos = fXPos;
 	this->fYPos = fYPos;
 	this->iNumOfLives = 3;
@@ -939,10 +941,6 @@ int Player::getSpriteID()
 			CFG::getMusic()->changeMusic(true, true);
 		}
 
-		++unKillAbleFrameID;
-
-		--unKillAbleTimeFrameID;
-
 		if (unKillAbleTimeFrameID < 90) {
 			if (unKillAbleFrameID < 5) {
 				return powerLVL < 1 ? iSpriteID + 44 : powerLVL == 2 ? iSpriteID : iSpriteID + 11;
@@ -1077,4 +1075,9 @@ void Player::setYPos(float fYPos) {
 void Player::setSpringJump(bool springJump)
 {
 	this->springJump = springJump;
+}
+
+bool Player::getUseSkill()
+{
+	return bUseSkill;
 }

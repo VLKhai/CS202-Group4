@@ -86,6 +86,14 @@ void IMG::drawFromCenter(sf::RenderWindow& mainWindow, int iXOffset, int iYOffse
 	sIMG->setOrigin(0, 0);
 }
 
+void IMG::drawFromBotCen(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset)
+{
+	sIMG->setOrigin(sIMG->getGlobalBounds().width / 2, sIMG->getGlobalBounds().height);
+	sIMG->setPosition(iXOffset, iYOffset);
+	mainWindow.draw(*sIMG);
+	sIMG->setOrigin(0, 0);
+}
+
 void IMG::drawBoundingBox(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset) {
     sf::FloatRect bounds = sIMG->getGlobalBounds();
     sf::RectangleShape boundingBox(sf::Vector2f(bounds.width, bounds.height));

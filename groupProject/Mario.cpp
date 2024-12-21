@@ -304,7 +304,7 @@ Mario::~Mario()
 void Mario::update()
 {
 	Player::update();
-	explodeSkill->update(fXPos + Player::getHitBoxX() / 2, fYPos + Player::getHitBoxY() / 2);
+	explodeSkill->update(fXPos + Player::getHitBoxX() / 2, fYPos + Player::getHitBoxY()); // Bottom center
 }
 
 void Mario::draw(sf::RenderWindow& window)
@@ -319,6 +319,14 @@ void Mario::draw(sf::RenderWindow& window)
 			sMario[getSpriteID()]->getTexture()->draw(window, (int)fXPos, (int)fYPos + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);
 		}
 	}
+}
+
+
+void Mario::useSkill(Minion* pMinion)
+{
+	//setUseSkill(true)
+	//if (pMinion )
+
 }
 
 AniSprite* Mario::getSprite()

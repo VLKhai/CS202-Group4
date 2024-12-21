@@ -309,6 +309,10 @@ void Luigi::draw(sf::RenderWindow& window)
 	}
 }
 
+void Luigi::useSkill(Minion* pMinion)
+{
+}
+
 AniSprite* Luigi::getSprite()
 {
 	return sLuigi[1 + 11 * powerLVL];
