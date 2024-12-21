@@ -939,10 +939,6 @@ int Player::getSpriteID()
 			CFG::getMusic()->changeMusic(true, true);
 		}
 
-		++unKillAbleFrameID;
-
-		--unKillAbleTimeFrameID;
-
 		if (unKillAbleTimeFrameID < 90) {
 			if (unKillAbleFrameID < 5) {
 				return powerLVL < 1 ? iSpriteID + 44 : powerLVL == 2 ? iSpriteID : iSpriteID + 11;

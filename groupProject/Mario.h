@@ -1,7 +1,6 @@
 #pragma once
 #include "Player.h"
 #include "ExplodeSkill.h"
-
 class Mario : public Player {
 private:
 	std::vector<AniSprite*> sMario;

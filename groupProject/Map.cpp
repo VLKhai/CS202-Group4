@@ -405,11 +405,24 @@ void Map::updateMinionsCollisions() {
 		for (int i = getListID(-(int)fXPos + pPlayer->getXPos()) - (getListID(-(int)fXPos + pPlayer->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
 			for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
 				if (lMinion[i][j]->deadTime < 0) {
-					if ((pPlayer->getXPos() - fXPos >= lMinion[i][j]->getXPos() && pPlayer->getXPos() - fXPos <= lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX) || (pPlayer->getXPos() - fXPos + pPlayer->getHitBoxX() >= lMinion[i][j]->getXPos() && pPlayer->getXPos() - fXPos + pPlayer->getHitBoxX() <= lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX)) {
-						if (lMinion[i][j]->getYPos() - 2 <= pPlayer->getYPos() + pPlayer->getHitBoxY() && lMinion[i][j]->getYPos() + 16 >= pPlayer->getYPos() + pPlayer->getHitBoxY()) {
+
+					// if (player.vX >= )
+					if ((pPlayer->getXPos() - fXPos >= lMinion[i][j]->getXPos() 
+					&& pPlayer->getXPos() - fXPos <= lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX) 
+					|| (pPlayer->getXPos() - fXPos + pPlayer->getHitBoxX() >= lMinion[i][j]->getXPos() 
+					&& pPlayer->getXPos() - fXPos + pPlayer->getHitBoxX() <= lMinion[i][j]->getXPos() + lMinion[i][j]->iHitBoxX)) {
+						
+						// if (minion.y - 2 <= player.botY <= minion.y + 16) when player is on top of minion 2 px
+						if (lMinion[i][j]->getYPos() - 2 <= pPlayer->getYPos() + pPlayer->getHitBoxY() 
+						&& lMinion[i][j]->getYPos() + 16 >= pPlayer->getYPos() + pPlayer->getHitBoxY()) {
+							//std::cout << "Player Bot Y: " << pPlayer->getYPos() + pPlayer->getHitBoxY() << std::endl;
+							//std::cout << "Minion Y: " << lMinion[i][j]->getYPos() << std::endl;
 							lMinion[i][j]->collisionWithPlayer(true);
 						}
-						else if ((lMinion[i][j]->getYPos() <= pPlayer->getYPos() + pPlayer->getHitBoxY() && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= pPlayer->getYPos() + pPlayer->getHitBoxY()) || (lMinion[i][j]->getYPos() <= pPlayer->getYPos() && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= pPlayer->getYPos())) {
+						// if (minion.y <= player.botY <= minion.botY) or (minion.y <= player.y <= minion.botY)
+						else if ((lMinion[i][j]->getYPos() <= pPlayer->getYPos() + pPlayer->getHitBoxY() 
+						&& lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= pPlayer->getYPos() + pPlayer->getHitBoxY()) 
+						|| (lMinion[i][j]->getYPos() <= pPlayer->getYPos() && lMinion[i][j]->getYPos() + lMinion[i][j]->iHitBoxY >= pPlayer->getYPos())) {
 							lMinion[i][j]->collisionWithPlayer(false);
 						}
 					}
@@ -421,6 +434,12 @@ void Map::updateMinionsCollisions() {
 
 void Map::draw(sf::RenderWindow& mainWindow)
 {
+	sf::RectangleShape rec(sf::Vector2f(10, 10));
+	rec.setFillColor(sf::Color::Red);
+	rec.setPosition(fXPos, fYPos);
+	mainWindow.draw(rec);
+	std::cout << "X: " << fXPos << " Y: " << fYPos << std::endl;
+
 	drawMap(mainWindow);
 
 	for (unsigned int i = 0; i < vPlatform.size(); i++) {
@@ -9264,12 +9283,12 @@ void Map::clearMap()
 
 	this->iMapWidth = this->iMapHeight = 0;
 
-	//if (pFlag != NULL) {
-	//	delete pFlag;
-	//	pFlag = NULL;
-	//}
+	if (pFlag != NULL) {
+		delete pFlag;
+		pFlag = NULL;
+	}
 
-	//pEvent->eventTypeID = pEvent->eNormal;
+	pEvent->eventTypeID = pEvent->eNormal;
 
 	clearLevelText();
 }
@@ -9302,7 +9321,7 @@ void Map::EndUse() {
 
 	pEvent->eventTypeID = pEvent->eEnd;
 
-	if (pPlayer->getYPos() < CFG::GameHeight - 16 - 10 * 32) {
+	if (pPlayer->getYPos() < CFG::GameHeight - 16 - 10 * 32) { 
 		pFlag->iPoints = 5000;
 	}
 	else if (pPlayer->getYPos() < CFG::GameHeight - 16 - 8 * 32) {

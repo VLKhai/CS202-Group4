@@ -77,7 +77,7 @@ ExplodeSkill::~ExplodeSkill()
 
 void ExplodeSkill::update(float fX, float fY)
 {
-	this->fX = fX; this->fY = fY; //- sExplodeSkill[getSpriteID()]->getFrame()->getHitBoxY() / 2;
+	this->fX = fX; this->fY = fY + 20;
 	updateAnimation();
 }
 
@@ -91,7 +91,7 @@ void ExplodeSkill::updateAnimation()
 
 void ExplodeSkill::draw(sf::RenderWindow& window)
 {
-	sExplodeSkill[getSpriteID()]->getFrame()->drawFromCenter(window, fX, fY);
+	sExplodeSkill[getSpriteID()]->getFrame()->drawFromBotCen(window, fX, fY);
 }
 
 int ExplodeSkill::getSpriteID()

@@ -304,7 +304,7 @@ Mario::~Mario()
 void Mario::update()
 {
 	Player::update();
-	explodeSkill->update(fXPos + Player::getHitBoxX() / 2, fYPos + Player::getHitBoxY() / 2);
+	explodeSkill->update(fXPos + Player::getHitBoxX() / 2, fYPos + Player::getHitBoxY()); // Bottom center
 }
 
 void Mario::draw(sf::RenderWindow& window)
