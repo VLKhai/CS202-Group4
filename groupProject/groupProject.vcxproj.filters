@@ -159,6 +159,18 @@
     <ClCompile Include="Toad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ExplodeSkill.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Luigi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -300,6 +312,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Toad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplodeSkill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Luigi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
