@@ -137,26 +137,6 @@ private:
 	void loadLVL_2_2();
 	void loadLVL_2_3();
 	void loadLVL_2_4();
-	void loadLVL_3_1();
-	void loadLVL_3_2();
-	void loadLVL_3_3();
-	void loadLVL_3_4();
-	void loadLVL_4_1();
-	void loadLVL_4_2();
-	void loadLVL_4_3();
-	void loadLVL_4_4();
-	void loadLVL_5_1();
-	void loadLVL_5_2();
-	void loadLVL_5_3();
-	void loadLVL_5_4();
-	void loadLVL_6_1();
-	void loadLVL_6_2();
-	void loadLVL_6_3();
-	void loadLVL_6_4();
-	void loadLVL_7_1();
-	void loadLVL_7_2();
-	void loadLVL_7_3();
-	void loadLVL_7_4();
 	void loadLVL_8_1();
 	void loadLVL_8_2();
 	void loadLVL_8_3();
@@ -170,26 +150,6 @@ private:
 	void loadMinionsLVL_2_2();
 	void loadMinionsLVL_2_3();
 	void loadMinionsLVL_2_4();
-	void loadMinionsLVL_3_1();
-	void loadMinionsLVL_3_2();
-	void loadMinionsLVL_3_3();
-	void loadMinionsLVL_3_4();
-	void loadMinionsLVL_4_1();
-	void loadMinionsLVL_4_2();
-	void loadMinionsLVL_4_3();
-	void loadMinionsLVL_4_4();
-	void loadMinionsLVL_5_1();
-	void loadMinionsLVL_5_2();
-	void loadMinionsLVL_5_3();
-	void loadMinionsLVL_5_4();
-	void loadMinionsLVL_6_1();
-	void loadMinionsLVL_6_2();
-	void loadMinionsLVL_6_3();
-	void loadMinionsLVL_6_4();
-	void loadMinionsLVL_7_1();
-	void loadMinionsLVL_7_2();
-	void loadMinionsLVL_7_3();
-	void loadMinionsLVL_7_4();
 	void loadMinionsLVL_8_1();
 	void loadMinionsLVL_8_2();
 	void loadMinionsLVL_8_3();
@@ -201,14 +161,6 @@ private:
 	//void loadPipeEventsLVL_1_3(); // Not used
 	void loadPipeEventsLVL_2_1(); // Done
 	void loadPipeEventsLVL_2_2(); // Done
-	void loadPipeEventsLVL_3_1(); // Done
-	void loadPipeEventsLVL_4_1(); // Done
-	void loadPipeEventsLVL_4_2(); // Done
-	void loadPipeEventsLVL_5_1(); // Done
-	void loadPipeEventsLVL_5_2(); // Done
-	void loadPipeEventsLVL_6_2(); // Done
-	void loadPipeEventsLVL_7_1(); // Done
-	void loadPipeEventsLVL_7_2(); // Done
 	void loadPipeEventsLVL_8_1(); // Done
 	void loadPipeEventsLVL_8_2(); // Done
 	void loadPipeEventsLVL_8_4(); // Done
