@@ -142,7 +142,7 @@ void Bowser::minionPhysics() {
 }
 
 void Bowser::createFire() {
-	//Core::getMap()->addFire(fXPos - 40, fYPos + 16, iYFireStart + 16 * (rand()%4 + 1) + 6);
+	Core::getMap()->addFire(fXPos - 40, fYPos + 16, iYFireStart + 16 * (rand()%4 + 1) + 6);
 	CFG::getMusic()->PlayChunk(CFG::getMusic()->cFIRE);
 	++iFireID;
 

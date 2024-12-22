@@ -24,7 +24,7 @@ bool Core::keyDPressed = false;
 
 Core::Core()
 {   //1000 X 560 or 800 x 448
-    this->mainWindow.create(sf::VideoMode(1000, 560), "Mario Game");
+    this->mainWindow.create(sf::VideoMode(CFG::GameWidth, CFG::GameHeight), "Mario Game");
 	this->mainWindow.setFramerateLimit(60);
     
     this->pMap = &Map::Instance();
