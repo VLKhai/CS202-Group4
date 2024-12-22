@@ -278,7 +278,9 @@ Vector2* Player::getBlockRT(float nX, float nY) {
 
 void Player::update()
 {
-	this->starEffect = false; // Test
+	if (unKillAble) std::cout << "Unkillable" << std::endl;
+	if (starEffect) std::cout << "Star Effect" << std::endl;
+	
 	playerPhysics();
 	movePlayer();
 	
@@ -939,6 +941,10 @@ int Player::getSpriteID()
 			CFG::getMusic()->changeMusic(true, true);
 		}
 
+		++unKillAbleFrameID;
+
+		--unKillAbleTimeFrameID;
+
 		if (unKillAbleTimeFrameID < 90) {
 			if (unKillAbleFrameID < 5) {
 				return powerLVL < 1 ? iSpriteID + 44 : powerLVL == 2 ? iSpriteID : iSpriteID + 11;
@@ -1089,11 +1095,9 @@ void Player::setUseSkill(bool bUseSkill)
 {
 	this->bUseSkill = bUseSkill;
 	if (bUseSkill) {
-		this->setUnkillAble(true);
 		this->pSkill->setTrigger(true);
 	}
 	else {
-		this->setUnkillAble(false);
 		this->pSkill->setTrigger(false);
 	}
 }
