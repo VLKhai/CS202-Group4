@@ -917,7 +917,7 @@ void Player::createFireBall()
 {
 	if (powerLVL == 2) {
 		if (nextFireBallFrameID <= 0) {
-			//Core::getMap()->addPlayerFireBall((int)(fXPos - Core::getMap()->getXPos() + (moveDirection ? getHitBoxX() : -32)), (int)(fYPos + getHitBoxY() / 2), !moveDirection);
+			Core::getMap()->addPlayerFireBall((int)(fXPos - Core::getMap()->getXPos() + (moveDirection ? getHitBoxX() : -32)), (int)(fYPos + getHitBoxY() / 2), !moveDirection);
 			nextFireBallFrameID = 16;
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cFIREBALL);
 		}

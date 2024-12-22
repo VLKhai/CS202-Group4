@@ -25,6 +25,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockDebris.cpp" />
     <ClCompile Include="Bowser.cpp" />
+    <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="BulletBill.cpp" />
     <ClCompile Include="BulletBillSpawner.cpp" />
     <ClCompile Include="CFG.cpp" />
@@ -61,9 +62,11 @@
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Plant.cpp" />
+    <ClCompile Include="PlayerFireBall.cpp" />
     <ClCompile Include="Points.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="Spikey.cpp" />
+    <ClCompile Include="Spring.cpp" />
     <ClCompile Include="Squid.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="Text.cpp" />
@@ -71,7 +74,9 @@
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Toad.cpp" />
+    <ClCompile Include="UpFire.cpp" />
     <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="Vine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AboutMenu.h" />
@@ -80,6 +85,7 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockDebris.h" />
     <ClInclude Include="Bowser.h" />
+    <ClInclude Include="Bubble.h" />
     <ClInclude Include="BulletBill.h" />
     <ClInclude Include="BulletBillSpawner.h" />
     <ClInclude Include="CFG.h" />
@@ -115,9 +121,11 @@
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Plant.h" />
+    <ClInclude Include="PlayerFireBall.h" />
     <ClInclude Include="Points.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="Spikey.h" />
+    <ClInclude Include="Spring.h" />
     <ClInclude Include="Squid.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="Text.h" />
@@ -125,7 +133,9 @@
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Toad.h" />
+    <ClInclude Include="UpFire.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Vine.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

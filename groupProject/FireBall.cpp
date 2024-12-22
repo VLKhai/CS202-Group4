@@ -1,8 +1,10 @@
 #include "FireBall.h"
 #include "Core.h"
-#include <math.h>
+
+
 
 /* ******************************************** */
+double M_PI = 3.141592653589793;
 
 FireBall::FireBall(int iXPos, int iYPos, int radius, int nSliceID, bool moveDirection) {
 	this->iCenterX = iXPos;
@@ -18,7 +20,7 @@ FireBall::FireBall(int iXPos, int iYPos, int radius, int nSliceID, bool moveDire
 
 	this->minionSpawned = true;
 
-	//this->slice = 2 * M_PI / 360; note here 
+	this->slice = 2 * M_PI / 360; 
 	this->sliceID = nSliceID;
 	this->angle = slice * sliceID;
 
