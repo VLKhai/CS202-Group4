@@ -19,6 +19,7 @@ public:
 	void enter();
 	void escape();
 
+	void resetActiveOptionID();
 	void updateActiveButton(int iDir);
 };
 

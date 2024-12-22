@@ -13,10 +13,13 @@ public:
 	LoadingMenu(void);
 	~LoadingMenu(void);
 
-	void Update();
-	void Draw(sf::RenderWindow& window);
+	void update();
+	void draw(sf::RenderWindow& window);
 
 	void updateTime();
+
+	void setBackgroundColor(sf::RenderWindow& window);
+	void updateActiveButton(int iDir) {};
 
 	bool loadingType; // -- true = LOADING, false = GAME OVER
 };

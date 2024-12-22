@@ -60,7 +60,12 @@ void OptionsMenu::escape() {
 	}
 }
 
-void OptionsMenu::Draw(sf::RenderWindow& mainWindow) {
+void OptionsMenu::draw(sf::RenderWindow& mainWindow) {
+	Core::getMap()->drawMap(mainWindow);
+	Core::getMap()->DrawMinions(mainWindow);
+	Core::getMap()->getPlayer()->draw(mainWindow);
+	Core::getMap()->DrawGameLayout(mainWindow);
+	
 	sf::RectangleShape rectangle;
 	//filled color 
 	rectangle.setFillColor(sf::Color::Black);
@@ -130,7 +135,7 @@ void OptionsMenu::updateActiveButton(int iDir) {
 	}
 }
 
-void OptionsMenu::Update() {
+void OptionsMenu::update() {
 	if (resetSetKey) {
 		inSetKey = false;
 		resetSetKey = false;

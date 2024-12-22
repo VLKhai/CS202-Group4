@@ -4,15 +4,19 @@
 #include "IMG.h"
 #include "OptionsMenu.h"
 #include "PauseMenu.h"
+#include "OffMenu.h"
 
 class MenuManager {
 private:
 	IMG* activeOption;
 
-	MainMenu* oMainMenu;
-	LoadingMenu* oLoadingMenu;
-	OptionsMenu* oOptionsMenu;
-	PauseMenu* oPauseMenu;
+	std::vector<Menu*> vMenu;
+	//MainMenu* oMainMenu;
+	//LoadingMenu* oLoadingMenu;
+	//OptionsMenu* oOptionsMenu;
+	//PauseMenu* oPauseMenu;
+
+	Menu* pMenu;
 public:
 	MenuManager();
 	~MenuManager();
@@ -21,15 +25,16 @@ public:
 		eMainMenu,
 		eGameLoading,
 		eGame,
-		eAbout,
 		eOptions,
 		ePasue,
+		eAbout,
 	};
 
 	gameState currentGameState;
 
 	void update();
 	void draw(sf::RenderWindow& window);
+
 	void setBackgroundColor(sf::RenderWindow& window);
 
 	void enter();

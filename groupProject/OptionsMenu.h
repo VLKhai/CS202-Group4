@@ -20,8 +20,8 @@ public:
 	OptionsMenu();
 	~OptionsMenu();
 
-	void Update();
-	void Draw(sf::RenderWindow& mainWindow);
+	void update();
+	void draw(sf::RenderWindow& mainWindow);
 
 	void enter();
 	void escape();

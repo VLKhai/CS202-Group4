@@ -27,13 +27,19 @@ MainMenu::~MainMenu(void) {
 
 /* ******************************************** */
 
-void MainMenu::Update() {
+void MainMenu::update() {
 	CFG::getMusic()->StopMusic();
 
 	Menu::update();
+
+	Core::getMap()->updateGifBlocks();
 }
 
-void MainMenu::Draw(sf::RenderWindow& mainWindow) {
+void MainMenu::draw(sf::RenderWindow& mainWindow) {
+	Core::getMap()->drawMap(mainWindow);
+	Core::getMap()->getPlayer()->draw(mainWindow);
+	Core::getMap()->DrawGameLayout(mainWindow);
+	
 	CFG::getSMBLOGO()->draw(mainWindow, 80, 48);
 	Menu::draw(mainWindow);
 
@@ -110,6 +116,16 @@ void MainMenu::enter() {
 
 void MainMenu::escape() {
 	selectWorld = false;
+}
+
+void MainMenu::setBackgroundColor(sf::RenderWindow& window)
+{
+	Core::getMap()->setBackgroundColor(window);
+}
+
+void MainMenu::resetActiveOptionID()
+{
+	activeMenuOption = 0;
 }
 
 void MainMenu::updateActiveButton(int iDir) {

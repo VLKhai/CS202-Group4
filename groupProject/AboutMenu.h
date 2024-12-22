@@ -21,10 +21,8 @@ public:
 	AboutMenu();
 	~AboutMenu();
 
-	void Update();
-	void Draw(sf::RenderWindow& window);
-
-	void enter();
+	void update() {};
+	void draw(sf::RenderWindow& window) {};
 
 	void launch();
 	void reset();

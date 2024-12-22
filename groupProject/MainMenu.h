@@ -15,11 +15,13 @@ public:
 	MainMenu(void);
 	~MainMenu(void);
 
-	void Update();
-	void Draw(sf::RenderWindow& mainWindow);
+	void update();
+	void draw(sf::RenderWindow& mainWindow);
 
 	void enter();
 	void escape();
+	void setBackgroundColor(sf::RenderWindow& window);
+	void resetActiveOptionID();
 
 	void updateActiveButton(int iDir);
 };

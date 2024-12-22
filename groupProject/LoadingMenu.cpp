@@ -15,7 +15,7 @@ LoadingMenu::~LoadingMenu(void) {
 
 /* ******************************************** */
 
-void LoadingMenu::Update() {
+void LoadingMenu::update() {
 	if (CFG::keyLeft) {
 		Core::getMap()->moveSelectPlayer(-1);
 		CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
@@ -49,7 +49,7 @@ void LoadingMenu::Update() {
 	Core::getMap()->updateGifBlocks();
 }
 
-void LoadingMenu::Draw(sf::RenderWindow& window) {
+void LoadingMenu::draw(sf::RenderWindow& window) {
 	if (loadingType) {
 		Core::getMap()->DrawGameLayout(window);
 		CFG::getText()->DrawCenterX(window, "WORLD " + Core::getMap()->getLevelName(), 210, 16);
@@ -77,4 +77,9 @@ void LoadingMenu::Draw(sf::RenderWindow& window) {
 
 void LoadingMenu::updateTime() {
 	this->iTime = Core::coreClock.getElapsedTime().asMilliseconds();
+}
+
+void LoadingMenu::setBackgroundColor(sf::RenderWindow& window)
+{
+	window.clear(sf::Color(0, 0, 0, 255));
 }

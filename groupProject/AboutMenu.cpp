@@ -84,24 +84,24 @@ AboutMenu::~AboutMenu(void) {
 //	//Core::getMap()->getPlayer()->setXPos((float)Core::getMap()->getPlayer()->getXPos() + 4 * (moveDirection ? -1 : 1));
 //}
 
-void AboutMenu::Draw(sf::RenderWindow& window) {
-	CFG::getText()->DrawWS(window, "MARIO V 1.03 - C++ AND SDL2", 150, 128, 0, 0, 0);
-	CFG::getText()->DrawWS(window, "AUTOR: LUKASZ JAKOWSKI", 150, 146, 0, 0, 0);
-
-	CFG::getText()->DrawWS(window, "INFORMATYKA INZ 2012-2016", 150, 188, 0, 0, 0);
-	CFG::getText()->DrawWS(window, "UNIWERSYTET SLASKI W KATOWICACH", 150, 206, 0, 0, 0);
-	CFG::getText()->DrawWS(window, "MAJ 2014", 150, 224, 0, 0, 0);
-
-	CFG::getText()->DrawWS(window, "WWW.LUKASZJAKOWSKI.PL", 150, 264, 0, 0, 0);
-
-	//CCFG::getText()->DrawWS(window, std::to_string(iNumOfUnits), 5, CCFG::GameHeight - 21, 0, 0, 0);
-
-	for (unsigned int i = 0; i < lMO.size(); i++) {
-		CFG::getText()->DrawWS(window, lMO[i]->getText(), lMO[i]->getXPos(), lMO[i]->getYPos(), 0, 0, 0);
-	}
-
-	CFG::getMenuManager()->getActiveOption()->draw(window, lMO[activeMenuOption]->getXPos() - 32, lMO[activeMenuOption]->getYPos());
-}
+//void AboutMenu::draw(sf::RenderWindow& window) {
+//	CFG::getText()->DrawWS(window, "MARIO V 1.03 - C++ AND SDL2", 150, 128, 0, 0, 0);
+//	CFG::getText()->DrawWS(window, "AUTOR: LUKASZ JAKOWSKI", 150, 146, 0, 0, 0);
+//
+//	CFG::getText()->DrawWS(window, "INFORMATYKA INZ 2012-2016", 150, 188, 0, 0, 0);
+//	CFG::getText()->DrawWS(window, "UNIWERSYTET SLASKI W KATOWICACH", 150, 206, 0, 0, 0);
+//	CFG::getText()->DrawWS(window, "MAJ 2014", 150, 224, 0, 0, 0);
+//
+//	CFG::getText()->DrawWS(window, "WWW.LUKASZJAKOWSKI.PL", 150, 264, 0, 0, 0);
+//
+//	//CCFG::getText()->DrawWS(window, std::to_string(iNumOfUnits), 5, CCFG::GameHeight - 21, 0, 0, 0);
+//
+//	for (unsigned int i = 0; i < lMO.size(); i++) {
+//		CFG::getText()->DrawWS(window, lMO[i]->getText(), lMO[i]->getXPos(), lMO[i]->getYPos(), 0, 0, 0);
+//	}
+//
+//	CFG::getMenuManager()->getActiveOption()->draw(window, lMO[activeMenuOption]->getXPos() - 32, lMO[activeMenuOption]->getYPos());
+//}
 
 /* ******************************************** */
 

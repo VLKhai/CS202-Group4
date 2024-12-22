@@ -30,6 +30,11 @@ void PauseMenu::Update() {
 }
 
 void PauseMenu::Draw(sf::RenderWindow& window) {
+	Core::getMap()->drawMap(window);
+	Core::getMap()->DrawMinions(window);
+	Core::getMap()->getPlayer()->draw(window);
+	Core::getMap()->DrawGameLayout(window);
+	
 	rPause.left += 1;
 	rPause.top += 1;
 	rPause.height -= 2;
@@ -85,6 +90,11 @@ void PauseMenu::enter() {
 void PauseMenu::escape() {
 	CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGame);
 	CFG::getMusic()->PauseMusic();
+}
+
+void PauseMenu::resetActiveOptionID()
+{
+	activeMenuOption = 0;
 }
 
 void PauseMenu::updateActiveButton(int iDir) {
