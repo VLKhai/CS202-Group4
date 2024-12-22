@@ -25,11 +25,11 @@ PauseMenu::~PauseMenu(void) {
 
 /* ******************************************** */
 
-void PauseMenu::Update() {
+void PauseMenu::update() {
 
 }
 
-void PauseMenu::Draw(sf::RenderWindow& window) {
+void PauseMenu::draw(sf::RenderWindow& window) {
 	Core::getMap()->drawMap(window);
 	Core::getMap()->DrawMinions(window);
 	Core::getMap()->getPlayer()->draw(window);
@@ -60,8 +60,8 @@ void PauseMenu::Draw(sf::RenderWindow& window) {
 			CFG::getText()->DrawCenterX(window, lMO[i]->getText(), lMO[i]->getYPos(), 16, 90, 90, 90);
 		}
 	}
-	//Core::getMap()->setBackgroundColor(window);
 }
+
 
 /* ******************************************** */
 

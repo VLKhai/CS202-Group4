@@ -34,7 +34,7 @@ void IMG::setIMG(std::string fileName, sf::RenderWindow& mainWindow, std::string
 
 void IMG::draw(sf::RenderWindow& mainWindow, int iXOffset, int iYOffset)
 {
-	sIMG->setPosition(iXOffset, iYOffset);
+    sIMG->setPosition(iXOffset, iYOffset);
     mainWindow.draw(*sIMG);
 }
 

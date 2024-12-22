@@ -13,8 +13,8 @@ public:
 	PauseMenu(void);
 	~PauseMenu(void);
 
-	void Update();
-	void Draw(sf::RenderWindow& window);
+	void update();
+	void draw(sf::RenderWindow& window);
 
 	void enter();
 	void escape();

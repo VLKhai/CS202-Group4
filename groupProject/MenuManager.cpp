@@ -14,9 +14,8 @@ MenuManager::MenuManager()
 	vMenu.push_back(new OffMenu());
 	vMenu.push_back(new OptionsMenu());
 	vMenu.push_back(new PauseMenu());
-
+	
 	pMenu = vMenu[currentGameState];
-
 }
 
 MenuManager::~MenuManager()
@@ -48,6 +47,10 @@ void MenuManager::update()
 	//case ePasue:// pause screen
 	//	oPauseMenu->Update();
 	//	break;
+	//}
+	//if (currentGameState == ePasue) {
+	//	std::cout << "Update Pause" << std::endl;
+	//	return;
 	//}
 	pMenu->update();
 }
@@ -102,7 +105,7 @@ void MenuManager::enter() {
 	//	oOptionsMenu->enter();
 	//	break;
 	//case ePasue:
-	//	oPauseMenu->enter();
+	//	oPauseMenu->enter(); 
 	//	break;
 	//}
 	pMenu->enter();
