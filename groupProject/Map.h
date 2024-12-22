@@ -37,8 +37,12 @@
 #include "Star.h"
 #include "Toad.h"
 #include "Squid.h"
+#include "FireBall.h"
 #include "PlayerFireBall.h"
+#include "UpFire.h"
 #include "Bubble.h"
+#include "Spring.h"
+#include "Vine.h"
 
 
 class Map {
@@ -222,7 +226,7 @@ private:
 
 	bool bTP; // -- TP LOOP
 
-	//void spawnVine(int nX, int nY, int iBlockID);
+	void spawnVine(int nX, int nY, int iBlockID);
 
 	void clearMap();
 	void clearMinions();
@@ -267,15 +271,15 @@ public:
 
 	void addPlayerFireBall(int X, int Y, bool moveDirection);
 
-	//void addUpFire(int X, int iYEnd);
-	//void addSpring(int X, int Y);
+	void addUpFire(int X, int iYEnd);
+	void addSpring(int X, int Y);
 
 	void addBowser(int X, int Y, bool spawnHammer = false);
 
 	void addFire(float fX, float fY, int toYPos);
-	//void addFireBall(int X, int Y, int iWidth, int iSliceID, bool LEFT);
+	void addFireBall(int X, int Y, int iWidth, int iSliceID, bool LEFT);
 
-	//void addVine(int X, int Y, int minionState, int iBlockID);
+	void addVine(int X, int Y, int minionState, int iBlockID);
 
 	void addText(int X, int Y, std::string sText);
 
@@ -286,7 +290,7 @@ public:
 	// --- Clear ---
 	void lockMinions();
 	void clearPlatforms();
-	//void clearBubbles();
+	void clearBubbles();
 
 	// Block Interaction
 	bool blockUse(int nX, int nY, int iBlockID, int POS);

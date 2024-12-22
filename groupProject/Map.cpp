@@ -272,14 +272,14 @@ void Map::updateMinions() {
 		}
 	}
 
-	/*for (unsigned int i = 0; i < lBubble.size(); i++) {
+	for (unsigned int i = 0; i < lBubble.size(); i++) {
 		lBubble[i]->Update();
 
 		if (lBubble[i]->getDestroy()) {
 			delete lBubble[i];
 			lBubble.erase(lBubble.begin() + i);
 		}
-	}*/
+	}
 }
 
 void Map::updateMinionsCollisions() {
@@ -460,9 +460,9 @@ void Map::draw(sf::RenderWindow& mainWindow)
 		CFG::getText()->Draw(mainWindow, vLevelText[i]->getText(), vLevelText[i]->getXPos() + (int)fXPos, vLevelText[i]->getYPos());
 	}
 
-	/*for (unsigned int i = 0; i < lBubble.size(); i++) {
+	for (unsigned int i = 0; i < lBubble.size(); i++) {
 		lBubble[i]->Draw(mainWindow, vBlock[lBubble[i]->getBlockID()]->getAniSprite()->getTexture());
-	}*/
+	}
 
 	pPlayer->draw(mainWindow);
 
@@ -676,7 +676,7 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 			checkCollisionOnTopOfTheBlock(nX, nY);
 			break;
 		case 128: case 129:
-			//spawnVine(nX, nY, iBlockID);
+			spawnVine(nX, nY, iBlockID);
 			lMap[nX][nY]->setBlockID(iBlockID == 128 ? 9 : 56);
 			lMap[nX][nY]->startBlockAnimation();
 			break;
@@ -1214,6 +1214,15 @@ void Map::loadLVL() {
 	}
 }
 
+void Map::spawnVine(int nX, int nY, int iBlockID) {
+	if (iLevelType == 0 || iLevelType == 4) {
+		addVine(nX, nY, 0, 34);
+	}
+	else {
+		addVine(nX, nY, 0, 36);
+	}
+}
+
 void Map::moveMap(int nX, int nY)
 {
 	if (fXPos + nX > 0) {
@@ -1606,7 +1615,7 @@ void Map::structBulletBill(int X, int Y, int iHieght) {
 		lMap[X][Y + i]->setBlockID(147);
 	}
 
-	//addBulletBillSpawner(X, Y + iHieght + 1, 0);
+	addBulletBillSpawner(X, Y + iHieght + 1, 0);
 }
 
 void Map::structTree(int X, int Y, int iHeight, bool BIG) {
@@ -1752,8 +1761,8 @@ void Map::setCurrentLevelID(int currentLevelID)
 {
 	if (this->currentLevelID != currentLevelID) {
 		this->currentLevelID = currentLevelID;
-		//pEvent->resetRedraw();
-		//loadLVL();
+		pEvent->resetRedraw();
+		loadLVL();
 		iSpawnPointID = 0;
 	}
 
@@ -5947,7 +5956,7 @@ void Map::loadLVL_5_2() {
 	structCloud(290, 10, 1);
 	structCloud(299, 11, 1);
 
-	//addSpring(106 * 32, 336);
+	addSpring(106 * 32, 336);
 
 	structCoins(101, 10, 3, 1);
 	structCoins(109, 6, 3, 1);
@@ -6805,8 +6814,8 @@ void Map::loadLVL_6_3() {
 	vPlatform.push_back(new Platform(4, 5, 149 * 32, 149 * 32, CFG::GameHeight - 16 - 6 * 32, CFG::GameHeight - 16 - 6 * 32, 149 * 32, (float)CFG::GameHeight - 16 - 6 * 32, true));
 	vPlatform.push_back(new Platform(4, 5, 153 * 32, 153 * 32, CFG::GameHeight - 16 - 7 * 32, CFG::GameHeight - 16 - 7 * 32, 153 * 32, (float)CFG::GameHeight - 16 - 7 * 32, true));
 
-	//addSpring(38 * 32, 336);
-	//addSpring(116 * 32, 336);
+	addSpring(38 * 32, 336);
+	addSpring(116 * 32, 336);
 
 
 	structGND2(167, 2, 1, 1);
@@ -7037,7 +7046,7 @@ void Map::loadLVL_7_1() {
 	structGND2(162, 2, 8, true);
 	structGND2(170, 2, 1, 8);
 
-	//addSpring(151 * 32, 336);
+	addSpring(151 * 32, 336);
 
 	structCastleSmall(183, 2);
 
@@ -7845,7 +7854,7 @@ void Map::loadLVL_8_2() {
 	lMap[44][9]->setSpawnMushroom(true);
 	lMap[44][9]->setPowerUP(false);
 
-	//addSpring(44 * 32, 336);
+	addSpring(44 * 32, 336);
 
 	struckBlockQ(29, 5, 4);
 
@@ -8218,19 +8227,19 @@ void Map::loadMinionsLVL_1_4() {
 
 	addToad(153 * 32, CFG::GameHeight - 3 * 32, false);
 
-	/*addFireBall(30 * 32, CFG::GameHeight - 16 - 4 * 32, 6, rand() % 360, true);
+	addFireBall(30 * 32, CFG::GameHeight - 16 - 4 * 32, 6, rand() % 360, true);
 	addFireBall(49 * 32, CFG::GameHeight - 16 - 8 * 32, 6, rand() % 360, true);
 	addFireBall(60 * 32, CFG::GameHeight - 16 - 8 * 32, 6, rand() % 360, true);
 	addFireBall(67 * 32, CFG::GameHeight - 16 - 8 * 32, 6, rand() % 360, true);
 	addFireBall(76 * 32, CFG::GameHeight - 16 - 5 * 32, 6, rand() % 360, true);
 	addFireBall(84 * 32, CFG::GameHeight - 16 - 5 * 32, 6, rand() % 360, true);
-	addFireBall(88 * 32, CFG::GameHeight - 16 - 10 * 32, 6, rand() % 360, false);*/
+	addFireBall(88 * 32, CFG::GameHeight - 16 - 10 * 32, 6, rand() % 360, false);
 }
 
 void Map::loadMinionsLVL_2_1() {
 	clearMinions();
 
-	//addSpring(188 * 32, 336);
+	addSpring(188 * 32, 336);
 
 	addGoombas(24 * 32, CFG::GameHeight - 16 - 7 * 32, true);
 
@@ -8325,7 +8334,7 @@ void Map::loadMinionsLVL_2_4() {
 
 	addToad(153 * 32, CFG::GameHeight - 3 * 32, false);
 
-	/*addFireBall(49 * 32, CFG::GameHeight - 16 - 5 * 32, 6, rand() % 360, true);
+	addFireBall(49 * 32, CFG::GameHeight - 16 - 5 * 32, 6, rand() % 360, true);
 	addFireBall(55 * 32, CFG::GameHeight - 16 - 9 * 32, 6, rand() % 360, true);
 	addFireBall(61 * 32, CFG::GameHeight - 16 - 5 * 32, 6, rand() % 360, true);
 	addFireBall(73 * 32, CFG::GameHeight - 16 - 5 * 32, 6, rand() % 360, true);
@@ -8333,13 +8342,13 @@ void Map::loadMinionsLVL_2_4() {
 	addFireBall(92 * 32, CFG::GameHeight - 16 - 4 * 32, 6, rand() % 360, false);
 
 	addUpFire(16 * 32 + 4, 9 * 32);
-	addUpFire(30 * 32, 9 * 32);*/
+	addUpFire(30 * 32, 9 * 32);
 }
 
 void Map::loadMinionsLVL_3_1() {
 	clearMinions();
 
-	//addSpring(126 * 32, 336);
+	addSpring(126 * 32, 336);
 
 	addGoombas(37 * 32, CFG::GameHeight - 16 - 2 * 32, true);
 	addGoombas(53 * 32, CFG::GameHeight - 16 - 2 * 32, true);
@@ -8448,7 +8457,7 @@ void Map::loadMinionsLVL_3_4() {
 
 	addToad(153 * 32, CFG::GameHeight - 3 * 32, false);
 
-	/*addFireBall(19 * 32, CFG::GameHeight - 16 - 3 * 32, 6, rand() % 360, true);
+	addFireBall(19 * 32, CFG::GameHeight - 16 - 3 * 32, 6, rand() % 360, true);
 	addFireBall(24 * 32, CFG::GameHeight - 16 - 3 * 32, 6, rand() % 360, true);
 	addFireBall(29 * 32, CFG::GameHeight - 16 - 3 * 32, 6, rand() % 360, true);
 	addFireBall(54 * 32, CFG::GameHeight - 16 - 3 * 32, 6, rand() % 360, true);
@@ -8463,7 +8472,7 @@ void Map::loadMinionsLVL_3_4() {
 	addUpFire(88 * 32, 9 * 32);
 	addUpFire(97 * 32, 9 * 32);
 	addUpFire(103 * 32, 9 * 32);
-	addUpFire(109 * 32, 9 * 32);*/
+	addUpFire(109 * 32, 9 * 32);
 }
 
 void Map::loadMinionsLVL_4_1() {
@@ -8534,13 +8543,13 @@ void Map::loadMinionsLVL_4_4() {
 
 	addToad(186 * 32, CFG::GameHeight - 3 * 32, false);
 
-	/*addFireBall(53 * 32, CFG::GameHeight - 16 - 8 * 32, 6, rand() % 360, true);
+	addFireBall(53 * 32, CFG::GameHeight - 16 - 8 * 32, 6, rand() % 360, true);
 	addFireBall(60 * 32, CFG::GameHeight - 16 - 5 * 32, 6, rand() % 360, false);
 	addFireBall(115 * 32, CFG::GameHeight - 16 - 8 * 32, 6, rand() % 360, true);
 	addFireBall(122 * 32, CFG::GameHeight - 16 - 4 * 32, 6, rand() % 360, true);
 	addFireBall(162 * 32, CFG::GameHeight - 16 - 4 * 32, 6, rand() % 360, true);
 
-	addUpFire(165 * 32, 9 * 32);*/
+	addUpFire(165 * 32, 9 * 32);
 
 	this->iLevelType = 1;
 
@@ -8664,7 +8673,7 @@ void Map::loadMinionsLVL_5_4() {
 
 	addToad(153 * 32, CFG::GameHeight - 3 * 32, false);
 
-	/*addFireBall(49 * 32, CFG::GameHeight - 16 - 5 * 32, 6, rand() % 360, true);
+	addFireBall(49 * 32, CFG::GameHeight - 16 - 5 * 32, 6, rand() % 360, true);
 	addFireBall(55 * 32, CFG::GameHeight - 16 - 9 * 32, 6, rand() % 360, true);
 	addFireBall(61 * 32, CFG::GameHeight - 16 - 5 * 32, 6, rand() % 360, true);
 	addFireBall(73 * 32, CFG::GameHeight - 16 - 5 * 32, 6, rand() % 360, true);
@@ -8684,7 +8693,7 @@ void Map::loadMinionsLVL_5_4() {
 
 	addUpFire(109 * 32, 9 * 32);
 	addUpFire(113 * 32, 9 * 32);
-	addUpFire(131 * 32, 9 * 32);*/
+	addUpFire(131 * 32, 9 * 32);
 }
 
 void Map::loadMinionsLVL_6_1() {
@@ -8766,7 +8775,7 @@ void Map::loadMinionsLVL_6_4() {
 
 	addToad(153 * 32, CFG::GameHeight - 3 * 32, false);
 
-	/*addFireBall(30 * 32, CFG::GameHeight - 16 - 4 * 32, 6, rand() % 360, true);
+	addFireBall(30 * 32, CFG::GameHeight - 16 - 4 * 32, 6, rand() % 360, true);
 	addFireBall(49 * 32, CFG::GameHeight - 16 - 8 * 32, 6, rand() % 360, true);
 	addFireBall(60 * 32, CFG::GameHeight - 16 - 8 * 32, 6, rand() % 360, true);
 	addFireBall(67 * 32, CFG::GameHeight - 16 - 8 * 32, 6, rand() % 360, true);
@@ -8781,7 +8790,7 @@ void Map::loadMinionsLVL_6_4() {
 
 	addUpFire(27 * 32, 9 * 32);
 	addUpFire(33 * 32, 9 * 32);
-	addUpFire(131 * 32, 9 * 32);*/
+	addUpFire(131 * 32, 9 * 32);
 }
 
 void Map::loadMinionsLVL_7_1() {
@@ -8871,10 +8880,10 @@ void Map::loadMinionsLVL_7_3() {
 void Map::loadMinionsLVL_7_4() {
 	clearMinions();
 
-	/*addUpFire(20 * 32, 9 * 32);
+	addUpFire(20 * 32, 9 * 32);
 	addUpFire(260 * 32, 9 * 32);
 
-	addFireBall(167 * 32, CFG::GameHeight - 16 - 7 * 32, 6, rand() % 360, true);*/
+	addFireBall(167 * 32, CFG::GameHeight - 16 - 7 * 32, 6, rand() % 360, true);
 
 	addBowser(263 * 32, CFG::GameHeight - 16 - 6 * 32, true);
 
@@ -9046,13 +9055,13 @@ void Map::loadMinionsLVL_8_4() {
 
 	addToad(356 * 32, CFG::GameHeight - 3 * 32, true);
 
-	/*addUpFire(332 * 32, 9 * 32);
+	addUpFire(332 * 32, 9 * 32);
 
 	addFireBall(410 * 32, CFG::GameHeight - 16 - 7 * 32, 6, rand() % 360, true);
 	addFireBall(421 * 32, CFG::GameHeight - 16 - 4 * 32, 6, rand() % 360, false);
 	addFireBall(430 * 32, CFG::GameHeight - 16 - 8 * 32, 6, rand() % 360, true);
 	addFireBall(446 * 32, CFG::GameHeight - 16 - 6 * 32, 6, rand() % 360, true);
-	addFireBall(454 * 32, CFG::GameHeight - 16 - 7 * 32, 6, rand() % 360, false);*/
+	addFireBall(454 * 32, CFG::GameHeight - 16 - 7 * 32, 6, rand() % 360, false);
 
 	addSquid(418 * 32, CFG::GameHeight - 16 - 3 * 32);
 	addSquid(441 * 32, CFG::GameHeight - 16 - 4 * 32);
@@ -10203,6 +10212,14 @@ void Map::clearPlatforms() {
 	vPlatform.clear();
 }
 
+void Map::clearBubbles() {
+	for (unsigned int i = 0; i < lBubble.size(); i++) {
+		delete lBubble[i];
+	}
+
+	lBubble.clear();
+}
+
 void Map::checkSpawnPoint() {
 	if (getNumOfSpawnPoints() > 1) {
 		for (int i = iSpawnPointID + 1; i < getNumOfSpawnPoints(); i++) {
@@ -10284,28 +10301,23 @@ void Map::addHammerBro(int X, int Y) {
 	lMinion[getListID(X)].push_back(new HammerBro(X, Y));
 }
 
-//void Map::addFireBall(int X, int Y, int iWidth, int iSliceID, bool DIR) {
-//	for (int i = 0; i < iWidth; i++) {
-//		lMinion[getListID((int)X)].push_back(new FireBall(X + 8, Y + 8, 14 * i, iSliceID, DIR));
-//	}
-//}
+void Map::addFireBall(int X, int Y, int iWidth, int iSliceID, bool DIR) {
+	for (int i = 0; i < iWidth; i++) {
+		lMinion[getListID((int)X)].push_back(new FireBall(X + 8, Y + 8, 14 * i, iSliceID, DIR));
+	}
+}
 
 void Map::addSpikey(int X, int Y) {
 	lMinion[getListID(X)].push_back(new Spikey(X, Y));
 }
 
-void Map::addPlayerFireBall(int X, int Y, bool moveDirection)
-{
+void Map::addPlayerFireBall(int X, int Y, bool moveDirection) {
 	lMinion[getListID(X)].push_back(new PlayerFireBall(X, Y, moveDirection));
 }
 
-//void Map::addPlayerFireBall(int X, int Y, bool moveDirection) {
-//	lMinion[getListID(X)].push_back(new PlayerFireBall(X, Y, moveDirection));
-//}
-
-//void Map::addUpFire(int X, int iYEnd) {
-//	lMinion[getListID(X)].push_back(new UpFire(X, iYEnd));
-//}
+void Map::addUpFire(int X, int iYEnd) {
+	lMinion[getListID(X)].push_back(new UpFire(X, iYEnd));
+}
 
 void Map::addFire(float fX, float fY, int toYPos) {
 	lMinion[getListID((int)fX)].push_back(new Fire(fX, fY, toYPos));
@@ -10327,17 +10339,17 @@ void Map::addLakito(int X, int Y, int iMaxXPos) {
 	lMinion[getListID(X)].push_back(new Lakito(X, Y, iMaxXPos));
 }
 
-//void Map::addVine(int X, int Y, int minionState, int iBlockID) {
-//	lMinion[getListID(X)].push_back(new Vine(X, Y, minionState, iBlockID));
-//	if (minionState == 0) {
-//		CFG::getMusic()->PlayChunk(CFG::getMusic()->cVINE);
-//	}
-//}
+void Map::addVine(int X, int Y, int minionState, int iBlockID) {
+	lMinion[getListID(X)].push_back(new Vine(X, Y, minionState, iBlockID));
+	if (minionState == 0) {
+		CFG::getMusic()->PlayChunk(CFG::getMusic()->cVINE);
+	}
+}
 
-//void Map::addSpring(int X, int Y) {
-//	lMinion[getListID(X)].push_back(new Spring(X, Y));
-//	//lMap[X/32][(CCFG::GAME_HEIGHT - 16 - Y)/32 - 1]->setBlockID(83);
-//}
+void Map::addSpring(int X, int Y) {
+	lMinion[getListID(X)].push_back(new Spring(X, Y));
+	//lMap[X/32][(CCFG::GAME_HEIGHT - 16 - Y)/32 - 1]->setBlockID(83);
+}
 
 void Map::addBulletBillSpawner(int X, int Y, int minionState) {
 	lMinion[getListID(X * 32)].push_back(new BulletBillSpawner(X * 32, CFG::GameHeight - Y * 32, minionState));

@@ -66,6 +66,7 @@
     <ClCompile Include="Points.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="Spikey.cpp" />
+    <ClCompile Include="Spring.cpp" />
     <ClCompile Include="Squid.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="Text.cpp" />
@@ -73,7 +74,9 @@
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Toad.cpp" />
+    <ClCompile Include="UpFire.cpp" />
     <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="Vine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AboutMenu.h" />
@@ -122,6 +125,7 @@
     <ClInclude Include="Points.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="Spikey.h" />
+    <ClInclude Include="Spring.h" />
     <ClInclude Include="Squid.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="Text.h" />
@@ -129,7 +133,9 @@
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Toad.h" />
+    <ClInclude Include="UpFire.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Vine.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
