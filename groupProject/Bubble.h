@@ -1,9 +1,5 @@
 #pragma once
 
-#ifndef BUBBLE_H
-#define BUBBlE_H
-
-#include "header.h"
 #include "IMG.h"
 
 class Bubble
@@ -18,10 +14,8 @@ public:
 	~Bubble(void);
 
 	void Update();
-	void Draw(SDL_Renderer* rR, CIMG* iIMG);
+	void Draw(sf::RenderWindow& mainWindow, IMG* iIMG);
 
 	int getBlockID();
 	bool getDestroy();
 };
-
-#endif

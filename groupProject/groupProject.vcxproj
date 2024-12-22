@@ -25,6 +25,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockDebris.cpp" />
     <ClCompile Include="Bowser.cpp" />
+    <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="BulletBill.cpp" />
     <ClCompile Include="BulletBillSpawner.cpp" />
     <ClCompile Include="CFG.cpp" />
@@ -61,6 +62,7 @@
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Plant.cpp" />
+    <ClCompile Include="PlayerFireBall.cpp" />
     <ClCompile Include="Points.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="Spikey.cpp" />
@@ -80,6 +82,7 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockDebris.h" />
     <ClInclude Include="Bowser.h" />
+    <ClInclude Include="Bubble.h" />
     <ClInclude Include="BulletBill.h" />
     <ClInclude Include="BulletBillSpawner.h" />
     <ClInclude Include="CFG.h" />
@@ -115,6 +118,7 @@
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Plant.h" />
+    <ClInclude Include="PlayerFireBall.h" />
     <ClInclude Include="Points.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="Spikey.h" />

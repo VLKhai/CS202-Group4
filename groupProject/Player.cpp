@@ -360,7 +360,6 @@ void Player::playerPhysics()
 				else {
 					fYPos += Core::getMap()->getPlatform(onPlatformID)->getMoveY();
 					Core::getMap()->getPlatform(onPlatformID)->moveY();
-					//if(moveSpeed == 0)
 					Core::getMap()->setXPos(Core::getMap()->getXPos() - Core::getMap()->getPlatform(onPlatformID)->getMoveX());
 
 					jumpState = 0;
@@ -397,7 +396,7 @@ void Player::playerPhysics()
 	}
 	else { // Underwater
 		if (nextBubbleTime + 685 < Core::coreClock.getElapsedTime().asMilliseconds()) {
-			//Core::getMap()->addBubble((int)(fXPos - Core::getMap()->getXPos() + (moveDirection ? getHitBoxX() - rand() % 8 : rand() % 8)), (int)fYPos + 4);
+			Core::getMap()->addBubble((int)(fXPos - Core::getMap()->getXPos() + (moveDirection ? getHitBoxX() - rand() % 8 : rand() % 8)), (int)fYPos + 4);
 			nextBubbleTime = Core::coreClock.getElapsedTime().asMilliseconds() + rand() % 715;
 		}
 
@@ -492,11 +491,10 @@ void Player::updateXPos(int iN)
 	}
 }
 
-void Player::updateYPos(int iN)
-{
+void Player::updateYPos(int iN) {
 	bool bLEFT, bRIGHT;
 
-	if (iN > 0) { 
+	if (iN > 0) {
 		bLEFT = Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + iN, getHitBoxY(), true);
 		bRIGHT = Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + iN, getHitBoxX(), getHitBoxY(), true);
 
@@ -608,6 +606,7 @@ void Player::updateYPos(int iN)
 					}
 				}
 			}
+
 			updateYPos(iN + 1);
 		}
 	}
@@ -878,7 +877,7 @@ void Player::startJump(int iH) {
 		if (jumpState == 0) {
 			iMoveAnimationTime = Core::coreClock.getElapsedTime().asMilliseconds();
 			setSpriteID(8);
-			//swimingAnimation();
+			swimingAnimation();
 		}
 		CFG::getMusic()->PlayChunk(CFG::getMusic()->cSWIM);
 	}
@@ -917,7 +916,7 @@ void Player::createFireBall()
 {
 	if (powerLVL == 2) {
 		if (nextFireBallFrameID <= 0) {
-			//Core::getMap()->addPlayerFireBall((int)(fXPos - Core::getMap()->getXPos() + (moveDirection ? getHitBoxX() : -32)), (int)(fYPos + getHitBoxY() / 2), !moveDirection);
+			Core::getMap()->addPlayerFireBall((int)(fXPos - Core::getMap()->getXPos() + (moveDirection ? getHitBoxX() : -32)), (int)(fYPos + getHitBoxY() / 2), !moveDirection);
 			nextFireBallFrameID = 16;
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cFIREBALL);
 		}

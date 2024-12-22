@@ -10294,6 +10294,11 @@ void Map::addSpikey(int X, int Y) {
 	lMinion[getListID(X)].push_back(new Spikey(X, Y));
 }
 
+void Map::addPlayerFireBall(int X, int Y, bool moveDirection)
+{
+	lMinion[getListID(X)].push_back(new PlayerFireBall(X, Y, moveDirection));
+}
+
 //void Map::addPlayerFireBall(int X, int Y, bool moveDirection) {
 //	lMinion[getListID(X)].push_back(new PlayerFireBall(X, Y, moveDirection));
 //}
@@ -10314,9 +10319,9 @@ void Map::addCheepSpawner(int X, int XEnd) {
 	lMinion[getListID(X)].push_back(new CheepSpawner(X, XEnd));
 }
 
-//void Map::addBubble(int X, int Y) {
-//	lBubble.push_back(new Bubble(X, Y));
-//}
+void Map::addBubble(int X, int Y) {
+	lBubble.push_back(new Bubble(X, Y));
+}
 
 void Map::addLakito(int X, int Y, int iMaxXPos) {
 	lMinion[getListID(X)].push_back(new Lakito(X, Y, iMaxXPos));

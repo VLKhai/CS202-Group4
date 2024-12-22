@@ -37,6 +37,8 @@
 #include "Star.h"
 #include "Toad.h"
 #include "Squid.h"
+#include "PlayerFireBall.h"
+#include "Bubble.h"
 
 
 class Map {
@@ -59,7 +61,7 @@ private:
 
 	std::vector<LevelText*> vLevelText;
 
-	//std::vector<Bubble*> lBubble;
+	std::vector<Bubble*> lBubble;
 
 	int currentLevelID;
 	int iLevelType; // 0, 1, 2;
@@ -263,7 +265,7 @@ public:
 	void addLakito(int X, int Y, int iMaxXPos);
 	void addSpikey(int X, int Y);
 
-	//void addPlayerFireBall(int X, int Y, bool moveDirection);
+	void addPlayerFireBall(int X, int Y, bool moveDirection);
 
 	//void addUpFire(int X, int iYEnd);
 	//void addSpring(int X, int Y);
@@ -277,7 +279,7 @@ public:
 
 	void addText(int X, int Y, std::string sText);
 
-	//void addBubble(int X, int Y);
+	void addBubble(int X, int Y);
 	void addBulletBillSpawner(int X, int Y, int minionState);
 	void addBulletBill(int X, int Y, bool moveDirection, int minionState);
 

@@ -28,8 +28,8 @@ void Bubble::Update() {
 	}
 }
 
-void Bubble::Draw(sf::RenderWindow& window, IMG* iIMG) {
-	iIMG->draw(window, static_cast<int>(iXPos + Core::getMap()->getXPos()), iYPos);
+void Bubble::Draw(sf::RenderWindow& mainWindow, IMG* iIMG) {
+	iIMG->draw(mainWindow, (int)(iXPos + Core::getMap()->getXPos()), (int)(iYPos));
 }
 
 /* ******************************************** */
