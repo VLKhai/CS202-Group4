@@ -107,8 +107,9 @@ void MainMenu::enter() {
 		break;
 	case 1:
 		Map * tem = Core::getMap()->Load("GAME_DATA.bin");
-		Core::getMap()->change(tem);
+		Core::getMap()->setCurrentLevelID(tem->getCurrentLevelID());
 		Core::getMap()->loadLVL();
+		Core::getMap()->change(tem);
 		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGame);
 		CFG::getMusic()->changeMusic(true, true);
 		break;

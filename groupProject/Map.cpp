@@ -6879,7 +6879,7 @@ void Map::Save(const std::string& filename) const {
 	outFile.write(reinterpret_cast<const char*>(&iMapTime), sizeof(iMapTime));
 	outFile.write(reinterpret_cast<const char*>(&iLevelType), sizeof(iLevelType));
 	outFile.write(reinterpret_cast<const char*>(&inEvent), sizeof(inEvent));
-	outFile.write(reinterpret_cast<const char*>(&underWater), sizeof(underWater));
+	outFile.write(reinterpret_cast<const char*>(&iMapTime), sizeof(iMapTime));
 	pPlayer->Save(outFile);
 	outFile.close();
 }
@@ -6899,7 +6899,7 @@ Map* Map::Load(const std::string& filename) {
 	inFile.read(reinterpret_cast<char*>(&tem->iMapTime), sizeof(tem->iMapTime));
 	inFile.read(reinterpret_cast<char*>(&tem->iLevelType), sizeof(tem->iLevelType));
 	inFile.read(reinterpret_cast<char*>(&tem->inEvent), sizeof(tem->inEvent));
-	inFile.read(reinterpret_cast<char*>(&tem->underWater), sizeof(tem->underWater));
+	inFile.read(reinterpret_cast<char*>(&tem->iMapTime), sizeof(tem->iMapTime));
 	tem->pPlayer = vPlayer[indexPlayer];
 	tem->pPlayer->Load(inFile);
 	inFile.close();
@@ -6915,7 +6915,7 @@ void Map::change(Map* other) {
 	this->iMapTime = other->iMapTime;
 	this->iLevelType = other->iLevelType;
 	this->inEvent = other->inEvent;
-	this->underWater = other->underWater;
+	this->iMapTime = other->iMapTime;
 
 	// Assigning the player object and loading its data
 	this->pPlayer = other->pPlayer;
