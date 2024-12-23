@@ -5272,10 +5272,10 @@ void Map::loadMinionsLVL_1_2() {
 
 	addGoombas(29 * 32, 368, true);
 
-	addKoppa(44 * 32, 368, 1, true);
-	addKoppa(45 * 32 + 16, 368, 1, true);
+	addKoppa(44 * 32, 400, 1, true);
+	addKoppa(45 * 32 + 16, 400, 1, true);
 
-	addKoppa(59 * 32, 368, 1, true);
+	addKoppa(59 * 32, 400, 1, true);
 
 	addGoombas(62 * 32, 368, true);
 	addGoombas(64 * 32, 368, true);
@@ -5291,12 +5291,12 @@ void Map::loadMinionsLVL_1_2() {
 
 	addGoombas(113 * 32, 368, true);
 
-	addGoombas(135 * 32, 368 - 3 * 32, true);
+	addGoombas(135 * 32, 368 - 4 * 32, true);
 	addGoombas(136 * 32 + 16, 368 - 4 * 32, true);
 
 	this->iLevelType = 3;
 
-	addKoppa(146 * 32, 368, 1, false);
+	addKoppa(146 * 32, 400, 1, false);
 
 	this->iLevelType = 1;
 	addPlant(103 * 32 + 16, CFG::GameHeight - 10 - 4 * 32);
