@@ -65,14 +65,14 @@ void MainMenu::draw(sf::RenderWindow& mainWindow) {
 		rSelectWorld.top -= 1;
 		rSelectWorld.width += 2;
 		rSelectWorld.height += 2;
-		for (int i = 0, extraX = 0; i < 8; i++) {
+		for (int i = 0, extraX = 0; i < 3; i++) {
 			if (i == activeWorldID) {
-				CFG::getText()->Draw(mainWindow, std::to_string(i + 1) + "-" + std::to_string(activeSecondWorldID + 1), rSelectWorld.left + 16 * (i + 1) + 16 * i + extraX, rSelectWorld.top + 16 + 24, 16, 255, 255, 255);
+				CFG::getText()->Draw(mainWindow, std::to_string(i + 1) + "-" + std::to_string(activeSecondWorldID + 1), rSelectWorld.left + 40 * (i + 1) + 40 * i + extraX, rSelectWorld.top + 16 + 24, 16, 255, 255, 255);
 
 				extraX = 32;
 			}
 			else {
-				CFG::getText()->Draw(mainWindow, std::to_string(i + 1), rSelectWorld.left + 16 * (i + 1) + 16 * i + extraX, rSelectWorld.top + 16 + 24, 16, 90, 90, 90);
+				CFG::getText()->Draw(mainWindow, std::to_string(i + 1), rSelectWorld.left + 40 * (i + 1) + 40 * i + extraX, rSelectWorld.top + 16 + 24, 16, 90, 90, 90);
 			}
 		}
 	}
@@ -157,7 +157,7 @@ void MainMenu::updateActiveButton(int iDir) {
 		break;
 	case 1:
 		if (selectWorld) {
-			if (activeWorldID < 7) {
+			if (activeWorldID < 2) {
 				++activeWorldID;
 			}
 			else {
@@ -171,7 +171,7 @@ void MainMenu::updateActiveButton(int iDir) {
 				--activeWorldID;
 			}
 			else {
-				activeWorldID = 7;
+				activeWorldID = 2;
 			}
 		}
 		break;

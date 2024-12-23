@@ -1140,16 +1140,16 @@ void Map::loadLVL() {
 		loadLVL_2_4();
 		break;
 	case 28:
-		loadLVL_8_1();
+		loadLVL_3_1();
 		break;
 	case 29:
-		loadLVL_8_2();
+		loadLVL_3_2();
 		break;
 	case 30:
-		loadLVL_8_3();
+		loadLVL_3_3();
 		break;
 	case 31:
-		loadLVL_8_4();
+		loadLVL_3_4();
 		break;
 	}
 }
@@ -4577,7 +4577,7 @@ void Map::loadLVL_2_4() {
 	this->iLevelType = 3;
 }
 
-void Map::loadLVL_8_1() {
+void Map::loadLVL_3_1() {
 	clearMap();
 
 	this->iMapWidth = 440;
@@ -4589,8 +4589,8 @@ void Map::loadLVL_8_1() {
 
 	createMap();
 
-	loadMinionsLVL_8_1();
-	loadPipeEventsLVL_8_1();
+	loadMinionsLVL_3_1();
+	loadPipeEventsLVL_3_1();
 
 	structGND(0, 0, 46, 2);
 	structGND(47, 0, 1, 2);
@@ -4826,7 +4826,7 @@ void Map::loadLVL_8_1() {
 	this->iLevelType = 0;
 }
 
-void Map::loadLVL_8_2() {
+void Map::loadLVL_3_2() {
 	clearMap();
 
 	this->iMapWidth = 400;
@@ -4838,8 +4838,8 @@ void Map::loadLVL_8_2() {
 
 	createMap();
 
-	loadMinionsLVL_8_2();
-	loadPipeEventsLVL_8_2();
+	loadMinionsLVL_3_2();
+	loadPipeEventsLVL_3_2();
 
 	structBulletBill(85, 2, 0);
 	structBulletBill(93, 3, 0);
@@ -4999,7 +4999,7 @@ void Map::loadLVL_8_2() {
 	this->iLevelType = 0;
 }
 
-void Map::loadLVL_8_3() {
+void Map::loadLVL_3_3() {
 	clearMap();
 
 	this->iMapWidth = 240;
@@ -5011,7 +5011,7 @@ void Map::loadLVL_8_3() {
 
 	createMap();
 
-	loadMinionsLVL_8_3();
+	loadMinionsLVL_3_3();
 
 	structGND(0, 0, 69, 2);
 	structGND(71, 0, 4, 2);
@@ -5114,7 +5114,7 @@ void Map::loadLVL_8_3() {
 	structEnd(214, 3, 9);
 }
 
-void Map::loadLVL_8_4() {
+void Map::loadLVL_3_4() {
 	clearMap();
 
 	this->iMapWidth = 480;
@@ -5126,8 +5126,8 @@ void Map::loadLVL_8_4() {
 
 	createMap();
 
-	loadMinionsLVL_8_4();
-	loadPipeEventsLVL_8_4();
+	loadMinionsLVL_3_4();
+	loadPipeEventsLVL_3_4();
 
 	structGND(0, 0, 369, 2);
 	structGND(0, 12, 369, 1);
@@ -5453,7 +5453,7 @@ void Map::loadMinionsLVL_2_4() {
 	addUpFire(30 * 32, 9 * 32);
 }
 
-void Map::loadMinionsLVL_8_1() {
+void Map::loadMinionsLVL_3_1() {
 	clearMinions();
 
 	addGoombas(23 * 32, CFG::GameHeight - 16 - 2 * 32, true);
@@ -5522,7 +5522,7 @@ void Map::loadMinionsLVL_8_1() {
 	addPlant(355 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
 }
 
-void Map::loadMinionsLVL_8_2() {
+void Map::loadMinionsLVL_3_2() {
 	clearMinions();
 
 	addGoombas(184 * 32, CFG::GameHeight - 16 - 5 * 32, true);
@@ -5555,7 +5555,7 @@ void Map::loadMinionsLVL_8_2() {
 	addPlant(131 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
 }
 
-void Map::loadMinionsLVL_8_3() {
+void Map::loadMinionsLVL_3_3() {
 	clearMinions();
 
 	addKoppa(30 * 32, CFG::GameHeight - 16 - 4 * 32, 0, true);
@@ -5576,7 +5576,7 @@ void Map::loadMinionsLVL_8_3() {
 	addHammerBro(185 * 32, CFG::GameHeight - 16 - 3 * 32);
 }
 
-void Map::loadMinionsLVL_8_4() {
+void Map::loadMinionsLVL_3_4() {
 	clearMinions();
 
 	addPlant(19 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
@@ -5670,19 +5670,19 @@ void Map::loadPipeEventsLVL_2_2() {
 	lPipe.push_back(new Pipe(1, 189, 7, 189, 6, 274 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
 }
 
-void Map::loadPipeEventsLVL_8_1() {
+void Map::loadPipeEventsLVL_3_1() {
 	lPipe.push_back(new Pipe(0, 104, 5, 105, 5, 412 * 32, 32, currentLevelID, 1, false, 350, 1, false));
 
 	lPipe.push_back(new Pipe(1, 423, 3, 423, 2, 115 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
 }
 
-void Map::loadPipeEventsLVL_8_2() {
+void Map::loadPipeEventsLVL_3_2() {
 	lPipe.push_back(new Pipe(0, 156, 5, 157, 5, 242 * 32, 32, currentLevelID, 1, false, 350, 1, false));
 
 	lPipe.push_back(new Pipe(1, 253, 3, 253, 2, 163 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 0, true, 350, 1, false));
 }
 
-void Map::loadPipeEventsLVL_8_4() {
+void Map::loadPipeEventsLVL_3_4() {
 	lPipe.push_back(new Pipe(2, 81, 6, 82, 6, 126 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));
 
 	lPipe.push_back(new Pipe(2, 163, 8, 164, 8, 215 * 32, CFG::GameHeight - 16 - 3 * 32, currentLevelID, 3, true, 250, 1, false));

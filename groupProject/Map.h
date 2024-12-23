@@ -138,10 +138,10 @@ private:
 	void loadLVL_2_2();
 	void loadLVL_2_3();
 	void loadLVL_2_4();
-	void loadLVL_8_1();
-	void loadLVL_8_2();
-	void loadLVL_8_3();
-	void loadLVL_8_4();
+	void loadLVL_3_1();
+	void loadLVL_3_2();
+	void loadLVL_3_3();
+	void loadLVL_3_4();
 
 	void loadMinionsLVL_1_1();
 	void loadMinionsLVL_1_2();
@@ -151,19 +151,19 @@ private:
 	void loadMinionsLVL_2_2();
 	void loadMinionsLVL_2_3();
 	void loadMinionsLVL_2_4();
-	void loadMinionsLVL_8_1();
-	void loadMinionsLVL_8_2();
-	void loadMinionsLVL_8_3();
-	void loadMinionsLVL_8_4();
+	void loadMinionsLVL_3_1();
+	void loadMinionsLVL_3_2();
+	void loadMinionsLVL_3_3();
+	void loadMinionsLVL_3_4();
 
 	void clearPipeEvents(); // Done
 	void loadPipeEventsLVL_1_1(); // Done
 	void loadPipeEventsLVL_1_2(); // Done
 	void loadPipeEventsLVL_2_1(); // Done
 	void loadPipeEventsLVL_2_2(); // Done
-	void loadPipeEventsLVL_8_1(); // Done
-	void loadPipeEventsLVL_8_2(); // Done
-	void loadPipeEventsLVL_8_4(); // Done
+	void loadPipeEventsLVL_3_1(); // Done
+	void loadPipeEventsLVL_3_2(); // Done
+	void loadPipeEventsLVL_3_4(); // Done
 
 	void clearLevelText();
 
