@@ -79,7 +79,7 @@ void PauseMenu::enter() {
 		break;
 	case 2:
 		Core::getMap()->Save("GAME_DATA.bin");
-		Core::getMap()->resetGameData();
+		/*Core::getMap()->resetGameData();*/
 		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eMainMenu);
 		break;
 	case 3:

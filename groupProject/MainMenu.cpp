@@ -106,9 +106,9 @@ void MainMenu::enter() {
 		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eOptions);
 		break;
 	case 1:
-		Core::getMap()->Load("GAME_DATA.bin");
+		/*Core::getMap()->Load("GAME_DATA.bin");
 		CFG::getMusic()->changeMusic(true, true);
-		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGame);
+		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGame);    BUGGGGGGGG*/
 		break;
 	}
 }
