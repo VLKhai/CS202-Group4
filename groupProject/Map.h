@@ -366,5 +366,6 @@ public:
 
 	// ---------SAVE & LOAD
 	void Save(const std::string& filename) const;
-	void Load(const std::string& filename);
+	Map* Load(const std::string& filename);
+	void change(Map* other);
 };

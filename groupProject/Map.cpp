@@ -1139,16 +1139,16 @@ void Map::loadLVL() {
 	case 7:
 		loadLVL_2_4();
 		break;
-	case 28:
+	case 8:
 		loadLVL_3_1();
 		break;
-	case 29:
+	case 9:
 		loadLVL_3_2();
 		break;
-	case 30:
+	case 10:
 		loadLVL_3_3();
 		break;
-	case 31:
+	case 11:
 		loadLVL_3_4();
 		break;
 	}
@@ -6876,23 +6876,47 @@ void Map::Save(const std::string& filename) const {
 	outFile.write(reinterpret_cast<const char*>(&currentLevelID), sizeof(currentLevelID));
 	outFile.write(reinterpret_cast<const char*>(&iMapWidth), sizeof(iMapWidth));
 	outFile.write(reinterpret_cast<const char*>(&iMapHeight), sizeof(iMapHeight));
+	outFile.write(reinterpret_cast<const char*>(&iMapTime), sizeof(iMapTime));
+	outFile.write(reinterpret_cast<const char*>(&iLevelType), sizeof(iLevelType));
+	outFile.write(reinterpret_cast<const char*>(&inEvent), sizeof(inEvent));
+	outFile.write(reinterpret_cast<const char*>(&underWater), sizeof(underWater));
 	pPlayer->Save(outFile);
 	outFile.close();
 }
 
-void Map::Load(const std::string& filename) {
+Map* Map::Load(const std::string& filename) {
 	std::ifstream inFile(filename, std::ios::binary);
 	if (!inFile) {
 		std::cerr << "Error opening file for loading!\n";
-		return;
+		return nullptr;
 	}
-	inFile.read(reinterpret_cast<char*>(&fXPos), sizeof(fXPos));
-	inFile.read(reinterpret_cast<char*>(&fYPos), sizeof(fYPos));
-	inFile.read(reinterpret_cast<char*>(&currentLevelID), sizeof(currentLevelID));
-	inFile.read(reinterpret_cast<char*>(&iMapWidth), sizeof(iMapWidth));
-	inFile.read(reinterpret_cast<char*>(&iMapHeight), sizeof(iMapHeight));
-
-	pPlayer->Load(inFile);
-
+	Map* tem = new Map();
+	inFile.read(reinterpret_cast<char*>(&tem->fXPos), sizeof(tem->fXPos));
+	inFile.read(reinterpret_cast<char*>(&tem->fYPos), sizeof(tem->fYPos));
+	inFile.read(reinterpret_cast<char*>(&tem->currentLevelID), sizeof(tem->currentLevelID));
+	inFile.read(reinterpret_cast<char*>(&tem->iMapWidth), sizeof(tem->iMapWidth));
+	inFile.read(reinterpret_cast<char*>(&tem->iMapHeight), sizeof(tem->iMapHeight));
+	inFile.read(reinterpret_cast<char*>(&tem->iMapTime), sizeof(tem->iMapTime));
+	inFile.read(reinterpret_cast<char*>(&tem->iLevelType), sizeof(tem->iLevelType));
+	inFile.read(reinterpret_cast<char*>(&tem->inEvent), sizeof(tem->inEvent));
+	inFile.read(reinterpret_cast<char*>(&tem->underWater), sizeof(tem->underWater));
+	tem->pPlayer = vPlayer[indexPlayer];
+	tem->pPlayer->Load(inFile);
 	inFile.close();
+	return tem;
+}
+
+void Map::change(Map* other) {
+	this->fXPos = other->fXPos;
+	this->fYPos = other->fYPos;
+	this->currentLevelID = other->currentLevelID;
+	this->iMapWidth = other->iMapWidth;
+	this->iMapHeight = other->iMapHeight;
+	this->iMapTime = other->iMapTime;
+	this->iLevelType = other->iLevelType;
+	this->inEvent = other->inEvent;
+	this->underWater = other->underWater;
+
+	// Assigning the player object and loading its data
+	this->pPlayer = other->pPlayer;
 }

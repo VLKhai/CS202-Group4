@@ -74,12 +74,12 @@ void PauseMenu::enter() {
 	case 1:
 		CFG::getMenuManager()->getOptions()->setEscapeToMainMenu(false);
 		CFG::getMenuManager()->resetActiveOptionID(CFG::getMenuManager()->eOptions);
-		//CFG::getMenuManager()->getOptions()->updateVolumeRect();
+		CFG::getMenuManager()->getOptions()->updateVolumeRect();
 		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eOptions);
 		break;
 	case 2:
 		Core::getMap()->Save("GAME_DATA.bin");
-		/*Core::getMap()->resetGameData();*/
+		Core::getMap()->resetGameData();
 		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eMainMenu);
 		break;
 	case 3:
