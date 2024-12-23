@@ -36,7 +36,7 @@ OptionsMenu::OptionsMenu() {
 	rVolume.left = 185;
 	rVolume.top = 65;
 	rVolume.height = 16;
-	rVolume.width = 100;
+	rVolume.width = 200;
 
 	this->escapeToMainMenu = true;
 }
@@ -60,21 +60,48 @@ void OptionsMenu::escape() {
 	}
 }
 
-void OptionsMenu::draw(sf::RenderWindow& mainWindow) {
+void OptionsMenu::draw(sf::RenderWindow& mainWindow) {	
 	Core::getMap()->drawMap(mainWindow);
 	Core::getMap()->DrawMinions(mainWindow);
 	Core::getMap()->getPlayer()->draw(mainWindow);
 	Core::getMap()->DrawGameLayout(mainWindow);
 	
-	sf::RectangleShape rectangle;
+	sf::RectangleShape rec;
 	//filled color 
-	rectangle.setFillColor(sf::Color::Black);
-	rectangle.setOutlineThickness(1); // Optional: Add a border
-	rectangle.setOutlineColor(sf::Color::White); // Optional: Border color
+	rec.setFillColor(sf::Color::Black);
+	rec.setOutlineThickness(1); // Optional: Add a border
+	rec.setOutlineColor(sf::Color::White); // Optional: Border color
 	// Update the rectangle shape to reflect the changes
-	rectangle.setPosition((rRect.left), (rRect.top));
-	rectangle.setSize(sf::Vector2f((rRect.width),(rRect.height)));
-	mainWindow.draw(rectangle);
+	rec.setPosition((rRect.left), (rRect.top));
+	rec.setSize(sf::Vector2f((rRect.width),(rRect.height)));
+	mainWindow.draw(rec);
+
+	// Background rectangle for volume
+	sf::RectangleShape volumeBG;
+	volumeBG.setPosition(rVolumeBG.left, rVolumeBG.top);
+	volumeBG.setSize(sf::Vector2f(rVolumeBG.width, rVolumeBG.height));
+	volumeBG.setFillColor(sf::Color(4, 4, 4, 245)); // Background color
+	mainWindow.draw(volumeBG);
+	if (activeMenuOption == 0) {
+		volumeBG.setOutlineThickness(1);
+		volumeBG.setOutlineColor(sf::Color(255, 255, 255, 255));
+	}
+	else {
+		volumeBG.setOutlineThickness(1);
+		volumeBG.setOutlineColor(sf::Color(160, 160, 160, 55));
+	}
+	mainWindow.draw(volumeBG);
+	// Foreground rectangle for volume
+	sf::RectangleShape volume;
+	volume.setPosition(rVolume.left, rVolume.top);
+	volume.setSize(sf::Vector2f(rVolume.width, rVolume.height));
+	volume.setFillColor(sf::Color(
+		activeMenuOption == 0 ? 150 : 90,
+		activeMenuOption == 0 ? 150 : 90,
+		activeMenuOption == 0 ? 150 : 90,
+		255)); 
+	mainWindow.draw(volume);
+
     // Render menu options
     for (unsigned int i = 0; i < lMO.size(); i++) {
         if (i == activeMenuOption) {
@@ -127,8 +154,8 @@ void OptionsMenu::updateActiveButton(int iDir) {
 			}
 			break;
 		}
-		//updateVolumeRect();
-		//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
+		updateVolumeRect();
+		CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
 	}
 	if (!inSetKey) {
 		Menu::updateActiveButton(iDir);
@@ -145,7 +172,7 @@ void OptionsMenu::update() {
 void OptionsMenu::enter() {
 	switch (activeMenuOption) {
 	case 0:
-		//CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
+		CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
 		break;
 	case 1: case 2: case 3: case 4: case 5:
 		inSetKey = true;
@@ -155,6 +182,7 @@ void OptionsMenu::enter() {
 		break;
 	case 7:
 		Core::getMap()->resetGameData();
+		activeMenuOption = 0;
 		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eMainMenu);
 		break;
 	}
@@ -204,6 +232,10 @@ void OptionsMenu::setKey(int keyID) {
 	else if (keyID == sf::Keyboard::Escape) {
 		resetSetKey = true;
 	}
+}
+
+void OptionsMenu::updateVolumeRect() {
+	rVolume.width = CFG::getMusic()->getVolume() * 2;
 }
 
 void OptionsMenu::setEscapeToMainMenu(bool escapeToMainMenu) {

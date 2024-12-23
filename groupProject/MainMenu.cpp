@@ -102,7 +102,7 @@ void MainMenu::enter() {
 	case 2:
 		CFG::getMenuManager()->getOptions()->setEscapeToMainMenu(true);
 		CFG::getMenuManager()->resetActiveOptionID(CFG::getMenuManager()->eOptions);
-		//CFG::getMenuManager()->getOptions()->updateVolumeRect();
+		CFG::getMenuManager()->getOptions()->updateVolumeRect();
 		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eOptions);
 		break;
 	case 1:

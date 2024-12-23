@@ -29,7 +29,7 @@ public:
 
 	void updateActiveButton(int iDir);
 
-	//void updateVolumeRect();
+	void updateVolumeRect();
 
 	void setEscapeToMainMenu(bool escapeToMainMenu);
 };
