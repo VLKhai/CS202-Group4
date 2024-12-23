@@ -300,3 +300,4 @@ void Core::resetKeys() {
         movePressed = keyMenuPressed = keyS = keyW = keyA = keyD =  keyShift 
         = keyAPressed = keyDPressed = false;
 }
+

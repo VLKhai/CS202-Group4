@@ -78,6 +78,7 @@ void PauseMenu::enter() {
 		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eOptions);
 		break;
 	case 2:
+		Core::getMap()->Save("GAME_DATA.bin");
 		Core::getMap()->resetGameData();
 		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eMainMenu);
 		break;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <fstream>
 #include <vector>
 #include "Mario.h"
 #include "Luigi.h"
@@ -362,4 +363,8 @@ public:
 	Tile* getMapBlock(int iX, int iY);
 	Event* getEvent();
 	Block* getMinionBlock(int iID);
+
+	// ---------SAVE & LOAD
+	void Save(const std::string& filename) const;
+	void Load(const std::string& filename);
 };

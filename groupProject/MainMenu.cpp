@@ -5,9 +5,9 @@
 /* ******************************************** */
 
 MainMenu::MainMenu(void) {
-	this->lMO.push_back(new MenuOption("PLAY GAME", 207, 276));
-	this->lMO.push_back(new MenuOption("OPTIONS", 222, 308));
-	this->lMO.push_back(new MenuOption("ABOUT", 237, 340));
+	this->lMO.push_back(new MenuOption("NEW GAME", 207, 276));
+	this->lMO.push_back(new MenuOption("CONTINUE", 207, 308));
+	this->lMO.push_back(new MenuOption("OPTIONS", 207, 340));
 
 	this->numOfMenuOptions = lMO.size();
 
@@ -99,16 +99,16 @@ void MainMenu::enter() {
 			Core::resetKeys();
 		}
 		break;	
-	case 1:
+	case 2:
 		CFG::getMenuManager()->getOptions()->setEscapeToMainMenu(true);
 		CFG::getMenuManager()->resetActiveOptionID(CFG::getMenuManager()->eOptions);
 		//CFG::getMenuManager()->getOptions()->updateVolumeRect();
 		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eOptions);
 		break;
-	case 2:
-		//CFG::getMenuManager()->getAboutMenu()->updateTime();
-		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eAbout);
-		//CFG::getMusic()->PlayMusic(CFG::getMusic()->mOVERWORLD);
+	case 1:
+		Core::getMap()->Load("GAME_DATA.bin");
+		CFG::getMusic()->changeMusic(true, true);
+		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGame);
 		break;
 	}
 }

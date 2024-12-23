@@ -201,4 +201,8 @@ public:
 
 	bool getUseSkill();
 	virtual void setUseSkill(bool bUseSkill);
+
+	void Save(std::ofstream& outFile) const;
+
+	void Load(std::ifstream& inFile);
 };

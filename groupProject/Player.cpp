@@ -1101,3 +1101,21 @@ void Player::setUseSkill(bool bUseSkill)
 		this->pSkill->setTrigger(false);
 	}
 }
+
+void Player::Save(std::ofstream& outFile) const {
+	outFile.write(reinterpret_cast<const char*>(&fXPos), sizeof(fXPos));
+	outFile.write(reinterpret_cast<const char*>(&fYPos), sizeof(fYPos));
+	outFile.write(reinterpret_cast<const char*>(&powerLVL), sizeof(powerLVL));
+	outFile.write(reinterpret_cast<const char*>(&iNumOfLives), sizeof(iNumOfLives));
+	outFile.write(reinterpret_cast<const char*>(&iScore), sizeof(iScore));
+	outFile.write(reinterpret_cast<const char*>(&iCoins), sizeof(iCoins));
+}
+
+void Player::Load(std::ifstream& inFile) {
+	inFile.read(reinterpret_cast<char*>(&fXPos), sizeof(fXPos));
+	inFile.read(reinterpret_cast<char*>(&fYPos), sizeof(fYPos));
+	inFile.read(reinterpret_cast<char*>(&powerLVL), sizeof(powerLVL));
+	inFile.read(reinterpret_cast<char*>(&iNumOfLives), sizeof(iNumOfLives));
+	inFile.read(reinterpret_cast<char*>(&iScore), sizeof(iScore));
+	inFile.read(reinterpret_cast<char*>(&iCoins), sizeof(iCoins));
+}

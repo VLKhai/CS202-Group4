@@ -6864,3 +6864,35 @@ void Map::lockMinions() {
 		}
 	}
 }
+
+void Map::Save(const std::string& filename) const {
+	std::ofstream outFile(filename, std::ios::binary);
+	if (!outFile) {
+		std::cerr << "Error opening file for saving!\n";
+		return;
+	}
+	outFile.write(reinterpret_cast<const char*>(&fXPos), sizeof(fXPos));
+	outFile.write(reinterpret_cast<const char*>(&fYPos), sizeof(fYPos));
+	outFile.write(reinterpret_cast<const char*>(&currentLevelID), sizeof(currentLevelID));
+	outFile.write(reinterpret_cast<const char*>(&iMapWidth), sizeof(iMapWidth));
+	outFile.write(reinterpret_cast<const char*>(&iMapHeight), sizeof(iMapHeight));
+	pPlayer->Save(outFile);
+	outFile.close();
+}
+
+void Map::Load(const std::string& filename) {
+	std::ifstream inFile(filename, std::ios::binary);
+	if (!inFile) {
+		std::cerr << "Error opening file for loading!\n";
+		return;
+	}
+	inFile.read(reinterpret_cast<char*>(&fXPos), sizeof(fXPos));
+	inFile.read(reinterpret_cast<char*>(&fYPos), sizeof(fYPos));
+	inFile.read(reinterpret_cast<char*>(&currentLevelID), sizeof(currentLevelID));
+	inFile.read(reinterpret_cast<char*>(&iMapWidth), sizeof(iMapWidth));
+	inFile.read(reinterpret_cast<char*>(&iMapHeight), sizeof(iMapHeight));
+
+	pPlayer->Load(inFile);
+
+	inFile.close();
+}
