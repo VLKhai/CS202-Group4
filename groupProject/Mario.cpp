@@ -2,8 +2,10 @@
 #include "Core.h"
 
 Mario::Mario(sf::RenderWindow& window, float fXPos, float fYPos) : Player(window, fXPos, fYPos) {
+	
 	limSmallJumpBlock = 2;
 	limBigJumpBlock = 4;
+	iIDPlayer = 1;
 
 	this->pSkill = new ExplodeSkill(window, fXPos, fYPos);
 

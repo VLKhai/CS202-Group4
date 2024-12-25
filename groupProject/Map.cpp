@@ -1179,15 +1179,27 @@ void Map::spawnVine(int nX, int nY, int iBlockID) {
 	}
 }
 
-void Map::moveMap(int nX, int nY)
+void Map::moveMap(int nX, int nY, int iIDPlayer)
 {
-	if (fXPos + nX > 0) {
-		pPlayer->updateXPos((int)(nX - fXPos));
-		fXPos = 0;
+	if (iIDPlayer == 1) {
+		if (fXPos + nX > 0) {
+			pPlayer->updateXPos((int)(nX - fXPos));
+			fXPos = 0;
+		}
+		else {
+			this->fXPos += nX;
+		}
+		return;
+	}
+	if (fXPos2 + nX > 0) {
+		vPlayer[1]->updateXPos((int)(nX - fXPos2));
+		fXPos2 = 0;
 	}
 	else {
-		this->fXPos += nX;
+		this->fXPos2 += nX;
 	}
+	return;
+
 }
 
 void Map::structBush(int X, int Y, int iSize)

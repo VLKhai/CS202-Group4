@@ -2,8 +2,10 @@
 #include "Core.h"
 
 Luigi::Luigi(sf::RenderWindow& window, float fXPos, float fYPos) : Player(window, fXPos, fYPos) {
+	
 	limSmallJumpBlock = 3;
 	limBigJumpBlock = 5;
+	iIDPlayer = 2;
 
 	// LOAD SPRITE
 	std::vector<std::string> tempS;
@@ -304,13 +306,16 @@ void Luigi::update()
 
 void Luigi::draw(sf::RenderWindow& window)
 {
+	int fXPosCam = fXPos + (Core::getMap()->getXPos() - Core::getMap()->getXPos(2));
+	int fYPosCam = fYPos + (Core::getMap()->getYPos() - Core::getMap()->getYPos(2));
+	
 	if (!inLevelDownAnimation || Core::getMap()->getInEvent()) {
 		// Super Luigi
-		sLuigi[getSpriteID()]->getTexture()->draw(window, (int)fXPos, (int)fYPos + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);
+		sLuigi[getSpriteID()]->getTexture()->draw(window, (int)fXPosCam, (int)fYPosCam + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);
 	}
 	else {
 		if (inLevelDownAnimationFrameID % 15 < (inLevelDownAnimationFrameID > 120 ? 7 : inLevelDownAnimationFrameID > 90 ? 9 : inLevelDownAnimationFrameID > 60 ? 11 : inLevelDownAnimationFrameID > 30 ? 13 : 14)) {
-			sLuigi[getSpriteID()]->getTexture()->draw(window, (int)fXPos, (int)fYPos + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);
+			sLuigi[getSpriteID()]->getTexture()->draw(window, (int)fXPosCam, (int)fYPosCam + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);
 		}
 	}
 }

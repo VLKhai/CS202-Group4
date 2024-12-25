@@ -2,10 +2,10 @@
 #include "Core.h"
 
 
-Player::Player(sf::RenderWindow &window, float fXPos, float fYPos)
+Player::Player(sf::RenderWindow& window, float fXPos, float fYPos)
 {
 	this->bUseSkill = false;
-	
+
 	this->fXPos = fXPos;
 	this->fYPos = fYPos;
 	this->iNumOfLives = 3;
@@ -110,8 +110,8 @@ void Player::movePlayer() {
 	}
 }
 
-bool Player::checkCollisionBot(int nX, int nY) { 
-	Vector2* vLT = getBlockLB(fXPos - Core::getMap()->getXPos() + nX, fYPos + nY);
+bool Player::checkCollisionBot(int nX, int nY) {
+	Vector2* vLT = getBlockLB(fXPos - Core::getMap()->getXPos(iIDPlayer) + nX, fYPos + nY);
 
 	if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
 		Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 1);
@@ -119,7 +119,7 @@ bool Player::checkCollisionBot(int nX, int nY) {
 
 	delete vLT;
 
-	vLT = getBlockRB(fXPos - Core::getMap()->getXPos() + nX, fYPos + nY);
+	vLT = getBlockRB(fXPos - Core::getMap()->getXPos(iIDPlayer) + nX, fYPos + nY);
 
 	if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
 		Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 1);
@@ -132,7 +132,7 @@ bool Player::checkCollisionBot(int nX, int nY) {
 bool Player::checkCollisionCenter(int nX, int nY)
 {
 	if (powerLVL == 0) {
-		Vector2* vLT = getBlockLC(fXPos - Core::getMap()->getXPos() + nX, fYPos + nY);
+		Vector2* vLT = getBlockLC(fXPos - Core::getMap()->getXPos(iIDPlayer) + nX, fYPos + nY);
 
 		if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
 			Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 2);
@@ -140,7 +140,7 @@ bool Player::checkCollisionCenter(int nX, int nY)
 
 		delete vLT;
 
-		vLT = getBlockRC(fXPos - Core::getMap()->getXPos() + nX, fYPos + nY);
+		vLT = getBlockRC(fXPos - Core::getMap()->getXPos(iIDPlayer) + nX, fYPos + nY);
 
 		if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
 			Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 2);
@@ -149,7 +149,7 @@ bool Player::checkCollisionCenter(int nX, int nY)
 		delete vLT;
 	}
 	else {
-		Vector2* vLT = getBlockLC(fXPos - Core::getMap()->getXPos() + nX, fYPos + nY + (powerLVL > 0 ? 16 : 0));
+		Vector2* vLT = getBlockLC(fXPos - Core::getMap()->getXPos(iIDPlayer) + nX, fYPos + nY + (powerLVL > 0 ? 16 : 0));
 
 		if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
 			Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 2);
@@ -157,7 +157,7 @@ bool Player::checkCollisionCenter(int nX, int nY)
 
 		delete vLT;
 
-		vLT = getBlockRC(fXPos - Core::getMap()->getXPos() + nX, fYPos + nY + (powerLVL > 0 ? 16 : 0));
+		vLT = getBlockRC(fXPos - Core::getMap()->getXPos(iIDPlayer) + nX, fYPos + nY + (powerLVL > 0 ? 16 : 0));
 
 		if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
 			Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 2);
@@ -165,7 +165,7 @@ bool Player::checkCollisionCenter(int nX, int nY)
 
 		delete vLT;
 
-		vLT = getBlockLC(fXPos - Core::getMap()->getXPos() + nX, fYPos + nY - (powerLVL > 0 ? 16 : 0));
+		vLT = getBlockLC(fXPos - Core::getMap()->getXPos(iIDPlayer) + nX, fYPos + nY - (powerLVL > 0 ? 16 : 0));
 
 		if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
 			Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 2);
@@ -173,7 +173,7 @@ bool Player::checkCollisionCenter(int nX, int nY)
 
 		delete vLT;
 
-		vLT = getBlockRC(fXPos - Core::getMap()->getXPos() + nX, fYPos + nY - (powerLVL > 0 ? 16 : 0));
+		vLT = getBlockRC(fXPos - Core::getMap()->getXPos(iIDPlayer) + nX, fYPos + nY - (powerLVL > 0 ? 16 : 0));
 
 		if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
 			Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 2);
@@ -210,10 +210,10 @@ Vector2* Player::getBlockRT(float nX, float nY) {
 }
 
 void Player::update()
-{	
+{
 	playerPhysics();
 	movePlayer();
-	
+
 	if (iFrameID > 0) {
 		--iFrameID;
 	}
@@ -295,7 +295,7 @@ void Player::playerPhysics()
 				currentJumpSpeed = 2.5f;
 			}
 
-			if (!bJumpPressed && currentJumpDistance > 32*limSmallJumpBlock && !springJump) {
+			if (!bJumpPressed && currentJumpDistance > 32 * limSmallJumpBlock && !springJump) {
 				jumpDistance = 16;
 				currentJumpDistance = 0;
 				currentJumpSpeed = 2.5f;
@@ -306,11 +306,11 @@ void Player::playerPhysics()
 			}
 		}
 		else {
-			if (onPlatformID == -1) { 
+			if (onPlatformID == -1) {
 				onPlatformID = Core::getMap()->checkCollisionWithPlatform((int)fXPos, (int)fYPos, getHitBoxX(), getHitBoxY());
 				if (onPlatformID >= 0) {
-					if (Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true)
-						|| Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
+					if (Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + 2), (int)fYPos + 2, getHitBoxY(), true)
+						|| Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
 						onPlatformID = -1;
 						resetJump();
 					}
@@ -326,26 +326,26 @@ void Player::playerPhysics()
 			}
 
 			if (onPlatformID >= 0) {
-				if (Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true)
-					|| Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
+				if (Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + 2), (int)fYPos + 2, getHitBoxY(), true)
+					|| Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
 					onPlatformID = -1;
 					resetJump();
 				}
 				else {
 					fYPos += Core::getMap()->getPlatform(onPlatformID)->getMoveY();
 					Core::getMap()->getPlatform(onPlatformID)->moveY();
-					Core::getMap()->setXPos(Core::getMap()->getXPos() - Core::getMap()->getPlatform(onPlatformID)->getMoveX());
+					Core::getMap()->setXPos(Core::getMap()->getXPos(iIDPlayer) - Core::getMap()->getPlatform(onPlatformID)->getMoveX());
 
 					jumpState = 0;
 				}
 			}
-			else if (!Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true) &&
-				 !Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
+			else if (!Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + 2), (int)fYPos + 2, getHitBoxY(), true) &&
+				!Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
 
-				 if (nextFallFrameID > 0) {
+				if (nextFallFrameID > 0) {
 					--nextFallFrameID;
-				 }
-				 else {
+				}
+				else {
 					currentFallingSpeed *= 1.05f;
 
 					if (currentFallingSpeed > startJumpSpeed) {
@@ -353,12 +353,12 @@ void Player::playerPhysics()
 					}
 
 					updateYPos((int)currentFallingSpeed);
-				 }
+				}
 
 
-				 jumpState = 2;
+				jumpState = 2;
 
-				 setSpriteID(5);
+				setSpriteID(5);
 			}
 			else if (jumpState == 2) { // Falling
 				resetJump();
@@ -366,11 +366,11 @@ void Player::playerPhysics()
 			else {
 				checkCollisionBot(0, 0);
 			}
-		} 
+		}
 	}
 	else { // Underwater
 		if (nextBubbleTime + 685 < Core::coreClock.getElapsedTime().asMilliseconds()) {
-			Core::getMap()->addBubble((int)(fXPos - Core::getMap()->getXPos() + (moveDirection ? getHitBoxX() - rand() % 8 : rand() % 8)), (int)fYPos + 4);
+			Core::getMap()->addBubble((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + (moveDirection ? getHitBoxX() - rand() % 8 : rand() % 8)), (int)fYPos + 4);
 			nextBubbleTime = Core::coreClock.getElapsedTime().asMilliseconds() + rand() % 715;
 		}
 
@@ -394,8 +394,8 @@ void Player::playerPhysics()
 			}
 		}
 		else {
-			if (!Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + 2, getHitBoxY(), true) &&
-				!Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
+			if (!Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + 2), (int)fYPos + 2, getHitBoxY(), true) &&
+				!Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) - 2), (int)fYPos + 2, getHitBoxX(), getHitBoxY(), true)) {
 
 				if (nextFallFrameID > 0) {
 					--nextFallFrameID;
@@ -423,15 +423,15 @@ void Player::playerPhysics()
 
 void Player::updateXPos(int iN)
 {
-	checkCollisionBot(iN, 0); 
+	checkCollisionBot(iN, 0);
 	checkCollisionCenter(iN, 0);
 	if (iN > 0) {
-		if (!Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() + iN), (int)fYPos - 2, getHitBoxX(), getHitBoxY(), true) 
-			&& !Core::getMap()->checkCollisionRT((int)(fXPos - Core::getMap()->getXPos() + iN), (int)fYPos + 2, getHitBoxX(), true) 
-			&& (powerLVL == 0 ? true : (!Core::getMap()->checkCollisionRC((int)(fXPos - Core::getMap()->getXPos() + iN), (int)fYPos, getHitBoxX(), getHitBoxY() / 2, true))))
+		if (!Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + iN), (int)fYPos - 2, getHitBoxX(), getHitBoxY(), true)
+			&& !Core::getMap()->checkCollisionRT((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + iN), (int)fYPos + 2, getHitBoxX(), true)
+			&& (powerLVL == 0 ? true : (!Core::getMap()->checkCollisionRC((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + iN), (int)fYPos, getHitBoxX(), getHitBoxY() / 2, true))))
 		{
 			if (fXPos >= 416 && Core::getMap()->getMoveMap()) {
-				Core::getMap()->moveMap(-iN, 0);
+				Core::getMap()->moveMap(-iN, 0, iIDPlayer);
 			}
 			else {
 				fXPos += iN;
@@ -443,15 +443,15 @@ void Player::updateXPos(int iN)
 		}
 	}
 	else if (iN < 0) {
-		if (!Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + iN), (int)fYPos - 2, getHitBoxY(), true) 
-			&& !Core::getMap()->checkCollisionLT((int)(fXPos - Core::getMap()->getXPos() + iN), (int)fYPos + 2, true) 
-			&& (powerLVL == 0 ? true : (!Core::getMap()->checkCollisionLC((int)(fXPos - Core::getMap()->getXPos() + iN), (int)fYPos, getHitBoxY() / 2, true))))
+		if (!Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + iN), (int)fYPos - 2, getHitBoxY(), true)
+			&& !Core::getMap()->checkCollisionLT((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + iN), (int)fYPos + 2, true)
+			&& (powerLVL == 0 ? true : (!Core::getMap()->checkCollisionLC((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + iN), (int)fYPos, getHitBoxY() / 2, true))))
 		{
-			if (fXPos <= 192 && Core::getMap()->getXPos() && Core::getMap()->getMoveMap() && CFG::canMoveBackward) {
+			if (fXPos <= 192 && Core::getMap()->getXPos(iIDPlayer) && Core::getMap()->getMoveMap() && CFG::canMoveBackward) {
 
-				Core::getMap()->moveMap(-iN, 0);
+				Core::getMap()->moveMap(-iN, 0, iIDPlayer);
 			}
-			else if (fXPos - Core::getMap()->getXPos() + iN >= 0 && fXPos >= 0) {
+			else if (fXPos - Core::getMap()->getXPos(iIDPlayer) + iN >= 0 && fXPos >= 0) {
 				fXPos += iN;
 			}
 			else if (CFG::canMoveBackward && fXPos >= 0) {
@@ -469,8 +469,8 @@ void Player::updateYPos(int iN) {
 	bool bLEFT, bRIGHT;
 
 	if (iN > 0) {
-		bLEFT = Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + iN, getHitBoxY(), true);
-		bRIGHT = Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + iN, getHitBoxX(), getHitBoxY(), true);
+		bLEFT = Core::getMap()->checkCollisionLB((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + 2), (int)fYPos + iN, getHitBoxY(), true);
+		bRIGHT = Core::getMap()->checkCollisionRB((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) - 2), (int)fYPos + iN, getHitBoxX(), getHitBoxY(), true);
 
 		if (!bLEFT && !bRIGHT) {
 			fYPos += iN;
@@ -483,8 +483,8 @@ void Player::updateYPos(int iN) {
 		}
 	}
 	else if (iN < 0) {
-		bLEFT = Core::getMap()->checkCollisionLT((int)(fXPos - Core::getMap()->getXPos() + 2), (int)fYPos + iN, false);
-		bRIGHT = Core::getMap()->checkCollisionRT((int)(fXPos - Core::getMap()->getXPos() - 2), (int)fYPos + iN, getHitBoxX(), false);
+		bLEFT = Core::getMap()->checkCollisionLT((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + 2), (int)fYPos + iN, false);
+		bRIGHT = Core::getMap()->checkCollisionRT((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) - 2), (int)fYPos + iN, getHitBoxX(), false);
 
 		if (Core::getMap()->checkCollisionWithPlatform((int)fXPos, (int)fYPos, 0, 0) >= 0 || Core::getMap()->checkCollisionWithPlatform((int)fXPos, (int)fYPos, getHitBoxX(), 0) >= 0) {
 			jumpState = 2;
@@ -495,7 +495,7 @@ void Player::updateYPos(int iN) {
 		else {
 			if (jumpState == 1) {
 				if (!bLEFT && bRIGHT) {
-					Vector2* vRT = getBlockRT(fXPos - Core::getMap()->getXPos(), fYPos + iN);
+					Vector2* vRT = getBlockRT(fXPos - Core::getMap()->getXPos(iIDPlayer), fYPos + iN);
 
 					if (!Core::getMap()->getBlock(Core::getMap()->getMapBlock(vRT->getX(), vRT->getY())->getBlockID())->getVisible()) {
 						if (Core::getMap()->blockUse(vRT->getX(), vRT->getY(), Core::getMap()->getMapBlock(vRT->getX(), vRT->getY())->getBlockID(), 0)) {
@@ -505,8 +505,8 @@ void Player::updateYPos(int iN) {
 							fYPos += iN;
 						}
 					}
-					else if ((int)(fXPos + getHitBoxX() - Core::getMap()->getXPos()) % 32 <= 8) {
-						updateXPos((int)-((int)(fXPos + getHitBoxX() - Core::getMap()->getXPos()) % 32));
+					else if ((int)(fXPos + getHitBoxX() - Core::getMap()->getXPos(iIDPlayer)) % 32 <= 8) {
+						updateXPos((int)-((int)(fXPos + getHitBoxX() - Core::getMap()->getXPos(iIDPlayer)) % 32));
 					}
 					else if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vRT->getX(), vRT->getY())->getBlockID())->getUse()) {
 						if (Core::getMap()->blockUse(vRT->getX(), vRT->getY(), Core::getMap()->getMapBlock(vRT->getX(), vRT->getY())->getBlockID(), 0)) {
@@ -523,7 +523,7 @@ void Player::updateYPos(int iN) {
 					delete vRT;
 				}
 				else if (bLEFT && !bRIGHT) {
-					Vector2* vLT = getBlockLT(fXPos - Core::getMap()->getXPos(), fYPos + iN);
+					Vector2* vLT = getBlockLT(fXPos - Core::getMap()->getXPos(iIDPlayer), fYPos + iN);
 					if (!Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getVisible()) {
 						if (Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 0)) {
 							jumpState = 2;
@@ -532,8 +532,8 @@ void Player::updateYPos(int iN) {
 							fYPos += iN;
 						}
 					}
-					else if ((int)(fXPos - Core::getMap()->getXPos()) % 32 >= 24) {
-						updateXPos((int)(32 - (int)(fXPos - Core::getMap()->getXPos()) % 32));
+					else if ((int)(fXPos - Core::getMap()->getXPos(iIDPlayer)) % 32 >= 24) {
+						updateXPos((int)(32 - (int)(fXPos - Core::getMap()->getXPos(iIDPlayer)) % 32));
 					}
 					else if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
 						if (Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 0)) {
@@ -550,8 +550,8 @@ void Player::updateYPos(int iN) {
 					delete vLT;
 				}
 				else {
-					if ((int)(fXPos + getHitBoxX() - Core::getMap()->getXPos()) % 32 > 32 - (int)(fXPos - Core::getMap()->getXPos()) % 32) {
-						Vector2* vRT = getBlockRT(fXPos - Core::getMap()->getXPos(), fYPos + iN);
+					if ((int)(fXPos + getHitBoxX() - Core::getMap()->getXPos(iIDPlayer)) % 32 > 32 - (int)(fXPos - Core::getMap()->getXPos(iIDPlayer)) % 32) {
+						Vector2* vRT = getBlockRT(fXPos - Core::getMap()->getXPos(iIDPlayer), fYPos + iN);
 
 						if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vRT->getX(), vRT->getY())->getBlockID())->getUse()) {
 							if (Core::getMap()->blockUse(vRT->getX(), vRT->getY(), Core::getMap()->getMapBlock(vRT->getX(), vRT->getY())->getBlockID(), 0)) {
@@ -565,7 +565,7 @@ void Player::updateYPos(int iN) {
 						delete vRT;
 					}
 					else {
-						Vector2* vLT = getBlockLT(fXPos - Core::getMap()->getXPos(), fYPos + iN);
+						Vector2* vLT = getBlockLT(fXPos - Core::getMap()->getXPos(iIDPlayer), fYPos + iN);
 
 						if (Core::getMap()->getBlock(Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID())->getUse()) {
 							if (Core::getMap()->blockUse(vLT->getX(), vLT->getY(), Core::getMap()->getMapBlock(vLT->getX(), vLT->getY())->getBlockID(), 0)) {
@@ -738,7 +738,7 @@ void Player::setPowerLVL(int powerLVL) {
 		if (this->powerLVL < powerLVL) {
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cMUSHROOMMEAT);
 			setScore(getScore() + 1000);
-			Core::getMap()->addPoints((int)(fXPos - Core::getMap()->getXPos() + getHitBoxX() / 2), (int)fYPos + 16, "1000", 8, 16);
+			Core::getMap()->addPoints((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + getHitBoxX() / 2), (int)fYPos + 16, "1000", 8, 16);
 			inLevelAnimation = true;
 			inLevelAnimationFrameID = 0;
 			inLevelDownAnimationFrameID = 0;
@@ -757,7 +757,7 @@ void Player::setPowerLVL(int powerLVL) {
 	}
 	else {
 		++iNumOfLives;
-		Core::getMap()->addPoints((int)(fXPos - Core::getMap()->getXPos() + getHitBoxX() / 2), (int)fYPos + 16, "1UP", 10, 14);
+		Core::getMap()->addPoints((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + getHitBoxX() / 2), (int)fYPos + 16, "1UP", 10, 14);
 		CFG::getMusic()->PlayChunk(CFG::getMusic()->cONEUP);
 	}
 }
@@ -873,7 +873,7 @@ void Player::resetJump()
 	jumpState = 0;
 	jumpDistance = 0;
 	currentJumpDistance = 0;
-	currentFallingSpeed = 2.7f;  
+	currentFallingSpeed = 2.7f;
 	nextFallFrameID = 0;
 	springJump = false;
 }
@@ -890,7 +890,7 @@ void Player::createFireBall()
 {
 	if (powerLVL == 2) {
 		if (nextFireBallFrameID <= 0) {
-			Core::getMap()->addPlayerFireBall((int)(fXPos - Core::getMap()->getXPos() + (moveDirection ? getHitBoxX() : -32)), (int)(fYPos + getHitBoxY() / 2), !moveDirection);
+			Core::getMap()->addPlayerFireBall((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + (moveDirection ? getHitBoxX() : -32)), (int)(fYPos + getHitBoxY() / 2), !moveDirection);
 			nextFireBallFrameID = 16;
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cFIREBALL);
 		}
@@ -958,7 +958,7 @@ int Player::getMoveSpeed()
 
 bool Player::getMove()
 {
-    return bMove;
+	return bMove;
 }
 
 bool Player::getMoveDirection()

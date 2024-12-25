@@ -49,6 +49,7 @@
 class Map {
 private:
 	friend class Core;
+
 	float fXPos, fYPos; // Coordinate of the view window in the virtual world
 	float fXPos2, fYPos2; 
 
@@ -251,7 +252,7 @@ public:
 	void loadLVL();
 	void resetGameData();
 	void startLevelAnimation();
-	void moveMap(int nX, int nY);
+	void moveMap(int nX, int nY, int iIDPlayer=1);
 
 	// Structure object
 	void structBush(int X, int Y, int iSze);
@@ -322,10 +323,10 @@ public:
 	int getBlockIDY(int nY);
 
 	// --GETTERS & SETTERS--
-	float getXPos(int iPlayer=0);
+	float getXPos(int iPlayer=1);
 	void setXPos(float val);
 
-	float getYPos(int iPlayer = 0);
+	float getYPos(int iPlayer=1);
 	void setYPos(float val);
 
 	int getLevelType();
@@ -357,7 +358,7 @@ public:
 	void setSpawnPoint();
 
 	Flag* getFlag();
-	Player* getPlayer();
+	Player* getPlayer(); 
 	Player* getPlayer2();
 	Platform* getPlatform(int iID);
 	Block* getBlock(int iID);
