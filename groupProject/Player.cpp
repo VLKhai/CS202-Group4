@@ -68,6 +68,8 @@ const int Player::iBigY;
 
 int Player::nextFireBallFrameID;
 
+int Player::powerLVL;
+
 
 Player::Player(sf::RenderWindow &window, float fXPos, float fYPos)
 {
@@ -277,10 +279,7 @@ Vector2* Player::getBlockRT(float nX, float nY) {
 }
 
 void Player::update()
-{
-	if (unKillAble) std::cout << "Unkillable" << std::endl;
-	if (starEffect) std::cout << "Star Effect" << std::endl;
-	
+{	
 	playerPhysics();
 	movePlayer();
 	

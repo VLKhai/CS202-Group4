@@ -256,14 +256,16 @@ void Core::inputMenu()
         case sf::Keyboard::Right: case sf::Keyboard::D:
 			CFG::keyRight = true;
             if (!keyMenuPressed) {
-                CFG::getMenuManager()->keyPressed(3);
+                //CFG::getMenuManager()->keyPressed(3);
+				CFG::getMenuManager()->keyPressed(1);
                 keyMenuPressed = true;
             }
             break;
         case sf::Keyboard::Left: case sf::Keyboard::A:
 			CFG::keyLeft = true;
             if (!keyMenuPressed) {
-                CFG::getMenuManager()->keyPressed(1);
+                //CFG::getMenuManager()->keyPressed(1);
+				CFG::getMenuManager()->keyPressed(3);
                 keyMenuPressed = true;
             }
             break;

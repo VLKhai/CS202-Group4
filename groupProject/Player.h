@@ -91,7 +91,7 @@ protected:
 
 	bool moveDirection; // true = LEFT, false = RIGHT
 
-	int powerLVL;
+	static int powerLVL;
 
 	// Block = 32px
 	int limSmallJumpBlock; // Mario: 2 blocks, Luigi: 3 blocks
