@@ -2,75 +2,6 @@
 #include "Core.h"
 
 
-int Player::iSpriteID;
-unsigned int Player::iMoveAnimationTime;
-
-int Player::iNumOfLives;
-bool Player::unKillAble;
-bool Player::starEffect;
-
-int Player::unKillAbleTimeFrameID;
-int Player::unKillAbleFrameID;
-
-unsigned int Player::iScore;
-unsigned int Player::iCoins;
-
-int Player::iComboPoints, Player::iFrameID;
-
-// ----- LVL UP
-
-// -- LEVEL CHANGE ANIMATION
-bool Player::inLevelAnimation;
-bool Player::inLevelAnimationType; // -- true = UP, false = DOWN
-int Player::inLevelAnimationFrameID;
-
-// ----- LVL UP
-// ----- MOVE
-
-bool Player::bMove;
-bool Player::changeMoveDirection;
-bool Player::newMoveDirection;
-
-const int Player::maxMove;
-int Player::currentMaxMove;
-int Player::moveSpeed;
-unsigned int Player::iTimePassed;
-
-bool Player::bSquat;
-
-int Player::onPlatformID;
-
-// ----- MOVE
-// ----- JUMP
-
-int Player::jumpState;
-
-float Player::startJumpSpeed;
-float Player::currentJumpSpeed;
-float Player::jumpDistance;
-float Player::currentJumpDistance;
-//float distPressJ
-
-float Player::currentFallingSpeed;
-
-bool Player::springJump;
-
-// ----- JUMP
-// ----- BUBBLE
-
-unsigned int Player::nextBubbleTime;
-int Player::nextFallFrameID;
-
-const int Player::iSmallX;
-const int Player::iSmallY;
-const int Player::iBigX;
-const int Player::iBigY;
-
-int Player::nextFireBallFrameID;
-
-int Player::powerLVL;
-
-
 Player::Player(sf::RenderWindow &window, float fXPos, float fYPos)
 {
 	this->bUseSkill = false;
@@ -304,6 +235,48 @@ void Player::update()
 			unKillAble = false;
 		}
 	}
+}
+
+void Player::copyStats(Player* pPlayer)
+{
+	this->fXPos = pPlayer->fXPos;
+	this->fYPos = pPlayer->fYPos;
+	this->moveDirection = pPlayer->moveDirection;
+	this->powerLVL = pPlayer->powerLVL;
+	this->iNumOfLives = pPlayer->iNumOfLives;
+	this->iScore = pPlayer->iScore;
+	this->iCoins = pPlayer->iCoins;
+	this->iComboPoints = pPlayer->iComboPoints;
+	this->iFrameID = pPlayer->iFrameID;
+	this->nextBubbleTime = pPlayer->nextBubbleTime;
+	this->nextFallFrameID = pPlayer->nextFallFrameID;
+	this->currentFallingSpeed = pPlayer->currentFallingSpeed;
+	this->currentJumpSpeed = pPlayer->currentJumpSpeed;
+	this->currentJumpDistance = pPlayer->currentJumpDistance;
+	this->jumpDistance = pPlayer->jumpDistance;
+	this->jumpState = pPlayer->jumpState;
+	this->startJumpSpeed = pPlayer->startJumpSpeed;
+	this->iTimePassed = pPlayer->iTimePassed;
+	this->moveSpeed = pPlayer->moveSpeed;
+	this->currentMaxMove = pPlayer->currentMaxMove;
+	this->bMove = pPlayer->bMove;
+	this->changeMoveDirection = pPlayer->changeMoveDirection;
+	this->newMoveDirection = pPlayer->newMoveDirection;
+	this->bSquat = pPlayer->bSquat;
+	this->onPlatformID = pPlayer->onPlatformID;
+	this->springJump = pPlayer->springJump;
+	this->iMoveAnimationTime = pPlayer->iMoveAnimationTime;
+	this->iSkillCooldown = pPlayer->iSkillCooldown;
+	this->bUseSkill = pPlayer->bUseSkill;
+	this->pSkill = pPlayer->pSkill;
+	this->inLevelAnimation = pPlayer->inLevelAnimation;
+	this->inLevelAnimationType = pPlayer->inLevelAnimationType;
+	this->inLevelDownAnimation = pPlayer->inLevelDownAnimation;
+	this->inLevelDownAnimationFrameID = pPlayer->inLevelDownAnimationFrameID;
+	this->unKillAble = pPlayer->unKillAble;
+	this->unKillAbleTimeFrameID = pPlayer->unKillAbleTimeFrameID;
+	this->starEffect = pPlayer->starEffect;
+	this->nextFireBallFrameID = pPlayer->nextFireBallFrameID;
 }
 
 void Player::playerPhysics()

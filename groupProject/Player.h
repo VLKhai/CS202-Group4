@@ -7,70 +7,70 @@
 
 class Player {
 private:
-	static int iSpriteID;
-	static unsigned int iMoveAnimationTime;
+	int iSpriteID;
+	unsigned int iMoveAnimationTime;
 
-	static int iNumOfLives;
+	int iNumOfLives;
 
-	static bool unKillAble;
-	static bool starEffect;
+	bool unKillAble;
+	bool starEffect;
 
-	static int unKillAbleTimeFrameID;
-	static int unKillAbleFrameID;
+	int unKillAbleTimeFrameID;
+	int unKillAbleFrameID;
 
-	static unsigned int iScore;
-	static unsigned int iCoins;
+	unsigned int iScore;
+	unsigned int iCoins;
 
-	static int iComboPoints, iFrameID;
+	int iComboPoints, iFrameID;
 
 	// ----- LVL UP
 
 	// -- LEVEL CHANGE ANIMATION
-	static bool inLevelAnimation;
-	static bool inLevelAnimationType; // -- true = UP, false = DOWN
-	static int inLevelAnimationFrameID;
+	bool inLevelAnimation;
+	bool inLevelAnimationType; // -- true = UP, false = DOWN
+	int inLevelAnimationFrameID;
 
 	// ----- LVL UP
 	// ----- MOVE
 
-	static bool bMove;
-	static bool changeMoveDirection;
-	static bool newMoveDirection;
+	bool bMove;
+	bool changeMoveDirection;
+	bool newMoveDirection;
 
-	static const int maxMove = 4;
-	static int currentMaxMove;
-	static int moveSpeed;
-	static unsigned int iTimePassed;
+	const int maxMove = 4;
+	int currentMaxMove;
+	int moveSpeed;
+	unsigned int iTimePassed;
 
-	static bool bSquat;
+	bool bSquat;
 
-	static int onPlatformID;
+	int onPlatformID;
 
 	// ----- MOVE
 	// ----- JUMP
 
-	static int jumpState;
+	int jumpState;
+	bool bJumpPressed;
 
-	static float startJumpSpeed;
-	static float currentJumpSpeed;
-	static float jumpDistance;
-	static float currentJumpDistance;
-	//float distPressJ
+	float startJumpSpeed;
+	float currentJumpSpeed;
+	float jumpDistance;
+	float currentJumpDistance;
 
-	static float currentFallingSpeed;
+	float currentFallingSpeed;
 
-	static bool springJump;
+	bool springJump;
 
 	// ----- JUMP
 	// ----- BUBBLE
 
-	static unsigned int nextBubbleTime;
-	static int nextFallFrameID;
+	unsigned int nextBubbleTime;
+	int nextFallFrameID;
 
 	const static int iSmallX = 24, iSmallY = 32;
 	const static int iBigX = 32, iBigY = 64;
 
-	static int nextFireBallFrameID;
+	int nextFireBallFrameID;
 
 	// ----- Method
 	void movePlayer();
@@ -91,7 +91,7 @@ protected:
 
 	bool moveDirection; // true = LEFT, false = RIGHT
 
-	static int powerLVL;
+	int powerLVL;
 
 	// Block = 32px
 	int limSmallJumpBlock; // Mario: 2 blocks, Luigi: 3 blocks
@@ -113,6 +113,8 @@ public:
     
     virtual void draw(sf::RenderWindow& window) = 0;
 	virtual void update();
+
+	void copyStats(Player* pPlayer);
 
     void playerPhysics(); 
 

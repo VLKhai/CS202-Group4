@@ -22,6 +22,12 @@ bool Core::keyShift = false;
 bool Core::keyAPressed = false;
 bool Core::keyDPressed = false;
 
+bool Core::keyLeftPressed = false;
+bool Core::keyRightPressed = false;
+bool Core::keyUp = false;
+bool Core::keyDown = false;
+bool Core::keyShiftRight = false;
+
 Core::Core()
 {   //1000 X 560 or 800 x 448
     this->mainWindow.create(sf::VideoMode(CFG::GameWidth, CFG::GameHeight), "Mario Game");
@@ -31,7 +37,8 @@ Core::Core()
     this->pMap->loadMap(this->mainWindow);
 
     this->keyMenuPressed = this->movePressed = this->keyS = this->keyW = this->keyA = this->keyD = this->keyShift = false;
-    this->keyAPressed = this->keyDPressed = this->firstDir = false;
+    this->keyAPressed = this->keyDPressed = this->firstDir1 = false;
+	this->keyLeftPressed = this->keyRightPressed = this->firstDir2 = false;
 
     this->mouseX = this->mouseY = 0;
 
@@ -41,6 +48,14 @@ Core::Core()
     CFG::keyIDSpace = sf::Keyboard::Space;
     CFG::keyIDShift = sf::Keyboard::LShift;
 	CFG::keyIDSkill = sf::Keyboard::E;
+
+	CFG::keyIDLeft = sf::Keyboard::Left;
+	CFG::keyIDRight = sf::Keyboard::Right;
+	CFG::keyIDUp = sf::Keyboard::Up;
+	CFG::keyIDDown = sf::Keyboard::Down;
+	CFG::keyIDShiftRight = sf::Keyboard::RShift;
+	CFG::keyIDSkill2 = sf::Keyboard::RAlt;
+
 	CFG::keySpace = false;
 	CFG::keyEnter = false;
 	CFG::keyLeft = false;
@@ -89,26 +104,25 @@ void Core::input()
 }
 
 void Core::inputPlayer() {
-	// Pause game when focus is lost
-
+    // Pause game when focus is lost
 
     if (mainEvent.type == sf::Event::KeyReleased) {
        
         // Handle [D] key
         if (mainEvent.key.code == CFG::keyIDD) {
-            if (firstDir) firstDir = false;
+            if (firstDir1) firstDir1 = false;
             keyDPressed = false;
         }
 
         // Handle [S] key
         if (mainEvent.key.code == CFG::keyIDS) {
-            pMap->getPlayer()->setSquat(false); // Why is false?
+            pMap->getPlayer()->setSquat(false);
             keyS = false;
         }
 
         // Handle [A] key
         if (mainEvent.key.code == CFG::keyIDA) {
-            if (!firstDir) firstDir = true;
+            if (!firstDir1) firstDir1 = true;
             keyAPressed = false;
         }
         
@@ -129,12 +143,44 @@ void Core::inputPlayer() {
             CFG::keySkill = false;
         }
 
+        if (pMap->getNumOfPlayers() == 2) {
+            // Handle [D] key
+            if (mainEvent.key.code == CFG::keyIDRight) {
+                if (firstDir2) firstDir2 = false;
+                keyRightPressed = false;
+            }
+
+            // Handle [S] key
+            if (mainEvent.key.code == CFG::keyIDDown) {
+                pMap->getPlayer2()->setSquat(false);
+                keyDown = false;
+            }
+
+            // Handle [A] key
+            if (mainEvent.key.code == CFG::keyIDLeft) {
+                if (!firstDir2) firstDir2 = true;
+                keyLeftPressed = false;
+            }
+
+            // Handle [Space] key
+            if (mainEvent.key.code == CFG::keyIDUp) {
+                CFG::keyUp = false;
+            }
+
+            // Handle [LShift] key
+            if (mainEvent.key.code == CFG::keyIDShiftRight) {
+                if (keyShiftRight) {
+                    pMap->getPlayer2()->resetRun();
+                    keyShiftRight = false;
+                }
+            }
+        }
     }
 
     if (mainEvent.type == sf::Event::KeyPressed) {
         if (mainEvent.key.code == CFG::keyIDD) {
             keyDPressed = true;
-            if (!keyAPressed) firstDir = true;
+            if (!keyAPressed) firstDir1 = true;
         }
 
         if (mainEvent.key.code == CFG::keyIDS) {
@@ -147,7 +193,7 @@ void Core::inputPlayer() {
 
         if (mainEvent.key.code == CFG::keyIDA) {
             keyAPressed = true;
-            if (!keyDPressed) firstDir = false;
+            if (!keyDPressed) firstDir1 = false;
         }
 
         if (mainEvent.key.code == CFG::keyIDSpace) {
@@ -179,49 +225,110 @@ void Core::inputPlayer() {
             }
         }
         
+		if (pMap->getNumOfPlayers() == 2) {
+			if (mainEvent.key.code == CFG::keyIDRight) {
+				keyRightPressed = true;
+				if (!keyLeftPressed) firstDir2 = true;
+			}
+			if (mainEvent.key.code == CFG::keyIDDown) {
+				if (!keyDown) {
+					keyDown = true;
+					if (!pMap->getUnderWater() && !pMap->getPlayer2()->getInLevelAnimation())
+						pMap->getPlayer2()->setSquat(true);
+				}
+			}
+			if (mainEvent.key.code == CFG::keyIDLeft) {
+				keyLeftPressed = true;
+				if (!keyRightPressed) firstDir2 = false;
+			}
+			if (mainEvent.key.code == CFG::keyIDUp) {
+				if (!CFG::keyUp) {
+					pMap->getPlayer2()->jump();
+					CFG::keyUp = true;
+				}
+			}
+			if (mainEvent.key.code == CFG::keyIDShiftRight && !keyShiftRight) {
+				pMap->getPlayer2()->startRun();
+				keyShiftRight = true;
+			}
+		}
     }   
 
-    if (keyAPressed) {
-        if (!pMap->getPlayer()->getMove() && firstDir == false
-            && !pMap->getPlayer()->getChangeMoveDirection()
-            && !pMap->getPlayer()->getSquat()) {
-			
-            pMap->getPlayer()->startMove();
-			pMap->getPlayer()->setMoveDirection(false);
-        }
-        else if (!keyDPressed && pMap->getPlayer()->getMoveSpeed() > 0
-            && firstDir != pMap->getPlayer()->getMoveDirection()) {
-			
-            pMap->getPlayer()->setChangeMoveDirection();
-        }
-    
-    }
+	inputPlayerPressed(keyAPressed, keyDPressed, firstDir1, pMap->getPlayer());
+	inputPlayerPressed(keyLeftPressed, keyRightPressed, firstDir2, pMap->getPlayer2());
 
-    if (keyDPressed) {
-        if (!pMap->getPlayer()->getMove() && firstDir == true
-            && !pMap->getPlayer()->getChangeMoveDirection() 
-            && !pMap->getPlayer()->getSquat()) {
-            
-            pMap->getPlayer()->startMove();
-            pMap->getPlayer()->setMoveDirection(true);
-        }
-        else if (!keyAPressed && pMap->getPlayer()->getMoveSpeed() > 0 
-            && firstDir != pMap->getPlayer()->getMoveDirection()) {
-            
-            pMap->getPlayer()->setChangeMoveDirection();
-        }
-    }
+   // if (keyAPressed) {
+   //     if (!pMap->getPlayer()->getMove() && firstDir1 == false
+   //         && !pMap->getPlayer()->getChangeMoveDirection()
+   //         && !pMap->getPlayer()->getSquat()) {
+			//
+   //         pMap->getPlayer()->startMove();
+			//pMap->getPlayer()->setMoveDirection(false);
+   //     }
+   //     else if (!keyDPressed && pMap->getPlayer()->getMoveSpeed() > 0
+   //         && firstDir1 != pMap->getPlayer()->getMoveDirection()) {
+   //         pMap->getPlayer()->setChangeMoveDirection();
+   //     }
+   // 
+   // }
 
-    // For Inertia Movement
-    if (pMap->getPlayer()->getMove() && !keyAPressed && !keyDPressed) {
-        pMap->getPlayer()->resetMove();
-    }
+   // if (keyDPressed) {
+   //     if (!pMap->getPlayer()->getMove() && firstDir1 == true
+   //         && !pMap->getPlayer()->getChangeMoveDirection() 
+   //         && !pMap->getPlayer()->getSquat()) {
+   //         
+   //         pMap->getPlayer()->startMove();
+   //         pMap->getPlayer()->setMoveDirection(true);
+   //     }
+   //     else if (!keyAPressed && pMap->getPlayer()->getMoveSpeed() > 0 
+   //         && firstDir1 != pMap->getPlayer()->getMoveDirection()) {
+   //         
+   //         pMap->getPlayer()->setChangeMoveDirection();
+   //     }
+   // }
+
+   // // For Inertia Movement
+   // if (pMap->getPlayer()->getMove() && !keyAPressed && !keyDPressed) {
+   //     pMap->getPlayer()->resetMove();
+   // }
 }
 
-void Core::mouseInput()
-
+void Core::inputPlayerPressed(bool pressA, bool pressD, bool firstD, Player* pPlayer)
 {
+	if (pressA) {
+		if (!pPlayer->getMove() && firstD == false
+			&& !pPlayer->getChangeMoveDirection()
+			&& !pPlayer->getSquat()) {
+			pPlayer->startMove();
+			pPlayer->setMoveDirection(false);
+		}
+		else if (!pressD && pPlayer->getMoveSpeed() > 0
+			&& firstD != pPlayer->getMoveDirection()) {
+			pPlayer->setChangeMoveDirection();
+		}
+	}
+
+	if (pressD) {
+		if (!pPlayer->getMove() && firstD == true
+			&& !pPlayer->getChangeMoveDirection()
+			&& !pPlayer->getSquat()) {
+			pPlayer->startMove();
+			pPlayer->setMoveDirection(true);
+		}
+		else if (!pressA && pPlayer->getMoveSpeed() > 0
+			&& firstD != pPlayer->getMoveDirection()) {
+			pPlayer->setChangeMoveDirection();
+		}
+	}
+
+	if (pPlayer->getMove() && !pressA && !pressD) {
+		pPlayer->resetMove();
+	}
 }
+
+//void Core::inputMultiplayer()
+//{
+//}
 
 void Core::inputMenu()
 {

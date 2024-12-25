@@ -22,9 +22,6 @@ CFG::~CFG() {
 int CFG::GameWidth  = 1000;
 int CFG::GameHeight = 560;
 
-
-
-
 int CFG::keyIDA = 0;
 int CFG::keyIDD = 0;
 int CFG::keyIDS = 0;
@@ -32,12 +29,22 @@ int CFG::keyIDSpace = 0;
 int CFG::keyIDShift = 0;
 int CFG::keyIDSkill = 0;
 
+int CFG::keyIDRight = 0;
+int CFG::keyIDLeft = 0;
+int CFG::keyIDUp = 0;
+int CFG::keyIDDown = 0;
+int CFG::keyIDShiftRight = 0;
+int CFG::keyIDSkill2 = 0;
+
 bool CFG::canMoveBackward = true;
 bool CFG::keySpace = false;
 bool CFG::keyEnter = false;
 bool CFG::keyLeft = false;
 bool CFG::keyRight = false;
 bool CFG::keySkill = false;
+
+bool CFG::keyUp = false;
+bool CFG::keySkill2 = false;
 
 /* ******************************************** */
 

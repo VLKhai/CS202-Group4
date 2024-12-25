@@ -51,10 +51,19 @@ Map& Map::Instance()
 void Map::update()
 {
 	updateGifBlocks();
-	if (!pPlayer->getInLevelAnimation()) {
-		updateMinionBlocks();
+	
+	for (Player* pPlayer : vCurPlayer) {
+		if (!pPlayer->getInLevelAnimation()) {
+			updateMinionBlocks();
+			updateMinions();
+			break;
+		}
+	}
 
-		updateMinions();
+	if (!pPlayer->getInLevelAnimation()) {
+		//updateMinionBlocks();
+
+		//updateMinions();
 
 		if (!inEvent) {
 			updatePlayer();
@@ -89,6 +98,7 @@ void Map::update()
 	else {
 		pPlayer->powerUPAnimation();
 	}
+
 
 	// Update Block Debris
 	for (unsigned int i = 0; i < lBlockDebris.size(); i++) {
@@ -186,8 +196,8 @@ void Map::playerDeath(bool animation, bool instantDeath) {
 		}
 	}
 	else if (!pPlayer->getUnkillAble()) {
-		pPlayer->setPowerLVL(pPlayer->getPowerLVL() - 1);
-	}
+			pPlayer->setPowerLVL(pPlayer->getPowerLVL() - 1);
+		}
 }
 
 void Map::updateGifBlocks()
@@ -206,7 +216,8 @@ void Map::updateGifBlocks()
 
 void Map::updatePlayer()
 {
-	pPlayer->update();
+	for (Player* pPlayer : vCurPlayer) 
+		pPlayer->update();
 }
 
 void Map::updateMinionBlocks() {
@@ -379,7 +390,7 @@ void Map::updateMinionsCollisions() {
 									if (lMinion[i + 1][k]->killOtherUnits && lMinion[i + 1][k]->moveSpeed > 0 && lMinion[i][j]->minionSpawned) {
 										lMinion[i][j]->setMinionState(-2);
 										lMinion[i + 1][k]->collisionWithAnotherUnit();
-									}						
+									}
 
 									if (lMinion[i][j]->getYPos() - 4 <= lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY && lMinion[i][j]->getYPos() + 4 >= lMinion[i + 1][k]->getYPos() + lMinion[i + 1][k]->iHitBoxY) {
 										lMinion[i + 1][k]->onAnotherMinion = true;
@@ -401,30 +412,32 @@ void Map::updateMinionsCollisions() {
 	}
 
 	// ----- COLLISION WITH PLAYER
+
 	if (!inEvent && !pPlayer->getInLevelAnimation()) {
 		for (int i = getListID(-(int)fXPos + pPlayer->getXPos()) - (getListID(-(int)fXPos + pPlayer->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
 			for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
 				//std::cout << lMinion[i][j]->deadTime << std::endl;
-				
+
 				if (lMinion[i][j]->isAlive()) updateSkillCollisions(lMinion[i][j]);
-				
+
 				if (lMinion[i][j]->isAlive()) {
 					int playerLeftX = pPlayer->getXPos() - fXPos;
 					// if (minion.leftX <= player.leftX <= minion.rightX) or (minion.leftX <= player.rightX <= minion.rightX)
 					if (lMinion[i][j]->checkVerticalOverlap(playerLeftX, playerLeftX + pPlayer->getHitBoxX())) {
-						
+
 						// if (minion.y - 2 <= player.botY <= minion.y + 16) when player is on top of minion 2 px
 						if (lMinion[i][j]->checkHorizontalTopOverlap(pPlayer->getYPos() + pPlayer->getHitBoxY())) {
 							lMinion[i][j]->collisionWithPlayer(true);
 						}
 						// if (minion.y <= player.botY <= minion.botY) or (minion.y <= player.y <= minion.botY)
-						else if (lMinion[i][j]->checkHorizontalOverlap(pPlayer->getYPos(), pPlayer->getYPos()+ pPlayer->getHitBoxY())) {
+						else if (lMinion[i][j]->checkHorizontalOverlap(pPlayer->getYPos(), pPlayer->getYPos() + pPlayer->getHitBoxY())) {
 							lMinion[i][j]->collisionWithPlayer(false);
 						}
 					}
 				}
 			}
 		}
+
 	}
 }
 
@@ -464,7 +477,8 @@ void Map::draw(sf::RenderWindow& mainWindow)
 		lBubble[i]->Draw(mainWindow, vBlock[lBubble[i]->getBlockID()]->getAniSprite()->getTexture());
 	}
 
-	pPlayer->draw(mainWindow);
+	for (Player* pPlayer : vCurPlayer)
+		pPlayer->draw(mainWindow);
 
 	if (inEvent) {
 		pEvent->draw(mainWindow);
@@ -550,6 +564,7 @@ void Map::DrawGameLayout(sf::RenderWindow& mainWindow) {
 
 void Map::moveSelectPlayer(int iD)
 {
+	int prevIndex = indexPlayer;
 	indexPlayer += iD;
 	if (indexPlayer < 0) {
 		indexPlayer = vPlayer.size()-1;
@@ -558,10 +573,12 @@ void Map::moveSelectPlayer(int iD)
 		indexPlayer = 0;
 	}
 	pPlayer = vPlayer[indexPlayer];
+	pPlayer->copyStats(vPlayer[prevIndex]);
 }
 
 // POS 0 = TOP, 1 = BOT
 bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
+	
 	if (POS == 0) {
 		switch (iBlockID) {
 		case 8: case 55: // ----- BlockQ
@@ -701,31 +718,30 @@ bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
 	}
 
 	switch (iBlockID) {
-	case 29: case 71: case 72: case 73:// COIN
-		lMap[nX][nY]->setBlockID(iLevelType == 2 ? 94 : 0);
-		pPlayer->addCoin();
-		CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
-		return false;
-		break;
-	case 36: case 38: case 60: case 62: case 103: case 105: case 118: case 120: // Pipe
-		pipeUse();
-		break;
-	case 127: // BONUS END
-		EndBonus();
-		break;
-	case 169:
-		//TPUse();
-		break;
-	case 170:
-		//TPUse2();
-		break;
-	case 171:
-		//TPUse3();
-		break;
-	default:
-		break;
-	}
-
+		case 29: case 71: case 72: case 73:// COIN
+			lMap[nX][nY]->setBlockID(iLevelType == 2 ? 94 : 0);
+			pPlayer->addCoin();
+			CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
+			return false;
+			break;
+		case 36: case 38: case 60: case 62: case 103: case 105: case 118: case 120: // Pipe
+			pipeUse();
+			break;
+		case 127: // BONUS END
+			EndBonus();
+			break;
+		case 169:
+			//TPUse();
+			break;
+		case 170:
+			//TPUse2();
+			break;
+		case 171:
+			//TPUse3();
+			break;
+		default:
+			break;
+		}
 	return true;
 }
 
@@ -1737,6 +1753,11 @@ Player* Map::getPlayer()
     return pPlayer;
 }
 
+Player* Map::getPlayer2()
+{
+	return vPlayer[1];
+}
+
 Platform* Map::getPlatform(int iID)
 {
 	return vPlatform[iID];
@@ -1757,6 +1778,20 @@ Event* Map::getEvent() {
 
 Block* Map::getMinionBlock(int iID) {
 	return vMinion[iID];
+}
+
+void Map::setNumOfPlayers(int iNumOfPlayers)
+{
+	this->iNumOfPlayers = iNumOfPlayers;
+	this->vCurPlayer.resize(iNumOfPlayers);
+	for (int i = 0; i < iNumOfPlayers; i++) {
+		vCurPlayer[i] = vPlayer[i];
+	}
+}
+
+int Map::getNumOfPlayers()
+{
+	return iNumOfPlayers;
 }
 
 std::string Map::getLevelName() {
@@ -1797,6 +1832,7 @@ void Map::loadGameData(sf::RenderWindow& mainWindow)
 	vPlayer.push_back(new Luigi(mainWindow, 84, 480));
 	indexPlayer = 0;
 	pPlayer = vPlayer[indexPlayer];
+	setNumOfPlayers(2);
 
 	CFG::getText()->setFont(mainWindow, "font");
 
@@ -6501,192 +6537,198 @@ void Map::EndUse() {
 }
 
 void Map::EndBoss() {
-	inEvent = true;
 
-	pEvent->resetData();
-	pPlayer->resetJump();
-	pPlayer->stopMove();
+	for (Player* pPlayer : vCurPlayer) {
 
-	pEvent->endGame = false;
+		inEvent = true;
 
-	switch (currentLevelID) {
-	case 31:
-		pEvent->endGame = true;
-		break;
-	default:
-		CFG::getMusic()->StopMusic();
-		CFG::getMusic()->PlayChunk(CFG::getMusic()->cCASTLEEND);
-		break;
-	}
+		pEvent->resetData();
+		pPlayer->resetJump();
+		pPlayer->stopMove();
 
-	pEvent->eventTypeID = pEvent->eBossEnd;
+		pEvent->endGame = false;
 
-	pEvent->iSpeed = 3;
+		switch (currentLevelID) {
+		case 31:
+			pEvent->endGame = true;
+			break;
+		default:
+			CFG::getMusic()->StopMusic();
+			CFG::getMusic()->PlayChunk(CFG::getMusic()->cCASTLEEND);
+			break;
+		}
 
-	pEvent->newLevelType = 0;
-	pEvent->newCurrentLevel = currentLevelID + 1;
-	pEvent->newMoveMap = true;
-	pEvent->iDelay = 500;
-	pEvent->inEvent = false;
+		pEvent->eventTypeID = pEvent->eBossEnd;
 
-	pEvent->newMapXPos = 0;
-	pEvent->newPlayerXPos = 64;
-	pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
-	pEvent->newMoveMap = true;
+		pEvent->iSpeed = 3;
 
-	switch (currentLevelID) {
-	case 7:
-		pEvent->newLevelType = 4;
-		break;
-	case 19:
-		pEvent->newLevelType = 4;
-		break;
-	}
+		pEvent->newLevelType = 0;
+		pEvent->newCurrentLevel = currentLevelID + 1;
+		pEvent->newMoveMap = true;
+		pEvent->iDelay = 500;
+		pEvent->inEvent = false;
 
-	bool addOne = false;
+		pEvent->newMapXPos = 0;
+		pEvent->newPlayerXPos = 64;
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
+		pEvent->newMoveMap = true;
 
-	if (lMap[getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos))][6]->getBlockID() == 82) {
-		pEvent->vOLDDir.push_back(pEvent->eBOT);
-		pEvent->vOLDLength.push_back(CFG::GameHeight - 16 - 5 * 32 - (pPlayer->getYPos() + pPlayer->getHitBoxY()));
-	}
-	else {
-		pEvent->vOLDDir.push_back(pEvent->eBOTRIGHTEND);
-		pEvent->vOLDLength.push_back(CFG::GameHeight - 16 - 5 * 32 - (pPlayer->getYPos() + pPlayer->getHitBoxY()));
+		switch (currentLevelID) {
+		case 7:
+			pEvent->newLevelType = 4;
+			break;
+		case 19:
+			pEvent->newLevelType = 4;
+			break;
+		}
 
-		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
-		pEvent->vOLDLength.push_back(32 - CFG::GameHeight - 16 - 5 * 32 - (pPlayer->getYPos() + pPlayer->getHitBoxY()));
-		addOne = true;
-	}
+		bool addOne = false;
 
-	pEvent->vOLDDir.push_back(pEvent->eBOSSEND1);
-	pEvent->vOLDLength.push_back(1);
-	pEvent->vOLDDir.push_back(pEvent->eNOTHING);
-	pEvent->vOLDLength.push_back(10);
+		if (lMap[getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos))][6]->getBlockID() == 82) {
+			pEvent->vOLDDir.push_back(pEvent->eBOT);
+			pEvent->vOLDLength.push_back(CFG::GameHeight - 16 - 5 * 32 - (pPlayer->getYPos() + pPlayer->getHitBoxY()));
+		}
+		else {
+			pEvent->vOLDDir.push_back(pEvent->eBOTRIGHTEND);
+			pEvent->vOLDLength.push_back(CFG::GameHeight - 16 - 5 * 32 - (pPlayer->getYPos() + pPlayer->getHitBoxY()));
 
-	pEvent->vOLDDir.push_back(pEvent->eBOSSEND2);
-	pEvent->vOLDLength.push_back(1);
-	pEvent->vOLDDir.push_back(pEvent->eNOTHING);
-	pEvent->vOLDLength.push_back(3);
+			pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+			pEvent->vOLDLength.push_back(32 - CFG::GameHeight - 16 - 5 * 32 - (pPlayer->getYPos() + pPlayer->getHitBoxY()));
+			addOne = true;
+		}
 
-	for (int i = 0; i < 6; i++) {
-		pEvent->vOLDDir.push_back(pEvent->eBOSSEND3);
-		pEvent->vOLDLength.push_back(2 + i);
+		pEvent->vOLDDir.push_back(pEvent->eBOSSEND1);
+		pEvent->vOLDLength.push_back(1);
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(10);
+
+		pEvent->vOLDDir.push_back(pEvent->eBOSSEND2);
+		pEvent->vOLDLength.push_back(1);
 		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
 		pEvent->vOLDLength.push_back(3);
-	}
 
-	pEvent->vOLDDir.push_back(pEvent->eBOSSEND4);
-	pEvent->vOLDLength.push_back(1);
+		for (int i = 0; i < 6; i++) {
+			pEvent->vOLDDir.push_back(pEvent->eBOSSEND3);
+			pEvent->vOLDLength.push_back(2 + i);
+			pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+			pEvent->vOLDLength.push_back(3);
+		}
 
-	for (int i = 6; i < 12; i++) {
-		pEvent->vOLDDir.push_back(pEvent->eBOSSEND3);
-		pEvent->vOLDLength.push_back(2 + i);
-		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
-		pEvent->vOLDLength.push_back(3);
-	}
+		pEvent->vOLDDir.push_back(pEvent->eBOSSEND4);
+		pEvent->vOLDLength.push_back(1);
 
-	pEvent->vOLDDir.push_back(pEvent->eNOTHING);
-	pEvent->vOLDLength.push_back(90);
+		for (int i = 6; i < 12; i++) {
+			pEvent->vOLDDir.push_back(pEvent->eBOSSEND3);
+			pEvent->vOLDLength.push_back(2 + i);
+			pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+			pEvent->vOLDLength.push_back(3);
+		}
 
-	if (currentLevelID == 31) {
-		CFG::getMusic()->StopMusic();
-		CFG::getMusic()->PlayChunk(CFG::getMusic()->cPRINCESSMUSIC);
-	}
-
-	pEvent->vOLDDir.push_back(pEvent->eBOTRIGHTBOSS);
-	pEvent->vOLDLength.push_back(8 * 32);
-
-	switch (currentLevelID) {
-	case 31:
-		pEvent->vOLDDir.push_back(pEvent->eENDGAMEBOSSTEXT1);
-		pEvent->vOLDLength.push_back(getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos)) * 32 + 7 * 32 + (addOne ? 32 : 0));
-		break;
-	default:
-		pEvent->vOLDDir.push_back(pEvent->eBOSSTEXT1);
-		pEvent->vOLDLength.push_back(getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos)) * 32 + 7 * 32 + (addOne ? 32 : 0));
-		break;
-	}
-
-	pEvent->vOLDDir.push_back(pEvent->eRIGHT);
-	pEvent->vOLDLength.push_back(2 * 32 + 16);
-
-	pEvent->vOLDDir.push_back(pEvent->eMARIOSPRITE1);
-	pEvent->vOLDLength.push_back(1);
-
-	pEvent->vOLDDir.push_back(pEvent->eNOTHING);
-	pEvent->vOLDLength.push_back(90);
-
-	switch (currentLevelID) {
-	case 31:
-		pEvent->vOLDDir.push_back(pEvent->eENDGAMEBOSSTEXT2);
-		pEvent->vOLDLength.push_back(getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos)) * 32 + 5 * 32 + (addOne ? 32 : 0) + 28);
-		break;
-	default:
-		pEvent->vOLDDir.push_back(pEvent->eBOSSTEXT2);
-		pEvent->vOLDLength.push_back(getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos)) * 32 + 5 * 32 + (addOne ? 32 : 0));
-		break;
-	}
-
-	pEvent->vOLDDir.push_back(pEvent->eNOTHING);
-	pEvent->vOLDLength.push_back(300 + (currentLevelID == 31 ? 100 : 0));
-
-	switch (currentLevelID) {
-	case 31:
 		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
 		pEvent->vOLDLength.push_back(90);
-		break;
+
+		if (currentLevelID == 31) {
+			CFG::getMusic()->StopMusic();
+			CFG::getMusic()->PlayChunk(CFG::getMusic()->cPRINCESSMUSIC);
+		}
+
+		pEvent->vOLDDir.push_back(pEvent->eBOTRIGHTBOSS);
+		pEvent->vOLDLength.push_back(8 * 32);
+
+		switch (currentLevelID) {
+		case 31:
+			pEvent->vOLDDir.push_back(pEvent->eENDGAMEBOSSTEXT1);
+			pEvent->vOLDLength.push_back(getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos)) * 32 + 7 * 32 + (addOne ? 32 : 0));
+			break;
+		default:
+			pEvent->vOLDDir.push_back(pEvent->eBOSSTEXT1);
+			pEvent->vOLDLength.push_back(getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos)) * 32 + 7 * 32 + (addOne ? 32 : 0));
+			break;
+		}
+
+		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		pEvent->vOLDLength.push_back(2 * 32 + 16);
+
+		pEvent->vOLDDir.push_back(pEvent->eMARIOSPRITE1);
+		pEvent->vOLDLength.push_back(1);
+
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(90);
+
+		switch (currentLevelID) {
+		case 31:
+			pEvent->vOLDDir.push_back(pEvent->eENDGAMEBOSSTEXT2);
+			pEvent->vOLDLength.push_back(getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos)) * 32 + 5 * 32 + (addOne ? 32 : 0) + 28);
+			break;
+		default:
+			pEvent->vOLDDir.push_back(pEvent->eBOSSTEXT2);
+			pEvent->vOLDLength.push_back(getBlockIDX((int)(pPlayer->getXPos() + pPlayer->getHitBoxX() / 2 - fXPos)) * 32 + 5 * 32 + (addOne ? 32 : 0));
+			break;
+		}
+
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(300 + (currentLevelID == 31 ? 100 : 0));
+
+		switch (currentLevelID) {
+		case 31:
+			pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+			pEvent->vOLDLength.push_back(90);
+			break;
+		}
 	}
 }
 
 void Map::EndBonus() {
-	inEvent = true;
+		
+	for (Player* pPlayer : vCurPlayer) {
+		inEvent = true;
 
-	pEvent->resetData();
-	pPlayer->resetJump();
-	pPlayer->stopMove();
+		pEvent->resetData();
+		pPlayer->resetJump();
+		pPlayer->stopMove();
 
-	pEvent->eventTypeID = pEvent->eNormal;
+		pEvent->eventTypeID = pEvent->eNormal;
 
-	pEvent->iSpeed = 3;
+		pEvent->iSpeed = 3;
 
-	pEvent->newLevelType = iLevelType;
-	pEvent->newCurrentLevel = currentLevelID;
-	pEvent->newMoveMap = true;
-	pEvent->iDelay = 0;
-	pEvent->inEvent = false;
+		pEvent->newLevelType = iLevelType;
+		pEvent->newCurrentLevel = currentLevelID;
+		pEvent->newMoveMap = true;
+		pEvent->iDelay = 0;
+		pEvent->inEvent = false;
 
-	pEvent->newMoveMap = true;
+		pEvent->newMoveMap = true;
 
-	switch (currentLevelID) {
-	case 4: {
-		pEvent->newMapXPos = -158 * 32 + 16;
-		pEvent->newPlayerXPos = 128;
-		pEvent->newPlayerYPos = -pPlayer->getHitBoxY();
+		switch (currentLevelID) {
+		case 4: {
+			pEvent->newMapXPos = -158 * 32 + 16;
+			pEvent->newPlayerXPos = 128;
+			pEvent->newPlayerYPos = -pPlayer->getHitBoxY();
 
-		break;
+			break;
+		}
+		case 8: {
+			pEvent->newMapXPos = -158 * 32 + 16;
+			pEvent->newPlayerXPos = 128;
+			pEvent->newPlayerYPos = -pPlayer->getHitBoxY();
+			break;
+		}
+		case 17: {
+			pEvent->newMapXPos = -207 * 32 + 16;
+			pEvent->newPlayerXPos = 128;
+			pEvent->newPlayerYPos = -pPlayer->getHitBoxY();
+			break;
+		}
+		case 21: {
+			pEvent->newMapXPos = -243 * 32 + 16;
+			pEvent->newPlayerXPos = 128;
+			pEvent->newPlayerYPos = -pPlayer->getHitBoxY();
+			break;
+		}
+		}
+		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		pEvent->vOLDLength.push_back(1);
 	}
-	case 8: {
-		pEvent->newMapXPos = -158 * 32 + 16;
-		pEvent->newPlayerXPos = 128;
-		pEvent->newPlayerYPos = -pPlayer->getHitBoxY();
-		break;
-	}
-	case 17: {
-		pEvent->newMapXPos = -207 * 32 + 16;
-		pEvent->newPlayerXPos = 128;
-		pEvent->newPlayerYPos = -pPlayer->getHitBoxY();
-		break;
-	}
-	case 21: {
-		pEvent->newMapXPos = -243 * 32 + 16;
-		pEvent->newPlayerXPos = 128;
-		pEvent->newPlayerYPos = -pPlayer->getHitBoxY();
-		break;
-	}
-	}
-
-	pEvent->vOLDDir.push_back(pEvent->eNOTHING);
-	pEvent->vOLDLength.push_back(1);
 }
 
 void Map::clearMinions()
@@ -6719,11 +6761,13 @@ void Map::clearBubbles() {
 }
 
 void Map::checkSpawnPoint() {
-	if (getNumOfSpawnPoints() > 1) {
-		for (int i = iSpawnPointID + 1; i < getNumOfSpawnPoints(); i++) {
-			if (getSpawnPointXPos(i) > pPlayer->getXPos() - fXPos && getSpawnPointXPos(i) < pPlayer->getXPos() - fXPos + 128) {
-				iSpawnPointID = i;
-				//pPlayer->getCoins() - fcloseall() = fXPos + pPlayer;
+	for (Player* pPlayer : vCurPlayer) {
+		if (getNumOfSpawnPoints() > 1) {
+			for (int i = iSpawnPointID + 1; i < getNumOfSpawnPoints(); i++) {
+				if (getSpawnPointXPos(i) > pPlayer->getXPos() - fXPos && getSpawnPointXPos(i) < pPlayer->getXPos() - fXPos + 128) {
+					iSpawnPointID = i;
+					//pPlayer->getCoins() - fcloseall() = fXPos + pPlayer;
+				}
 			}
 		}
 	}

@@ -27,13 +27,16 @@ private:
 
     // ----- INPUT
 	static bool movePressed, keyMenuPressed, keyS, keyW, keyA, keyD, keyShift;
-	static bool keyAPressed, keyDPressed;
-    bool firstDir;
+	static bool keyAPressed, keyDPressed, keyLeftPressed, keyRightPressed;
+    bool firstDir1, firstDir2;
+
+    static bool keyUp, keyDown, keyShiftRight;
 
     static Map* pMap;
    
     void input();
     void inputPlayer();
+    void inputPlayerPressed(bool pressA, bool pressD, bool firstD, Player* pPlayer);
     void mouseInput();
     void inputMenu();
 

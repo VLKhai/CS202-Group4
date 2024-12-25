@@ -12,6 +12,10 @@ public:
     static int GameWidth, GameHeight;
 	static bool keySpace, keyEnter, keyLeft, keyRight, keySkill;
 	static int keyIDA, keyIDS, keyIDD, keyIDSpace, keyIDShift, keyIDSkill;
+
+	static int keyIDRight, keyIDLeft, keyIDUp, keyIDDown, keyIDShiftRight, keyIDSkill2;
+    static bool keyUp, keySkill2;
+
     static bool canMoveBackward;
 
     // Methods

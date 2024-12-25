@@ -85,6 +85,8 @@ private:
 	// ----- PLAYER -----
 	std::vector<Player*> vPlayer;
 	int indexPlayer;
+	std::vector<Player*> vCurPlayer;
+	int iNumOfPlayers;
 	Player* pPlayer;
 
 	// ----- MINIONS -----
@@ -358,11 +360,16 @@ public:
 
 	Flag* getFlag();
 	Player* getPlayer();
+	Player* getPlayer2();
 	Platform* getPlatform(int iID);
 	Block* getBlock(int iID);
 	Tile* getMapBlock(int iX, int iY);
 	Event* getEvent();
 	Block* getMinionBlock(int iID);
+
+	// Multiplayer
+	void setNumOfPlayers(int iNumOfPlayers);
+	int getNumOfPlayers();
 
 	// ---------SAVE & LOAD
 	void Save(const std::string& filename) const;

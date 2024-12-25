@@ -30,6 +30,7 @@ Minion::Minion(void) {
 /* ******************************************** */
 
 void Minion::Update() { }
+
 void Minion::Draw(sf::RenderWindow& MainWindow, IMG* iIMG) {}
 
 void Minion::drawBoundingBox(sf::RenderWindow& MainWindow)
