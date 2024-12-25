@@ -154,6 +154,6 @@ void Bowser::createFire() {
 
 /* ******************************************** */
 
-void Bowser::collisionWithPlayer(bool TOP) {
+void Bowser::collisionWithPlayer(bool TOP, Player* pPlayer) {
 	Core::getMap()->playerDeath(true, false);
 }

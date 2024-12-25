@@ -174,26 +174,26 @@ void Koppa::updateXPos() {
 
 /* ******************************************** */
 
-void Koppa::collisionWithPlayer(bool TOP) {
-	if (Core::getMap()->getPlayer()->getStarEffect()) {
+void Koppa::collisionWithPlayer(bool TOP, Player* pPlayer) {
+	if (pPlayer->getStarEffect()) {
 		setMinionState(-2);
 	}
 	else if (TOP) {
 		if (minionState == 0 || minionState == 3) {
 			minionState = 1;
 			setMinion();
-			Core::getMap()->getPlayer()->resetJump();
-			Core::getMap()->getPlayer()->startJump(1);
-			Core::getMap()->getPlayer()->setYPos((float)Core::getMap()->getPlayer()->getYPos() - 4);
+			pPlayer->resetJump();
+			pPlayer->startJump(1);
+			pPlayer->setYPos((float)pPlayer->getYPos() - 4);
 			points(100);
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cSTOMP);
 		}
 		else if (minionState == 1) {
 			minionState = 2;
 			setMinion();
-			Core::getMap()->getPlayer()->resetJump();
-			Core::getMap()->getPlayer()->startJump(1);
-			Core::getMap()->getPlayer()->setYPos((float)Core::getMap()->getPlayer()->getYPos() - 4);
+			pPlayer->resetJump();
+			pPlayer->startJump(1);
+			pPlayer->setYPos((float)pPlayer->getYPos() - 4);
 			points(100);
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cSTOMP);
 		}
@@ -202,7 +202,7 @@ void Koppa::collisionWithPlayer(bool TOP) {
 				moveSpeed = 0;
 			}
 			else {
-				if ((fXPos + iHitBoxX) / 2 < (Core::getMap()->getPlayer()->getXPos() - Core::getMap()->getXPos() + Core::getMap()->getPlayer()->getHitBoxX()) / 2) {
+				if ((fXPos + iHitBoxX) / 2 < (pPlayer->getXPos() - Core::getMap()->getXPos(pPlayer->getIDPlayer()) + pPlayer->getHitBoxX()) / 2) {
 					moveDirection = true;
 				}
 				else {
@@ -212,9 +212,9 @@ void Koppa::collisionWithPlayer(bool TOP) {
 				moveSpeed = 6;
 			}
 
-			Core::getMap()->getPlayer()->setYPos((float)Core::getMap()->getPlayer()->getYPos() - 4);
-			Core::getMap()->getPlayer()->resetJump();
-			Core::getMap()->getPlayer()->startJump(1);
+			pPlayer->setYPos((float)pPlayer->getYPos() - 4);
+			pPlayer->resetJump();
+			pPlayer->startJump(1);
 			points(100);
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cSTOMP);
 		}
@@ -222,10 +222,10 @@ void Koppa::collisionWithPlayer(bool TOP) {
 	else {
 		if (minionState == 2) {
 			if (moveSpeed == 0) {
-				//moveDirection = !Core::getMap()->getPlayer()->getMoveDirection();
-				moveDirection = (fXPos + iHitBoxX / 2 < Core::getMap()->getPlayer()->getXPos() - Core::getMap()->getXPos() + Core::getMap()->getPlayer()->getHitBoxX() / 2);
-				if (moveDirection) fXPos -= Core::getMap()->getPlayer()->getMoveSpeed() + 1;
-				else fXPos += Core::getMap()->getPlayer()->getMoveSpeed() + 1;
+				//moveDirection = !pPlayer->getMoveDirection();
+				moveDirection = (fXPos + iHitBoxX / 2 < pPlayer->getXPos() - Core::getMap()->getXPos(pPlayer->getIDPlayer()) + pPlayer->getHitBoxX() / 2);
+				if (moveDirection) fXPos -= pPlayer->getMoveSpeed() + 1;
+				else fXPos += pPlayer->getMoveSpeed() + 1;
 				moveSpeed = 6;
 				CFG::getMusic()->PlayChunk(CFG::getMusic()->cSTOMP);
 			}

@@ -61,10 +61,6 @@ void Map::update()
 	}
 
 	if (!pPlayer->getInLevelAnimation()) {
-		//updateMinionBlocks();
-
-		//updateMinions();
-
 		if (!inEvent) {
 			updatePlayer();
 
@@ -196,8 +192,8 @@ void Map::playerDeath(bool animation, bool instantDeath) {
 		}
 	}
 	else if (!pPlayer->getUnkillAble()) {
-			pPlayer->setPowerLVL(pPlayer->getPowerLVL() - 1);
-		}
+		pPlayer->setPowerLVL(pPlayer->getPowerLVL() - 1);
+	}
 }
 
 void Map::updateGifBlocks()
@@ -411,33 +407,69 @@ void Map::updateMinionsCollisions() {
 		}
 	}
 
+	if (inEvent) return;
+
 	// ----- COLLISION WITH PLAYER
+	for (int i = 0; i < iNumOfPlayers; i++) {
+		updateMinionPlayerCollisions(i);
+	}
 
-	if (!inEvent && !pPlayer->getInLevelAnimation()) {
-		for (int i = getListID(-(int)fXPos + pPlayer->getXPos()) - (getListID(-(int)fXPos + pPlayer->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
-			for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
-				//std::cout << lMinion[i][j]->deadTime << std::endl;
+	//if (!pPlayer->getInLevelAnimation()) {
+	//	for (int i = getListID(-(int)fXPos + pPlayer->getXPos()) - (getListID(-(int)fXPos + pPlayer->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
+	//		for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
+	//			//std::cout << lMinion[i][j]->deadTime << std::endl;
 
-				if (lMinion[i][j]->isAlive()) updateSkillCollisions(lMinion[i][j]);
+	//			if (lMinion[i][j]->isAlive()) updateSkillCollisions(lMinion[i][j]);
 
-				if (lMinion[i][j]->isAlive()) {
-					int playerLeftX = pPlayer->getXPos() - fXPos;
-					// if (minion.leftX <= player.leftX <= minion.rightX) or (minion.leftX <= player.rightX <= minion.rightX)
-					if (lMinion[i][j]->checkVerticalOverlap(playerLeftX, playerLeftX + pPlayer->getHitBoxX())) {
+	//			if (lMinion[i][j]->isAlive()) {
+	//				int playerLeftX = pPlayer->getXPos() - fXPos;
+	//				// if (minion.leftX <= player.leftX <= minion.rightX) or (minion.leftX <= player.rightX <= minion.rightX)
+	//				if (lMinion[i][j]->checkVerticalOverlap(playerLeftX, playerLeftX + pPlayer->getHitBoxX())) {
 
-						// if (minion.y - 2 <= player.botY <= minion.y + 16) when player is on top of minion 2 px
-						if (lMinion[i][j]->checkHorizontalTopOverlap(pPlayer->getYPos() + pPlayer->getHitBoxY())) {
-							lMinion[i][j]->collisionWithPlayer(true);
-						}
-						// if (minion.y <= player.botY <= minion.botY) or (minion.y <= player.y <= minion.botY)
-						else if (lMinion[i][j]->checkHorizontalOverlap(pPlayer->getYPos(), pPlayer->getYPos() + pPlayer->getHitBoxY())) {
-							lMinion[i][j]->collisionWithPlayer(false);
-						}
+	//					// if (minion.y - 2 <= player.botY <= minion.y + 16) when player is on top of minion 2 px
+	//					if (lMinion[i][j]->checkHorizontalTopOverlap(pPlayer->getYPos() + pPlayer->getHitBoxY())) {
+	//						lMinion[i][j]->collisionWithPlayer(true);
+	//					}
+	//					// if (minion.y <= player.botY <= minion.botY) or (minion.y <= player.y <= minion.botY)
+	//					else if (lMinion[i][j]->checkHorizontalOverlap(pPlayer->getYPos(), pPlayer->getYPos() + pPlayer->getHitBoxY())) {
+	//						lMinion[i][j]->collisionWithPlayer(false);
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
+}
+
+void Map::updateMinionPlayerCollisions(int iIDPlayer)
+{
+	if (vCurPlayer[iIDPlayer]->getInLevelAnimation()) return;
+	
+	float fXPosTMP = (iIDPlayer == 0) ? fXPos : fXPos2;
+	Player* p_Player = vCurPlayer[iIDPlayer];
+
+	for (int i = getListID(-(int)fXPosTMP + p_Player->getXPos()) - (getListID(-(int)fXPosTMP + p_Player->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
+		for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
+			//std::cout << lMinion[i][j]->deadTime << std::endl;
+
+			if (lMinion[i][j]->isAlive()) updateSkillCollisions(lMinion[i][j]);
+
+			if (lMinion[i][j]->isAlive()) {
+				int playerLeftX = p_Player->getXPos() - fXPosTMP;
+				// if (minion.leftX <= player.leftX <= minion.rightX) or (minion.leftX <= player.rightX <= minion.rightX)
+				if (lMinion[i][j]->checkVerticalOverlap(playerLeftX, playerLeftX + p_Player->getHitBoxX())) {
+
+					// if (minion.y - 2 <= player.botY <= minion.y + 16) when player is on top of minion 2 px
+					if (lMinion[i][j]->checkHorizontalTopOverlap(p_Player->getYPos() + p_Player->getHitBoxY())) {
+						lMinion[i][j]->collisionWithPlayer(true, p_Player);
+					}
+					// if (minion.y <= player.botY <= minion.botY) or (minion.y <= player.y <= minion.botY)
+					else if (lMinion[i][j]->checkHorizontalOverlap(p_Player->getYPos(), p_Player->getYPos() + p_Player->getHitBoxY())) {
+						lMinion[i][j]->collisionWithPlayer(false, p_Player);
 					}
 				}
 			}
 		}
-
 	}
 }
 
@@ -1181,9 +1213,9 @@ void Map::spawnVine(int nX, int nY, int iBlockID) {
 
 void Map::moveMap(int nX, int nY, int iIDPlayer)
 {
-	if (iIDPlayer == 1) {
+	if (iIDPlayer == 0) {
 		if (fXPos + nX > 0) {
-			pPlayer->updateXPos((int)(nX - fXPos));
+			vCurPlayer[0]->updateXPos((int)(nX - fXPos));
 			fXPos = 0;
 		}
 		else {
@@ -1191,8 +1223,9 @@ void Map::moveMap(int nX, int nY, int iIDPlayer)
 		}
 		return;
 	}
+
 	if (fXPos2 + nX > 0) {
-		vPlayer[1]->updateXPos((int)(nX - fXPos2));
+		vCurPlayer[1]->updateXPos((int)(nX - fXPos2));
 		fXPos2 = 0;
 	}
 	else {
@@ -1692,8 +1725,8 @@ void Map::checkCollisionOnTopOfTheBlock(int nX, int nY)
 
 float Map::getXPos(int iPlayer)
 {
-	if (iPlayer == 2) return fXPos2;
-	return fXPos;
+	if (iPlayer == 0) return fXPos;
+	return fXPos2;
 }
 
 void Map::setXPos(float val)
@@ -1703,8 +1736,8 @@ void Map::setXPos(float val)
 
 float Map::getYPos(int iPlayer)
 {
-	if (iPlayer == 2) return fYPos2;
-	return fYPos;
+	if (iPlayer == 0) return fYPos;
+	return fYPos2;
 }
 
 void Map::setYPos(float val)

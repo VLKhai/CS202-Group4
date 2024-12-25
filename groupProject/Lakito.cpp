@@ -111,8 +111,8 @@ void Lakito::minionPhysics() { }
 
 /* ******************************************** */
 
-void Lakito::collisionWithPlayer(bool TOP) {
-	if(Core::getMap()->getPlayer()->getStarEffect() || TOP) {
+void Lakito::collisionWithPlayer(bool TOP, Player* pPlayer) {
+	if(pPlayer->getStarEffect() || TOP) {
 		setMinionState(-2);
 	} else if(!end) {
 		Core::getMap()->playerDeath(true, false);

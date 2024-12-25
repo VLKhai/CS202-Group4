@@ -19,7 +19,7 @@ public:
 
 	void minionPhysics();
 
-	void collisionWithPlayer(bool TOP);
+	void collisionWithPlayer(bool TOP, Player* pPlayer);
 };
 
 #endif

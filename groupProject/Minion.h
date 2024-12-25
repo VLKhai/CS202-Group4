@@ -3,6 +3,8 @@
 #include "CFG.h"
 #include "IMG.h"
 
+class Player;
+
 class Minion
 {
 public:
@@ -65,7 +67,7 @@ public:
 
 	// ----- COLLISON
 
-	virtual void collisionWithPlayer(bool TOP);
+	virtual void collisionWithPlayer(bool TOP, Player* pPlayer);
 	virtual void points(int iPoints);
 
 	virtual void collisionWithAnotherUnit(); // -- PLAYERFIREBALL

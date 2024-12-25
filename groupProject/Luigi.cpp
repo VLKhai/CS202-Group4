@@ -5,7 +5,7 @@ Luigi::Luigi(sf::RenderWindow& window, float fXPos, float fYPos) : Player(window
 	
 	limSmallJumpBlock = 3;
 	limBigJumpBlock = 5;
-	iIDPlayer = 2;
+	iIDPlayer = 1;
 
 	// LOAD SPRITE
 	std::vector<std::string> tempS;

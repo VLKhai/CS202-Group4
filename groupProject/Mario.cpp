@@ -5,7 +5,7 @@ Mario::Mario(sf::RenderWindow& window, float fXPos, float fYPos) : Player(window
 	
 	limSmallJumpBlock = 2;
 	limBigJumpBlock = 4;
-	iIDPlayer = 1;
+	iIDPlayer = 0;
 
 	this->pSkill = new ExplodeSkill(window, fXPos, fYPos);
 

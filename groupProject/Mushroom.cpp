@@ -65,12 +65,13 @@ void Mushroom::Draw(sf::RenderWindow& window, IMG* iIMG) {
 
 /* ******************************************** */
 
-void Mushroom::collisionWithPlayer(bool TOP) {
-	if(!inSpawnState && minionState == 0) {
-		if(powerUP) {
-			Core::getMap()->getPlayer()->setPowerLVL(Core::getMap()->getPlayer()->getPowerLVL() + 1);
-		} else {
-			Core::getMap()->getPlayer()->setNumOfLives(Core::getMap()->getPlayer()->getNumOfLives() + 1);
+void Mushroom::collisionWithPlayer(bool TOP, Player* pPlayer) {
+	if (!inSpawnState && minionState == 0) {
+		if (powerUP) {
+			pPlayer->setPowerLVL(pPlayer->getPowerLVL() + 1);
+		}
+		else {
+			pPlayer->setNumOfLives(pPlayer->getNumOfLives() + 1);
 			Core::getMap()->addPoints((int)fXPos, (int)fYPos, "1UP", 10, 14);
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cONEUP);
 		}

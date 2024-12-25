@@ -90,9 +90,9 @@ void Star::Draw(sf::RenderWindow& window, IMG* iIMG) {
 
 /* ******************************************** */
 
-void Star::collisionWithPlayer(bool TOP) {
+void Star::collisionWithPlayer(bool TOP, Player* pPlayer) {
 	if(!inSpawnState) {
-		Core::getMap()->getPlayer()->setStarEffect(true);
+		pPlayer->setStarEffect(true);
 		minionState = -1;
 	}
 }

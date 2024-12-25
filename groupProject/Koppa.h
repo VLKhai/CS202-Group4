@@ -19,7 +19,7 @@ public:
 	void minionPhysics();
 	void updateXPos();
 
-	void collisionWithPlayer(bool TOP);
+	void collisionWithPlayer(bool TOP, Player* pPlayer);
 	void collisionEffect();
 
 	void setMinionState(int minionState);

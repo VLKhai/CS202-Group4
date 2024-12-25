@@ -80,22 +80,22 @@ void Spring::minionPhysics() { }
 
 /* ******************************************** */
 
-void Spring::collisionWithPlayer(bool TOP) {
+void Spring::collisionWithPlayer(bool TOP, Player* pPlayer) {
 	if (!inAnimation) {
-		if (TOP && Core::getMap()->getPlayer()->getJumpState() == 2) {
-			Core::getMap()->getPlayer()->stopMove();
-			Core::getMap()->getPlayer()->resetJump();
-			Core::getMap()->getPlayer()->setNextFallFrameID(16);
+		if (TOP && pPlayer->getJumpState() == 2) {
+			pPlayer->stopMove();
+			pPlayer->resetJump();
+			pPlayer->setNextFallFrameID(16);
 			inAnimation = true;
 			extraJump = false;
-			CFG::keySpace = false;
+			CFG::keySpace = CFG::keyUp = false;
 		}
 		else {
-			if (Core::getMap()->getPlayer()->getMoveDirection()) {
-				Core::getMap()->getPlayer()->setXPos((float)Core::getMap()->getPlayer()->getXPos() - Core::getMap()->getPlayer()->getMoveSpeed());
+			if (pPlayer->getMoveDirection()) {
+				pPlayer->setXPos((float)pPlayer->getXPos() - pPlayer->getMoveSpeed());
 			}
 			else {
-				Core::getMap()->getPlayer()->setXPos((float)Core::getMap()->getPlayer()->getXPos() + Core::getMap()->getPlayer()->getMoveSpeed());
+				pPlayer->setXPos((float)pPlayer->getXPos() + pPlayer->getMoveSpeed());
 			}
 		}
 	}

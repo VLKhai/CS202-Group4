@@ -16,7 +16,7 @@ public:
 	void Update();
 	void Draw(sf::RenderWindow& mainWindow, IMG* iIMG);
 
-	void collisionWithPlayer(bool TOP);
+	void collisionWithPlayer(bool TOP, Player* pPlayer);
 
 	void setMinionState(int minionState);
 };

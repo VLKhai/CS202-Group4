@@ -80,8 +80,8 @@ void Plant::minionPhysics() {
 
 /* ******************************************** */
 
-void Plant::collisionWithPlayer(bool onTOP) {
-	if(Core::getMap()->getPlayer()->getStarEffect()) {
+void Plant::collisionWithPlayer(bool TOP, Player* pPlayer) {
+	if(pPlayer->getStarEffect()) {
 		minionState = -1;
 		points(200);
 	} else {

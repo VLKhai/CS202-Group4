@@ -61,8 +61,8 @@ void BulletBill::minionPhysics() { }
 
 /* ******************************************** */
 
-void BulletBill::collisionWithPlayer(bool TOP) {
-	if(Core::getMap()->getPlayer()->getStarEffect() || TOP) {
+void BulletBill::collisionWithPlayer(bool TOP, Player* pPlayer) {
+	if(pPlayer->getStarEffect() || TOP) {
 		setMinionState(-2);
 	} else {
 		Core::getMap()->playerDeath(true, false);

@@ -32,6 +32,6 @@ void Toad::Draw(sf::RenderWindow& window, IMG* iIMG) {
 
 /* ******************************************** */
 
-void Toad::collisionWithPlayer(bool TOP) { }
+void Toad::collisionWithPlayer(bool TOP, Player* pPlayer) { }
 
 void Toad::setMinionState(int minionState) { }

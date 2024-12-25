@@ -165,7 +165,7 @@ void Cheep::Draw(sf::RenderWindow& window, IMG* iIMG) {
 
 void Cheep::minionPhysics() { }
 
-void Cheep::collisionWithPlayer(bool TOP) {
+void Cheep::collisionWithPlayer(bool TOP, Player* pPlayer) {
 	if(minionState > 1 && TOP) {
 		setMinionState(-2);
 		this->minionState = -2;

@@ -178,7 +178,7 @@ bool Minion::checkHorizontalTopOverlap(float botY)
 	return (fYPos-2 <= botY && botY <= fYPos+16);
 }
 
-void Minion::collisionWithPlayer(bool TOP) { }
+void Minion::collisionWithPlayer(bool TOP, Player* pPlayer) { }
 
 void Minion::collisionWithAnotherUnit() { };
 

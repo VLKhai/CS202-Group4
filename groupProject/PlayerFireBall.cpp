@@ -130,7 +130,7 @@ void PlayerFireBall::minionPhysics() {
 
 /* ******************************************** */
 
-void PlayerFireBall::collisionWithPlayer(bool TOP) { }
+void PlayerFireBall::collisionWithPlayer(bool TOP, Player* pPlayer) { }
 
 void PlayerFireBall::collisionWithAnotherUnit() {
 	bDestroy = true;

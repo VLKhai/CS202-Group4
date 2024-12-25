@@ -41,7 +41,7 @@ void Goombas::Draw(sf::RenderWindow& mainWindow, IMG* iIMG) {
 
 /* ******************************************** */
 
-void Goombas::collisionWithPlayer(bool TOP) {
+void Goombas::collisionWithPlayer(bool TOP, Player* pPlayer) {
 	if (Core::getMap()->getPlayer()->getStarEffect()) {
 		setMinionState(-2);
 	}
@@ -50,8 +50,8 @@ void Goombas::collisionWithPlayer(bool TOP) {
 			minionState = 1;
 			iBlockID = Core::getMap()->getLevelType() == 0 || Core::getMap()->getLevelType() == 4 ? 1 : Core::getMap()->getLevelType() == 1 ? 9 : 11;
 			deadTime = Core::coreClock.getElapsedTime().asMilliseconds();
-			Core::getMap()->getPlayer()->resetJump();
-			Core::getMap()->getPlayer()->startJump(1);
+			pPlayer->resetJump();
+			pPlayer->startJump(1);
 			points(100);
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cSTOMP);
 		}

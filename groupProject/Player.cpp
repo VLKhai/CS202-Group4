@@ -1058,6 +1058,11 @@ void Player::setSpringJump(bool springJump)
 	this->springJump = springJump;
 }
 
+int Player::getIDPlayer()
+{
+	return iIDPlayer;
+}
+
 bool Player::getUseSkill()
 {
 	return bUseSkill;

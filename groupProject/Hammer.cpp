@@ -73,8 +73,8 @@ void Hammer::minionPhysics() {
 
 /* ******************************************** */
 
-void Hammer::collisionWithPlayer(bool TOP) {
-	if(Core::getMap()->getPlayer()->getStarEffect()) {
+void Hammer::collisionWithPlayer(bool TOP, Player* pPlayer) {
+	if(pPlayer->getStarEffect()) {
 		setMinionState(-2);
 	} else {
 		Core::getMap()->playerDeath(true, false);

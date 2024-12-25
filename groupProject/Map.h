@@ -198,6 +198,7 @@ public:
 	void updateMinionBlocks();
 	void updateMinions();
 	void updateMinionsCollisions();
+	void updateMinionPlayerCollisions(int iIDPlayer);
 	void updateSkillCollisions(Minion* pMinion);
 
 	void draw(sf::RenderWindow& mainWindow);
@@ -252,7 +253,7 @@ public:
 	void loadLVL();
 	void resetGameData();
 	void startLevelAnimation();
-	void moveMap(int nX, int nY, int iIDPlayer=1);
+	void moveMap(int nX, int nY, int iIDPlayer=0);
 
 	// Structure object
 	void structBush(int X, int Y, int iSze);
@@ -323,10 +324,10 @@ public:
 	int getBlockIDY(int nY);
 
 	// --GETTERS & SETTERS--
-	float getXPos(int iPlayer=1);
+	float getXPos(int iPlayer=0);
 	void setXPos(float val);
 
-	float getYPos(int iPlayer=1);
+	float getYPos(int iPlayer=0);
 	void setYPos(float val);
 
 	int getLevelType();

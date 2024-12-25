@@ -137,8 +137,8 @@ void HammerBro::minionPhysics() {
 
 /* ******************************************** */
 
-void HammerBro::collisionWithPlayer(bool TOP) {
-	if(Core::getMap()->getPlayer()->getStarEffect() || TOP) {
+void HammerBro::collisionWithPlayer(bool TOP, Player* pPlayer) {
+	if(pPlayer->getStarEffect() || TOP) {
 		setMinionState(-2);
 	} else {
 		Core::getMap()->playerDeath(true, false);
