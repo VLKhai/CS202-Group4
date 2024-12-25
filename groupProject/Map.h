@@ -50,6 +50,7 @@ class Map {
 private:
 	friend class Core;
 	float fXPos, fYPos; // Coordinate of the view window in the virtual world
+	float fXPos2, fYPos2; 
 
 	std::vector<Block*> vBlock;
 	int iBlockSize; // Size of vBlock
@@ -103,8 +104,6 @@ private:
 	std::vector<Coin*> lCoin;
 	std::vector<Points*> lPoints;
 
-	// ----- POINTS & COIN -----
-
 	// ----- PIPEEVENTS -----
 
 	std::vector<Pipe*> lPipe;
@@ -130,7 +129,6 @@ private:
 	void loadMap(sf::RenderWindow& mainWindow);
 	void loadGameData(sf::RenderWindow& window);
 	void createMap();
-
 
 	void loadLVL_1_1();
 	void loadLVL_1_2();
@@ -324,10 +322,10 @@ public:
 	int getBlockIDY(int nY);
 
 	// --GETTERS & SETTERS--
-	float getXPos();
+	float getXPos(int iPlayer=0);
 	void setXPos(float val);
 
-	float getYPos();
+	float getYPos(int iPlayer = 0);
 	void setYPos(float val);
 
 	int getLevelType();

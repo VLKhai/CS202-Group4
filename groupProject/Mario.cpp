@@ -303,6 +303,7 @@ Mario::~Mario()
 
 void Mario::update()
 {
+	bJumpPressed = CFG::keySpace;
 	Player::update();
 	if (bUseSkill) {
 		pSkill->update(fXPos + Player::getHitBoxX() / 2, fYPos + Player::getHitBoxY() / 2);

@@ -1678,8 +1678,9 @@ void Map::checkCollisionOnTopOfTheBlock(int nX, int nY)
 	}
 }
 
-float Map::getXPos()
+float Map::getXPos(int iPlayer)
 {
+	if (iPlayer == 2) return fXPos2;
 	return fXPos;
 }
 
@@ -1688,8 +1689,9 @@ void Map::setXPos(float val)
 	fXPos = val;
 }
 
-float Map::getYPos()
+float Map::getYPos(int iPlayer)
 {
+	if (iPlayer == 2) return fYPos2;
 	return fYPos;
 }
 

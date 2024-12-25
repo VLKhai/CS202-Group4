@@ -296,6 +296,12 @@ Luigi::~Luigi()
 	}
 }
 
+void Luigi::update()
+{
+	bJumpPressed = CFG::keyUp;
+	Player::update();
+}
+
 void Luigi::draw(sf::RenderWindow& window)
 {
 	if (!inLevelDownAnimation || Core::getMap()->getInEvent()) {

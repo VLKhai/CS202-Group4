@@ -295,7 +295,7 @@ void Player::playerPhysics()
 				currentJumpSpeed = 2.5f;
 			}
 
-			if (!CFG::keySpace && currentJumpDistance > 32*limSmallJumpBlock && !springJump) {
+			if (!bJumpPressed && currentJumpDistance > 32*limSmallJumpBlock && !springJump) {
 				jumpDistance = 16;
 				currentJumpDistance = 0;
 				currentJumpSpeed = 2.5f;

@@ -50,7 +50,6 @@ private:
 	// ----- JUMP
 
 	int jumpState;
-	bool bJumpPressed;
 
 	float startJumpSpeed;
 	float currentJumpSpeed;
@@ -88,8 +87,10 @@ private:
 	Vector2* getBlockRT(float nX, float nY);
 protected:
 	float fXPos, fYPos;
+	int iIDPlayer;
 
 	bool moveDirection; // true = LEFT, false = RIGHT
+	bool bJumpPressed;
 
 	int powerLVL;
 
@@ -113,13 +114,12 @@ public:
     
     virtual void draw(sf::RenderWindow& window) = 0;
 	virtual void update();
+	void updateXPos(int iN); 
+	void updateYPos(int iN); 
 
 	void copyStats(Player* pPlayer);
 
     void playerPhysics(); 
-
-	void updateXPos(int iN); 
-	void updateYPos(int iN); 
 
 	virtual void useSkill(Minion* pMinion, float fXmap) = 0;
 
