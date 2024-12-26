@@ -544,7 +544,7 @@ void Map::DrawMinions(sf::RenderWindow& mainWindow) {
 	for (int i = 0; i < iMinionListSize; i++) {
 		for (int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
 			lMinion[i][j]->Draw(mainWindow, vMinion[lMinion[i][j]->getBloockID()]->getAniSprite()->getFrame());
-			lMinion[i][j]->drawBoundingBox(mainWindow);
+			//lMinion[i][j]->drawBoundingBox(mainWindow);
 			//CFG::getText()->DrawWS(mainWindow, std::to_string(i), lMinion[i][j]->getXPos() + (int)fXPos, lMinion[i][j]->getYPos(), 0, 0, 0, 8);
 		}
 	}
