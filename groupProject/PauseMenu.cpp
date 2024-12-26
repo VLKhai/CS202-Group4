@@ -10,11 +10,10 @@ PauseMenu::PauseMenu(void) {
 	rPause.width = 560;
 	rPause.height = 180;
 
-	this->lMO.push_back(new MenuOption("RESUME", 0, 156));
-	this->lMO.push_back(new MenuOption("OPTIONS", 0, 180));
-
-	this->lMO.push_back(new MenuOption("QUIT TO MENU", 0, 228));
-	this->lMO.push_back(new MenuOption("QUIT TO DESKTOP", 0, 252));
+	this->lMO.push_back(new MenuOption("RESUME", 0, 166));
+	this->lMO.push_back(new MenuOption("SAVE GAME", 0, 190));
+	this->lMO.push_back(new MenuOption("QUIT TO MENU", 0, 215));
+	this->lMO.push_back(new MenuOption("QUIT TO DESKTOP", 0, 239));
 
 	this->numOfMenuOptions = lMO.size();
 }
@@ -72,13 +71,11 @@ void PauseMenu::enter() {
 		CFG::getMusic()->PlayMusic();
 		break;
 	case 1:
-		CFG::getMenuManager()->getOptions()->setEscapeToMainMenu(false);
-		CFG::getMenuManager()->resetActiveOptionID(CFG::getMenuManager()->eOptions);
-		CFG::getMenuManager()->getOptions()->updateVolumeRect();
-		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eOptions);
+		Core::getMap()->Save("GAME_DATA.bin");
+		Core::getMap()->resetGameData();
+		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eMainMenu);
 		break;
 	case 2:
-		Core::getMap()->Save("GAME_DATA.bin");
 		Core::getMap()->resetGameData();
 		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eMainMenu);
 		break;
