@@ -130,6 +130,8 @@ void Map::update()
 }
 
 void Map::playerDeath(bool animation, bool instantDeath) {
+
+	// 
 	if ((pPlayer->getPowerLVL() == 0 && !pPlayer->getUnkillAble()) || instantDeath) {
 		inEvent = true;
 
@@ -6808,13 +6810,11 @@ void Map::clearBubbles() {
 }
 
 void Map::checkSpawnPoint() {
-	for (Player* pPlayer : vCurPlayer) {
-		if (getNumOfSpawnPoints() > 1) {
-			for (int i = iSpawnPointID + 1; i < getNumOfSpawnPoints(); i++) {
-				if (getSpawnPointXPos(i) > pPlayer->getXPos() - fXPos && getSpawnPointXPos(i) < pPlayer->getXPos() - fXPos + 128) {
-					iSpawnPointID = i;
-					//pPlayer->getCoins() - fcloseall() = fXPos + pPlayer;
-				}
+	if (getNumOfSpawnPoints() > 1) {
+		for (int i = iSpawnPointID + 1; i < getNumOfSpawnPoints(); i++) {
+			if (getSpawnPointXPos(i) > pPlayer->getXPos() - fXPos && getSpawnPointXPos(i) < pPlayer->getXPos() - fXPos + 128) {
+				iSpawnPointID = i;
+				//pPlayer->getCoins() - fcloseall() = fXPos + pPlayer;
 			}
 		}
 	}
