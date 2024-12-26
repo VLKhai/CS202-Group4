@@ -174,9 +174,9 @@ void OptionsMenu::enter() {
 	case 0:
 		CFG::getMusic()->PlayChunk(CFG::getMusic()->cCOIN);
 		break;
-	case 1: case 2: case 3: case 4: case 5:
+	/*case 1: case 2: case 3: case 4: case 5:
 		inSetKey = true;
-		break;
+		break;*/
 	case 6:
 		CFG::canMoveBackward = !CFG::canMoveBackward;
 		break;
