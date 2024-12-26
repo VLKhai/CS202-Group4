@@ -211,6 +211,7 @@ Vector2* Player::getBlockRT(float nX, float nY) {
 
 void Player::update()
 {
+	unKillAble = true;
 	playerPhysics();
 	movePlayer();
 
@@ -1061,6 +1062,11 @@ void Player::setSpringJump(bool springJump)
 int Player::getIDPlayer()
 {
 	return iIDPlayer;
+}
+
+void Player::setIDPlayer(int iIDPlayer)
+{
+	this->iIDPlayer = iIDPlayer;
 }
 
 bool Player::getUseSkill()

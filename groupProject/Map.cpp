@@ -1836,6 +1836,8 @@ void Map::setNumOfPlayers(int iNumOfPlayers)
 	for (int i = 0; i < iNumOfPlayers; i++) {
 		vCurPlayer[i] = vPlayer[i];
 	}
+	if (iNumOfPlayers == 1) vPlayer[1]->setIDPlayer(0);
+	if (iNumOfPlayers == 2) vPlayer[1]->setIDPlayer(1);
 }
 
 int Map::getNumOfPlayers()
@@ -1967,7 +1969,7 @@ void Map::loadGameData(sf::RenderWindow& mainWindow)
 	vPlayer.push_back(new Luigi(mainWindow, 84, 480));
 	indexPlayer = 0;
 	pPlayer = vPlayer[indexPlayer];
-	setNumOfPlayers(2);
+	setNumOfPlayers(1);
 
 	CFG::getText()->setFont(mainWindow, "font");
 
@@ -4391,8 +4393,10 @@ void Map::EndUse() {
 
 	pEvent->iSpeed = 3;
 
+	std::cout << "currentLevelID" << currentLevelID << std::endl;
+
 	switch (currentLevelID) {
-	case 0: {
+	case 0: { 
 		pEvent->newLevelType = 100;
 
 		pEvent->iDelay = 1500;
@@ -4478,7 +4482,7 @@ void Map::EndUse() {
 
 		pEvent->newMapXPos = -220 * 32;
 		pEvent->newPlayerXPos = 64;
-		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY();
+		pEvent->newPlayerYPos = CFG::GameHeight - 48 - pPlayer->getHitBoxY() + 50;
 		pEvent->newMoveMap = false;
 
 		pPlayer->setMoveDirection(true);

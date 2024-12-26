@@ -202,6 +202,7 @@ public:
 	void setSpringJump(bool springJump);
 
 	int getIDPlayer();
+	void setIDPlayer(int iIDPlayer);	
 
 	bool getUseSkill();
 	virtual void setUseSkill(bool bUseSkill);
