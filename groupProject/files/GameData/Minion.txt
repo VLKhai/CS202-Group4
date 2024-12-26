@@ -1,0 +1,66 @@
+0 goombas_0,200 goombas_1,200 true false true true
+1 goombas_ded,0 true false true true
+2 mushroom,0 true false true true
+3 mushroom_1up,0 true false true true
+4 koopa_0,200 koopa_1,200 true false true true
+5 koopa_ded,0 true false true true
+6 flower0,50 flower1,50 flower2,50 flower3,50 true false true true
+7 koopa_2,200 koopa_3,200 true false true true
+8 goombas1_0,200 goombas1_1,200 true false true true
+9 goombas1_ded,0 true false true true
+10 goombas2_0,200 goombas2_1,200 true false true true
+11 goombas2_ded,0 true false true true
+12 koopa1_0,200 koopa1_1,200 true false true true
+13 koopa1_ded,0 true false true true
+14 koopa1_2,200 koopa1_3,200 true false true true
+15 koopa2_0,200 koopa2_1,200 true false true true
+16 koopa2_ded,0 true false true true
+17 koopa2_2,200 koopa2_3,200 true false true true
+18 plant_0,125 plant_1,125 true false true true
+19 plant1_0,125 plant1_1,125 true false true true
+20 bowser0,285 bowser1,285 true false true true
+21 bowser2,285 bowser3,285 true false true true
+22 fire_0,35 fire_1,35 true false false true
+23 fireball_0,75 fireball_1,75 fireball_2,75 fireball_3,75 true false false true
+24 star_0,75 star_1,75 star_2,75 star_3,75 true false false true
+25 mushroom1_1up,0 true false true true
+26 toad,0 false false false true
+27 peach,0 false false false true
+28 squid0,0 true false true true
+29 squid1,0 true false true true
+30 cheep0,120 cheep1,120 true false true true
+31 cheep2,110 cheep3,110 true false true true
+32 upfire,0 true false true true
+33 vine_top,0 true false true true
+34 vine,0 true false true true
+35 vine1_top,0 true false true true
+36 vine1,0 true false true true
+37 spring_0,0 true false true true
+38 spring_1,0 true false true true
+39 spring_2,0 true false true true
+40 spring1_0,0 true false true true
+41 spring1_1,0 true false true true
+42 spring1_2,0 true false true true
+43 hammerbro_0,175 hammerbro_1,175 true false true true
+44 hammerbro_2,155 hammerbro_3,155 true false true true
+45 hammerbro1_0,175 hammerbro1_1,175 true false true true
+46 hammerbro1_2,155 hammerbro1_3,155 true false true true
+47 hammer_0,95 hammer_1,95 hammer_2,95 hammer_3,95 true false true true
+48 hammer1_0,95 hammer1_1,95 hammer1_2,95 hammer1_3,95 true false true true
+49 lakito_0,0 true false true true
+50 lakito_1,0 true false true true
+51 spikey0_0,135 spikey0_1,135 true false true true
+52 spikey1_0,75 spikey1_1,75 true false true true
+53 beetle_0,155 beetle_1,155 true false true true
+54 beetle_2,0 true false true true
+55 beetle1_0,155 beetle1_1,155 true false true true
+56 beetle1_2,0 true false true true
+57 beetle2_0,155 beetle2_1,155 true false true true
+58 beetle2_2,0 true false true true
+59 bulletbill,0 true false true true
+60 bulletbill1,0 true false true true
+61 hammer1_0,0 true false true true
+62 fireball_0,155 fireball_1,155 fireball_2,155 fireball_3,155 true false false true
+63 firework0,0 true false false true
+64 firework1,0 true false false true
+65 firework1,0 true false false true
