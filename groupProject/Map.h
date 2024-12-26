@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <fstream>
+#include <sstream>
+#include <string>
 #include <vector>
 #include "Mario.h"
 #include "Luigi.h"
@@ -129,6 +131,8 @@ private:
 	// ----- Load -----
 	void loadMap(sf::RenderWindow& mainWindow);
 	void loadGameData(sf::RenderWindow& window);
+	void loadGameDataBlock(const std::string& filename, sf::RenderWindow& mainWindow, std::vector<Block*>& vBlock, std::vector<std::string>& tSprite, std::vector<unsigned int>& iDelay);
+	void loadGameDataMinion(const std::string& filename, sf::RenderWindow& mainWindow, std::vector<Block*>& vMinion, std::vector<std::string>& tSprite, std::vector<unsigned int>& iDelay);
 	void createMap();
 
 	void loadLVL_1_1();
@@ -375,4 +379,5 @@ public:
 	void Save(const std::string& filename) const;
 	Map* Load(const std::string& filename);
 	void change(Map* other);
+	bool stringToBool(const std::string& str);
 };
