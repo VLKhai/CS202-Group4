@@ -81,10 +81,11 @@ void Map::notify(Minion* pmSender, std::string sEvent)
 		return;
 	}
 	if (sEvent == "P1_Dead_1_0") {
+		
 		this->playerDeath(true, false, vCurPlayer[1]);
 		return;
 	}
-
+	std::cout << sEvent << std::endl;
 }
 
 Map& Map::Instance()
@@ -99,16 +100,21 @@ void Map::update()
 	
 	bool bInLevelAnimation_ = false;
 	for (Player* pMem : vCurPlayer) {
-		if (!pMem->getInLevelAnimation()) {
-			updateMinionBlocks();
-			updateMinions();
-			break;
+		if (pMem->getInLevelAnimation()) {
+			bInLevelAnimation_ = true;
+			pMem->powerUPAnimation();
 		}
-		else bInLevelAnimation_ = true;
 	}
+
+	//std::cout << "Mario " << vCurPlayer[0]->getInLevelAnimation() << std::endl;
+	//std::cout << "Mario " << vCurPlayer[0]->getPowerLVL() << std::endl;
+	//std::cout << "Luigi getInLevelAnimation " << vCurPlayer[1]->getInLevelAnimation() << std::endl;
+	//std::cout << "Luigi " << vCurPlayer[1]->getPowerLVL() << std::endl;
 
 	if (!bInLevelAnimation_) {
 		if (!inEvent) {
+			updateMinionBlocks();
+			updateMinions();
 			updatePlayer();
 
 			++iFrameID;
@@ -138,10 +144,6 @@ void Map::update()
 			vPlatform[i]->update();
 		}
 	}
-	else {
-		pPlayer->powerUPAnimation();
-	}
-
 
 	// Update Block Debris
 	for (unsigned int i = 0; i < lBlockDebris.size(); i++) {
@@ -472,6 +474,7 @@ void Map::updateMinionPlayerCollisions(int iIDPlayer)
 	
 	float fXPosTMP = (iIDPlayer == 0) ? fXPos : fXPos2;
 	Player* p_Player = vCurPlayer[iIDPlayer];
+
 
 	for (int i = getListID(-(int)fXPosTMP + p_Player->getXPos()) - (getListID(-(int)fXPosTMP + p_Player->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
 		for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
