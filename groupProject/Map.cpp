@@ -265,8 +265,8 @@ void Map::updateGifBlocks()
 
 void Map::updatePlayer()
 {
-	for (Player* pPlayer : vCurPlayer) 
-		pPlayer->update();
+	for (Player* pMem : vCurPlayer) 
+		pMem->update();
 }
 
 void Map::updateMinionBlocks() {
@@ -563,8 +563,8 @@ void Map::draw(sf::RenderWindow& mainWindow)
 		lBubble[i]->Draw(mainWindow, vBlock[lBubble[i]->getBlockID()]->getAniSprite()->getTexture());
 	}
 
-	for (Player* pPlayer : vCurPlayer)
-		pPlayer->draw(mainWindow);
+	for (Player* pMem : vCurPlayer)
+		pMem->draw(mainWindow);
 
 	if (inEvent) {
 		pEvent->draw(mainWindow);
@@ -596,8 +596,7 @@ void Map::DrawMinions(sf::RenderWindow& mainWindow) {
 	for (int i = 0; i < iMinionListSize; i++) {
 		for (int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
 			lMinion[i][j]->Draw(mainWindow, vMinion[lMinion[i][j]->getBloockID()]->getAniSprite()->getFrame());
-			lMinion[i][j]->drawBoundingBox(mainWindow);
-			//CFG::getText()->DrawWS(mainWindow, std::to_string(i), lMinion[i][j]->getXPos() + (int)fXPos, lMinion[i][j]->getYPos(), 0, 0, 0, 8);
+			//lMinion[i][j]->drawBoundingBox(mainWindow);
 		}
 	}
 }
@@ -650,6 +649,7 @@ void Map::DrawGameLayout(sf::RenderWindow& mainWindow) {
 
 void Map::moveSelectPlayer(int iD)
 {
+	if (iNumOfPlayers == 2) return;
 	int prevIndex = indexPlayer;
 	indexPlayer += iD;
 	if (indexPlayer < 0) {
@@ -660,11 +660,12 @@ void Map::moveSelectPlayer(int iD)
 	}
 	pPlayer = vPlayer[indexPlayer];
 	pPlayer->copyStats(vPlayer[prevIndex]);
+	vCurPlayer.clear();
+	vCurPlayer.push_back(pPlayer);
 }
 
 // POS 0 = TOP, 1 = BOT
 bool Map::blockUse(int nX, int nY, int iBlockID, int POS) {
-	
 	if (POS == 0) {
 		switch (iBlockID) {
 		case 8: case 55: // ----- BlockQ
@@ -1229,7 +1230,7 @@ void Map::loadLVL() {
 		loadLVL_1_3();
 		break;
 	case 3:
-		for (Player* tem : vPlayer) {
+		for (Player* tem : vCurPlayer) {
 			tem->setXPos(64);
 			tem->setYPos(287);
 		}
@@ -1245,7 +1246,7 @@ void Map::loadLVL() {
 		loadLVL_2_3();
 		break;
 	case 7:
-		for (Player* tem : vPlayer) {
+		for (Player* tem : vCurPlayer) {
 			tem->setXPos(64);
 			tem->setYPos(287);
 		}
@@ -1261,7 +1262,7 @@ void Map::loadLVL() {
 		loadLVL_3_3();
 		break;
 	case 11:
-		for (Player* tem : vPlayer) {
+		for (Player* tem : vCurPlayer) {
 			tem->setXPos(64);
 			tem->setYPos(287);
 		}
@@ -1899,9 +1900,11 @@ void Map::setNumOfPlayers(int iNumOfPlayers)
 {
 	this->iNumOfPlayers = iNumOfPlayers;
 	this->vCurPlayer.resize(iNumOfPlayers);
+	this->indexPlayer = 0;
 	for (int i = 0; i < iNumOfPlayers; i++) {
 		vCurPlayer[i] = vPlayer[i];
 	}
+	pPlayer = vCurPlayer[indexPlayer];
 	if (iNumOfPlayers == 1) vPlayer[1]->setIDPlayer(0);
 	if (iNumOfPlayers == 2) vPlayer[1]->setIDPlayer(1);
 }
@@ -2035,8 +2038,8 @@ void Map::loadGameData(sf::RenderWindow& mainWindow)
 {
 	vPlayer.push_back(new Mario(mainWindow, 84, 480)); 
 	vPlayer.push_back(new Luigi(mainWindow, 84, 480));
-	indexPlayer = 0;
-	pPlayer = vPlayer[indexPlayer];
+	//indexPlayer = 0;
+	//pPlayer = vPlayer[indexPlayer];
 	setNumOfPlayers(1);
 
 	CFG::getText()->setFont(mainWindow, "font");

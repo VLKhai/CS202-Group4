@@ -14,12 +14,12 @@ private:
     std::vector<Block*>* vMinion;
     // Private constructor to enforce Singleton pattern
     ImgResource();
-
+    ImgResource(const ImgResource&) = delete;
+    ImgResource& operator=(const ImgResource&) = delete;
 public:
     // Singleton accessor
     static ImgResource* getInstance();
-    ImgResource(const ImgResource&) = delete;
-    ImgResource& operator=(const ImgResource&) = delete;
+    
 
     // Set resource references
     void setBlockResources(std::vector<Block*>* blockResources);

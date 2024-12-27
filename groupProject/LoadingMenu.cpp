@@ -54,7 +54,7 @@ void LoadingMenu::draw(sf::RenderWindow& window) {
 		Core::getMap()->DrawGameLayout(window);
 		CFG::getText()->DrawCenterX(window, "WORLD " + Core::getMap()->getLevelName(), 210, 16);
 
-		CFG::getText()->Draw(window, Core::getMap()->getPlayer()->getStringName(), 400 + 30, 240, 8);
+		CFG::getText()->Draw(window, Core::getMap()->getPlayer()->getStringName(), 400-20, 240+30, 8);
 		Core::getMap()->getPlayer()->getSprite()->getTexture()->draw(window, 400+30, 270 - Core::getMap()->getPlayer()->getHitBoxY() / 2); 
 
 		CFG::getText()->Draw(window, "y", 495, 265);

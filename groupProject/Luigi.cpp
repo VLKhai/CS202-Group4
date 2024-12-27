@@ -5,7 +5,7 @@ Luigi::Luigi(sf::RenderWindow& window, float fXPos, float fYPos) : Player(window
 	
 	limSmallJumpBlock = 3;
 	limBigJumpBlock = 5;
-	iIDPlayer = 1;
+	iIDPlayer = 0;
 
 	// LOAD SPRITE
 	std::vector<std::string> tempS;
@@ -300,15 +300,20 @@ Luigi::~Luigi()
 
 void Luigi::update()
 {
-	bJumpPressed = CFG::keyUp;
+	bJumpPressed = (iIDPlayer == 1) ? CFG::keyUp : CFG::keySpace;
 	Player::update();
 }
 
 void Luigi::draw(sf::RenderWindow& window)
 {
-	int fXPosCam = fXPos + (Core::getMap()->getXPos() - Core::getMap()->getXPos(2));
-	int fYPosCam = fYPos + (Core::getMap()->getYPos() - Core::getMap()->getYPos(2));
+	int fXPosCam = fXPos; 
+	int fYPosCam = fYPos;
 	
+	if (iIDPlayer == 1) {
+		fXPosCam += (Core::getMap()->getXPos() - Core::getMap()->getXPos(1));
+		fYPosCam += (Core::getMap()->getYPos() - Core::getMap()->getYPos(1));
+	}
+
 	if (!inLevelDownAnimation || Core::getMap()->getInEvent()) {
 		// Super Luigi
 		sLuigi[getSpriteID()]->getTexture()->draw(window, (int)fXPosCam, (int)fYPosCam + (Core::getMap()->getInEvent() ? 0 : 2), !moveDirection);

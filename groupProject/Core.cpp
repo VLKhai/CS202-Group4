@@ -258,7 +258,8 @@ void Core::inputPlayer() {
     }   
 
 	inputPlayerPressed(keyAPressed, keyDPressed, firstDir1, pMap->getPlayer());
-	inputPlayerPressed(keyLeftPressed, keyRightPressed, firstDir2, pMap->getPlayer2());
+    if (pMap->getNumOfPlayers() == 2) 
+        inputPlayerPressed(keyLeftPressed, keyRightPressed, firstDir2, pMap->getPlayer2());
 
    // if (keyAPressed) {
    //     if (!pMap->getPlayer()->getMove() && firstDir1 == false
