@@ -23,6 +23,8 @@ PlayerFireBall::PlayerFireBall(int iXPos, int iYPos, bool moveDirection) {
 	this->iHitBoxY = 16;
 
 	this->bDestroy = false;
+	this->bActive = false;
+	//this->bDestroy = true;
 
 	this->destroyFrameID = 15;
 }
@@ -44,10 +46,11 @@ void PlayerFireBall::Update() {
 		else if (destroyFrameID > 0) {
 			this->iBlockID = 65;
 		}
-		else {
-			minionState = -1;
-		}
+		//else {
+		//	minionState = -1;
+		//}
 		--destroyFrameID;
+		bActive = false;
 	}
 	else {
 		if (jumpState == 0) {
@@ -70,9 +73,9 @@ void PlayerFireBall::Update() {
 
 				jumpState = 2;
 
-				if (fYPos >= CFG::GameHeight) {
-					minionState = -1;
-				}
+				//if (fYPos >= CFG::GameHeight) {
+				//	minionState = -1;
+				//}
 			}
 			else {
 				jumpState = 0;
@@ -91,6 +94,34 @@ void PlayerFireBall::Draw(sf::RenderWindow& window, IMG* iIMG) {
 	else {
 		iIMG->draw(window, (int)fXPos + (int)Core::getMap()->getXPos() - (moveDirection ? 16 : 0), (int)fYPos - 8, !moveDirection);
 	}
+}
+
+void PlayerFireBall::setFireBall(int X, int Y, bool moveDirection)
+{
+	this->fXPos = (float)X;
+	this->fYPos = (float)Y;
+
+	this->moveDirection = moveDirection;
+
+	this->killOtherUnits = true;
+
+	this->minionSpawned = true;
+
+	this->moveSpeed = 14;
+
+	this->iBlockID = 62;
+
+	this->jumpState = 2;
+
+	this->iHitBoxX = 16;
+	this->iHitBoxY = 16;
+
+	this->bDestroy = false;
+	this->bActive = true;
+
+	this->destroyFrameID = 15;
+
+	this->collisionOnlyWithPlayer = false;
 }
 
 void PlayerFireBall::updateXPos() {
@@ -117,9 +148,9 @@ void PlayerFireBall::updateXPos() {
 		}
 	}
 
-	if (fXPos < -iHitBoxX) {
-		minionState = -1;
-	}
+	//if (fXPos < -iHitBoxX) {
+	//	minionState = -1;
+	//}
 }
 
 void PlayerFireBall::minionPhysics() {
@@ -143,4 +174,9 @@ void PlayerFireBall::collisionEffect() {
 
 void PlayerFireBall::setMinionState(int minionState) {
 
+}
+
+bool PlayerFireBall::getDestroy()
+{
+	return bActive;
 }

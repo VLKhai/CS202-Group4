@@ -64,6 +64,7 @@
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="PlayerFireBall.cpp" />
+    <ClCompile Include="PlayerFireBallPool.cpp" />
     <ClCompile Include="Points.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="Spikey.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Plant.h" />
     <ClInclude Include="PlayerFireBall.h" />
+    <ClInclude Include="PlayerFireBallPool.h" />
     <ClInclude Include="Points.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="Spikey.h" />

@@ -65,6 +65,8 @@ public:
 
 	void killMinion();
 
+	virtual void setXYDir(int X, int Y, bool Dir) {};
+
 	// ----- COLLISON
 
 	virtual void collisionWithPlayer(bool TOP, Player* pPlayer);
@@ -87,4 +89,6 @@ public:
 	void setYPos(int iYPos);
 
 	bool isAlive();
+
+	virtual bool getDestroy() { return false; };
 };

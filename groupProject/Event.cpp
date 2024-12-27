@@ -15,7 +15,7 @@ void Event::Normal() {
 		if (vOLDDir.size() > stepID) {
 			if (vOLDLength[stepID] > 0) {
 				switch (vOLDDir[stepID]) {
-				case eTOP: // TOP
+				case eTOP: 
 					Core::getMap()->getPlayer()->setYPos((float)Core::getMap()->getPlayer()->getYPos() - iSpeed);
 					vOLDLength[stepID] -= iSpeed;
 					break;

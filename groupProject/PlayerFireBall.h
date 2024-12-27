@@ -5,6 +5,7 @@
 class PlayerFireBall : public Minion
 {
 private:
+	bool bActive;
 	bool bDestroy;
 	int destroyFrameID;
 public:
@@ -13,6 +14,8 @@ public:
 
 	void Update();
 	void Draw(sf::RenderWindow& mainWindow, IMG* iIMG);
+
+	void setFireBall(int X, int Y, bool moveDirection);
 
 	void updateXPos();
 
@@ -25,4 +28,6 @@ public:
 	void collisionEffect();
 
 	void setMinionState(int minionState);
+
+	bool getDestroy();
 };
