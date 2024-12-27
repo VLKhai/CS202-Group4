@@ -115,6 +115,6 @@ void Lakito::collisionWithPlayer(bool TOP, Player* pPlayer) {
 	if(pPlayer->getStarEffect() || TOP) {
 		setMinionState(-2);
 	} else if(!end) {
-		Core::getMap()->notify(this, "Dead_1_0");
+		Core::getMap()->notify(this, "P" + std::to_string(pPlayer->getIDPlayer())+"_Dead_1_0");
 	}
 }

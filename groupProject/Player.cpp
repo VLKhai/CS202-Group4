@@ -211,7 +211,6 @@ Vector2* Player::getBlockRT(float nX, float nY) {
 
 void Player::update()
 {
-	//setStarEffect(true);
 	playerPhysics();
 	movePlayer();
 
@@ -983,11 +982,6 @@ void Player::setMoveSpeed(int moveSpeed) {
 bool Player::getUnkillAble()
 {
 	return unKillAble;
-}
-
-void Player::setUnkillAble(bool b)
-{
-	unKillAble = b;
 }
 
 int Player::getNumOfLives() {

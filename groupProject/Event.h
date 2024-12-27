@@ -92,4 +92,9 @@ public:
     void newLevel();
 
     void resetRedraw();
+
+	void setPlayerSprite(int iID);
+	void setPlayerYPos(float fYPos);
+	void setPlayerStopMove();
+    
 };

@@ -164,7 +164,6 @@ public:
 	void setMoveSpeed(int moveSpeed);
     
 	bool getUnkillAble();
-	void setUnkillAble(bool b);
 
 	int getNumOfLives();
 	void setNumOfLives(int iNumOfLives);

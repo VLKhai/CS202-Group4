@@ -329,7 +329,7 @@ public:
 
 	void checkCollisionOnTopOfTheBlock(int nX, int nY);
 
-	void playerDeath(bool animation, bool instantDeath);
+	void playerDeath(bool animation, bool instantDeath, Player* pMem=nullptr);
 
 	Vector2* getBlockID(int nX, int nY);
 	int getBlockIDX(int nX);

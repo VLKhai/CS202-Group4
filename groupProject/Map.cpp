@@ -76,20 +76,12 @@ void Map::notify(Minion* pmSender, std::string sEvent)
 			pPlayer->setNumOfLives(pPlayer->getNumOfLives() + 1);
 		}
 	}
-	if (sEvent == "Dead_1_0") {
-		this->playerDeath(true, false);
+	if (sEvent == "P0_Dead_1_0") {
+		this->playerDeath(true, false, vCurPlayer[0]);
 		return;
 	}
-	if (sEvent == "Dead_1_1") {
-		this->playerDeath(true, true);
-		return;
-	}
-	if (sEvent == "Dead_0_0") {
-		this->playerDeath(false, false);
-		return;
-	}
-	if (sEvent == "Dead_0_1") {
-		this->playerDeath(false, true);
+	if (sEvent == "P1_Dead_1_0") {
+		this->playerDeath(true, false, vCurPlayer[1]);
 		return;
 	}
 
@@ -182,29 +174,32 @@ void Map::update()
 	}
 }
 
-void Map::playerDeath(bool animation, bool instantDeath) {
+void Map::playerDeath(bool animation, bool instantDeath, Player* pMem) {
 
-	if ((pPlayer->getPowerLVL() == 0 && !pPlayer->getUnkillAble()) || instantDeath) {
+	// Death Event
+	if (instantDeath ||(pMem->getPowerLVL() == 0 && !pMem->getUnkillAble())) {
+		
+		for (Player* tmp : vCurPlayer) {
+			tmp->resetJump();
+			tmp->stopMove();
+			tmp->resetPowerLVL();
+			tmp->setNumOfLives(pPlayer->getNumOfLives() - 1);
+		}
+
 		inEvent = true;
-
 		pEvent->resetData();
-		pPlayer->resetJump();
-		pPlayer->stopMove();
-
 		pEvent->iDelay = 150;
 		pEvent->newCurrentLevel = currentLevelID;
-
 		pEvent->newMoveMap = bMoveMap;
-
 		pEvent->eventTypeID = pEvent->eNormal;
-
-		pPlayer->resetPowerLVL();
 
 		if (animation) {
 			pEvent->iSpeed = 4;
 			pEvent->newLevelType = iLevelType;
 
-			pPlayer->setYPos(pPlayer->getYPos() + 4.0f);
+			for (Player* tmp : vCurPlayer) {
+				tmp->setYPos(tmp->getYPos() + 4.0f);
+			}
 
 			pEvent->vOLDDir.push_back(pEvent->eDEATHNOTHING);
 			pEvent->vOLDLength.push_back(30);
@@ -230,8 +225,6 @@ void Map::playerDeath(bool animation, bool instantDeath) {
 			pEvent->vOLDDir.push_back(pEvent->eLOADINGMENU);
 			pEvent->vOLDLength.push_back(90);
 
-			pPlayer->setNumOfLives(pPlayer->getNumOfLives() - 1);
-
 			CFG::getMusic()->StopMusic();
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cDEATH);
 		}
@@ -239,14 +232,12 @@ void Map::playerDeath(bool animation, bool instantDeath) {
 			pEvent->vOLDDir.push_back(pEvent->eGAMEOVER);
 			pEvent->vOLDLength.push_back(90);
 
-			pPlayer->setNumOfLives(pPlayer->getNumOfLives() - 1);
-
 			CFG::getMusic()->StopMusic();
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cDEATH);
 		}
 	}
-	else if (!pPlayer->getUnkillAble()) {
-		pPlayer->setPowerLVL(pPlayer->getPowerLVL() - 1);
+	else if (!pMem->getUnkillAble()) {
+		pMem->setPowerLVL(pPlayer->getPowerLVL() - 1);
 	}
 }
 
@@ -1871,6 +1862,7 @@ Player* Map::getPlayer()
 
 Player* Map::getPlayer2()
 {
+	if (iNumOfPlayers == 1) return nullptr;
 	return vPlayer[1];
 }
 
@@ -2040,7 +2032,7 @@ void Map::loadGameData(sf::RenderWindow& mainWindow)
 	vPlayer.push_back(new Luigi(mainWindow, 84, 480));
 	//indexPlayer = 0;
 	//pPlayer = vPlayer[indexPlayer];
-	setNumOfPlayers(1);
+	setNumOfPlayers(2);
 
 	CFG::getText()->setFont(mainWindow, "font");
 

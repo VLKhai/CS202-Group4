@@ -72,17 +72,17 @@ void Event::Normal() {
 					break;
 				case eDEATHNOTHING:
 					vOLDLength[stepID] -= iSpeed;
-					Core::getMap()->getPlayer()->setSpriteID(0);
+					this->setPlayerSprite(0);
 					break;
 				case eDEATHTOP: // DEATH TOP
-					Core::getMap()->getPlayer()->setYPos((float)Core::getMap()->getPlayer()->getYPos() - iSpeed);
+					this->setPlayerYPos((float)Core::getMap()->getPlayer()->getYPos() - iSpeed);
+					this->setPlayerSprite(0);
 					vOLDLength[stepID] -= iSpeed;
-					Core::getMap()->getPlayer()->setSpriteID(0);
 					break;
 				case eDEATHBOT: // DEATH BOT
-					Core::getMap()->getPlayer()->setYPos((float)Core::getMap()->getPlayer()->getYPos() + iSpeed);
+					this->setPlayerYPos((float)Core::getMap()->getPlayer()->getYPos() + iSpeed);
+					this->setPlayerSprite(0);
 					vOLDLength[stepID] -= iSpeed;
-					Core::getMap()->getPlayer()->setSpriteID(0);
 					break;
 				case eNOTHING: // NOTHING YAY
 					vOLDLength[stepID] -= 1;
@@ -98,7 +98,7 @@ void Event::Normal() {
 					if (vOLDLength[stepID] < 2) {
 						Core::getMap()->setInEvent(false);
 						inEvent = false;
-						Core::getMap()->getPlayer()->stopMove();
+						this->setPlayerStopMove();
 
 						CFG::getMenuManager()->getLoadingMenu()->loadingType = true;
 						CFG::getMenuManager()->getLoadingMenu()->updateTime();
@@ -111,7 +111,8 @@ void Event::Normal() {
 					if (vOLDLength[stepID] < 2) {
 						Core::getMap()->setInEvent(false);
 						inEvent = false;
-						Core::getMap()->getPlayer()->stopMove();
+						
+						this->setPlayerStopMove();
 
 						CFG::getMenuManager()->getLoadingMenu()->loadingType = false;
 						CFG::getMenuManager()->getLoadingMenu()->updateTime();
@@ -376,4 +377,28 @@ void Event::resetRedraw()
 {
     reDrawX.clear();
     reDrawY.clear();
+}
+
+void Event::setPlayerSprite(int iID)
+{
+	Core::getMap()->getPlayer()->setSpriteID(iID);
+	if (Core::getMap()->getNumOfPlayers() == 2) {
+		Core::getMap()->getPlayer2()->setSpriteID(iID);
+	}
+}
+
+void Event::setPlayerYPos(float fYPos)
+{
+	Core::getMap()->getPlayer()->setYPos(fYPos);
+	if (Core::getMap()->getNumOfPlayers() == 2) {
+		Core::getMap()->getPlayer2()->setYPos(fYPos);
+	}
+}
+
+void Event::setPlayerStopMove()
+{
+	Core::getMap()->getPlayer()->stopMove();
+	if (Core::getMap()->getNumOfPlayers() == 2) {
+		Core::getMap()->getPlayer2()->stopMove();
+	}
 }
