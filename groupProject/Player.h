@@ -104,7 +104,8 @@ protected:
 	bool inLevelDownAnimation;
 	int inLevelDownAnimationFrameID;
 
-	int iSkillCooldown;
+	int iSkillCooldown = 4000;
+	int iTimeUsedSkill = 0;
 	bool bUseSkill;
 	Skill* pSkill;
 public:

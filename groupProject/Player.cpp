@@ -211,7 +211,7 @@ Vector2* Player::getBlockRT(float nX, float nY) {
 
 void Player::update()
 {
-	
+	//unKillAble = starEffect = true;
 	playerPhysics();
 	movePlayer();
 
@@ -222,7 +222,7 @@ void Player::update()
 		--iComboPoints;
 	}
 
-	if (powerLVL == 2 || 1) {
+	if (powerLVL == 2) {
 		if (nextFireBallFrameID > 0) {
 			--nextFireBallFrameID;
 		}
@@ -887,7 +887,7 @@ int Player::getHitBoxY() {
 
 void Player::createFireBall()
 {
-	if (powerLVL == 2 || 1) {
+	if (powerLVL == 2) {
 		if (nextFireBallFrameID <= 0) {
 			Core::getMap()->addPlayerFireBall((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + (moveDirection ? getHitBoxX() : -32)), (int)(fYPos + getHitBoxY() / 2), !moveDirection);
 			nextFireBallFrameID = 16;
@@ -1069,12 +1069,15 @@ bool Player::getUseSkill()
 
 void Player::setUseSkill(bool bUseSkill)
 {
-	this->bUseSkill = bUseSkill;
-	if (bUseSkill) {
-		this->pSkill->setTrigger(true);
-	}
-	else {
+	if (!bUseSkill) {
+		this->bUseSkill = false;
 		this->pSkill->setTrigger(false);
+		return;
+	}
+	if (Core::coreClock.getElapsedTime().asMilliseconds() - iTimeUsedSkill > iSkillCooldown) {
+		this->bUseSkill = bUseSkill;
+		this->pSkill->setTrigger(true);
+		iTimeUsedSkill = Core::coreClock.getElapsedTime().asMilliseconds();
 	}
 }
 

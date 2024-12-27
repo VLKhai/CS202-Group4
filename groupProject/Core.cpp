@@ -177,6 +177,10 @@ void Core::inputPlayer() {
                     keyShiftRight = false;
                 }
             }
+
+			if (mainEvent.key.code == CFG::keyIDSkill2) {
+				CFG::keySkill2 = false;
+			}
         }
     }
 
@@ -254,47 +258,18 @@ void Core::inputPlayer() {
 				pMap->getPlayer2()->startRun();
 				keyShiftRight = true;
 			}
+			if (mainEvent.key.code == CFG::keyIDSkill2) {
+				if (!CFG::keySkill2) {
+					pMap->getPlayer2()->setUseSkill(true);
+					CFG::keySkill2 = true;
+				}
+			}
 		}
     }   
 
 	inputPlayerPressed(keyAPressed, keyDPressed, firstDir1, pMap->getPlayer());
     if (pMap->getNumOfPlayers() == 2) 
         inputPlayerPressed(keyLeftPressed, keyRightPressed, firstDir2, pMap->getPlayer2());
-
-   // if (keyAPressed) {
-   //     if (!pMap->getPlayer()->getMove() && firstDir1 == false
-   //         && !pMap->getPlayer()->getChangeMoveDirection()
-   //         && !pMap->getPlayer()->getSquat()) {
-			//
-   //         pMap->getPlayer()->startMove();
-			//pMap->getPlayer()->setMoveDirection(false);
-   //     }
-   //     else if (!keyDPressed && pMap->getPlayer()->getMoveSpeed() > 0
-   //         && firstDir1 != pMap->getPlayer()->getMoveDirection()) {
-   //         pMap->getPlayer()->setChangeMoveDirection();
-   //     }
-   // 
-   // }
-
-   // if (keyDPressed) {
-   //     if (!pMap->getPlayer()->getMove() && firstDir1 == true
-   //         && !pMap->getPlayer()->getChangeMoveDirection() 
-   //         && !pMap->getPlayer()->getSquat()) {
-   //         
-   //         pMap->getPlayer()->startMove();
-   //         pMap->getPlayer()->setMoveDirection(true);
-   //     }
-   //     else if (!keyAPressed && pMap->getPlayer()->getMoveSpeed() > 0 
-   //         && firstDir1 != pMap->getPlayer()->getMoveDirection()) {
-   //         
-   //         pMap->getPlayer()->setChangeMoveDirection();
-   //     }
-   // }
-
-   // // For Inertia Movement
-   // if (pMap->getPlayer()->getMove() && !keyAPressed && !keyDPressed) {
-   //     pMap->getPlayer()->resetMove();
-   // }
 }
 
 void Core::inputPlayerPressed(bool pressA, bool pressD, bool firstD, Player* pCharac)
@@ -329,10 +304,6 @@ void Core::inputPlayerPressed(bool pressA, bool pressD, bool firstD, Player* pCh
 		pCharac->resetMove();
 	}
 }
-
-//void Core::inputMultiplayer()
-//{
-//}
 
 void Core::inputMenu()
 {

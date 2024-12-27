@@ -32,6 +32,9 @@ void PauseMenu::draw(sf::RenderWindow& window) {
 	Core::getMap()->drawMap(window);
 	Core::getMap()->DrawMinions(window);
 	Core::getMap()->getPlayer()->draw(window);
+	if (Core::getMap()->getNumOfPlayers() == 2) {
+		Core::getMap()->getPlayer2()->draw(window);
+	}
 	Core::getMap()->DrawGameLayout(window);
 	
 	rPause.left += 1;

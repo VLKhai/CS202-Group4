@@ -1082,22 +1082,22 @@ void Map::startLevelAnimation() {
 		pEvent->newMoveMap = true;
 		pEvent->newUnderWater = true;
 
-		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
-		pEvent->vOLDLength.push_back(7 * 32 + 4);
+		// pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		// pEvent->vOLDLength.push_back(7 * 32 + 4);
 
-		pEvent->vOLDDir.push_back(pEvent->ePLAYPIPERIGHT);
-		pEvent->vOLDLength.push_back(1);
+		// pEvent->vOLDDir.push_back(pEvent->ePLAYPIPERIGHT);
+		// pEvent->vOLDLength.push_back(1);
 
-		pEvent->vOLDDir.push_back(pEvent->eRIGHT);
-		pEvent->vOLDLength.push_back(1 * 32 - 2);
+		// pEvent->vOLDDir.push_back(pEvent->eRIGHT);
+		// pEvent->vOLDLength.push_back(1 * 32 - 2);
 
-		pEvent->vOLDDir.push_back(pEvent->eNOTHING);
-		pEvent->vOLDLength.push_back(75);
+		// pEvent->vOLDDir.push_back(pEvent->eNOTHING);
+		// pEvent->vOLDLength.push_back(75);
 
-		pEvent->reDrawX.push_back(230);
-		pEvent->reDrawY.push_back(2);
-		pEvent->reDrawX.push_back(230);
-		pEvent->reDrawY.push_back(3);
+		// pEvent->reDrawX.push_back(230);
+		// pEvent->reDrawY.push_back(2);
+		// pEvent->reDrawX.push_back(230);
+		// pEvent->reDrawY.push_back(3);
 		break;
 	case 13:
 		pEvent->resetData();
@@ -3552,7 +3552,7 @@ void Map::loadLVL_3_2() {
 	lMap[44][9]->setSpawnMushroom(true);
 	lMap[44][9]->setPowerUP(false);
 
-	addMinion(MinionFactory::addSpring(44 * 32, 336));
+	addMinion(MinionFactory::addSpring(44 * 32, 420));
 
 	struckBlockQ(29, 5, 4);
 
@@ -3566,25 +3566,25 @@ void Map::loadLVL_3_2() {
 
 	// -- MAP 8-2-2
 
-	this->iLevelType = 1;
+	//this->iLevelType = 1;
 
-	structGND(240, 0, 17, 2);
+	//structGND(240, 0, 17, 2);
 
-	structBrick(239, 2, 1, 18);
-	structBrick(240, 2, 1, 11);
-	structBrick(244, 7, 1, 2);
-	structBrick(245, 7, 5, 1);
-	structBrick(250, 7, 1, 6);
-	structBrick(251, 8, 2, 1);
-	structBrick(244, 12, 6, 1);
+	//structBrick(239, 2, 1, 18);
+	//structBrick(240, 2, 1, 11);
+	//structBrick(244, 7, 1, 2);
+	//structBrick(245, 7, 5, 1);
+	//structBrick(250, 7, 1, 6);
+	//structBrick(251, 8, 2, 1);
+	//structBrick(244, 12, 6, 1);
 
-	structBrick(254, 7, 1, 1);
-	lMap[254][7]->setNumOfUse(8);
+	//structBrick(254, 7, 1, 1);
+	//lMap[254][7]->setNumOfUse(8);
 
-	structCoins(245, 8, 5, 2);
+	//structCoins(245, 8, 5, 2);
 
-	structPipeVertical(255, 2, 10);
-	structPipeHorizontal(253, 2, 1);
+	//structPipeVertical(255, 2, 10);
+	//structPipeHorizontal(253, 2, 1);
 
 	this->iLevelType = 0;
 }
@@ -3861,8 +3861,8 @@ void Map::loadMinionsLVL_1_2() {
 	addMinion(MinionFactory::addKoppa(44 * 32, 400, 1, true, iLevelType));
 	addMinion(MinionFactory::addKoppa(45 * 32 + 16, 400, 1, true, iLevelType));
 	addMinion(MinionFactory::addKoppa(59 * 32, 400, 1, true, iLevelType));
-	addMinion(MinionFactory::addGoombas(62 * 32, 368, true, iLevelType));
-	addMinion(MinionFactory::addGoombas(64 * 32, 368, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(62 * 32, 368+20, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(64 * 32, 368+20, true, iLevelType));
 	addMinion(MinionFactory::addGoombas(73 * 32, 368 - 8 * 32, true, iLevelType));
 	addMinion(MinionFactory::addGoombas(76 * 32, 368 - 4 * 32, true, iLevelType));
 	addMinion(MinionFactory::addGoombas(77 * 32 + 16, 368 - 4 * 32, true, iLevelType));
