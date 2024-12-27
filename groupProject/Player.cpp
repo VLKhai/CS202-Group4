@@ -211,6 +211,7 @@ Vector2* Player::getBlockRT(float nX, float nY) {
 
 void Player::update()
 {
+	
 	playerPhysics();
 	movePlayer();
 

@@ -72,8 +72,8 @@ void Map::notify(Minion* pmSender, std::string sEvent)
 		return;
 	}
 	if (sEvent == "LIVEUP") {
-		for (Player* pPlayer : vCurPlayer) {
-			pPlayer->setNumOfLives(pPlayer->getNumOfLives() + 1);
+		for (Player* tmp : vCurPlayer) {
+			tmp->setNumOfLives(tmp->getNumOfLives() + 1);
 		}
 	}
 	if (sEvent == "P0_Dead_1_0") {
@@ -95,6 +95,11 @@ Map& Map::Instance()
 
 void Map::update()
 {
+	for (Player* tmp : vCurPlayer) {
+		std::cout << tmp->getStringName() << ": " << tmp->getNumOfLives() << std::endl;
+	}
+
+
 	updateGifBlocks();
 	
 	for (Player* pPlayer : vCurPlayer) {
@@ -183,8 +188,8 @@ void Map::playerDeath(bool animation, bool instantDeath, Player* pMem) {
 			tmp->resetJump();
 			tmp->stopMove();
 			tmp->resetPowerLVL();
-			tmp->setNumOfLives(pPlayer->getNumOfLives() - 1);
 		}
+		
 
 		inEvent = true;
 		pEvent->resetData();
@@ -234,6 +239,10 @@ void Map::playerDeath(bool animation, bool instantDeath, Player* pMem) {
 
 			CFG::getMusic()->StopMusic();
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cDEATH);
+		}
+
+		for (Player* tmp : vCurPlayer) {
+			tmp->setNumOfLives(tmp->getNumOfLives() - 1);
 		}
 	}
 	else if (!pMem->getUnkillAble()) {
@@ -1015,22 +1024,24 @@ void Map::setSpawnPoint() {
 
 void Map::setSpawnXY(int iX, int iY)
 {
-	for (int i = 0; i < iNumOfPlayers; i++) {
-		vCurPlayer[i]->setXPos(iX);
-		vCurPlayer[i]->setYPos(iY);
+	for (Player* pMem : vCurPlayer) {
+		pMem->setXPos((float)iX);
+		pMem->setYPos((float)iY);
 	}
+	fXPos = fYPos = fXPos2 = fYPos2 = 0;
 }
 
 void Map::resetGameData() {
 	this->currentLevelID = 0;
 	this->iSpawnPointID = 0;
 
-	pPlayer->setCoins(0);
-	pPlayer->setScore(0);
-	pPlayer->resetPowerLVL();
-
-	pPlayer->setNumOfLives(3);
-
+	for (Player* pMem : vCurPlayer) {
+		pMem->setCoins(0);
+		pMem->setScore(0);
+		pMem->resetPowerLVL();
+		pMem->setNumOfLives(3);
+	}
+	
 	setSpawnPoint();
 
 	loadLVL();
