@@ -27,10 +27,10 @@ void Skill::drawHitBox(sf::RenderWindow& window)
 	rect.setOrigin(iHitBoxX / 2, iHitBoxY / 2);
 	rect.setPosition(fXcen, fYcen);
 	window.draw(rect);
-	//rect.setOutlineColor(sf::Color::Red);
-	//rect.setOrigin(0, 0);
-	//rect.setPosition(fX, fY);
-	//window.draw(rect);
+	rect.setOutlineColor(sf::Color::Red);
+	rect.setOrigin(0, 0);
+	rect.setPosition(fX, fY);
+	window.draw(rect);
 }
 
 int Skill::getXPos()

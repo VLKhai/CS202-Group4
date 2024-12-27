@@ -89,6 +89,11 @@ void ExplodeSkill::updateAnimation()
 
 void ExplodeSkill::draw(sf::RenderWindow& window)
 {
-	sSkill[getSpriteID()]->getFrame()->drawFromCenter(window, fXcen, fYcen);
-	//drawHitBox(window);
+	int fXCam = fXcen;
+	int fYCam = fYcen;
+
+	fXCam += (Core::getMap()->getXPos() - Core::getMap()->getXPos(1));
+	fYCam += (Core::getMap()->getYPos() - Core::getMap()->getYPos(1));
+	
+	sSkill[getSpriteID()]->getFrame()->drawFromCenter(window, fXCam, fYCam);
 }
