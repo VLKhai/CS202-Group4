@@ -1013,6 +1013,14 @@ void Map::setSpawnPoint() {
 	pPlayer->setMoveDirection(true);
 }
 
+void Map::setSpawnXY(int iX, int iY)
+{
+	for (int i = 0; i < iNumOfPlayers; i++) {
+		vCurPlayer[i]->setXPos(iX);
+		vCurPlayer[i]->setYPos(iY);
+	}
+}
+
 void Map::resetGameData() {
 	this->currentLevelID = 0;
 	this->iSpawnPointID = 0;
@@ -1212,51 +1220,51 @@ void Map::loadLVL() {
 
 	switch (currentLevelID) {
 	case 0:
+		this->setSpawnXY(84, 480); //
 		loadLVL_1_1();
 		break;
 	case 1:
+		this->setSpawnXY(64, 0); //
 		loadLVL_1_2();
 		break;
 	case 2:
+		this->setSpawnXY(64, 480);
 		loadLVL_1_3();
 		break;
 	case 3:
-		for (Player* tem : vCurPlayer) {
-			tem->setXPos(64);
-			tem->setYPos(287);
-		}
+		this->setSpawnXY(64, 287); //
 		loadLVL_1_4();
 		break;
 	case 4:
+		this->setSpawnXY(64, 287);
 		loadLVL_2_1();
 		break;
 	case 5:
+		this->setSpawnXY(64, 287);
 		loadLVL_2_2();
 		break;
 	case 6:
+		this->setSpawnXY(64, 287);
 		loadLVL_2_3();
 		break;
 	case 7:
-		for (Player* tem : vCurPlayer) {
-			tem->setXPos(64);
-			tem->setYPos(287);
-		}
+		this->setSpawnXY(64, 287); //
 		loadLVL_2_4();
 		break;
 	case 8:
+		this->setSpawnXY(64, 287);
 		loadLVL_3_1();
 		break;
 	case 9:
+		this->setSpawnXY(64, 287);
 		loadLVL_3_2();
 		break;
 	case 10:
+		this->setSpawnXY(64, 287);
 		loadLVL_3_3();
 		break;
 	case 11:
-		for (Player* tem : vCurPlayer) {
-			tem->setXPos(64);
-			tem->setYPos(287);
-		}
+		this->setSpawnXY(64, 287); //
 		loadLVL_3_4();
 		break;
 	}
