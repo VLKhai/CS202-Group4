@@ -48,10 +48,12 @@
 #include "Spring.h"
 #include "Vine.h"
 #include "MinionFactory.h"
+#include "ImgResource.h"
 
 
 class Map : public Mediator {
 private:
+	ImgResource* imgResource = ImgResource::getInstance();
 	friend class Core;
 
 	float fXPos, fYPos; // Coordinate of the view window in the virtual world
