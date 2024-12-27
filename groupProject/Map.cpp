@@ -1220,51 +1220,51 @@ void Map::loadLVL() {
 
 	switch (currentLevelID) {
 	case 0:
-		this->setSpawnXY(84, 480); //
+		this->setSpawnXY(84, 480); 
 		loadLVL_1_1();
 		break;
 	case 1:
-		this->setSpawnXY(64, 0); //
+		this->setSpawnXY(64, 0); 
 		loadLVL_1_2();
 		break;
 	case 2:
-		this->setSpawnXY(64, 480);
+		this->setSpawnXY(64, 480); 
 		loadLVL_1_3();
 		break;
 	case 3:
-		this->setSpawnXY(64, 287); //
+		this->setSpawnXY(64, 287); 
 		loadLVL_1_4();
 		break;
 	case 4:
-		this->setSpawnXY(64, 287);
+		this->setSpawnXY(64, 480); 
 		loadLVL_2_1();
 		break;
 	case 5:
-		this->setSpawnXY(64, 287);
+		this->setSpawnXY(64, 287); 
 		loadLVL_2_2();
 		break;
 	case 6:
-		this->setSpawnXY(64, 287);
+		this->setSpawnXY(64, 480); 
 		loadLVL_2_3();
 		break;
 	case 7:
-		this->setSpawnXY(64, 287); //
+		this->setSpawnXY(64, 287); 
 		loadLVL_2_4();
 		break;
 	case 8:
-		this->setSpawnXY(64, 287);
+		this->setSpawnXY(64, 480);
 		loadLVL_3_1();
 		break;
 	case 9:
-		this->setSpawnXY(64, 287);
+		this->setSpawnXY(64, 480);
 		loadLVL_3_2();
 		break;
 	case 10:
-		this->setSpawnXY(64, 287);
+		this->setSpawnXY(64, 480);
 		loadLVL_3_3();
 		break;
 	case 11:
-		this->setSpawnXY(64, 287); //
+		this->setSpawnXY(64, 287); 
 		loadLVL_3_4();
 		break;
 	}
