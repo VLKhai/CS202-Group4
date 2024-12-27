@@ -68,10 +68,10 @@ void Mushroom::Draw(sf::RenderWindow& window, IMG* iIMG) {
 void Mushroom::collisionWithPlayer(bool TOP, Player* pPlayer) {
 	if (!inSpawnState && minionState == 0) {
 		if (powerUP) {
-			pPlayer->setPowerLVL(pPlayer->getPowerLVL() + 1);
+			Core::getMap()->notify(this, "P" + std::to_string(pPlayer->getIDPlayer()) + "_LVUP");
 		}
 		else {
-			pPlayer->setNumOfLives(pPlayer->getNumOfLives() + 1);
+			Core::getMap()->notify(this, "LIVEUP");
 			Core::getMap()->addPoints((int)fXPos, (int)fYPos, "1UP", 10, 14);
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cONEUP);
 		}

@@ -92,7 +92,7 @@ void Star::Draw(sf::RenderWindow& window, IMG* iIMG) {
 
 void Star::collisionWithPlayer(bool TOP, Player* pPlayer) {
 	if(!inSpawnState) {
-		pPlayer->setStarEffect(true);
+		Core::getMap()->notify(this, "P" + std::to_string(pPlayer->getIDPlayer()) + "_star");
 		minionState = -1;
 	}
 }

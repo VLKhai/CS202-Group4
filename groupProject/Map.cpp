@@ -55,6 +55,27 @@ void Map::notify(Minion* pmSender, std::string sEvent)
 		vCurPlayer[1]->startJump(1);
 		return;
 	}
+	if (sEvent == "P0_star") {
+		vCurPlayer[0]->setStarEffect(true);
+		return;
+	}
+	if (sEvent == "P1_star") {
+		vCurPlayer[1]->setStarEffect(true);
+		return;
+	}
+	if (sEvent == "P0_LVUP") {
+		vCurPlayer[0]->setPowerLVL(vCurPlayer[0]->getPowerLVL() + 1);
+		return;
+	}
+	if (sEvent == "P1_LVUP") {
+		vCurPlayer[1]->setPowerLVL(vCurPlayer[1]->getPowerLVL() + 1);
+		return;
+	}
+	if (sEvent == "LIVEUP") {
+		for (Player* pPlayer : vCurPlayer) {
+			pPlayer->setNumOfLives(pPlayer->getNumOfLives() + 1);
+		}
+	}
 	if (sEvent == "Dead_1_0") {
 		this->playerDeath(true, false);
 		return;
