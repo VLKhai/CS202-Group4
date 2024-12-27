@@ -329,12 +329,10 @@ void Mario::draw(sf::RenderWindow& window)
 
 void Mario::useSkill(Minion* pMinion, float fXmap)
 {
-	std::cout << "SKILL" << std::endl;
 	float fXSkill = pSkill->getXPos() - fXmap;
 	float fYSkill = pSkill->getYPos();
 	if (pMinion->checkHorizontalOverlap(fYSkill-2, fYSkill+pSkill->getHitBoxY()+2)
 		&& pMinion->checkVerticalOverlap(fXSkill-2, fXSkill + pSkill->getHitBoxX()+2)) {
-		std::cout << "KILL" << std::endl;
 		pMinion->killMinion();
 	}
 }

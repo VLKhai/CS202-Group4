@@ -95,11 +95,6 @@ Map& Map::Instance()
 
 void Map::update()
 {
-	for (Player* tmp : vCurPlayer) {
-		std::cout << tmp->getStringName() << ": " << tmp->getNumOfLives() << std::endl;
-	}
-
-
 	updateGifBlocks();
 	
 	for (Player* pPlayer : vCurPlayer) {
@@ -467,32 +462,6 @@ void Map::updateMinionsCollisions() {
 	for (int i = 0; i < iNumOfPlayers; i++) {
 		updateMinionPlayerCollisions(i);
 	}
-
-	//if (!pPlayer->getInLevelAnimation()) {
-	//	for (int i = getListID(-(int)fXPos + pPlayer->getXPos()) - (getListID(-(int)fXPos + pPlayer->getXPos()) > 0 ? 1 : 0), iSize = i + 2; i < iSize; i++) {
-	//		for (unsigned int j = 0, jSize = lMinion[i].size(); j < jSize; j++) {
-	//			//std::cout << lMinion[i][j]->deadTime << std::endl;
-
-	//			if (lMinion[i][j]->isAlive()) updateSkillCollisions(lMinion[i][j]);
-
-	//			if (lMinion[i][j]->isAlive()) {
-	//				int playerLeftX = pPlayer->getXPos() - fXPos;
-	//				// if (minion.leftX <= player.leftX <= minion.rightX) or (minion.leftX <= player.rightX <= minion.rightX)
-	//				if (lMinion[i][j]->checkVerticalOverlap(playerLeftX, playerLeftX + pPlayer->getHitBoxX())) {
-
-	//					// if (minion.y - 2 <= player.botY <= minion.y + 16) when player is on top of minion 2 px
-	//					if (lMinion[i][j]->checkHorizontalTopOverlap(pPlayer->getYPos() + pPlayer->getHitBoxY())) {
-	//						lMinion[i][j]->collisionWithPlayer(true);
-	//					}
-	//					// if (minion.y <= player.botY <= minion.botY) or (minion.y <= player.y <= minion.botY)
-	//					else if (lMinion[i][j]->checkHorizontalOverlap(pPlayer->getYPos(), pPlayer->getYPos() + pPlayer->getHitBoxY())) {
-	//						lMinion[i][j]->collisionWithPlayer(false);
-	//					}
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
 }
 
 void Map::updateMinionPlayerCollisions(int iIDPlayer)
@@ -984,7 +953,6 @@ int Map::getSpawnPointXPos(int iID) {
 }
 
 int Map::getSpawnPointYPos(int iID) {
-	std::cout << "currentLevelID: " << currentLevelID << std::endl;
 	switch (currentLevelID) {
 	case 1:
 		switch (iID) {
@@ -1049,8 +1017,6 @@ void Map::resetGameData() {
 
 void Map::startLevelAnimation() {
 	pEvent->newUnderWater = false;
-
-	//std::cout << "currentLevelID" << currentLevelID << std::endl;
 
 	switch (currentLevelID) {
 	case 0:
@@ -1993,7 +1959,7 @@ void Map::loadGameDataBlock(const std::string& filename, sf::RenderWindow& mainW
 		bool death = stringToBool(a);
 		bool use = stringToBool(b);
 		bool visible = stringToBool(c);
-		std::cout << blockID << " " << collision << " " << death << " " << use << " " << visible << std::endl;
+		//std::cout << blockID << " " << collision << " " << death << " " << use << " " << visible << std::endl;
 		vBlock.push_back(new Block(blockID, new AniSprite(mainWindow, tSprite, iDelay, false), collision, death, use, visible));
 		tSprite.clear();
 		iDelay.clear();
@@ -2036,7 +2002,7 @@ void Map::loadGameDataMinion(const std::string& filename, sf::RenderWindow& main
 		bool death = stringToBool(a);
 		bool use = stringToBool(b);
 		bool visible = stringToBool(c);
-		std::cout << blockID << " " << collision << " " << death << " " << use << " " << visible << std::endl;
+		//std::cout << blockID << " " << collision << " " << death << " " << use << " " << visible << std::endl;
 		vMinion.push_back(new Block(blockID, new AniSprite(mainWindow, tSprite, iDelay, false), collision, death, use, visible));
 		tSprite.clear();
 		iDelay.clear();
@@ -2049,6 +2015,8 @@ void Map::loadGameData(sf::RenderWindow& mainWindow)
 {
 	vPlayer.push_back(new Mario(mainWindow, 84, 480)); 
 	vPlayer.push_back(new Luigi(mainWindow, 84, 480));
+	
+	setNumOfPlayers(1);
 
 	CFG::getText()->setFont(mainWindow, "font");
 
@@ -4469,8 +4437,6 @@ void Map::EndUse() {
 	pEvent->vOLDLength.push_back(132);
 
 	pEvent->iSpeed = 3;
-
-	//std::cout << "currentLevelID" << currentLevelID << std::endl;
 
 	switch (currentLevelID) {
 	case 0: { 
