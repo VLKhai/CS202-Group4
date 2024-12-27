@@ -24,7 +24,6 @@ PlayerFireBall::PlayerFireBall(int iXPos, int iYPos, bool moveDirection) {
 
 	this->bDestroy = false;
 	this->bActive = false;
-	//this->bDestroy = true;
 
 	this->destroyFrameID = 15;
 }
@@ -50,9 +49,12 @@ void PlayerFireBall::Update() {
 			minionState = -1;
 		}
 		--destroyFrameID;
-		bActive = false;
 	}
 	else {
+		if (Core::coreClock.getElapsedTime().asMilliseconds() - iTimeCreated >= 10000) {
+			bDestroy = true; bActive = false;
+			minionState = -1;
+		}
 		if (jumpState == 0) {
 			jumpState = 1;
 			currentJumpSpeed = startJumpSpeed;
@@ -82,12 +84,12 @@ void PlayerFireBall::Update() {
 				onAnotherMinion = false;
 			}
 		}
-
 		updateXPos();
 	}
 }
 
 void PlayerFireBall::Draw(sf::RenderWindow& window, IMG* iIMG) {
+	//std::cout << "Drawing fireball" << "at" << (int)fXPos + (int)Core::getMap()->getXPos() << ", " << (int)fYPos << std::endl;
 	if (!bDestroy) {
 		iIMG->draw(window, (int)fXPos + (int)Core::getMap()->getXPos(), (int)fYPos, !moveDirection);
 	}
@@ -96,10 +98,14 @@ void PlayerFireBall::Draw(sf::RenderWindow& window, IMG* iIMG) {
 	}
 }
 
-void PlayerFireBall::setFireBall(int X, int Y, bool moveDirection)
+void PlayerFireBall::setXYDir(int X, int Y, bool moveDirection)
 {
 	this->fXPos = (float)X;
 	this->fYPos = (float)Y;
+
+	iTimeCreated = Core::coreClock.getElapsedTime().asMilliseconds();
+
+	std::cout << "Fireball set at " << X << ", " << Y << std::endl;
 
 	this->moveDirection = moveDirection;
 
@@ -113,22 +119,20 @@ void PlayerFireBall::setFireBall(int X, int Y, bool moveDirection)
 
 	this->jumpState = 2;
 
-	this->iHitBoxX = 16;
-	this->iHitBoxY = 16;
-
 	this->bDestroy = false;
 	this->bActive = true;
 
 	this->destroyFrameID = 15;
 
 	this->collisionOnlyWithPlayer = false;
+	this->minionState = 0;
 }
 
 void PlayerFireBall::updateXPos() {
 	// ----- LEFT
 	if (moveDirection) {
 		if (Core::getMap()->checkCollisionLB((int)fXPos - moveSpeed, (int)fYPos - 2, iHitBoxY, true) || Core::getMap()->checkCollisionLT((int)fXPos - moveSpeed, (int)fYPos + 2, true)) {
-			bDestroy = true;
+			bDestroy = true; bActive = false;
 			collisionOnlyWithPlayer = true;
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cBLOCKHIT);
 		}
@@ -139,7 +143,7 @@ void PlayerFireBall::updateXPos() {
 	// ----- RIGHT
 	else {
 		if (Core::getMap()->checkCollisionRB((int)fXPos + moveSpeed, (int)fYPos - 2, iHitBoxX, iHitBoxY, true) || Core::getMap()->checkCollisionRT((int)fXPos + moveSpeed, (int)fYPos + 2, iHitBoxX, true)) {
-			bDestroy = true;
+			bDestroy = true; bActive = false;
 			collisionOnlyWithPlayer = true;
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cBLOCKHIT);
 		}
@@ -164,7 +168,7 @@ void PlayerFireBall::minionPhysics() {
 void PlayerFireBall::collisionWithPlayer(bool TOP, Player* pPlayer) { }
 
 void PlayerFireBall::collisionWithAnotherUnit() {
-	bDestroy = true;
+	bDestroy = true; bActive = false;
 	collisionOnlyWithPlayer = true;
 }
 
@@ -176,7 +180,6 @@ void PlayerFireBall::setMinionState(int minionState) {
 
 }
 
-bool PlayerFireBall::getDestroy()
-{
+bool PlayerFireBall::getActive() {
 	return bActive;
 }

@@ -90,5 +90,5 @@ public:
 
 	bool isAlive();
 
-	virtual bool getDestroy() { return false; };
+	virtual bool getActive() { return false; };
 };
