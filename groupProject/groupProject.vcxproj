@@ -43,6 +43,7 @@
     <ClCompile Include="Hammer.cpp" />
     <ClCompile Include="HammerBro.cpp" />
     <ClCompile Include="IMG.cpp" />
+    <ClCompile Include="ImgResource.cpp" />
     <ClCompile Include="Koppa.cpp" />
     <ClCompile Include="Lakito.cpp" />
     <ClCompile Include="LevelText.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="Hammer.h" />
     <ClInclude Include="HammerBro.h" />
     <ClInclude Include="IMG.h" />
+    <ClInclude Include="ImgResource.h" />
     <ClInclude Include="Koppa.h" />
     <ClInclude Include="Lakito.h" />
     <ClInclude Include="LevelText.h" />

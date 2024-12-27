@@ -40,6 +40,7 @@ Map::~Map()
 
 	delete pEvent;
 	delete pFlag;
+	delete imgResource;
 }
 
 Map& Map::Instance()
@@ -200,16 +201,15 @@ void Map::playerDeath(bool animation, bool instantDeath) {
 
 void Map::updateGifBlocks()
 {
-	vBlock[2]->getAniSprite()->update(); // gnd_red_1
-	vBlock[8]->getAniSprite()->update(); // blockq_0, 2, 1, 2
-	vBlock[29]->getAniSprite()->update(); // coin_use0, 2, 1, 2
-	vBlock[55]->getAniSprite()->update(); // blockq1_0, 2, 1, 2
-	vBlock[57]->getAniSprite()->update(); // coin1_0, 2, 1, 2
-	vBlock[70]->getAniSprite()->update(); // t_bot
-	vBlock[71]->getAniSprite()->update(); // coin_use00, 02, 01, 02
-	vBlock[72]->getAniSprite()->update(); // coin_use20, 22, 21, 22
-	vBlock[73]->getAniSprite()->update(); // coin_use30, 32, 31, 32
-	vBlock[82]->getAniSprite()->update(); // axe_0, 1, 2
+	imgResource->updateBlockByID(2);
+	imgResource->updateBlockByID(8);
+	imgResource->updateBlockByID(29);
+	imgResource->updateBlockByID(55);
+	imgResource->updateBlockByID(57);
+	imgResource->updateBlockByID(70);
+	imgResource->updateBlockByID(71);
+	imgResource->updateBlockByID(73);
+	imgResource->updateBlockByID(82);
 }
 
 void Map::updatePlayer()
@@ -219,37 +219,37 @@ void Map::updatePlayer()
 }
 
 void Map::updateMinionBlocks() {
-	vMinion[0]->getAniSprite()->update();
-	vMinion[4]->getAniSprite()->update();
-	vMinion[6]->getAniSprite()->update();
-	vMinion[7]->getAniSprite()->update();
-	vMinion[8]->getAniSprite()->update();
-	vMinion[10]->getAniSprite()->update();
-	vMinion[12]->getAniSprite()->update();
-	vMinion[14]->getAniSprite()->update();
-	vMinion[15]->getAniSprite()->update();
-	vMinion[17]->getAniSprite()->update();
-	vMinion[18]->getAniSprite()->update();
-	vMinion[19]->getAniSprite()->update();
-	vMinion[20]->getAniSprite()->update();
-	vMinion[21]->getAniSprite()->update();
-	vMinion[22]->getAniSprite()->update();
-	vMinion[23]->getAniSprite()->update();
-	vMinion[24]->getAniSprite()->update();
-	vMinion[30]->getAniSprite()->update();
-	vMinion[31]->getAniSprite()->update();
-	vMinion[43]->getAniSprite()->update();
-	vMinion[44]->getAniSprite()->update();
-	vMinion[45]->getAniSprite()->update();
-	vMinion[46]->getAniSprite()->update();
-	vMinion[47]->getAniSprite()->update();
-	vMinion[48]->getAniSprite()->update();
-	vMinion[51]->getAniSprite()->update();
-	vMinion[52]->getAniSprite()->update();
-	vMinion[53]->getAniSprite()->update();
-	vMinion[55]->getAniSprite()->update();
-	vMinion[57]->getAniSprite()->update();
-	vMinion[62]->getAniSprite()->update();
+	imgResource->updateMinionByID(0);
+	imgResource->updateMinionByID(4);
+	imgResource->updateMinionByID(6);
+	imgResource->updateMinionByID(7);
+	imgResource->updateMinionByID(8);
+	imgResource->updateMinionByID(10);
+	imgResource->updateMinionByID(12);
+	imgResource->updateMinionByID(14);
+	imgResource->updateMinionByID(15);
+	imgResource->updateMinionByID(17);
+	imgResource->updateMinionByID(18);
+	imgResource->updateMinionByID(19);
+	imgResource->updateMinionByID(20);
+	imgResource->updateMinionByID(21);
+	imgResource->updateMinionByID(22);
+	imgResource->updateMinionByID(23);
+	imgResource->updateMinionByID(24);
+	imgResource->updateMinionByID(30);
+	imgResource->updateMinionByID(31);
+	imgResource->updateMinionByID(43);
+	imgResource->updateMinionByID(44);
+	imgResource->updateMinionByID(45);
+	imgResource->updateMinionByID(46);
+	imgResource->updateMinionByID(47);
+	imgResource->updateMinionByID(48);
+	imgResource->updateMinionByID(51);
+	imgResource->updateMinionByID(52);
+	imgResource->updateMinionByID(53);
+	imgResource->updateMinionByID(55);
+	imgResource->updateMinionByID(57);
+	imgResource->updateMinionByID(62);
 }
 
 void Map::updateMinions() {
@@ -1890,6 +1890,8 @@ void Map::loadMap(sf::RenderWindow& mainWindow)
 {
 	loadGameData(mainWindow);
 	loadLVL();
+	imgResource->setBlockResources(&vBlock);
+	imgResource->setMinionResources(&vMinion);
 }
 
 void Map::loadGameDataBlock(const std::string& filename, sf::RenderWindow& mainWindow, std::vector<Block*>& vBlock,std::vector<std::string>& tSprite, std::vector<unsigned int>& iDelay) {
