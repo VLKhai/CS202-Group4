@@ -4,6 +4,7 @@
 class Luigi : public Player {
 private:
 	std::vector<AniSprite*> sLuigi;
+
 public:
 	Luigi(sf::RenderWindow& window, float fXPos, float fYPos);
 	~Luigi();

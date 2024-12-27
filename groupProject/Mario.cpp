@@ -303,6 +303,7 @@ Mario::~Mario()
 	for (std::vector<AniSprite*>::iterator i = sMario.begin(); i != sMario.end(); i++) {
 		delete (*i);
 	}
+	delete pSkill;
 }
 
 void Mario::update()

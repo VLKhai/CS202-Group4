@@ -107,12 +107,8 @@ protected:
 	int iSkillCooldown;
 	bool bUseSkill;
 	Skill* pSkill;
-
-	Player(sf::RenderWindow& window, float fXPos, float fYPos);
-	Player() = delete;
-	Player(const Player&) = delete;
-	Player& operator=(const Player&) = delete;
 public:
+	Player(sf::RenderWindow& window, float fXPos, float fYPos);
 	virtual ~Player() = default;
     
     virtual void draw(sf::RenderWindow& window) = 0;

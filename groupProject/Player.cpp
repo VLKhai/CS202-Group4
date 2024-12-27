@@ -267,9 +267,7 @@ void Player::copyStats(Player* pPlayer)
 	this->onPlatformID = pPlayer->onPlatformID;
 	this->springJump = pPlayer->springJump;
 	this->iMoveAnimationTime = pPlayer->iMoveAnimationTime;
-	this->iSkillCooldown = pPlayer->iSkillCooldown;
 	this->bUseSkill = pPlayer->bUseSkill;
-	this->pSkill = pPlayer->pSkill;
 	this->inLevelAnimation = pPlayer->inLevelAnimation;
 	this->inLevelAnimationType = pPlayer->inLevelAnimationType;
 	this->inLevelDownAnimation = pPlayer->inLevelDownAnimation;

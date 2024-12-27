@@ -498,8 +498,12 @@ void Map::updateMinionPlayerCollisions(int iIDPlayer)
 
 void Map::updateSkillCollisions(Minion* pMinion)
 {
-	if (!pPlayer->getUseSkill()) return;
-	pPlayer->useSkill(pMinion, fXPos);
+	for (int i = 0; i < iNumOfPlayers; ++i) {
+		if (!vCurPlayer[i]->getUseSkill()) continue;
+		vCurPlayer[i]->useSkill(pMinion, (i==0) ? fXPos : fXPos2);
+	}
+	// if (!pPlayer->getUseSkill()) return;
+	// pPlayer->useSkill(pMinion, fXPos);
 }
 
 void Map::draw(sf::RenderWindow& mainWindow)

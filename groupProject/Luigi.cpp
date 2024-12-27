@@ -1,11 +1,14 @@
 #include "Luigi.h"
 #include "Core.h"
+#include "ExplodeSkill.h"
 
 Luigi::Luigi(sf::RenderWindow& window, float fXPos, float fYPos) : Player(window, fXPos, fYPos) {
 	
 	limSmallJumpBlock = 3;
 	limBigJumpBlock = 5;
 	iIDPlayer = 0;
+
+	pSkill = new ExplodeSkill(window, fXPos, fYPos);
 
 	// LOAD SPRITE
 	std::vector<std::string> tempS;
@@ -296,12 +299,17 @@ Luigi::~Luigi()
 	for (std::vector<AniSprite*>::iterator i = sLuigi.begin(); i != sLuigi.end(); i++) {
 		delete (*i);
 	}
+	delete pSkill;
 }
 
 void Luigi::update()
 {
 	bJumpPressed = (iIDPlayer == 1) ? CFG::keyUp : CFG::keySpace;
 	Player::update();
+	if (bUseSkill) {
+		pSkill->update(fXPos + Player::getHitBoxX() / 2, fYPos + Player::getHitBoxY() / 2);
+	}
+	if (!pSkill->getTrigger()) setUseSkill(false);
 }
 
 void Luigi::draw(sf::RenderWindow& window)
@@ -313,6 +321,8 @@ void Luigi::draw(sf::RenderWindow& window)
 		fXPosCam += (Core::getMap()->getXPos() - Core::getMap()->getXPos(1));
 		fYPosCam += (Core::getMap()->getYPos() - Core::getMap()->getYPos(1));
 	}
+
+	if (bUseSkill) pSkill->draw(window);
 
 	if (!inLevelDownAnimation || Core::getMap()->getInEvent()) {
 		// Super Luigi
@@ -327,6 +337,12 @@ void Luigi::draw(sf::RenderWindow& window)
 
 void Luigi::useSkill(Minion* pMinion, float fXmap)
 {
+	float fXSkill = pSkill->getXPos() - fXmap;
+	float fYSkill = pSkill->getYPos();
+	if (pMinion->checkHorizontalOverlap(fYSkill - 2, fYSkill + pSkill->getHitBoxY() + 2)
+		&& pMinion->checkVerticalOverlap(fXSkill - 2, fXSkill + pSkill->getHitBoxX() + 2)) {
+		pMinion->killMinion();
+	}
 }
 
 AniSprite* Luigi::getSprite()

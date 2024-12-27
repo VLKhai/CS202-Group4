@@ -9,8 +9,8 @@ public:
 	FireSkill(sf::RenderWindow& window, float fX, float fY);
 	~FireSkill();
 
-	void update(float fX, float fY);
-	void updateAnimation();
+	void update(float fX, float fY) override;
+	void updateAnimation() override;
 
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window) override;
 };

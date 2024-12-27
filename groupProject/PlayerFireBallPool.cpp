@@ -42,7 +42,7 @@ Minion* PlayerFireBallPool::getPlayerFireBall(int X, int Y, bool moveDirection)
 
 void PlayerFireBallPool::update()
 {
-	if (Core::coreClock.getElapsedTime().asMilliseconds() - iTimeUsed > 70000)
+	if (Core::coreClock.getElapsedTime().asMilliseconds() - iTimeUsed > 3000)
 	{
 		for (int i = 0; i < iMaxBall; ++i)
 		{

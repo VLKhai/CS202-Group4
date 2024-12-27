@@ -107,5 +107,5 @@ void FireSkill::updateAnimation()
 void FireSkill::draw(sf::RenderWindow& window)
 {
 	sSkill[getSpriteID()]->getFrame()->drawFromCenter(window, fXcen, fYcen);
-	drawHitBox(window);
+	//drawHitBox(window);
 }
