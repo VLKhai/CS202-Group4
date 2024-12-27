@@ -46,9 +46,9 @@ void PlayerFireBall::Update() {
 		else if (destroyFrameID > 0) {
 			this->iBlockID = 65;
 		}
-		//else {
-		//	minionState = -1;
-		//}
+		else {
+			minionState = -1;
+		}
 		--destroyFrameID;
 		bActive = false;
 	}
@@ -73,9 +73,9 @@ void PlayerFireBall::Update() {
 
 				jumpState = 2;
 
-				//if (fYPos >= CFG::GameHeight) {
-				//	minionState = -1;
-				//}
+				if (fYPos >= CFG::GameHeight) {
+					minionState = -1;
+				}
 			}
 			else {
 				jumpState = 0;
@@ -148,9 +148,9 @@ void PlayerFireBall::updateXPos() {
 		}
 	}
 
-	//if (fXPos < -iHitBoxX) {
-	//	minionState = -1;
-	//}
+	if (fXPos < -iHitBoxX) {
+		minionState = -1;
+	}
 }
 
 void PlayerFireBall::minionPhysics() {
