@@ -1,5 +1,6 @@
 #include "PlayerFireBall.h"
 #include "Core.h"
+#include "CFG.h"
 
 /* ******************************************** */
 
@@ -34,7 +35,13 @@ PlayerFireBall::~PlayerFireBall(void) {
 
 /* ******************************************** */
 
-void PlayerFireBall::Update() {
+void PlayerFireBall::Update() {	
+	if (fXPos < 0 || fYPos >= CFG::GameHeight || fYPos < -200) {
+		bDestroy = true; bActive = false;
+		minionState = -1; collisionOnlyWithPlayer = true;
+		return;
+	}
+	
 	if (bDestroy) {
 		if (destroyFrameID > 10) {
 			this->iBlockID = 63;
@@ -51,10 +58,6 @@ void PlayerFireBall::Update() {
 		--destroyFrameID;
 	}
 	else {
-		if (Core::coreClock.getElapsedTime().asMilliseconds() - iTimeCreated >= 10000) {
-			bDestroy = true; bActive = false;
-			minionState = -1;
-		}
 		if (jumpState == 0) {
 			jumpState = 1;
 			currentJumpSpeed = startJumpSpeed;
@@ -89,7 +92,6 @@ void PlayerFireBall::Update() {
 }
 
 void PlayerFireBall::Draw(sf::RenderWindow& window, IMG* iIMG) {
-	//std::cout << "Drawing fireball" << "at" << (int)fXPos + (int)Core::getMap()->getXPos() << ", " << (int)fYPos << std::endl;
 	if (!bDestroy) {
 		iIMG->draw(window, (int)fXPos + (int)Core::getMap()->getXPos(), (int)fYPos, !moveDirection);
 	}
@@ -102,10 +104,6 @@ void PlayerFireBall::setXYDir(int X, int Y, bool moveDirection)
 {
 	this->fXPos = (float)X;
 	this->fYPos = (float)Y;
-
-	iTimeCreated = Core::coreClock.getElapsedTime().asMilliseconds();
-
-	std::cout << "Fireball set at " << X << ", " << Y << std::endl;
 
 	this->moveDirection = moveDirection;
 

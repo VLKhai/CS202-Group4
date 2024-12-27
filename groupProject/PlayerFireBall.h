@@ -8,7 +8,6 @@ private:
 	bool bActive;
 	bool bDestroy;
 	int destroyFrameID;
-	int iTimeCreated;
 public:
 	PlayerFireBall(int X, int Y, bool moveDirection);
 	~PlayerFireBall(void);
