@@ -1178,6 +1178,10 @@ void Map::loadLVL() {
 		loadLVL_1_3();
 		break;
 	case 3:
+		for (Player* tem : vPlayer) {
+			tem->setXPos(64);
+			tem->setYPos(287);
+		}
 		loadLVL_1_4();
 		break;
 	case 4:
@@ -1190,6 +1194,10 @@ void Map::loadLVL() {
 		loadLVL_2_3();
 		break;
 	case 7:
+		for (Player* tem : vPlayer) {
+			tem->setXPos(64);
+			tem->setYPos(287);
+		}
 		loadLVL_2_4();
 		break;
 	case 8:
@@ -1202,6 +1210,10 @@ void Map::loadLVL() {
 		loadLVL_3_3();
 		break;
 	case 11:
+		for (Player* tem : vPlayer) {
+			tem->setXPos(64);
+			tem->setYPos(287);
+		}
 		loadLVL_3_4();
 		break;
 	}
