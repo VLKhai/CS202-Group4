@@ -55,22 +55,24 @@ void Map::notify(Minion* pmSender, std::string sEvent)
 		vCurPlayer[1]->startJump(1);
 		return;
 	}
-	if (sEvent == "P0_star") {
+	if (sEvent == "P0_star" || sEvent == "P1_star") {
 		vCurPlayer[0]->setStarEffect(true);
-		return;
-	}
-	if (sEvent == "P1_star") {
 		vCurPlayer[1]->setStarEffect(true);
 		return;
 	}
-	if (sEvent == "P0_LVUP") {
+	//if (sEvent == "P1_star") {
+	//	vCurPlayer[1]->setStarEffect(true);
+	//	return;
+	//}
+	if (sEvent == "P0_LVUP" || sEvent == "P1_LVUP") {
 		vCurPlayer[0]->setPowerLVL(vCurPlayer[0]->getPowerLVL() + 1);
-		return;
-	}
-	if (sEvent == "P1_LVUP") {
 		vCurPlayer[1]->setPowerLVL(vCurPlayer[1]->getPowerLVL() + 1);
 		return;
 	}
+	//if (sEvent == "P1_LVUP") {
+	//	vCurPlayer[1]->setPowerLVL(vCurPlayer[1]->getPowerLVL() + 1);
+	//	return;
+	//}
 	if (sEvent == "LIVEUP") {
 		for (Player* tmp : vCurPlayer) {
 			tmp->setNumOfLives(tmp->getNumOfLives() + 1);
@@ -105,11 +107,6 @@ void Map::update()
 			pMem->powerUPAnimation();
 		}
 	}
-
-	//std::cout << "Mario " << vCurPlayer[0]->getInLevelAnimation() << std::endl;
-	//std::cout << "Mario " << vCurPlayer[0]->getPowerLVL() << std::endl;
-	//std::cout << "Luigi getInLevelAnimation " << vCurPlayer[1]->getInLevelAnimation() << std::endl;
-	//std::cout << "Luigi " << vCurPlayer[1]->getPowerLVL() << std::endl;
 
 	if (!bInLevelAnimation_) {
 		if (!inEvent) {
