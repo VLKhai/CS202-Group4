@@ -90,7 +90,7 @@ void Lakito::Update() {
 		}
 
 		if(nextSpikeyFrameID <= 0) {
-			Core::getMap()->addSpikey((int)fXPos, (int)(fYPos - 32));
+			Core::getMap()->addMinion(MinionFactory::addSpikey((int)fXPos, (int)(fYPos - 32)));
 			nextSpikeyFrameID = 135 + rand()%175;
 			iBlockID = 50;
 		} else {

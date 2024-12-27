@@ -1668,7 +1668,7 @@ void Map::structBulletBill(int X, int Y, int iHieght) {
 		lMap[X][Y + i]->setBlockID(147);
 	}
 
-	addBulletBillSpawner(X, Y + iHieght + 1, 0);
+	addMinion(MinionFactory::addBulletBillSpawner(X, Y + iHieght + 1, 0));
 }
 
 void Map::structTree(int X, int Y, int iHeight, bool BIG) {
@@ -3548,7 +3548,7 @@ void Map::loadLVL_3_2() {
 	lMap[44][9]->setSpawnMushroom(true);
 	lMap[44][9]->setPowerUP(false);
 
-	addSpring(44 * 32, 336);
+	addMinion(MinionFactory::addSpring(44 * 32, 336));
 
 	struckBlockQ(29, 5, 4);
 
@@ -3821,29 +3821,29 @@ void Map::loadLVL_3_4() {
 void Map::loadMinionsLVL_1_1() {
 	clearMinions();
 
-	addMinion(MinionFactory::CreateGoombas(704, 480, true));
-	addMinion(MinionFactory::CreateGoombas(1280, 480, true));
-	addMinion(MinionFactory::CreateGoombas(1632, 480, true));
-	addMinion(MinionFactory::CreateGoombas(1680, 480, true));
+	addMinion(MinionFactory::addGoombas(704, 480, true,iLevelType));
+	addMinion(MinionFactory::addGoombas(1280, 480, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(1632, 480, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(1680, 480, true, iLevelType));
 
-	addMinion(MinionFactory::CreateGoombas(2560, 112, true));
-	addMinion(MinionFactory::CreateGoombas(2624, 112, true));
+	addMinion(MinionFactory::addGoombas(2560, 112, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(2624, 112, true, iLevelType));
 
-	addMinion(MinionFactory::CreateGoombas(3104, 480, true));
-	addMinion(MinionFactory::CreateGoombas(3152, 480, true));
-	addMinion(MinionFactory::CreateKoppa(107 * 32, 480, 1, true,iLevelType));
+	addMinion(MinionFactory::addGoombas(3104, 480, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(3152, 480, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(107 * 32, 480, 1, true,iLevelType));
 
-	addMinion(MinionFactory::CreateGoombas(3648, 480, true));
-	addMinion(MinionFactory::CreateGoombas(3696, 480, true));
+	addMinion(MinionFactory::addGoombas(3648, 480, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(3696, 480, true, iLevelType));
 
-	addMinion(MinionFactory::CreateGoombas(3968, 480, true));
-	addMinion(MinionFactory::CreateGoombas(4016, 480, true));
+	addMinion(MinionFactory::addGoombas(3968, 480, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(4016, 480, true, iLevelType));
 
-	addMinion(MinionFactory::CreateGoombas(4096, 480, true));
-	addMinion(MinionFactory::CreateGoombas(4144, 480, true));
+	addMinion(MinionFactory::addGoombas(4096, 480, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(4144, 480, true, iLevelType));
 
-	addMinion(MinionFactory::CreateGoombas(5568, 480, true));
-	addMinion(MinionFactory::CreateGoombas(5612, 480, true));
+	addMinion(MinionFactory::addGoombas(5568, 480, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(5612, 480, true, iLevelType));
 }
 
 void Map::loadMinionsLVL_1_2() {
@@ -3851,44 +3851,34 @@ void Map::loadMinionsLVL_1_2() {
 
 	this->iLevelType = 1;
 
-	addGoombas(16 * 32, 368, true);
-	addGoombas(17 * 32 + 8, 368 - 32, true);
-
-	addGoombas(29 * 32, 368, true);
-
-	addKoppa(44 * 32, 400, 1, true);
-	addKoppa(45 * 32 + 16, 400, 1, true);
-
-	addKoppa(59 * 32, 400, 1, true);
-
-	addGoombas(62 * 32, 368, true);
-	addGoombas(64 * 32, 368, true);
-
-	addGoombas(73 * 32, 368 - 8 * 32, true);
-
-	addGoombas(76 * 32, 368 - 4 * 32, true);
-	addGoombas(77 * 32 + 16, 368 - 4 * 32, true);
-
-	addGoombas(99 * 32, 368, true);
-	addGoombas(100 * 32 + 16, 368, true);
-	addGoombas(102 * 32, 368, true);
-
-	addGoombas(113 * 32, 368, true);
-
-	addGoombas(135 * 32, 368 - 4 * 32, true);
-	addGoombas(136 * 32 + 16, 368 - 4 * 32, true);
+	addMinion(MinionFactory::addGoombas(16 * 32, 368, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(17 * 32 + 8, 368 - 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(29 * 32, 368, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(44 * 32, 400, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(45 * 32 + 16, 400, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(59 * 32, 400, 1, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(62 * 32, 368, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(64 * 32, 368, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(73 * 32, 368 - 8 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(76 * 32, 368 - 4 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(77 * 32 + 16, 368 - 4 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(99 * 32, 368, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(100 * 32 + 16, 368, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(102 * 32, 368, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(113 * 32, 368, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(135 * 32, 368 - 4 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(136 * 32 + 16, 368 - 4 * 32, true, iLevelType));
 
 	this->iLevelType = 3;
-
-	addKoppa(146 * 32, 400, 1, false);
+	addMinion(MinionFactory::addKoppa(146 * 32, 400, 1, false, iLevelType));
 
 	this->iLevelType = 1;
-	addPlant(103 * 32 + 16, CFG::GameHeight - 10 - 4 * 32);
-	addPlant(109 * 32 + 16, CFG::GameHeight - 10 - 5 * 32);
-	addPlant(115 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
+	addMinion(MinionFactory::addPlant(103 * 32 + 16, CFG::GameHeight - 10 - 4 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(109 * 32 + 16, CFG::GameHeight - 10 - 5 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(115 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
 
 	this->iLevelType = 0;
-	addPlant(284 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
+	addMinion(MinionFactory::addPlant(284 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
 
 	this->iLevelType = 1;
 }
@@ -3898,26 +3888,25 @@ void Map::loadMinionsLVL_1_3() {
 
 	this->iLevelType = 3;
 
-	addKoppa(30 * 32 - 8, CFG::GameHeight - 16 - 10 * 32, 1, true);
-	addKoppa(110 * 32 - 8, CFG::GameHeight - 16 - 8 * 32, 1, true);
+	addMinion(MinionFactory::addKoppa(30 * 32 - 8, CFG::GameHeight - 16 - 10 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(110 * 32 - 8, CFG::GameHeight - 16 - 8 * 32, 1, true, iLevelType));
 
-	addKoppa(74 * 32 - 8, CFG::GameHeight - 16 - 10 * 32, 3, false);
-	addKoppa(114 * 32 - 8, CFG::GameHeight - 16 - 9 * 32, 3, false);
+	addMinion(MinionFactory::addKoppa(74 * 32 - 8, CFG::GameHeight - 16 - 10 * 32, 3, false, iLevelType));
+	addMinion(MinionFactory::addKoppa(114 * 32 - 8, CFG::GameHeight - 16 - 9 * 32, 3, false, iLevelType));
 
-	addKoppa(133 * 32 - 8, CFG::GameHeight - 16 - 2 * 32, 1, true);
+	addMinion(MinionFactory::addKoppa(133 * 32 - 8, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
 	this->iLevelType = 0;
 
-	addGoombas(44 * 32, CFG::GameHeight - 16 - 11 * 32, true);
-	addGoombas(46 * 32, CFG::GameHeight - 16 - 11 * 32, true);
-	addGoombas(80 * 32, CFG::GameHeight - 16 - 9 * 32, true);
+	addMinion(MinionFactory::addGoombas(44 * 32, CFG::GameHeight - 16 - 11 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(46 * 32, CFG::GameHeight - 16 - 11 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(80 * 32, CFG::GameHeight - 16 - 9 * 32, true, iLevelType));
 }
 
 void Map::loadMinionsLVL_1_4() {
 	clearMinions();
 
-	addBowser(135 * 32, CFG::GameHeight - 16 - 6 * 32);
-
-	addToad(153 * 32, CFG::GameHeight - 3 * 32, false);
+	addMinion(MinionFactory::addBowser(135 * 32, CFG::GameHeight - 16 - 6 * 32));
+	addMinion(MinionFactory::addToad(153 * 32, CFG::GameHeight - 3 * 32, false));
 
 	addFireBall(30 * 32, CFG::GameHeight - 16 - 4 * 32, 6, rand() % 360, true);
 	addFireBall(49 * 32, CFG::GameHeight - 16 - 8 * 32, 6, rand() % 360, true);
@@ -3928,103 +3917,106 @@ void Map::loadMinionsLVL_1_4() {
 	addFireBall(88 * 32, CFG::GameHeight - 16 - 10 * 32, 6, rand() % 360, false);
 }
 
+
 void Map::loadMinionsLVL_2_1() {
 	clearMinions();
 
-	addSpring(188 * 32, 336);
+	addMinion(MinionFactory::addSpring(188 * 32, 336));
 
-	addGoombas(24 * 32, CFG::GameHeight - 16 - 7 * 32, true);
+	addMinion(MinionFactory::addGoombas(24 * 32, CFG::GameHeight - 16 - 7 * 32, true, iLevelType));
 
-	addGoombas(42 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(43 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
+	addMinion(MinionFactory::addGoombas(42 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(43 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
 
-	addGoombas(59 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(60 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
+	addMinion(MinionFactory::addGoombas(59 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(60 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
 
-	addGoombas(68 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(69 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(71 * 32, CFG::GameHeight - 16 - 2 * 32, true);
+	addMinion(MinionFactory::addGoombas(68 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(69 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(71 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
 
-	addGoombas(87 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(88 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(90 * 32, CFG::GameHeight - 16 - 2 * 32, true);
+	addMinion(MinionFactory::addGoombas(87 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(88 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(90 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
 
-	addGoombas(102 * 32 + 16, CFG::GameHeight - 16 - 6 * 32, true);
-	addGoombas(114 * 32 + 16, CFG::GameHeight - 16 - 4 * 32, true);
+	addMinion(MinionFactory::addGoombas(102 * 32 + 16, CFG::GameHeight - 16 - 6 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(114 * 32 + 16, CFG::GameHeight - 16 - 4 * 32, true, iLevelType));
 
-	addGoombas(120 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
+	addMinion(MinionFactory::addGoombas(120 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
 
-	addGoombas(162 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(163 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
+	addMinion(MinionFactory::addGoombas(162 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(163 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
 
-	addKoppa(32 * 32 - 2, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(33 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
+	addMinion(MinionFactory::addKoppa(32 * 32 - 2, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(33 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
 
-	addKoppa(55 * 32, CFG::GameHeight - 16 - 6 * 32, 1, true);
-	addKoppa(66 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
+	addMinion(MinionFactory::addKoppa(55 * 32, CFG::GameHeight - 16 - 6 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(66 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
 
-	addKoppa(137 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(151 * 32, CFG::GameHeight - 16 - 4 * 32, 0, true);
-	addKoppa(169 * 32, CFG::GameHeight - 16 - 2 * 32, 0, true);
-	addKoppa(171 * 32, CFG::GameHeight - 16 - 2 * 32, 0, true);
+	addMinion(MinionFactory::addKoppa(137 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(151 * 32, CFG::GameHeight - 16 - 4 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(169 * 32, CFG::GameHeight - 16 - 2 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(171 * 32, CFG::GameHeight - 16 - 2 * 32, 0, true, iLevelType));
 
-	addKoppa(185 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
+	addMinion(MinionFactory::addKoppa(185 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
 
-	addPlant(46 * 32 + 16, CFG::GameHeight - 10 - 5 * 32);
-	addPlant(74 * 32 + 16, CFG::GameHeight - 10 - 5 * 32);
-	addPlant(103 * 32 + 16, CFG::GameHeight - 10 - 5 * 32);
-	addPlant(115 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
-	addPlant(122 * 32 + 16, CFG::GameHeight - 10 - 5 * 32);
-	addPlant(130 * 32 + 16, CFG::GameHeight - 10 - 6 * 32);
-	addPlant(176 * 32 + 16, CFG::GameHeight - 10 - 4 * 32);
+	addMinion(MinionFactory::addPlant(46 * 32 + 16, CFG::GameHeight - 10 - 5 * 32,iLevelType));
+	addMinion(MinionFactory::addPlant(74 * 32 + 16, CFG::GameHeight - 10 - 5 * 32,iLevelType));
+	addMinion(MinionFactory::addPlant(103 * 32 + 16, CFG::GameHeight - 10 - 5 * 32,iLevelType));
+	addMinion(MinionFactory::addPlant(115 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(122 * 32 + 16, CFG::GameHeight - 10 - 5 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(130 * 32 + 16, CFG::GameHeight - 10 - 6 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(176 * 32 + 16, CFG::GameHeight - 10 - 4 * 32, iLevelType));
 }
+
 
 void Map::loadMinionsLVL_2_2() {
 	clearMinions();
 
-	addSquid(22 * 32, CFG::GameHeight - 16 - 3 * 32);
-	addSquid(46 * 32, CFG::GameHeight - 16 - 5 * 32);
-	addSquid(55 * 32, CFG::GameHeight - 16 - 4 * 32);
-	addSquid(83 * 32, CFG::GameHeight - 16 - 6 * 32);
-	addSquid(94 * 32, CFG::GameHeight - 16 - 11 * 32);
-	addSquid(105 * 32, CFG::GameHeight - 16 - 3 * 32);
+	addMinion(MinionFactory::addSquid(22 * 32, CFG::GameHeight - 16 - 3 * 32));
+	addMinion(MinionFactory::addSquid(46 * 32, CFG::GameHeight - 16 - 5 * 32));
+	addMinion(MinionFactory::addSquid(55 * 32, CFG::GameHeight - 16 - 4 * 32));
+	addMinion(MinionFactory::addSquid(83 * 32, CFG::GameHeight - 16 - 6 * 32));
+	addMinion(MinionFactory::addSquid(94 * 32, CFG::GameHeight - 16 - 11 * 32));
+	addMinion(MinionFactory::addSquid(105 * 32, CFG::GameHeight - 16 - 3 * 32));
 
-	addCheep(75 * 32 + 28, CFG::GameHeight - 16 - 4 * 32, 0, 1);
-	addCheep(78 * 32 + 28, CFG::GameHeight - 16 - 7 * 32, 0, 1);
-	addCheep(81 * 32 + 28, CFG::GameHeight - 16 - 2 * 32 - 28, 0, 1);
-	addCheep(94 * 32 + 14, CFG::GameHeight - 16 - 8 * 32, 0, 1);
-	addCheep(101 * 32 + 28, CFG::GameHeight - 16 - 4 * 32, 0, 1);
-	addCheep(97 * 32 + 8, CFG::GameHeight - 16 - 11 * 32, 1, 1);
-	addCheep(117 * 32 + 8, CFG::GameHeight - 16 - 10 * 32, 0, 1);
-	addCheep(127 * 32 + 24, CFG::GameHeight - 16 - 4 * 32, 1, 1);
-	addCheep(131 * 32 + 8, CFG::GameHeight - 16 - 3 * 32 - 4, 0, 1);
-	addCheep(136 * 32 + 16, CFG::GameHeight - 16 - 6 * 32, 0, 1);
-	addCheep(145 * 32 + 8, CFG::GameHeight - 16 - 4 * 32, 0, 1);
-	addCheep(149 * 32 + 28, CFG::GameHeight - 16 - 8 * 32 - 4, 1, 1);
-	addCheep(164 * 32, CFG::GameHeight - 16 - 11 * 32, 0, 1);
-	addCheep(167 * 32, CFG::GameHeight - 16 - 3 * 32, 1, 1);
-	addCheep(175 * 32, CFG::GameHeight - 16 - 6 * 32 - 4, 0, 1);
-	addCheep(183 * 32, CFG::GameHeight - 16 - 10 * 32, 1, 1);
-	addCheep(186 * 32 + 16, CFG::GameHeight - 16 - 7 * 32, 1, 1);
+	addMinion(MinionFactory::addCheep(75 * 32 + 28, CFG::GameHeight - 16 - 4 * 32, 0, 1));
+	addMinion(MinionFactory::addCheep(78 * 32 + 28, CFG::GameHeight - 16 - 7 * 32, 0, 1));
+	addMinion(MinionFactory::addCheep(81 * 32 + 28, CFG::GameHeight - 16 - 2 * 32 - 28, 0, 1));
+	addMinion(MinionFactory::addCheep(94 * 32 + 14, CFG::GameHeight - 16 - 8 * 32, 0, 1));
+	addMinion(MinionFactory::addCheep(101 * 32 + 28, CFG::GameHeight - 16 - 4 * 32, 0, 1));
+	addMinion(MinionFactory::addCheep(97 * 32 + 8, CFG::GameHeight - 16 - 11 * 32, 1, 1));
+	addMinion(MinionFactory::addCheep(117 * 32 + 8, CFG::GameHeight - 16 - 10 * 32, 0, 1));
+	addMinion(MinionFactory::addCheep(127 * 32 + 24, CFG::GameHeight - 16 - 4 * 32, 1, 1));
+	addMinion(MinionFactory::addCheep(131 * 32 + 8, CFG::GameHeight - 16 - 3 * 32 - 4, 0, 1));
+	addMinion(MinionFactory::addCheep(136 * 32 + 16, CFG::GameHeight - 16 - 6 * 32, 0, 1));
+	addMinion(MinionFactory::addCheep(145 * 32 + 8, CFG::GameHeight - 16 - 4 * 32, 0, 1));
+	addMinion(MinionFactory::addCheep(149 * 32 + 28, CFG::GameHeight - 16 - 8 * 32 - 4, 1, 1));
+	addMinion(MinionFactory::addCheep(164 * 32, CFG::GameHeight - 16 - 11 * 32, 0, 1));
+	addMinion(MinionFactory::addCheep(167 * 32, CFG::GameHeight - 16 - 3 * 32, 1, 1));
+	addMinion(MinionFactory::addCheep(175 * 32, CFG::GameHeight - 16 - 6 * 32 - 4, 0, 1));
+	addMinion(MinionFactory::addCheep(183 * 32, CFG::GameHeight - 16 - 10 * 32, 1, 1));
+	addMinion(MinionFactory::addCheep(186 * 32 + 16, CFG::GameHeight - 16 - 7 * 32, 1, 1));
 
 	this->iLevelType = 0;
-	addPlant(274 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
+	addMinion(MinionFactory::addPlant(274 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
 
 	this->iLevelType = 2;
 }
 
+
 void Map::loadMinionsLVL_2_3() {
 	clearMinions();
-
-	addCheepSpawner(5 * 32, 200 * 32);
+	addMinion(MinionFactory::addCheepSpawner(5 * 32, 200 * 32));
 }
+
 
 void Map::loadMinionsLVL_2_4() {
 	clearMinions();
 
-	addBowser(135 * 32, CFG::GameHeight - 16 - 6 * 32);
+	addMinion(MinionFactory::addBowser(135 * 32, CFG::GameHeight - 16 - 6 * 32));
 
-	addToad(153 * 32, CFG::GameHeight - 3 * 32, false);
+	addMinion(MinionFactory::addToad(153 * 32, CFG::GameHeight - 3 * 32, false));
 
 	addFireBall(49 * 32, CFG::GameHeight - 16 - 5 * 32, 6, rand() % 360, true);
 	addFireBall(55 * 32, CFG::GameHeight - 16 - 9 * 32, 6, rand() % 360, true);
@@ -4033,187 +4025,212 @@ void Map::loadMinionsLVL_2_4() {
 	addFireBall(82 * 32, CFG::GameHeight - 16 - 8 * 32, 6, rand() % 360, true);
 	addFireBall(92 * 32, CFG::GameHeight - 16 - 4 * 32, 6, rand() % 360, false);
 
-	addUpFire(16 * 32 + 4, 9 * 32);
-	addUpFire(30 * 32, 9 * 32);
+	addMinion(MinionFactory::addUpFire(16 * 32 + 4, 9 * 32));
+	addMinion(MinionFactory::addUpFire(30 * 32, 9 * 32));
 }
+
 
 void Map::loadMinionsLVL_3_1() {
 	clearMinions();
 
-	addGoombas(23 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(24 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(26 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(30 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(31 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(33 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(69 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(70 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(72 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(108 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(109 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(111 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(148 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(149 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(151 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(232 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(233 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(235 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(257 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(258 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(260 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(264 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(265 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(267 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(272 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(273 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
+	// Add Goombas
+	addMinion(MinionFactory::addGoombas(23 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(24 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(26 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(30 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(31 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(33 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(69 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(70 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(72 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(108 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(109 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(111 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(148 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(149 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(151 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(232 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(233 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(235 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(257 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(258 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(260 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(264 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(265 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(267 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(272 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(273 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
 
-	addKoppa(43 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(44 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(61 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(119 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(124 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(125 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(127 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(130 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(131 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(133 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(161 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true);
-	addKoppa(172 * 32, CFG::GameHeight - 16 - 4 * 32, 0, true);
-	addKoppa(177 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(207 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(208 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(305 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(332 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(339 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(340 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, 1, true);
-	addKoppa(342 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
+	// Add Koppa
+	addMinion(MinionFactory::addKoppa(43 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(44 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(61 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(119 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(124 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(125 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(127 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(130 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(131 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(133 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(161 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(172 * 32, CFG::GameHeight - 16 - 4 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(177 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(207 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(208 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(305 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(332 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(339 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(340 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(342 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
 
+	// Add Beetle
+	addMinion(MinionFactory::addBeetle(18 * 32, CFG::GameHeight - 16 - 2 * 32, true));
+	addMinion(MinionFactory::addBeetle(81 * 32, CFG::GameHeight - 16 - 2 * 32, true));
+	addMinion(MinionFactory::addBeetle(254 * 32, CFG::GameHeight - 16 - 2 * 32, true));
+	addMinion(MinionFactory::addBeetle(283 * 32, CFG::GameHeight - 16 - 2 * 32, true));
 
-	addBeetle(18 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addBeetle(81 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addBeetle(254 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addBeetle(283 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-
-	addPlant(35 * 32 + 16, CFG::GameHeight - 10 - 5 * 32);
-	addPlant(76 * 32 + 16, CFG::GameHeight - 10 - 5 * 32);
-	addPlant(82 * 32 + 16, CFG::GameHeight - 10 - 4 * 32);
-	addPlant(94 * 32 + 16, CFG::GameHeight - 10 - 5 * 32);
-	addPlant(104 * 32 + 16, CFG::GameHeight - 10 - 5 * 32);
-	addPlant(140 * 32 + 16, CFG::GameHeight - 10 - 4 * 32);
-	addPlant(238 * 32 + 16, CFG::GameHeight - 10 - 4 * 32);
-	addPlant(242 * 32 + 16, CFG::GameHeight - 10 - 5 * 32);
-	addPlant(344 * 32 + 16, CFG::GameHeight - 10 - 4 * 32);
-	addPlant(355 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
+	// Add Plant
+	addMinion(MinionFactory::addPlant(35 * 32 + 16, CFG::GameHeight - 10 - 5 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(76 * 32 + 16, CFG::GameHeight - 10 - 5 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(82 * 32 + 16, CFG::GameHeight - 10 - 4 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(94 * 32 + 16, CFG::GameHeight - 10 - 5 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(104 * 32 + 16, CFG::GameHeight - 10 - 5 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(140 * 32 + 16, CFG::GameHeight - 10 - 4 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(238 * 32 + 16, CFG::GameHeight - 10 - 4 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(242 * 32 + 16, CFG::GameHeight - 10 - 5 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(344 * 32 + 16, CFG::GameHeight - 10 - 4 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(355 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
 }
+
 
 void Map::loadMinionsLVL_3_2() {
 	clearMinions();
 
-	addGoombas(184 * 32, CFG::GameHeight - 16 - 5 * 32, true);
-	addGoombas(186 * 32, CFG::GameHeight - 16 - 7 * 32, true);
+	// Add Goombas
+	addMinion(MinionFactory::addGoombas(184 * 32, CFG::GameHeight - 16 - 5 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(186 * 32, CFG::GameHeight - 16 - 7 * 32, true, iLevelType));
 
-	addKoppa(18 * 32 - 8, CFG::GameHeight - 16 - 5 * 32, 0, true);
-	addKoppa(24 * 32, CFG::GameHeight - 16 - 10 * 32, 0, true);
-	addKoppa(57 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true);
-	addKoppa(66 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true);
-	addKoppa(69 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true);
-	addKoppa(92 * 32, CFG::GameHeight - 16 - 4 * 32, 0, true);
-	addKoppa(95 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true);
-	addKoppa(139 * 32, CFG::GameHeight - 16 - 2 * 32, 0, true);
-	addKoppa(170 * 32, CFG::GameHeight - 16 - 4 * 32, 0, true);
-	addKoppa(172 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true);
-	addKoppa(175 * 32, CFG::GameHeight - 16 - 6 * 32, 0, true);
-	addKoppa(203 * 32, CFG::GameHeight - 16 - 8 * 32, 0, true);
+	// Add Koppa
+	addMinion(MinionFactory::addKoppa(18 * 32 - 8, CFG::GameHeight - 16 - 5 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(24 * 32, CFG::GameHeight - 16 - 10 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(57 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(66 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(69 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(92 * 32, CFG::GameHeight - 16 - 4 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(95 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(139 * 32, CFG::GameHeight - 16 - 2 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(170 * 32, CFG::GameHeight - 16 - 4 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(172 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(175 * 32, CFG::GameHeight - 16 - 6 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(203 * 32, CFG::GameHeight - 16 - 8 * 32, 0, true, iLevelType));
 
-	addBeetle(111 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addBeetle(121 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addBeetle(123 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addBeetle(189 * 32, CFG::GameHeight - 16 - 2 * 32, true);
+	// Add Beetle
+	addMinion(MinionFactory::addBeetle(111 * 32, CFG::GameHeight - 16 - 2 * 32, true));
+	addMinion(MinionFactory::addBeetle(121 * 32, CFG::GameHeight - 16 - 2 * 32, true));
+	addMinion(MinionFactory::addBeetle(123 * 32, CFG::GameHeight - 16 - 2 * 32, true));
+	addMinion(MinionFactory::addBeetle(189 * 32, CFG::GameHeight - 16 - 2 * 32, true));
 
-	addLakito(16 * 32, CFG::GameHeight - 16 - 11 * 32, 216 * 32);
+	// Add Lakito
+	addMinion(MinionFactory::addLakito(16 * 32, CFG::GameHeight - 16 - 11 * 32, 216 * 32));
 
-	addPlant(131 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
-	addPlant(142 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
-	addPlant(156 * 32 + 16, CFG::GameHeight - 10 - 5 * 32);
-	addPlant(163 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
-	addPlant(131 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
+	// Add Plant
+	addMinion(MinionFactory::addPlant(131 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(142 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(156 * 32 + 16, CFG::GameHeight - 10 - 5 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(163 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(131 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
 }
+
 
 void Map::loadMinionsLVL_3_3() {
 	clearMinions();
 
-	addKoppa(30 * 32, CFG::GameHeight - 16 - 4 * 32, 0, true);
-	addKoppa(93 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true);
-	addKoppa(137 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true);
+	// Add Koppa
+	addMinion(MinionFactory::addKoppa(30 * 32, CFG::GameHeight - 16 - 4 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(93 * 32, CFG::GameHeight - 16 - 3 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(137 * 32, CFG::GameHeight - 16 - 2 * 32, 1, true, iLevelType));
 
-	addPlant(53 * 32 + 16, CFG::GameHeight - 10 - 5 * 32);
-	addPlant(126 * 32 + 16, CFG::GameHeight - 10 - 5 * 32);
-	addPlant(168 * 32 + 16, CFG::GameHeight - 10 - 4 * 32);
+	// Add Plant
+	addMinion(MinionFactory::addPlant(53 * 32 + 16, CFG::GameHeight - 10 - 5 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(126 * 32 + 16, CFG::GameHeight - 10 - 5 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(168 * 32 + 16, CFG::GameHeight - 10 - 4 * 32, iLevelType));
 
-	addHammerBro(63 * 32, CFG::GameHeight - 16 - 3 * 32);
-	addHammerBro(65 * 32, CFG::GameHeight - 16 - 7 * 32);
-	addHammerBro(117 * 32, CFG::GameHeight - 16 - 7 * 32);
-	addHammerBro(119 * 32, CFG::GameHeight - 16 - 3 * 32);
-	addHammerBro(146 * 32, CFG::GameHeight - 16 - 3 * 32);
-	addHammerBro(159 * 32, CFG::GameHeight - 16 - 3 * 32);
-	addHammerBro(177 * 32, CFG::GameHeight - 16 - 3 * 32);
-	addHammerBro(185 * 32, CFG::GameHeight - 16 - 3 * 32);
+	// Add HammerBro
+	addMinion(MinionFactory::addHammerBro(63 * 32, CFG::GameHeight - 16 - 3 * 32));
+	addMinion(MinionFactory::addHammerBro(65 * 32, CFG::GameHeight - 16 - 7 * 32));
+	addMinion(MinionFactory::addHammerBro(117 * 32, CFG::GameHeight - 16 - 7 * 32));
+	addMinion(MinionFactory::addHammerBro(119 * 32, CFG::GameHeight - 16 - 3 * 32));
+	addMinion(MinionFactory::addHammerBro(146 * 32, CFG::GameHeight - 16 - 3 * 32));
+	addMinion(MinionFactory::addHammerBro(159 * 32, CFG::GameHeight - 16 - 3 * 32));
+	addMinion(MinionFactory::addHammerBro(177 * 32, CFG::GameHeight - 16 - 3 * 32));
+	addMinion(MinionFactory::addHammerBro(185 * 32, CFG::GameHeight - 16 - 3 * 32));
 }
+
 
 void Map::loadMinionsLVL_3_4() {
 	clearMinions();
 
-	addPlant(19 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
-	addPlant(51 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
-	addPlant(81 * 32 + 16, CFG::GameHeight - 10 - 6 * 32);
-	addPlant(126 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
-	addPlant(133 * 32 + 16, CFG::GameHeight - 10 - 4 * 32);
-	addPlant(143 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
-	addPlant(153 * 32 + 16, CFG::GameHeight - 10 - 4 * 32);
-	addPlant(163 * 32 + 16, CFG::GameHeight - 10 - 8 * 32);
-	addPlant(215 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
-	addPlant(302 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
-	addPlant(224 * 32 + 16, CFG::GameHeight - 10 - 6 * 32);
-	addPlant(232 * 32 + 16, CFG::GameHeight - 10 - 7 * 32);
-	addPlant(248 * 32 + 16, CFG::GameHeight - 10 - 6 * 32);
-	addPlant(309 * 32 + 16, CFG::GameHeight - 10 - 3 * 32);
+	// Add Plants
+	addMinion(MinionFactory::addPlant(19 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(51 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(81 * 32 + 16, CFG::GameHeight - 10 - 6 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(126 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(133 * 32 + 16, CFG::GameHeight - 10 - 4 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(143 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(153 * 32 + 16, CFG::GameHeight - 10 - 4 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(163 * 32 + 16, CFG::GameHeight - 10 - 8 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(215 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(302 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(224 * 32 + 16, CFG::GameHeight - 10 - 6 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(232 * 32 + 16, CFG::GameHeight - 10 - 7 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(248 * 32 + 16, CFG::GameHeight - 10 - 6 * 32, iLevelType));
+	addMinion(MinionFactory::addPlant(309 * 32 + 16, CFG::GameHeight - 10 - 3 * 32, iLevelType));
 
-	addBeetle(139 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addBeetle(141 * 32, CFG::GameHeight - 16 - 2 * 32, true);
+	// Add Beetles
+	addMinion(MinionFactory::addBeetle(139 * 32, CFG::GameHeight - 16 - 2 * 32, true));
+	addMinion(MinionFactory::addBeetle(141 * 32, CFG::GameHeight - 16 - 2 * 32, true));
 
-	addGoombas(56 * 32, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(57 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true);
-	addGoombas(59 * 32, CFG::GameHeight - 16 - 2 * 32, true);
+	// Add Goombas
+	addMinion(MinionFactory::addGoombas(56 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(57 * 32 + 16, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
+	addMinion(MinionFactory::addGoombas(59 * 32, CFG::GameHeight - 16 - 2 * 32, true, iLevelType));
 
-	addHammerBro(316 * 32, CFG::GameHeight - 16 - 3 * 32);
+	// Add HammerBro
+	addMinion(MinionFactory::addHammerBro(316 * 32, CFG::GameHeight - 16 - 3 * 32));
 
+	// Change Level Type and Add Koppa
 	this->iLevelType = 1;
+	addMinion(MinionFactory::addKoppa(150 * 32 - 8, CFG::GameHeight - 16 - 4 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(152 * 32 - 8, CFG::GameHeight - 16 - 3 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(165 * 32 - 8, CFG::GameHeight - 16 - 3 * 32, 0, true, iLevelType));
+	addMinion(MinionFactory::addKoppa(167 * 32 - 8, CFG::GameHeight - 16 - 4 * 32, 0, true, iLevelType));
 
-	addKoppa(150 * 32 - 8, CFG::GameHeight - 16 - 4 * 32, 0, true);
-	addKoppa(152 * 32 - 8, CFG::GameHeight - 16 - 3 * 32, 0, true);
-	addKoppa(165 * 32 - 8, CFG::GameHeight - 16 - 3 * 32, 0, true);
-	addKoppa(167 * 32 - 8, CFG::GameHeight - 16 - 4 * 32, 0, true);
-
+	// Add CheepSpawner
 	this->iLevelType = 3;
+	addMinion(MinionFactory::addCheepSpawner(224 * 32, 237 * 32));
 
-	addCheepSpawner(224 * 32, 237 * 32);
+	// Add Bowser
+	addMinion(MinionFactory::addBowser(338 * 32, CFG::GameHeight - 16 - 6 * 32, true));
 
-	addBowser(338 * 32, CFG::GameHeight - 16 - 6 * 32, true);
+	// Add Toad
+	addMinion(MinionFactory::addToad(356 * 32, CFG::GameHeight - 3 * 32, true));
 
-	addToad(356 * 32, CFG::GameHeight - 3 * 32, true);
+	// Add UpFire
+	addMinion(MinionFactory::addUpFire(332 * 32, 9 * 32));
 
-	addUpFire(332 * 32, 9 * 32);
-
+	// Add FireBalls
 	addFireBall(410 * 32, CFG::GameHeight - 16 - 7 * 32, 6, rand() % 360, true);
 	addFireBall(421 * 32, CFG::GameHeight - 16 - 4 * 32, 6, rand() % 360, false);
 	addFireBall(430 * 32, CFG::GameHeight - 16 - 8 * 32, 6, rand() % 360, true);
 	addFireBall(446 * 32, CFG::GameHeight - 16 - 6 * 32, 6, rand() % 360, true);
 	addFireBall(454 * 32, CFG::GameHeight - 16 - 7 * 32, 6, rand() % 360, false);
 
-	addSquid(418 * 32, CFG::GameHeight - 16 - 3 * 32);
-	addSquid(441 * 32, CFG::GameHeight - 16 - 4 * 32);
-	addSquid(443 * 32, CFG::GameHeight - 16 - 8 * 32);
+	// Add Squid
+	addMinion(MinionFactory::addSquid(418 * 32, CFG::GameHeight - 16 - 3 * 32));
+	addMinion(MinionFactory::addSquid(441 * 32, CFG::GameHeight - 16 - 4 * 32));
+	addMinion(MinionFactory::addSquid(443 * 32, CFG::GameHeight - 16 - 8 * 32));
 }
+
 
 void Map::clearPipeEvents() {
 	for (unsigned int i = 0; i < lPipe.size(); i++) {
@@ -5338,64 +5355,11 @@ void Map::addText(int X, int Y, std::string sText) {
 }
 
 // -- Minions --
-void Map::addGoombas(int iX, int iY, bool moveDirection) {
-	lMinion[getListID(iX)].push_back(new Goombas(iX, iY, iLevelType == 0 || iLevelType == 4 ? 0 : iLevelType == 1 ? 8 : 10, moveDirection));
-}
-
-void Map::addKoppa(int iX, int iY, int minionState, bool moveDirection) {
-	int tempBlock;
-
-	switch (minionState) {
-	case 0: case 3:
-		tempBlock = iLevelType == 0 || iLevelType == 4 ? 7 : iLevelType == 1 ? 14 : 17;
-		break;
-	case 1:
-		tempBlock = iLevelType == 0 || iLevelType == 4 ? 4 : iLevelType == 1 ? 12 : 15;
-		break;
-	case 2:
-		tempBlock = iLevelType == 0 || iLevelType == 4 ? 5 : iLevelType == 1 ? 13 : 16;
-		break;
-	}
-
-	lMinion[getListID(iX)].push_back(new Koppa(iX, iY, minionState, moveDirection, tempBlock));
-}
-
-void Map::addBeetle(int X, int Y, bool moveDirection) {
-	lMinion[getListID(X)].push_back(new Beetle(X, Y, moveDirection));
-}
-
-void Map::addBowser(int X, int Y, bool spawnHammer) {
-	lMinion[getListID(X)].push_back(new Bowser((float)X, (float)Y, spawnHammer));
-}
-
-void Map::addPlant(int iX, int iY) {
-	lMinion[getListID(iX)].push_back(new Plant(iX, iY, iLevelType == 0 || iLevelType == 4 ? 18 : 19));
-}
-
-void Map::addToad(int X, int Y, bool peach) {
-	lMinion[getListID(X)].push_back(new Toad(X, Y, peach));
-}
-
-void Map::addSquid(int X, int Y) {
-	lMinion[getListID(X)].push_back(new Squid(X, Y));
-}
-
-void Map::addHammer(int X, int Y, bool moveDirection) {
-	lMinion[getListID(X)].push_back(new Hammer(X, Y, moveDirection));
-}
-
-void Map::addHammerBro(int X, int Y) {
-	lMinion[getListID(X)].push_back(new HammerBro(X, Y));
-}
 
 void Map::addFireBall(int X, int Y, int iWidth, int iSliceID, bool DIR) {
 	for (int i = 0; i < iWidth; i++) {
 		lMinion[getListID((int)X)].push_back(new FireBall(X + 8, Y + 8, 14 * i, iSliceID, DIR));
 	}
-}
-
-void Map::addSpikey(int X, int Y) {
-	lMinion[getListID(X)].push_back(new Spikey(X, Y));
 }
 
 void Map::addPlayerFireBall(int X, int Y, bool moveDirection) {
@@ -5406,29 +5370,12 @@ void Map::addPlayerFireBall(int X, int Y, bool moveDirection) {
 	//lMinion[getListID(X)].push_back(new PlayerFireBall(X, Y, moveDirection));
 }
 
-void Map::addUpFire(int X, int iYEnd) {
-	lMinion[getListID(X)].push_back(new UpFire(X, iYEnd));
-}
 
-void Map::addFire(float fX, float fY, int toYPos) {
-	lMinion[getListID((int)fX)].push_back(new Fire(fX, fY, toYPos));
-}
-
-void Map::addCheep(int X, int Y, int minionType, int moveSpeed, bool moveDirection) {
-	lMinion[getListID(X)].push_back(new Cheep(X, Y, minionType, moveSpeed, moveDirection));
-}
-
-void Map::addCheepSpawner(int X, int XEnd) {
-	lMinion[getListID(X)].push_back(new CheepSpawner(X, XEnd));
-}
 
 void Map::addBubble(int X, int Y) {
 	lBubble.push_back(new Bubble(X, Y));
 }
 
-void Map::addLakito(int X, int Y, int iMaxXPos) {
-	lMinion[getListID(X)].push_back(new Lakito(X, Y, iMaxXPos));
-}
 
 void Map::addVine(int X, int Y, int minionState, int iBlockID) {
 	lMinion[getListID(X)].push_back(new Vine(X, Y, minionState, iBlockID));
@@ -5437,18 +5384,6 @@ void Map::addVine(int X, int Y, int minionState, int iBlockID) {
 	}
 }
 
-void Map::addSpring(int X, int Y) {
-	lMinion[getListID(X)].push_back(new Spring(X, Y));
-	//lMap[X/32][(CCFG::GAME_HEIGHT - 16 - Y)/32 - 1]->setBlockID(83);
-}
-
-void Map::addBulletBillSpawner(int X, int Y, int minionState) {
-	lMinion[getListID(X * 32)].push_back(new BulletBillSpawner(X * 32, CFG::GameHeight - Y * 32, minionState));
-}
-
-void Map::addBulletBill(int X, int Y, bool moveDirection, int minionState) {
-	lMinion[getListID(X)].push_back(new BulletBill(X, Y, moveDirection, minionState));
-}
 
 void Map::lockMinions() {
 	for (unsigned int i = 0; i < lMinion.size(); i++) {

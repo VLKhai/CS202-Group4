@@ -220,27 +220,7 @@ public:
 
 	//Add 
 	void addPoints(int X, int Y, std::string sText, int iW, int iH);
-	void addGoombas(int iX, int iY, bool moveDirection);
-	void addKoppa(int iX, int iY, int minionState, bool moveDirection);
-	void addBeetle(int X, int Y, bool moveDirection);
-	void addPlant(int iX, int iY);
-	void addToad(int X, int Y, bool peach);
-	void addSquid(int X, int Y);
-	void addCheep(int X, int Y, int minionType, int moveSpeed, bool moveDirection = false);
-	void addCheepSpawner(int X, int XEnd);
-	void addHammerBro(int X, int Y);
-	void addHammer(int X, int Y, bool moveDirection);
-	void addLakito(int X, int Y, int iMaxXPos);
-	void addSpikey(int X, int Y);
-
 	void addPlayerFireBall(int X, int Y, bool moveDirection);
-
-	void addUpFire(int X, int iYEnd);
-	void addSpring(int X, int Y);
-
-	void addBowser(int X, int Y, bool spawnHammer = false);
-
-	void addFire(float fX, float fY, int toYPos);
 	void addFireBall(int X, int Y, int iWidth, int iSliceID, bool LEFT);
 
 	void addVine(int X, int Y, int minionState, int iBlockID);
@@ -248,8 +228,6 @@ public:
 	void addText(int X, int Y, std::string sText);
 
 	void addBubble(int X, int Y);
-	void addBulletBillSpawner(int X, int Y, int minionState);
-	void addBulletBill(int X, int Y, bool moveDirection, int minionState);
 
 	void addMinion(Minion* minion);
 
