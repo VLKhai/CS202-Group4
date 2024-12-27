@@ -46,6 +46,7 @@
 #include "Bubble.h"
 #include "Spring.h"
 #include "Vine.h"
+#include "MinionFactory.h"
 
 
 class Map {
@@ -244,6 +245,8 @@ public:
 	void addBubble(int X, int Y);
 	void addBulletBillSpawner(int X, int Y, int minionState);
 	void addBulletBill(int X, int Y, bool moveDirection, int minionState);
+
+	void addMinion(Minion* minion);
 
 	// --- Clear ---
 	void lockMinions();

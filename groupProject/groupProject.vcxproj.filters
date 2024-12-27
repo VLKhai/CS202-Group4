@@ -189,6 +189,12 @@
     <ClCompile Include="Vine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OffMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MinionFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -360,6 +366,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OffMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MinionFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

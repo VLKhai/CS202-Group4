@@ -1965,7 +1965,7 @@ void Map::loadGameDataMinion(const std::string& filename, sf::RenderWindow& main
 
 void Map::loadGameData(sf::RenderWindow& mainWindow)
 {
-	vPlayer.push_back(new Mario(mainWindow, 84, 480));
+	vPlayer.push_back(new Mario(mainWindow, 84, 480)); 
 	vPlayer.push_back(new Luigi(mainWindow, 84, 480));
 	indexPlayer = 0;
 	pPlayer = vPlayer[indexPlayer];
@@ -3767,31 +3767,29 @@ void Map::loadLVL_3_4() {
 void Map::loadMinionsLVL_1_1() {
 	clearMinions();
 
-	addGoombas(704, 480, true);
+	addMinion(MinionFactory::CreateGoombas(704, 480, true));
+	addMinion(MinionFactory::CreateGoombas(1280, 480, true));
+	addMinion(MinionFactory::CreateGoombas(1632, 480, true));
+	addMinion(MinionFactory::CreateGoombas(1680, 480, true));
 
-	addGoombas(1280, 480, true);
+	addMinion(MinionFactory::CreateGoombas(2560, 112, true));
+	addMinion(MinionFactory::CreateGoombas(2624, 112, true));
 
-	addGoombas(1632, 480, true);
-	addGoombas(1680, 480, true);
+	addMinion(MinionFactory::CreateGoombas(3104, 480, true));
+	addMinion(MinionFactory::CreateGoombas(3152, 480, true));
+	addMinion(MinionFactory::CreateKoppa(107 * 32, 480, 1, true,iLevelType));
 
-	addGoombas(2560, 112, true);
-	addGoombas(2624, 112, true);
+	addMinion(MinionFactory::CreateGoombas(3648, 480, true));
+	addMinion(MinionFactory::CreateGoombas(3696, 480, true));
 
-	addGoombas(3104, 480, true);
-	addGoombas(3152, 480, true);
+	addMinion(MinionFactory::CreateGoombas(3968, 480, true));
+	addMinion(MinionFactory::CreateGoombas(4016, 480, true));
 
-	addKoppa(107 * 32, 480, 1, true);
+	addMinion(MinionFactory::CreateGoombas(4096, 480, true));
+	addMinion(MinionFactory::CreateGoombas(4144, 480, true));
 
-	addGoombas(3648, 480, true);
-	addGoombas(3696, 480, true);
-
-	addGoombas(3968, 480, true);
-	addGoombas(4016, 480, true);
-
-	addGoombas(4096, 480, true);	addGoombas(4144, 480, true);
-
-	addGoombas(5568, 480, true);
-	addGoombas(5612, 480, true);
+	addMinion(MinionFactory::CreateGoombas(5568, 480, true));
+	addMinion(MinionFactory::CreateGoombas(5612, 480, true));
 }
 
 void Map::loadMinionsLVL_1_2() {
@@ -5404,6 +5402,14 @@ void Map::lockMinions() {
 		}
 	}
 }
+
+void Map::addMinion(Minion* minion) {
+	if (minion) {
+		int listID = getListID(minion->getXPos());
+		lMinion[listID].push_back(minion);
+	}
+}
+
 
 void Map::Save(const std::string& filename) const {
 	std::ofstream outFile(filename, std::ios::binary);

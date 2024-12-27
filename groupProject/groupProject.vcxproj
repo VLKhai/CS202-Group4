@@ -56,6 +56,7 @@
     <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="MenuOption.cpp" />
     <ClCompile Include="Minion.cpp" />
+    <ClCompile Include="MinionFactory.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="OffMenu.cpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="MenuOption.h" />
     <ClInclude Include="Minion.h" />
+    <ClInclude Include="MinionFactory.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="OffMenu.h" />
