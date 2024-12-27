@@ -25,12 +25,13 @@ PlayerFireBallPool& PlayerFireBallPool::Instance()
 
 Minion* PlayerFireBallPool::getPlayerFireBall(int X, int Y, bool moveDirection)
 {
-	std::cout << lPlayerFireBall.size() << std::endl;
-	for (auto& ball : lPlayerFireBall)
-	{	
-		if (!ball->getDestroy()) {
-			ball->setXYDir(X, Y, moveDirection);
-			return ball;
+	for (int i = 0; i < iMaxBall; ++i)
+	{
+		if (!lPlayerFireBall[i]->getActive())
+		{
+			lPlayerFireBall[i]->setXYDir(X, Y, moveDirection);
+			std::cout << "Have fireball " << i+1 << std::endl;
+			return lPlayerFireBall[i];
 		}
 	}
 	std::cout << "No more fireballs" << std::endl;

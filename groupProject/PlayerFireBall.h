@@ -15,7 +15,7 @@ public:
 	void Update();
 	void Draw(sf::RenderWindow& mainWindow, IMG* iIMG);
 
-	void setFireBall(int X, int Y, bool moveDirection);
+	void setXYDir(int X, int Y, bool moveDirection) override;
 
 	void updateXPos();
 
@@ -29,5 +29,5 @@ public:
 
 	void setMinionState(int minionState);
 
-	bool getDestroy();
+	bool getActive();
 };
