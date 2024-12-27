@@ -100,7 +100,7 @@ void HammerBro::Update() {
 
 		if(nextHammerFrameID < 0) {
 			nextHammerFrameID = rand()%95 + 95;
-			Core::getMap()->addHammer((int)(fXPos + iHitBoxX/2), (int)(fYPos - 18), !moveDirection);
+			Core::getMap()->addMinion(MinionFactory::addHammer((int)(fXPos + iHitBoxX/2), (int)(fYPos - 18), !moveDirection));
 			if(hammerID < 2 - rand()%2) {
 				++hammerID;
 				nextHammerFrameID /= 4;
