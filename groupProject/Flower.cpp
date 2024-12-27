@@ -58,7 +58,7 @@ void Flower::Draw(sf::RenderWindow& window, IMG* iIMG) {
 
 void Flower::collisionWithPlayer(bool TOP, Player* pPlayer) {
 	if(!inSpawnState && minionState >= 0) {
-		Core::getMap()->getPlayer()->setPowerLVL(pPlayer->getPowerLVL() + 1);
+		Core::getMap()->notify(this, "P" + std::to_string(pPlayer->getIDPlayer()) + "_LVUP");
 		minionState = -1;
 	}
 }
