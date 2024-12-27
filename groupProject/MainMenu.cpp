@@ -5,9 +5,10 @@
 /* ******************************************** */
 
 MainMenu::MainMenu(void) {
-	this->lMO.push_back(new MenuOption("NEW GAME", 207, 276));
-	this->lMO.push_back(new MenuOption("CONTINUE", 207, 308));
-	this->lMO.push_back(new MenuOption("OPTIONS", 207, 340));
+	this->lMO.push_back(new MenuOption("1 PLAYER", 207, 276));
+	this->lMO.push_back(new MenuOption("2 PLAYER", 207, 308));
+	this->lMO.push_back(new MenuOption("CONTINUE", 207, 340));
+	this->lMO.push_back(new MenuOption("OPTIONS", 207, 372));
 
 	this->numOfMenuOptions = lMO.size();
 
@@ -84,7 +85,7 @@ void MainMenu::draw(sf::RenderWindow& mainWindow) {
 
 void MainMenu::enter() {
 	switch (activeMenuOption) {
-	case 0: // 
+	case 0: case 1: 
 		if (!selectWorld) {
 			selectWorld = true;
 		}
@@ -95,17 +96,18 @@ void MainMenu::enter() {
 			CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eGameLoading);
 			CFG::getMenuManager()->getLoadingMenu()->loadingType = true;
 			Core::getMap()->setSpawnPointID(0);
+			Core::getMap()->setNumOfPlayers(activeMenuOption+1);
 			selectWorld = false;
 			Core::resetKeys();
 		}
 		break;	
-	case 2:
+	case 3:
 		CFG::getMenuManager()->getOptions()->setEscapeToMainMenu(true);
 		CFG::getMenuManager()->resetActiveOptionID(CFG::getMenuManager()->eOptions);
 		CFG::getMenuManager()->getOptions()->updateVolumeRect();
 		CFG::getMenuManager()->setViewID(CFG::getMenuManager()->eOptions);
 		break;
-	case 1:
+	case 2:
 		Map * tem = Core::getMap()->Load("GAME_DATA.bin");
 		Core::getMap()->setCurrentLevelID(tem->getCurrentLevelID());
 		Core::getMap()->loadLVL();

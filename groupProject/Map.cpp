@@ -2049,9 +2049,6 @@ void Map::loadGameData(sf::RenderWindow& mainWindow)
 {
 	vPlayer.push_back(new Mario(mainWindow, 84, 480)); 
 	vPlayer.push_back(new Luigi(mainWindow, 84, 480));
-	//indexPlayer = 0;
-	//pPlayer = vPlayer[indexPlayer];
-	setNumOfPlayers(2);
 
 	CFG::getText()->setFont(mainWindow, "font");
 
