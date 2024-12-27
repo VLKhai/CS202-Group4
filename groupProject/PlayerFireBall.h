@@ -29,5 +29,6 @@ public:
 
 	void setMinionState(int minionState);
 
-	bool getActive();
+	bool getActive() override;
+	void setActive(bool bActive) override;
 };

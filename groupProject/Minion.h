@@ -90,5 +90,6 @@ public:
 
 	bool isAlive();
 
-	virtual bool getActive() { return false; };
+	virtual bool getActive();
+	virtual void setActive(bool bActive) {};
 };

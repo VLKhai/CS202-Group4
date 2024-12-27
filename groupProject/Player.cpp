@@ -222,7 +222,7 @@ void Player::update()
 		--iComboPoints;
 	}
 
-	if (powerLVL == 2) {
+	if (powerLVL == 2 || 1) {
 		if (nextFireBallFrameID > 0) {
 			--nextFireBallFrameID;
 		}
@@ -889,7 +889,7 @@ int Player::getHitBoxY() {
 
 void Player::createFireBall()
 {
-	if (powerLVL == 2) {
+	if (powerLVL == 2 || 1) {
 		if (nextFireBallFrameID <= 0) {
 			Core::getMap()->addPlayerFireBall((int)(fXPos - Core::getMap()->getXPos(iIDPlayer) + (moveDirection ? getHitBoxX() : -32)), (int)(fYPos + getHitBoxY() / 2), !moveDirection);
 			nextFireBallFrameID = 16;

@@ -7,6 +7,7 @@ class PlayerFireBallPool
 private:
 	std::vector<Minion*> lPlayerFireBall;
 	int iMaxBall;
+	int iTimeUsed;
 
 	PlayerFireBallPool();
 	PlayerFireBallPool(const PlayerFireBallPool&) = delete;
@@ -16,4 +17,5 @@ public:
 
 	static PlayerFireBallPool& Instance();
 	Minion* getPlayerFireBall(int X, int Y, bool moveDirection);
+	void update();
 };
