@@ -201,6 +201,9 @@
     <ClCompile Include="ImgResource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FireSkill.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h">
@@ -384,6 +387,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImgResource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mediator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FireSkill.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

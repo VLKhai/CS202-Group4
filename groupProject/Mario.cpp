@@ -1,5 +1,6 @@
 #include "Mario.h"
 #include "Core.h"
+#include "FireSkill.h"
 
 Mario::Mario(sf::RenderWindow& window, float fXPos, float fYPos) : Player(window, fXPos, fYPos) {
 	
@@ -7,7 +8,8 @@ Mario::Mario(sf::RenderWindow& window, float fXPos, float fYPos) : Player(window
 	limBigJumpBlock = 4;
 	iIDPlayer = 0;
 
-	this->pSkill = new ExplodeSkill(window, fXPos, fYPos);
+	//this->pSkill = new ExplodeSkill(window, fXPos, fYPos);
+	this->pSkill = new FireSkill(window, fXPos, fYPos);
 
 	// LOAD SPRITE
 	std::vector<std::string> tempS;

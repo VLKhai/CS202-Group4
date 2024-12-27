@@ -82,7 +82,7 @@ void Player::movePlayer() {
 
 	if (moveSpeed > 0) {
 		if (moveDirection) {
-			updateXPos(moveSpeed);
+			updateXPos(moveSpeed*hackMove);
 		}
 		else {
 			updateXPos(-moveSpeed);
@@ -836,7 +836,7 @@ void Player::jump()
 		nextBubbleTime -= 65;
 	}
 	else if (jumpState == 0) {
-		startJump(limBigJumpBlock);
+		startJump(limBigJumpBlock*hackJump);
 	}
 }
 

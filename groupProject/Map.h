@@ -369,7 +369,7 @@ public:
 	void setSpawnPointID(int iSpawnPointID);
 
 	void setSpawnPoint();
-	void setSpawnXY(int iX, int iY);
+	void setSpawnXY(int iX, int iY, bool iID=0);
 
 	Flag* getFlag();
 	Player* getPlayer(); 

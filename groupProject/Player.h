@@ -7,6 +7,9 @@
 
 class Player {
 private:
+	int hackMove = 1;
+	int hackJump = 1;
+	
 	int iSpriteID;
 	unsigned int iMoveAnimationTime;
 

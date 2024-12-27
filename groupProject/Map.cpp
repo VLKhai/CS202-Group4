@@ -990,13 +990,20 @@ void Map::setSpawnPoint() {
 	pPlayer->setMoveDirection(true);
 }
 
-void Map::setSpawnXY(int iX, int iY)
+void Map::setSpawnXY(int iX, int iY, bool iID)
 {
-	for (Player* pMem : vCurPlayer) {
-		pMem->setXPos((float)iX);
-		pMem->setYPos((float)iY);
+	if (iID == 0) {
+		for (Player* pMem : vCurPlayer) {
+			pMem->setXPos((float)iX);
+			pMem->setYPos((float)iY);
+		}
 	}
-	fXPos = fYPos = fXPos2 = fYPos2 = 0;
+	else {
+		vPlayer[1]->setXPos(vPlayer[0]->getXPos());
+		vPlayer[1]->setYPos(vPlayer[0]->getYPos());
+	}
+	fXPos2 = fXPos;
+	fXPos2 = fYPos;
 }
 
 void Map::resetGameData() {
@@ -1201,7 +1208,7 @@ void Map::loadLVL() {
 		loadLVL_1_1();
 		break;
 	case 1:
-		this->setSpawnXY(64, 0); 
+		this->setSpawnXY(64, 0, 1); 
 		loadLVL_1_2();
 		break;
 	case 2:
