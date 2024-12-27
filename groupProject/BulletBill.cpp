@@ -65,6 +65,6 @@ void BulletBill::collisionWithPlayer(bool TOP, Player* pPlayer) {
 	if(pPlayer->getStarEffect() || TOP) {
 		setMinionState(-2);
 	} else {
-		Core::getMap()->playerDeath(true, false);
+		Core::getMap()->notify(this, "Dead_1_0");
 	}
 }

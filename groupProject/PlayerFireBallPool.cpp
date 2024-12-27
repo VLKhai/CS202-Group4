@@ -30,10 +30,10 @@ Minion* PlayerFireBallPool::getPlayerFireBall(int X, int Y, bool moveDirection)
 		if (!lPlayerFireBall[i]->getActive())
 		{
 			lPlayerFireBall[i]->setXYDir(X, Y, moveDirection);
-			std::cout << "Have fireball " << i+1 << std::endl;
+			//std::cout << "Have fireball " << i+1 << std::endl;
 			return lPlayerFireBall[i];
 		}
 	}
-	std::cout << "No more fireballs" << std::endl;
+	//std::cout << "No more fireballs" << std::endl;
 	return nullptr;
 }

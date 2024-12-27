@@ -97,5 +97,5 @@ void UpFire::minionPhysics() { }
 /* ******************************************** */
 
 void UpFire::collisionWithPlayer(bool TOP, Player* pPlayer) {
-	Core::getMap()->playerDeath(true, false);
+	Core::getMap()->notify(this, "Dead_1_0");
 }

@@ -64,6 +64,6 @@ void Spikey::collisionWithPlayer(bool TOP, Player* pPlayer) {
 	if(pPlayer->getStarEffect()) {
 		setMinionState(-2);
 	} else {
-		Core::getMap()->playerDeath(true, false);
+		Core::getMap()->notify(this, "Dead_1_0");
 	}
 }

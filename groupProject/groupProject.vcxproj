@@ -114,6 +114,7 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="Mediator.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="MenuOption.h" />

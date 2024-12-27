@@ -172,6 +172,6 @@ void Cheep::collisionWithPlayer(bool TOP, Player* pPlayer) {
 		moveYDIR = false;
 		this->jumpDistance = CFG::GameHeight - fYPos;
 	} else {
-		Core::getMap()->playerDeath(true, false);
+		Core::getMap()->notify(this, "Dead_1_0");
 	}
 }

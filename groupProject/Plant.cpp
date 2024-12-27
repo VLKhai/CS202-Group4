@@ -85,7 +85,7 @@ void Plant::collisionWithPlayer(bool TOP, Player* pPlayer) {
 		minionState = -1;
 		points(200);
 	} else {
-		Core::getMap()->playerDeath(true, false);
+		Core::getMap()->notify(this, "Dead_1_0");
 	}
 }
 

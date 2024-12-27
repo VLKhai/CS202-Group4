@@ -42,6 +42,37 @@ Map::~Map()
 	delete pFlag;
 }
 
+void Map::notify(Minion* pmSender, std::string sEvent)
+{
+	if (sEvent == "P0_jump1") {
+		vCurPlayer[0]->resetJump();
+		vCurPlayer[0]->startJump(1);
+		return;
+	}
+	if (sEvent == "P1_jump1") {
+		vCurPlayer[1]->resetJump();
+		vCurPlayer[1]->startJump(1);
+		return;
+	}
+	if (sEvent == "Dead_1_0") {
+		this->playerDeath(true, false);
+		return;
+	}
+	if (sEvent == "Dead_1_1") {
+		this->playerDeath(true, true);
+		return;
+	}
+	if (sEvent == "Dead_0_0") {
+		this->playerDeath(false, false);
+		return;
+	}
+	if (sEvent == "Dead_0_1") {
+		this->playerDeath(false, true);
+		return;
+	}
+
+}
+
 Map& Map::Instance()
 {
 	static Map singleTon;
@@ -131,7 +162,6 @@ void Map::update()
 
 void Map::playerDeath(bool animation, bool instantDeath) {
 
-	// 
 	if ((pPlayer->getPowerLVL() == 0 && !pPlayer->getUnkillAble()) || instantDeath) {
 		inEvent = true;
 

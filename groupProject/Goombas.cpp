@@ -50,14 +50,13 @@ void Goombas::collisionWithPlayer(bool TOP, Player* pPlayer) {
 			minionState = 1;
 			iBlockID = Core::getMap()->getLevelType() == 0 || Core::getMap()->getLevelType() == 4 ? 1 : Core::getMap()->getLevelType() == 1 ? 9 : 11;
 			deadTime = Core::coreClock.getElapsedTime().asMilliseconds();
-			pPlayer->resetJump();
-			pPlayer->startJump(1);
+			Core::getMap()->notify(this, "P" + std::to_string(pPlayer->getIDPlayer()) + "_jump1");
 			points(100);
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cSTOMP);
 		}
 	}
 	else {
-		Core::getMap()->playerDeath(true, false);  // Dead
+		Core::getMap()->notify(this, "Dead_1_0");
 	}
 }
 

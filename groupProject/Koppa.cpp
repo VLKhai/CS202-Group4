@@ -182,8 +182,7 @@ void Koppa::collisionWithPlayer(bool TOP, Player* pPlayer) {
 		if (minionState == 0 || minionState == 3) {
 			minionState = 1;
 			setMinion();
-			pPlayer->resetJump();
-			pPlayer->startJump(1);
+			Core::getMap()->notify(this, "P" + std::to_string(pPlayer->getIDPlayer()) + "_jump1");
 			pPlayer->setYPos((float)pPlayer->getYPos() - 4);
 			points(100);
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cSTOMP);
@@ -191,8 +190,7 @@ void Koppa::collisionWithPlayer(bool TOP, Player* pPlayer) {
 		else if (minionState == 1) {
 			minionState = 2;
 			setMinion();
-			pPlayer->resetJump();
-			pPlayer->startJump(1);
+			Core::getMap()->notify(this, "P" + std::to_string(pPlayer->getIDPlayer()) + "_jump1");
 			pPlayer->setYPos((float)pPlayer->getYPos() - 4);
 			points(100);
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cSTOMP);
@@ -213,8 +211,7 @@ void Koppa::collisionWithPlayer(bool TOP, Player* pPlayer) {
 			}
 
 			pPlayer->setYPos((float)pPlayer->getYPos() - 4);
-			pPlayer->resetJump();
-			pPlayer->startJump(1);
+			Core::getMap()->notify(this, "P" + std::to_string(pPlayer->getIDPlayer()) + "_jump1");
 			points(100);
 			CFG::getMusic()->PlayChunk(CFG::getMusic()->cSTOMP);
 		}
@@ -230,11 +227,11 @@ void Koppa::collisionWithPlayer(bool TOP, Player* pPlayer) {
 				CFG::getMusic()->PlayChunk(CFG::getMusic()->cSTOMP);
 			}
 			else {
-				Core::getMap()->playerDeath(true, false);
+				Core::getMap()->notify(this, "Dead_1_0");
 			}
 		}
 		else {
-			Core::getMap()->playerDeath(true, false);
+			Core::getMap()->notify(this, "Dead_1_0");
 		}
 	}
 }

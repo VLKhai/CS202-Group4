@@ -9,6 +9,8 @@ private:
 	int iMaxBall;
 
 	PlayerFireBallPool();
+	PlayerFireBallPool(const PlayerFireBallPool&) = delete;
+	PlayerFireBallPool& operator=(const PlayerFireBallPool&) = delete;
 public:
 	~PlayerFireBallPool();
 

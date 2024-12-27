@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "Mediator.h"
 #include "Mario.h"
 #include "Luigi.h"
 #include "Block.h"
@@ -41,7 +42,6 @@
 #include "Toad.h"
 #include "Squid.h"
 #include "FireBall.h"
-//#include "PlayerFireBall.h"
 #include "PlayerFireBallPool.h"
 #include "UpFire.h"
 #include "Bubble.h"
@@ -50,7 +50,7 @@
 #include "MinionFactory.h"
 
 
-class Map {
+class Map : public Mediator {
 private:
 	friend class Core;
 
@@ -197,6 +197,8 @@ private:
 public:
 	static Map& Instance();
 	~Map();
+
+	void notify(Minion* pmSender, std::string sEvent) override;
 
     void update();
 	void updateGifBlocks();
