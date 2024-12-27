@@ -73,6 +73,9 @@ void Core::mainLoop()
         input();
 		update();
         draw();       
+        if (quitGame) {
+            mainWindow.close();
+        }
     }
 }
 
