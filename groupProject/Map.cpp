@@ -99,7 +99,8 @@ Map& Map::Instance()
 void Map::update()
 {
 	updateGifBlocks();
-	
+	PlayerFireBallPool::Instance().update();
+
 	bool bInLevelAnimation_ = false;
 	for (Player* pMem : vCurPlayer) {
 		if (pMem->getInLevelAnimation()) {
@@ -186,7 +187,6 @@ void Map::playerDeath(bool animation, bool instantDeath, Player* pMem) {
 			tmp->resetPowerLVL();
 		}
 		
-
 		inEvent = true;
 		pEvent->resetData();
 		pEvent->iDelay = 150;

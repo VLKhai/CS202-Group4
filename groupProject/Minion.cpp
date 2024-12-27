@@ -255,6 +255,11 @@ bool Minion::isAlive()
 	return (deadTime<0);
 }
 
+bool Minion::getActive()
+{
+	return true;
+}
+
 int Minion::getMinionState() {
 	return minionState;
 }

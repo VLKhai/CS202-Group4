@@ -36,12 +36,6 @@ PlayerFireBall::~PlayerFireBall(void) {
 /* ******************************************** */
 
 void PlayerFireBall::Update() {	
-	if (fXPos < 0 || fYPos >= CFG::GameHeight || fYPos < -200) {
-		bDestroy = true; bActive = false;
-		minionState = -1; collisionOnlyWithPlayer = true;
-		return;
-	}
-	
 	if (bDestroy) {
 		if (destroyFrameID > 10) {
 			this->iBlockID = 63;
@@ -180,4 +174,9 @@ void PlayerFireBall::setMinionState(int minionState) {
 
 bool PlayerFireBall::getActive() {
 	return bActive;
+}
+
+void PlayerFireBall::setActive(bool bActive)
+{
+	this->bActive = bActive;
 }
