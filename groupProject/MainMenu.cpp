@@ -141,7 +141,7 @@ void MainMenu::updateActiveButton(int iDir) {
 		}
 		else {
 			switch (iDir) {
-			case 0:
+			case 2:
 				if (activeSecondWorldID < 1) {
 					activeSecondWorldID = 3;
 				}
@@ -149,7 +149,7 @@ void MainMenu::updateActiveButton(int iDir) {
 					--activeSecondWorldID;
 				}
 				break;
-			case 2:
+			case 0:
 				if (activeSecondWorldID > 2) {
 					activeSecondWorldID = 0;
 				}
