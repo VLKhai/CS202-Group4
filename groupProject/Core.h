@@ -36,7 +36,7 @@ private:
    
     void input();
     void inputPlayer();
-    void inputPlayerPressed(bool pressA, bool pressD, bool firstD, Player* pPlayer);
+    void inputPlayerPressed(bool pressA, bool pressD, bool firstD, Player* pCharac);
     void mouseInput();
     void inputMenu();
 

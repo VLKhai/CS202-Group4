@@ -97,15 +97,17 @@ void Map::update()
 {
 	updateGifBlocks();
 	
-	for (Player* pPlayer : vCurPlayer) {
-		if (!pPlayer->getInLevelAnimation()) {
+	bool bInLevelAnimation_ = false;
+	for (Player* pMem : vCurPlayer) {
+		if (!pMem->getInLevelAnimation()) {
 			updateMinionBlocks();
 			updateMinions();
 			break;
 		}
+		else bInLevelAnimation_ = true;
 	}
 
-	if (!pPlayer->getInLevelAnimation()) {
+	if (!bInLevelAnimation_) {
 		if (!inEvent) {
 			updatePlayer();
 
@@ -241,7 +243,7 @@ void Map::playerDeath(bool animation, bool instantDeath, Player* pMem) {
 		}
 	}
 	else if (!pMem->getUnkillAble()) {
-		pMem->setPowerLVL(pPlayer->getPowerLVL() - 1);
+		pMem->setPowerLVL(pMem->getPowerLVL() - 1);
 	}
 }
 

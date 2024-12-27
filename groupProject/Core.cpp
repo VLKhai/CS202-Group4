@@ -297,36 +297,36 @@ void Core::inputPlayer() {
    // }
 }
 
-void Core::inputPlayerPressed(bool pressA, bool pressD, bool firstD, Player* pPlayer)
+void Core::inputPlayerPressed(bool pressA, bool pressD, bool firstD, Player* pCharac)
 {
 	if (pressA) {
-		if (!pPlayer->getMove() && firstD == false
-			&& !pPlayer->getChangeMoveDirection()
-			&& !pPlayer->getSquat()) {
-			pPlayer->startMove();
-			pPlayer->setMoveDirection(false);
+		if (!pCharac->getMove() && firstD == false
+			&& !pCharac->getChangeMoveDirection()
+			&& !pCharac->getSquat()) {
+			pCharac->startMove();
+			pCharac->setMoveDirection(false);
 		}
-		else if (!pressD && pPlayer->getMoveSpeed() > 0
-			&& firstD != pPlayer->getMoveDirection()) {
-			pPlayer->setChangeMoveDirection();
+		else if (!pressD && pCharac->getMoveSpeed() > 0
+			&& firstD != pCharac->getMoveDirection()) {
+			pCharac->setChangeMoveDirection();
 		}
 	}
 
 	if (pressD) {
-		if (!pPlayer->getMove() && firstD == true
-			&& !pPlayer->getChangeMoveDirection()
-			&& !pPlayer->getSquat()) {
-			pPlayer->startMove();
-			pPlayer->setMoveDirection(true);
+		if (!pCharac->getMove() && firstD == true
+			&& !pCharac->getChangeMoveDirection()
+			&& !pCharac->getSquat()) {
+			pCharac->startMove();
+			pCharac->setMoveDirection(true);
 		}
-		else if (!pressA && pPlayer->getMoveSpeed() > 0
-			&& firstD != pPlayer->getMoveDirection()) {
-			pPlayer->setChangeMoveDirection();
+		else if (!pressA && pCharac->getMoveSpeed() > 0
+			&& firstD != pCharac->getMoveDirection()) {
+			pCharac->setChangeMoveDirection();
 		}
 	}
 
-	if (pPlayer->getMove() && !pressA && !pressD) {
-		pPlayer->resetMove();
+	if (pCharac->getMove() && !pressA && !pressD) {
+		pCharac->resetMove();
 	}
 }
 
